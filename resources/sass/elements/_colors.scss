@@ -1,0 +1,39 @@
+.text {
+    @include __{
+        &primary {
+            color: $color-blue-70;
+        }
+        &success {
+            color: $color-green-60;
+        }
+        &danger {
+            color: $color-red-70;
+        }
+        &text {
+            color: $color-gray-70;
+        }
+        &light {
+            color: $color-blue-20;
+        }
+    }
+}
+
+.bg {
+    @include __{
+        &primary {
+            background: $color-blue-70;
+        }
+        &success {
+            background: $color-green-60;
+        }
+        &danger {
+            background: $color-red-70;
+        }
+        &text {
+            background: $color-gray-70;
+        }
+        &light {
+            background: $color-gray-10;
+        }
+    }
+}

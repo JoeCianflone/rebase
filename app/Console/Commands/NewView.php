@@ -28,7 +28,7 @@ class NewView extends GeneratorCommand
     public function __construct()
     {
         parent::__construct();
-        $this->path = "/app/Resources/js/Pages/";
+        $this->path = "/resources/js/Pages/";
     }
 
     /**

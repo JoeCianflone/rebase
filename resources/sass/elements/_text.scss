@@ -1,0 +1,30 @@
+
+h1, h2, h3, h4, h5, h6 {
+    color: $color-purple-80;
+    font-family: $font-display;
+    font-weight: $weight-black;
+    line-height: $leading-none;
+}
+
+p {
+    margin-bottom: $spacing-12;
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.list {
+    list-style-position: inside;
+    padding: 0;
+
+    li {
+        padding-bottom: $spacing-8;
+
+        &::marker {
+            font-size: $size-10;
+            vertical-align:middle;
+
+        }
+    }
+}

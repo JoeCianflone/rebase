@@ -1,0 +1,14 @@
+@mixin icon($name, $color: #ddd, $width: 48px, $height: 48px) {
+    background: $color;
+    display: inline-block;
+    height: $height;
+    mask-size: cover;
+    mask: inline("#{$global-icon-path}#{$name}") no-repeat 50% 50%;
+    width: $width;
+}
+
+// .icon\: {
+//     &twitter {
+//         @include icon("twitter-brands.svg");
+//     }
+// }

@@ -1,0 +1,27 @@
+.textarea, .quillWrapper {
+    border-radius: $global-border-radius;
+    border: 2px solid $color-true-white !important;
+    background: $color-true-white;
+    box-shadow: $global-box-shadow;
+    margin-bottom: $spacing-24;
+    transition: transition(border);
+
+    &:focus-within {
+        border: 2px solid $color-blue-60 !important;
+        box-shadow: none;
+    }
+}
+
+
+
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+    border: 0 !important;
+}
+
+.ql-editor {
+    color: $color-gray-80;
+    font-family: $font-body;
+    font-weight: $weight-regular;
+    font-size: $size-16;
+}

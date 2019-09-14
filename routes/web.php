@@ -13,3 +13,7 @@
  * rebase:controller IndexUserController --view
  * rebase:view IndexUser --controller
  */
+
+use App\Domain\Services\Dashboards\Controllers\IndexDashboardController;
+
+Route::get('/', IndexDashboardController::class);

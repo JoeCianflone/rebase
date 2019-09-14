@@ -1,0 +1,119 @@
+
+@mixin box() {
+    align-items: center;
+    background: $color-true-white;
+    border-radius: $global-border-radius;
+    border: 2px solid $color-true-white !important;
+    box-shadow: $global-box-shadow;
+    color: $color-gray-80;
+    display: flex;
+    flex: 1 1 auto;
+    font-size: $size-16;
+    padding: $spacing-12 $spacing-8;
+    min-height: $spacing-32;
+    line-height: $line-height-none;
+    transition: transition(border);
+    width: 100%;
+}
+
+@mixin input-focus() {
+    border: 2px solid $color-blue-60 !important;
+    box-shadow: none;
+}
+
+@mixin input-disabled() {
+    background: $color-gray-20;
+    color: $color-gray-60;
+}
+
+@mixin error-message() {
+    color: $color-red-70;
+    display: inline-block;
+    padding-bottom: $spacing-4;
+    position: absolute;
+    bottom: -25px;
+}
+
+@mixin box-error() {
+    border: 2px solid $color-red-70 !important;
+    box-shadow: none;
+}
+
+.input {
+    @include __{
+        &error {
+            @include box-error;
+
+            &--checkbox {
+                @include error-message;
+                margin-top: -6px;
+            }
+        }
+
+        &error-message {
+            @include error-message;
+        }
+
+        &label {
+            color: $color-gray-60;
+            display: inline-block;
+            font-size: $size-16;
+            font-weight: $weight-medium;
+            padding-bottom: $spacing-4;
+            text-transform: capitalize;
+        }
+
+        &help-text {
+            display: flex;
+            margin-top: -#{$spacing-12};
+            margin-bottom: $spacing-20;
+            font-style: italic;
+        }
+
+        &select {
+            @include box;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-position: right .7em top 50%, 0 0;
+            background-repeat: no-repeat, repeat;
+            background-size: $size-14 auto;
+            cursor: pointer;
+
+            &:hover {
+                @include input-focus;
+            }
+        }
+
+        &text {
+            @include box;
+        }
+    }
+}
+
+
+.StripeElement {
+    align-items: center;
+    background: $color-true-white;
+    border-radius: $global-border-radius;
+    border: 2px solid $color-true-white !important;
+    box-shadow: $global-box-shadow;
+    color: $color-gray-80;
+    flex: 1 1 auto;
+    font-size: $size-16;
+    padding: $spacing-12 $spacing-8;
+    min-height: $spacing-32;
+    line-height: $line-height-none;
+    transition: transition(border);
+    width: 100%;
+
+    &--focus {
+        @include input-focus;
+    }
+
+    &--invalid {
+        @include box-error;
+    }
+}

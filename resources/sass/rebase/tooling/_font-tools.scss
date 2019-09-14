@@ -1,0 +1,21 @@
+@function line-height($pxFont) {
+    @return $pxFont / $global-font-base;
+}
+
+@function rem($pxFont) {
+    @return (($pxFont / $global-font-base)) * 1rem;
+}
+
+@function fluid-font($min-size, $max-size) {
+    @return calc(#{$min-size} + (#{$max-size} - #{$min-size}) * (100vw - #{$global-browser-min-size}) / (#{$global-browser-max-size} - #{$global-browser-min-size}));
+}
+
+
+@mixin font($family, $weight) {
+    font: {
+        display: swap;
+        family: $family;
+        style: normal;
+        weight: $weight;
+    }
+}

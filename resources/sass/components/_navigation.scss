@@ -1,0 +1,70 @@
+.nav {
+    transition: height .5s ease-in-out;
+
+    @include __{
+        &toggler {
+            background: $color-blue-10;
+            border-radius: 100%;
+            border: none;
+            box-shadow: 0px 1px 1px rgba($color-true-black, 0.6);
+            color: $color-blue-90;
+            font-size: $size-20;
+            height: 30px;
+            padding: 0;
+            position: absolute;
+            right: 10px;
+            text-align: center;
+            top: 57px;
+            width: 30px;
+        }
+
+        &item {
+            align-content: center;
+            align-items: center;
+            color: $color-gray-10;
+            display: flex;
+            justify-content: flex-start;
+            padding: $spacing-16 $spacing-24;
+            text-decoration: none;
+        }
+
+        &icon {
+            color: $color-gray-10;
+            size: $size-16;
+            margin-right: $spacing-8;
+        }
+
+        &text {
+            display: inline-block;
+        }
+    }
+
+    @include _m_(&){
+        &open {
+            height: 100vh;
+
+            @media ($sm-and-up) {
+                padding: $spacing-32 0;
+            }
+        }
+
+        &closed {
+            height: 0;
+
+            @media ($sm-and-up) {
+                padding: $spacing-32 0;
+            }
+        }
+
+        &toggler-closed {
+            box-shadow: 0px -1px 1px rgba($color-true-black, 0.6);
+            transform: rotate(180deg);
+        }
+
+        &current {
+            background: $color-blue-70;
+            box-shadow: 0px 1px 1px rgba($color-true-black, 0.6);
+            font-weight: $weight-bold;
+        }
+    }
+}

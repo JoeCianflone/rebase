@@ -1,0 +1,13 @@
+@function transition($items...) {
+    $x: null;
+
+    @each $item in $items {
+        @if ($x == null) {
+            $x: "#{$x} #{$item} #{$animation-normal}";
+        } @else {
+            $x: "#{$x}, #{$item} #{$animation-normal}";
+        }
+    }
+
+    @return unquote($x);
+}

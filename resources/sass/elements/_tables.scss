@@ -1,0 +1,129 @@
+.table {
+    @include __ {
+        &button {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: $spacing-8 0;
+            width: 100%;
+
+            @media($sm-and-up) {
+                display: inline-flex;
+                padding: $spacing-8 $spacing-16;
+                width: auto;
+            }
+        }
+    }
+}
+
+table {
+    background: $color-true-white;
+    border-collapse: collapse;
+    border-radius: $global-border-radius;
+    border-spacing: 0;
+    box-shadow: $global-box-shadow;
+    display: flex;
+    margin: $spacing-24 0 $spacing-48 0;
+    overflow-x: auto;
+    overflow: hidden;
+    table-layout:fixed;
+    vertical-align: top;
+
+    width: 100%;
+
+    @media ($sm-and-up) {
+        display: table;
+    }
+
+    thead {
+        background: $color-gray-20;
+        display: flex;
+        flex-shrink: 0;
+        min-width: min-content;
+
+        @media ($sm-and-up) {
+            display: table-row-group
+        }
+
+        tr {
+            background: $color-gray-20;
+
+            th {
+                background: $color-gray-20;
+                color: $color-gray-70;
+                text-align: right;
+
+                @media ($sm-and-up) {
+                    border-bottom: 2px solid $color-gray-40;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    tbody {
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+
+        @media ($sm-and-up) {
+            display: table-row-group
+        }
+
+        tr {
+            background: $color-true-white;
+            border-right: 1px solid $color-gray-20;
+            transition: background-color 150ms linear;
+
+
+            @media($sm-and-up) {
+                border-bottom: 1px solid $color-gray-50;
+                border-right: 0;
+                background: transparent;
+
+                &:nth-of-type(2n) {
+                    border-bottom: 2px solid $color-gray-50;
+                    background-color: $color-gray-10;
+                }
+            }
+        }
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        min-width: min-content;
+
+        @media ($sm-and-up) {
+            display: table-row;
+        }
+    }
+
+    th {
+        padding: $spacing-4 $spacing-8;
+        vertical-align: middle;
+
+        @media ($sm-and-up) {
+            padding: $spacing-4 $spacing-8;
+        }
+    }
+
+    td, th {
+        overflow:hidden;
+        padding: $spacing-4;
+        text-align: left;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+
+        @media ($sm-and-up) {
+            padding: $spacing-4 $spacing-8;
+        }
+
+        @media ($md-and-up) {
+            padding: $spacing-8 $spacing-16;
+        }
+    }
+}

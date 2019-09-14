@@ -1,0 +1,97 @@
+@mixin form-container() {
+    align-content: flex-end;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: $spacing-16;
+    width: 100%;
+}
+
+
+%form-legend {
+    font-size: $size-24;
+    color: $color-gray-70;
+    font-weight: $weight-bold;
+    padding-bottom: $spacing-20;
+    line-height: $leading-snug;
+    align-content: flex-start;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+%form-fieldset {
+    background: $color-gray-10;
+    border-radius: $global-border-radius;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: $spacing-24;
+    padding: $grid-gutter;
+    width: 100%;
+}
+
+.form {
+    @include __{
+        &field {
+            @include form-container;
+
+            @include _m_ {
+                &inline {
+                    @media ($sm-and-up) {
+                        align-content: center;
+                        align-content: center;
+                        align-items: center;
+                        display: grid;
+                        grid-column-gap: 10px;
+                        grid-template-columns: 1.5fr 1fr;
+                        justify-content: flex-start;
+                    }
+                }
+
+                &small-gap {
+                    @include form-container;
+                    margin-bottom: $spacing-8;
+                }
+
+                &checkable {
+                    align-content: flex-start;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: flex-start;
+
+                    input {
+                        margin: 0 $spacing-8 0 0;
+                    }
+                }
+            }
+        }
+
+        &fieldset {
+            @extend %form-fieldset;
+
+            @include _m_ {
+                &inset {
+                    @extend %form-fieldset;
+                    background: transparent;
+                    border-radius: 0;
+                    padding: 0;
+                }
+            }
+        }
+
+        &legend {
+            @extend %form-legend;
+
+            @include _m_ {
+                &small {
+                    @extend %form-legend;
+                    font-size: $size-20;
+                    line-height: $leading-tight;
+                }
+            }
+        }
+    }
+}

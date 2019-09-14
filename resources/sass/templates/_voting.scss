@@ -1,0 +1,72 @@
+.voting {
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "stage";
+
+    @media ($sm-and-up) {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "stage";
+    }
+
+    @include __{
+        &header {
+            grid-area: header;
+            padding: $spacing-8;
+            background-color: $color-gray-10;
+            box-shadow: $global-box-shadow;
+        }
+
+        &stage {
+            grid-area: stage;
+            min-height: 100vh;
+            padding: $spacing-8;
+            color: $color-gray-80;
+        }
+
+        &sidebar {
+            grid-area: sidebar;
+            min-height: 100vh;
+            background: $color-gray-80;
+            color: $color-gray-10;
+            padding: $spacing-8;
+        }
+    }
+
+}
+
+.vote-item {
+    @include __{
+        &indicator {
+            padding: $spacing-20 0;
+        }
+
+        &question {
+            color: $color-gray-70;
+            font-size: $size-30;
+            line-height: $line-height-tight;
+        }
+        &selections {
+            padding-top:$spacing-20;
+        }
+    }
+}
+
+.review {
+    padding: $spacing-20;
+    background: $color-true-white;
+
+    @include __{
+        &question {
+            font-weight: $weight-bold;
+            font-size: $size-20;
+        }
+
+        &answer {
+            font-size: $size-16;
+        }
+    }
+}

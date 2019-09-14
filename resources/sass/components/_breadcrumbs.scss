@@ -1,0 +1,23 @@
+.crumb {
+    font-size: $size-20;
+    font-weight: $weight-medium;
+    letter-spacing: $tracking-tighter;
+
+    @include __{
+        &link {
+            color: $color-blue-70;
+            text-decoration: none;
+            font-weight: $weight-bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &current {
+            color: $color-gray-60;
+            font-weight: $weight-regular;
+            text-transform: capitalize;
+        }
+    }
+}

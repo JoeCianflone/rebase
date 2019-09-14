@@ -1,17 +1,82 @@
 const mix = require('laravel-mix');
+const path = require('path');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const imageminPlugin = require('imagemin-webpack-plugin').default;
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
 
 // Folders
-const OUTPUT = 'public/assets';
-const INPUT = 'resources/';
+const INPUT_SASS ='resources/sass';
+const INPUT_JS = 'resources/js'
+const INPUT_FONTS = 'resources/fonts'
+const INPUT_IMAGES = 'resources/images'
+const INPUT_FILES = 'resources/files'
 
-const INPUT_ASSETS_JS = 'js';
-const INPUT_ASSETS_CSS = 'sass';
-const INPUT_ASSETS_FONTS = 'fonts';
-const INPUT_ASSETS_IMAGES = 'images';
-const INPUT_ASSETS_FILES = 'files';
+const OUTPUT_JS = 'public/assets/js';
+const OUTPUT_CSS = 'public/assets/css';
+const OUTPUT_FONTS = 'public/assets/fonts';
+const OUTPUT_IMAGES = 'public/assets/images';
+const OUTPUT_FILES = 'public/assets/files';
 
-const OUTPUT_ASSETS_JS = 'js';
-const OUTPUT_ASSETS_CSS = 'css';
-const OUTPUT_ASSETS_FONTS = 'fonts';
-const OUTPUT_ASSETS_IMAGES = 'images';
-const OUTPUT_ASSETS_FILES = 'files';
+mix
+    .sass(INPUT_SASS + '/app.scss', OUTPUT_CSS)
+    .js(INPUT_JS + '/app.js', OUTPUT_JS)
+    .options({
+        processCssUrls: false,
+        postCss: [
+           require('postcss-import')(),
+           require('postcss-flexbugs-fixes')(),
+           require('postcss-inline-svg')(),
+           require('postcss-assets')({
+              'relative': true,
+              cachebuster: function (filePath, urlPathname) {
+                 return fs.statSync(filePath).mtime.getTime().toString(16);
+              }
+           }),
+           require('css-mqpacker')(),
+           require('autoprefixer')(),
+           require('cssnano')({
+              "preset": [
+                 "default",
+                 {
+                    calc: false,
+                    discardComments: {removeAll: true},
+                    normalizeWhitespace: false
+                 }
+              ]
+           })
+        ]
+    })
+    .webpackConfig({
+        output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
+        resolve: {
+            alias: {
+                'vue$': 'vue/dist/vue.runtime.esm.js',
+                '@': path.resolve(INPUT_JS),
+            },
+        },
+        plugins: [
+            new LiveReloadPlugin(),
+            new copyWebpackPlugin([{
+                from:INPUT_IMAGES,
+                to: OUTPUT_IMAGES
+            }]),
+            new copyWebpackPlugin([{
+                from: INPUT_FILES,
+                to: OUTPUT_FILES
+            }]),
+            new imageminPlugin({
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                plugins: [
+                    imageminMozjpeg({
+                        quality: 80
+                    })
+                ]
+            })
+        ]
+    })
+    .babelConfig({
+        plugins: ['@babel/plugin-syntax-dynamic-import'],
+    })
+    .version()
+    .sourceMaps(true, 'source-maps')

@@ -1,0 +1,26 @@
+.info-list {
+    background: $color-gray-10;
+    display: grid;
+    grid-template-columns: 120px auto;
+    font-size: $size-12;
+
+    @media ($sm-and-up) {
+        font-size: $size-14;
+        grid-template-columns: 150px auto;
+    }
+
+    @include __{
+        &term {
+            border-bottom: 1px solid $color-gray-30;
+            font-weight: bold;
+            padding-right: $spacing-8;
+            padding: $spacing-16 $spacing-8 $spacing-16 $spacing-16;
+            text-align: right;
+        }
+
+        &item {
+            border-bottom: 1px solid $color-gray-30;
+            padding: $spacing-16 $spacing-16 $spacing-16 $spacing-8;
+        }
+    }
+}

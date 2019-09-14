@@ -1,0 +1,51 @@
+.curtain {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 99998;
+    background: rgba($color-true-black, 0.6);
+}
+
+.modal {
+    width: 80vw;
+    left: calc(50% - 40vw);
+    top: calc(50% - 30vh);
+    background: $color-true-white;
+    border-radius: $global-border-radius;
+    padding: $spacing-20;
+    position: absolute;
+    z-index: 99999;
+
+    @media ($sm-and-up) {
+        width: 60vw;
+        left: calc(50% - 30vw);
+    }
+
+
+    &\:header {
+        font-size: $size-36;
+        color: $color-blue-70;
+        font-weight: $weight-black;
+        border-bottom: 1px solid $color-gray-50;
+    }
+
+    &\:header--secondary {
+        font-size: $size-24;
+        color: $color-blue-70;
+        font-weight: $weight-regular;
+        padding-top: $spacing-16;
+     }
+
+     &\:body {
+        font-size: $size-20;
+        padding-top: $spacing-16;
+     }
+
+     &\:button {
+        background: 0;
+        border: 0;
+        font-size: $size-20;
+     }
+}
