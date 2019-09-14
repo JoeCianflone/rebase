@@ -1,5 +1,5 @@
 .table {
-    @include __ {
+    @include e  {
         &button {
             display: flex;
             justify-content: center;
@@ -19,9 +19,9 @@
 table {
     background: $color-true-white;
     border-collapse: collapse;
-    border-radius: $global-border-radius;
+    border-radius: $border-radius;
     border-spacing: 0;
-    box-shadow: $global-box-shadow;
+    box-shadow: $box-shadow;
     display: flex;
     margin: $spacing-24 0 $spacing-48 0;
     overflow-x: auto;

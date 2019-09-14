@@ -2,9 +2,9 @@
 @mixin box() {
     align-items: center;
     background: $color-true-white;
-    border-radius: $global-border-radius;
+    border-radius: $border-radius;
     border: 2px solid $color-true-white !important;
-    box-shadow: $global-box-shadow;
+    box-shadow: $box-shadow;
     color: $color-gray-80;
     display: flex;
     flex: 1 1 auto;
@@ -40,7 +40,7 @@
 }
 
 .input {
-    @include __{
+    @include e {
         &error {
             @include box-error;
 
@@ -94,26 +94,18 @@
 }
 
 
-.StripeElement {
-    align-items: center;
-    background: $color-true-white;
-    border-radius: $global-border-radius;
+
+
+.textarea {
+    border-radius: $border-radius;
     border: 2px solid $color-true-white !important;
-    box-shadow: $global-box-shadow;
-    color: $color-gray-80;
-    flex: 1 1 auto;
-    font-size: $size-16;
-    padding: $spacing-12 $spacing-8;
-    min-height: $spacing-32;
-    line-height: $line-height-none;
+    background: $color-true-white;
+    box-shadow: $box-shadow;
+    margin-bottom: $spacing-24;
     transition: transition(border);
-    width: 100%;
 
-    &--focus {
-        @include input-focus;
-    }
-
-    &--invalid {
-        @include box-error;
+    &:focus-within {
+        border: 2px solid $color-blue-60 !important;
+        box-shadow: none;
     }
 }

@@ -1,0 +1,19 @@
+@mixin button() {
+    align-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: $border-radius;
+    border: 2px solid;
+    cursor: pointer;
+    display:inline-flex;
+    font-size: $size-16;
+    font-weight: $weight-regular;
+    justify-content: center;
+    line-height: $line-height-none;
+    margin: ($grid-gutter / 4) 0;
+    padding: $spacing-12 $spacing-16;
+    text-align: center;
+    text-decoration: none;
+    transition: transition(border, background, color);
+    width: 100%;
+}

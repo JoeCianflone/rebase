@@ -41,7 +41,7 @@ body {
     height: 100vh;
     line-height: 1.5;
     margin: 0;
-    min-width: $global-browser-min-size;
+    min-width: $browser-min-size;
     padding: 0;
     text-align: left;
 }
@@ -229,7 +229,7 @@ a, area, button, input, label, select, summary, textarea, [tabindex] {
 .debug {
     border: 1px solid #f00 !important;
 
-    &include _m_ {
+    @include m{
         &bg { background: rgba(#f00, 0.4) !important; }
     }
 }
@@ -244,53 +244,3 @@ pre {
 figure  { margin: 0 0 1rem;        }
 output  { display: inline-block;   }
 summary { cursor: pointer;         }
-
-@include mq('text-align') {
-    @include __{
-        &left   { text-align: left;     }
-        &right  { text-align: right;    }
-        &center { text-align: center;   }
-    }
-}
-
-@include mq('display') {
-    @include __{
-        &block { display: block;  }
-        &flex  { display: flex;   }
-        &hide  { display: none;   }
-        &show  { display: block;  }
-    }
-}
-
-@include mq('justify') {
-    @include __{
-        &start    { justify-content: flex-start;    }
-        &evenly   { justify-content: space-evenly;  }
-        &around   { justify-content: space-around;  }
-        &between  { justify-content: space-between; }
-        &center   { justify-content: center;        }
-        &end      { justify-content: flex-end;      }
-    }
-}
-
-@include mq('align-content') {
-    @include __{
-        &start    { align-content: flex-start;    }
-        &evenly   { align-content: space-evenly;  }
-        &around   { align-content: space-around;  }
-        &between  { align-content: space-between; }
-        &center   { align-content: center;        }
-        &end      { align-content: flex-end;      }
-    }
-}
-
-@include mq('align-items') {
-    @include __{
-        &start    { align-items: flex-start;    }
-        &evenly   { align-items: space-evenly;  }
-        &around   { align-items: space-around;  }
-        &between  { align-items: space-between; }
-        &center   { align-items: center;        }
-        &end      { align-items: flex-end;      }
-    }
-}

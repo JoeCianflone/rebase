@@ -1,47 +1,37 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 
-@import 'rebase/rebase';
+@import
+    'abstracts/functions',
+    'abstracts/mixins',
+    'abstracts/variables';
 
-@import 'elements/text';
-@import 'elements/form';
-@import 'elements/pills';
-@import 'elements/input';
-@import 'elements/colors';
-@import 'elements/tables';
-@import 'elements/buttons';
-@import 'elements/textarea';
 
-@import 'components/logo';
-@import 'components/modal';
-@import 'components/plans';
-@import 'components/tooltip';
-@import 'components/dropdown';
-@import 'components/info-list';
-@import 'components/nprogress';
-@import 'components/navigation';
-@import 'components/breadcrumbs';
-@import 'components/flash-message';
-@import 'components/dropzone';
+@import
+  'vendors/normalize';
 
-@import 'templates/master';
-@import 'templates/voting';
-@import 'templates/external';
+// @import
+//   'vendor-overrides/';
 
-@include debug(false);
+@import
+  'base/base',
+  'base/colors',
+  'base/display',
+  'base/form',
+  'base/grid',
+  'base/input',
+  'base/tables',
+  'base/text';
 
-body {
-    background-color: $color-gray-30;
-    font-family: $font-body;
-    font-weight: $weight-light;
-    overflow: hidden;
-}
 
-.section {
-    @include __{
-        &divider {
-            margin-top: $spacing-20;
-            border-top: 2px solid $color-gray-40;
-            padding-top: $spacing-20;
-        }
-    }
-}
+// @import
+//   'layout/header',
+//   'layout/footer';
+
+// @import
+//   'components/button';
+
+// @import
+//   'pages/home';
+
+// @import
+//   'themes/default';

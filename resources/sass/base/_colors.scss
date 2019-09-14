@@ -1,0 +1,51 @@
+.color {
+    @include p{
+        &primary {
+            color: $color-blue-70;
+        }
+        &secondary {
+            color: $color-purple-70;
+        }
+        &go {
+            color: $color-green-60;
+        }
+        &stop {
+            color: $color-red-70;
+        }
+        &dark {
+            color: $color-gray-70;
+        }
+        &light {
+            color: $color-blue-20;
+        }
+        &muted {
+            color: $color-gray-40;
+        }
+    }
+}
+
+.background {
+    @include p{
+        &primary {
+            background-color: $color-blue-70;
+        }
+        &secondary {
+            background: $color-purple-70;
+        }
+        &go {
+            background-color: $color-green-60;
+        }
+        &stop {
+            background-color: $color-red-70;
+        }
+        &dark {
+            background-color: $color-gray-70;
+        }
+        &light {
+            background-color: $color-blue-20;
+        }
+        &muted {
+            background-color: $color-gray-40;
+        }
+    }
+}

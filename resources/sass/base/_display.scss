@@ -1,0 +1,15 @@
+/**
+ * display|block
+ * display|flex
+ * display|hide
+ * display|show
+ */
+
+@include mq('display') {
+    @include p {
+        &block { display: block;  }
+        &flex  { display: flex;   }
+        &hide  { display: none;   }
+        &show  { display: block;  }
+    }
+}

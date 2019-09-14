@@ -25,7 +25,7 @@
 
 %form-fieldset {
     background: $color-gray-10;
-    border-radius: $global-border-radius;
+    border-radius: $border-radius;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: $spacing-24;
@@ -34,11 +34,11 @@
 }
 
 .form {
-    @include __{
+    @include e {
         &field {
             @include form-container;
 
-            @include _m_ {
+            @include m {
                 &inline {
                     @media ($sm-and-up) {
                         align-content: center;
@@ -72,7 +72,7 @@
         &fieldset {
             @extend %form-fieldset;
 
-            @include _m_ {
+            @include m {
                 &inset {
                     @extend %form-fieldset;
                     background: transparent;
@@ -85,7 +85,7 @@
         &legend {
             @extend %form-legend;
 
-            @include _m_ {
+            @include m {
                 &small {
                     @extend %form-legend;
                     font-size: $size-20;

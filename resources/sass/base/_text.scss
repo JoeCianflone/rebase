@@ -1,0 +1,72 @@
+
+h1, h2, h3, h4, h5, h6 {
+    color: $color-purple-80;
+    font-family: $font-display;
+    font-weight: $weight-black;
+    line-height: $leading-none;
+}
+
+p {
+    margin-bottom: $spacing-12;
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.list {
+    list-style-position: inside;
+    padding: 0;
+
+    li {
+        padding-bottom: $spacing-8;
+
+        &::marker {
+            font-size: $size-10;
+            vertical-align:middle;
+
+        }
+    }
+}
+
+
+@include mq('text-align') {
+    @include p{
+        &left   { text-align: left;     }
+        &right  { text-align: right;    }
+        &center { text-align: center;   }
+    }
+}
+
+@include mq('justify') {
+    @include p{
+        &start    { justify-content: flex-start;    }
+        &evenly   { justify-content: space-evenly;  }
+        &around   { justify-content: space-around;  }
+        &between  { justify-content: space-between; }
+        &center   { justify-content: center;        }
+        &end      { justify-content: flex-end;      }
+    }
+}
+
+@include mq('align-content') {
+    @include p{
+        &start    { align-content: flex-start;    }
+        &evenly   { align-content: space-evenly;  }
+        &around   { align-content: space-around;  }
+        &between  { align-content: space-between; }
+        &center   { align-content: center;        }
+        &end      { align-content: flex-end;      }
+    }
+}
+
+@include mq('align-items') {
+    @include p{
+        &start    { align-items: flex-start;    }
+        &evenly   { align-items: space-evenly;  }
+        &around   { align-items: space-around;  }
+        &between  { align-items: space-between; }
+        &center   { align-items: center;        }
+        &end      { align-items: flex-end;      }
+    }
+}

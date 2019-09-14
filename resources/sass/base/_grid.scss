@@ -44,10 +44,10 @@ $block-width: 100% / $grid-columns;
 .container {
     @include container;
 
-    @include _m_{
+    @include m{
         &locked {
             @include container;
-            max-width: $global-browser-max-size;
+            max-width: $browser-max-size;
         }
     }
 }
@@ -60,7 +60,7 @@ $block-width: 100% / $grid-columns;
         margin-right: -($grid-gutter / 2);
     }
 
-    @include __{
+    @include e {
         &center {
             @include row;
             justify-content: center;
@@ -74,7 +74,7 @@ $block-width: 100% / $grid-columns;
 }
 
 .pull {
-    @include __{
+    @include e {
         &right {
             margin-left: auto;
             margin-right: 0;
@@ -87,7 +87,7 @@ $block-width: 100% / $grid-columns;
     }
 }
 .order {
-    @include __{
+    @include e {
         &last { order: ($grid-columns) + 1; }
         &first { order: -1; }
     }
@@ -103,7 +103,7 @@ $block-width: 100% / $grid-columns;
             @include column($i);
 
             @if ($i > 2 and $i % 2 == 0) {
-                @include _m_{
+                @include m{
                     &centered {
                         $offset-cols: ($grid-columns - $i) / 2;
                         @include column($i);

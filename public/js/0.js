@@ -82,7 +82,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("layout", { attrs: { title: "" } }, [_vm._v("\n    yo dawg\n")])
+  return _c("layout", { attrs: { title: "" } })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -373,4 +373,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=0.js.map?id=5be3ee8dfd3b910ee1aa
+//# sourceMappingURL=0.js.map?id=f04d66c3792571891d18

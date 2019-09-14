@@ -9,7 +9,7 @@
         "prod": "yarn run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
         "@inertiajs/inertia": "^0.1.0",
         "@inertiajs/inertia-vue": "^0.1.0",
@@ -35,14 +35,12 @@
         "postcss-import": "^12.0.1",
         "postcss-inline-svg": "^4.1.0",
         "resolve-url-loader": "^3.1.0",
-        "sass": "^1.22.9",
-        "sass-loader": "^8.0.0",
+        "sass": "^1.22.10",
+        "sass-loader": "^7.1.0",
         "vue": "^2.6.6",
         "vue-stripe": "^0.1.52",
         "vue-template-compiler": "^2.6.6",
-        "webpack-livereload-plugin": "2.2.0"
-    },
-    "dependencies": {
+        "webpack-livereload-plugin": "2.2.0",
         "@kenkou/vue-stripe-elements": "^2.0.0",
         "moment": "^2.24.0",
         "vue-class-component": "^7.1.0",

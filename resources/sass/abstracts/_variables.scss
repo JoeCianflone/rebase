@@ -1,8 +1,10 @@
-$global-browser-min-size:   350px !default;
-$global-browser-max-size:   1440px !default;
-$global-font-base:          16px !default;
-$global-font-file-path:     "/assets/admin/fonts/" !default;
-$global-icon-path:          "../images/icons/" !default;
+$browser-min-size:   350px !default;
+$browser-max-size:   1440px !default;
+$font-base:          16px !default;
+$icon-path:          '/';
+
+$border-radius:      3px;
+$box-shadow:         0px 1px 2px rgba(#000, 0.6);
 
 $mq-list: (
    'xs': 480px,  // extra small
@@ -13,6 +15,27 @@ $mq-list: (
    'lg': 1280px, // large
    'xl': 1366px  // extra large
 ) !default;
+
+$_mq: (
+   'xs-and-up': "min-width: 0px",
+   'sm-and-up': "min-width: #{map-get($mq-list, 'sm')}",
+   'md-and-up': "min-width: #{map-get($mq-list, 'md')}",
+   'wd-and-up': "min-width: #{map-get($mq-list, 'wd')}",
+   'xw-and-up': "min-width: #{map-get($mq-list, 'xw')}",
+   'lg-and-up': "min-width: #{map-get($mq-list, 'lg')}",
+   'xl-and-up': "min-width: #{map-get($mq-list, 'xl')}",
+);
+
+//
+// Mobile First
+//
+$xs-and-up: map-get($_mq, 'xs-and-up');
+$sm-and-up: map-get($_mq, 'sm-and-up');
+$md-and-up: map-get($_mq, 'md-and-up');
+$wd-and-up: map-get($_mq, 'wd-and-up');
+$xw-and-up: map-get($_mq, 'xw-and-up');
+$lg-and-up: map-get($_mq, 'lg-and-up');
+$xl-and-up: map-get($_mq, 'xl-and-up');
 
 $size-8:   rem(8px);
 $size-10:  rem(10px);

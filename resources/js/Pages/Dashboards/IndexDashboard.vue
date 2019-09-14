@@ -10,6 +10,5 @@ export default {
 
 <template>
     <layout title="">
-        yo dawg
     </layout>
 </template>
