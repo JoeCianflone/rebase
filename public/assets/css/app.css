@@ -136,6 +136,55 @@ summary{
   display:none;
 }
 
+*{
+  background-color:rgba(255, 0, 0, .2);
+}
+
+*,* *{
+  border:1px solid red;
+}
+
+* *{
+  background-color:rgba(0, 255, 0, .2);
+}
+
+* * *{
+  background-color:rgba(0, 0, 255, .2);
+}
+
+* * *,* * * *{
+  border:1px solid red;
+}
+
+* * * *{
+  background-color:rgba(255, 0, 255, .2);
+}
+
+* * * * *{
+  background-color:rgba(0, 255, 255, .2);
+  border:1px solid red;
+}
+
+* * * * * *{
+  background-color:rgba(255, 255, 0, .2);
+  border:1px solid red;
+}
+
+* * * * * * *{
+  background-color:rgba(255, 0, 0, .2);
+  border:1px solid red;
+}
+
+* * * * * * * *{
+  background-color:rgba(0, 255, 0, .2);
+  border:1px solid red;
+}
+
+* * * * * * * * *{
+  background-color:rgba(0, 0, 255, .2);
+  border:1px solid red;
+}
+
 @-ms-viewport{
   width:device-width;
 }
@@ -354,7 +403,7 @@ legend{
   border:1px solid red !important;
 }
 
-[class*="::.debug"].\--bg,[class^=".debug"].\--bg{
+[class*="::debug"].\--bg,[class^=debug].\--bg{
   background:rgba(255, 0, 0, .4) !important;
 }
 
@@ -449,7 +498,7 @@ summary{
   display:block;
 }
 
-.form\:legend,[class*="::.form:legend"].\--small,[class^=".form:legend"].\--small{
+.form\:legend,[class*="::form:legend"].\--small,[class^="form:legend"].\--small{
   font-size:1.5rem;
   color:#4a5568;
   font-weight:700;
@@ -463,7 +512,7 @@ summary{
   justify-content:flex-start;
 }
 
-.form\:fieldset,[class*="::.form:fieldset"].\--inset,[class^=".form:fieldset"].\--inset{
+.form\:fieldset,[class*="::form:fieldset"].\--inset,[class^="form:fieldset"].\--inset{
   background:#f7fafc;
   border-radius:3px;
   margin-left:auto;
@@ -477,7 +526,7 @@ summary{
   margin-bottom:1rem;
 }
 
-.form\:field,[class*="::.form:field"].\--small-gap,[class^=".form:field"].\--small-gap{
+.form\:field,[class*="::form:field"].\--small-gap,[class^="form:field"].\--small-gap{
   align-content:flex-end;
   display:flex;
   position:relative;
@@ -486,40 +535,40 @@ summary{
   width:100%;
 }
 
-[class*="::.form:field"].\--small-gap,[class^=".form:field"].\--small-gap{
+[class*="::form:field"].\--small-gap,[class^="form:field"].\--small-gap{
   margin-bottom:.5rem;
 }
 
-[class*="::.form:field"].\--checkable,[class^=".form:field"].\--checkable{
+[class*="::form:field"].\--checkable,[class^="form:field"].\--checkable{
   align-content:flex-start;
   align-items:center;
   flex-direction:row;
   justify-content:flex-start;
 }
 
-[class*="::.form:field"].\--checkable input,[class^=".form:field"].\--checkable input{
+[class*="::form:field"].\--checkable input,[class^="form:field"].\--checkable input{
   margin:0 .5rem 0 0;
 }
 
-[class*="::.form:fieldset"].\--inset,[class^=".form:fieldset"].\--inset{
+[class*="::form:fieldset"].\--inset,[class^="form:fieldset"].\--inset{
   background:transparent;
   border-radius:0;
   padding:0;
 }
 
-[class*="::.form:legend"].\--small,[class^=".form:legend"].\--small{
+[class*="::form:legend"].\--small,[class^="form:legend"].\--small{
   font-size:1.25rem;
   line-height:1.25;
 }
 
-.container,[class*="::.container"].\--locked,[class^=".container"].\--locked{
+.container,[class*="::container"].\--locked,[class^=container].\--locked{
   margin-left:auto;
   margin-right:auto;
   padding-left:-.625rem;
   width:100%;
 }
 
-[class*="::.container"].\--locked,[class^=".container"].\--locked{
+[class*="::container"].\--locked,[class^=container].\--locked{
   max-width:1440px;
 }
 
@@ -537,39 +586,29 @@ summary{
   margin-right:-.625rem;
 }
 
-.row\:center{
-  justify-content:flex-start;
+[class*="::row"].\--center,[class^=row].\--center{
   justify-content:center;
 }
 
-.row\:center,.row\:column{
-  align-content:flex-start;
-  align-items:flex-end;
-  display:flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-}
-
-.row\:column{
-  justify-content:flex-start;
+[class*="::row"].\--column,[class^=row].\--column{
   flex-direction:column;
 }
 
-.pull\:right{
+.pull\|right{
   margin-left:auto;
   margin-right:0;
 }
 
-.pull\:left{
+.pull\|left{
   margin-left:0;
   margin-right:auto;
 }
 
-.order\:last{
+.order\|last{
   order:13;
 }
 
-.order\:first{
+.order\|first{
   order:-1;
 }
 
@@ -594,11 +633,18 @@ summary{
 }
 
 .col-2{
-  flex:0 0 16.6666666667%;
   margin:.25rem .625rem;
+}
+
+.col-2,.col-2-centered{
+  flex:0 0 16.6666666667%;
   max-width:calc(16.6666666667% - 1.25rem);
   min-height:1px;
   position:relative;
+}
+
+.col-2-centered{
+  margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
 }
 
 .offset-2{
@@ -621,14 +667,14 @@ summary{
   margin:.25rem .625rem;
 }
 
-.col-4,[class*="::.col-4"].\--centered,[class^=".col-4"].\--centered{
+.col-4,.col-4-centered{
   flex:0 0 33.3333333333%;
   max-width:calc(33.3333333333% - 1.25rem);
   min-height:1px;
   position:relative;
 }
 
-[class*="::.col-4"].\--centered,[class^=".col-4"].\--centered{
+.col-4-centered{
   margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
 }
 
@@ -652,14 +698,14 @@ summary{
   margin:.25rem .625rem;
 }
 
-.col-6,[class*="::.col-6"].\--centered,[class^=".col-6"].\--centered{
+.col-6,.col-6-centered{
   flex:0 0 50%;
   max-width:calc(50% - 1.25rem);
   min-height:1px;
   position:relative;
 }
 
-[class*="::.col-6"].\--centered,[class^=".col-6"].\--centered{
+.col-6-centered{
   margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
 }
 
@@ -683,14 +729,14 @@ summary{
   margin:.25rem .625rem;
 }
 
-.col-8,[class*="::.col-8"].\--centered,[class^=".col-8"].\--centered{
+.col-8,.col-8-centered{
   flex:0 0 66.6666666667%;
   max-width:calc(66.6666666667% - 1.25rem);
   min-height:1px;
   position:relative;
 }
 
-[class*="::.col-8"].\--centered,[class^=".col-8"].\--centered{
+.col-8-centered{
   margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
 }
 
@@ -714,14 +760,14 @@ summary{
   margin:.25rem .625rem;
 }
 
-.col-10,[class*="::.col-10"].\--centered,[class^=".col-10"].\--centered{
+.col-10,.col-10-centered{
   flex:0 0 83.3333333333%;
   max-width:calc(83.3333333333% - 1.25rem);
   min-height:1px;
   position:relative;
 }
 
-[class*="::.col-10"].\--centered,[class^=".col-10"].\--centered{
+.col-10-centered{
   margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
 }
 
@@ -741,7 +787,7 @@ summary{
   margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
 }
 
-.col-12,[class*="::.col-12"].\--centered,[class^=".col-12"].\--centered{
+.col-12,.col-12-centered{
   flex:0 0 100%;
   margin:.25rem .625rem;
   max-width:calc(100% - 1.25rem);
@@ -1066,11 +1112,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .xs\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .xs\:\:col-2,.xs\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .xs\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .xs\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -1088,13 +1139,13 @@ p p{
   .xs\:\:col-4{
     margin:.25rem .625rem;
   }
-  .xs\:\:col-4,[class*="::.xs::col-4"].\--centered,[class^=".xs::col-4"].\--centered{
+  .xs\:\:col-4,.xs\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xs::col-4"].\--centered,[class^=".xs::col-4"].\--centered{
+  .xs\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .xs\:\:offset-4{
@@ -1113,13 +1164,13 @@ p p{
   .xs\:\:col-6{
     margin:.25rem .625rem;
   }
-  .xs\:\:col-6,[class*="::.xs::col-6"].\--centered,[class^=".xs::col-6"].\--centered{
+  .xs\:\:col-6,.xs\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xs::col-6"].\--centered,[class^=".xs::col-6"].\--centered{
+  .xs\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .xs\:\:offset-6{
@@ -1138,13 +1189,13 @@ p p{
   .xs\:\:col-8{
     margin:.25rem .625rem;
   }
-  .xs\:\:col-8,[class*="::.xs::col-8"].\--centered,[class^=".xs::col-8"].\--centered{
+  .xs\:\:col-8,.xs\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xs::col-8"].\--centered,[class^=".xs::col-8"].\--centered{
+  .xs\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .xs\:\:offset-8{
@@ -1163,13 +1214,13 @@ p p{
   .xs\:\:col-10{
     margin:.25rem .625rem;
   }
-  .xs\:\:col-10,[class*="::.xs::col-10"].\--centered,[class^=".xs::col-10"].\--centered{
+  .xs\:\:col-10,.xs\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xs::col-10"].\--centered,[class^=".xs::col-10"].\--centered{
+  .xs\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .xs\:\:offset-10{
@@ -1185,7 +1236,7 @@ p p{
   .xs\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .xs\:\:col-12,[class*="::.xs::col-12"].\--centered,[class^=".xs::col-12"].\--centered{
+  .xs\:\:col-12,.xs\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -1273,7 +1324,7 @@ p p{
   .sm\:\:display\|show{
     display:block;
   }
-  [class*="::.form:field"].\--inline,[class^=".form:field"].\--inline{
+  [class*="::form:field"].\--inline,[class^="form:field"].\--inline{
     align-content:center;
     align-items:center;
     display:grid;
@@ -1298,11 +1349,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .sm\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .sm\:\:col-2,.sm\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .sm\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .sm\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -1320,13 +1376,13 @@ p p{
   .sm\:\:col-4{
     margin:.25rem .625rem;
   }
-  .sm\:\:col-4,[class*="::.sm::col-4"].\--centered,[class^=".sm::col-4"].\--centered{
+  .sm\:\:col-4,.sm\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.sm::col-4"].\--centered,[class^=".sm::col-4"].\--centered{
+  .sm\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .sm\:\:offset-4{
@@ -1345,13 +1401,13 @@ p p{
   .sm\:\:col-6{
     margin:.25rem .625rem;
   }
-  .sm\:\:col-6,[class*="::.sm::col-6"].\--centered,[class^=".sm::col-6"].\--centered{
+  .sm\:\:col-6,.sm\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.sm::col-6"].\--centered,[class^=".sm::col-6"].\--centered{
+  .sm\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .sm\:\:offset-6{
@@ -1370,13 +1426,13 @@ p p{
   .sm\:\:col-8{
     margin:.25rem .625rem;
   }
-  .sm\:\:col-8,[class*="::.sm::col-8"].\--centered,[class^=".sm::col-8"].\--centered{
+  .sm\:\:col-8,.sm\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.sm::col-8"].\--centered,[class^=".sm::col-8"].\--centered{
+  .sm\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .sm\:\:offset-8{
@@ -1395,13 +1451,13 @@ p p{
   .sm\:\:col-10{
     margin:.25rem .625rem;
   }
-  .sm\:\:col-10,[class*="::.sm::col-10"].\--centered,[class^=".sm::col-10"].\--centered{
+  .sm\:\:col-10,.sm\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.sm::col-10"].\--centered,[class^=".sm::col-10"].\--centered{
+  .sm\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .sm\:\:offset-10{
@@ -1417,7 +1473,7 @@ p p{
   .sm\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .sm\:\:col-12,[class*="::.sm::col-12"].\--centered,[class^=".sm::col-12"].\--centered{
+  .sm\:\:col-12,.sm\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -1555,11 +1611,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .md\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .md\:\:col-2,.md\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .md\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .md\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -1577,13 +1638,13 @@ p p{
   .md\:\:col-4{
     margin:.25rem .625rem;
   }
-  .md\:\:col-4,[class*="::.md::col-4"].\--centered,[class^=".md::col-4"].\--centered{
+  .md\:\:col-4,.md\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.md::col-4"].\--centered,[class^=".md::col-4"].\--centered{
+  .md\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .md\:\:offset-4{
@@ -1602,13 +1663,13 @@ p p{
   .md\:\:col-6{
     margin:.25rem .625rem;
   }
-  .md\:\:col-6,[class*="::.md::col-6"].\--centered,[class^=".md::col-6"].\--centered{
+  .md\:\:col-6,.md\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.md::col-6"].\--centered,[class^=".md::col-6"].\--centered{
+  .md\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .md\:\:offset-6{
@@ -1627,13 +1688,13 @@ p p{
   .md\:\:col-8{
     margin:.25rem .625rem;
   }
-  .md\:\:col-8,[class*="::.md::col-8"].\--centered,[class^=".md::col-8"].\--centered{
+  .md\:\:col-8,.md\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.md::col-8"].\--centered,[class^=".md::col-8"].\--centered{
+  .md\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .md\:\:offset-8{
@@ -1652,13 +1713,13 @@ p p{
   .md\:\:col-10{
     margin:.25rem .625rem;
   }
-  .md\:\:col-10,[class*="::.md::col-10"].\--centered,[class^=".md::col-10"].\--centered{
+  .md\:\:col-10,.md\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.md::col-10"].\--centered,[class^=".md::col-10"].\--centered{
+  .md\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .md\:\:offset-10{
@@ -1674,7 +1735,7 @@ p p{
   .md\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .md\:\:col-12,[class*="::.md::col-12"].\--centered,[class^=".md::col-12"].\--centered{
+  .md\:\:col-12,.md\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -1782,11 +1843,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .wd\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .wd\:\:col-2,.wd\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .wd\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .wd\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -1804,13 +1870,13 @@ p p{
   .wd\:\:col-4{
     margin:.25rem .625rem;
   }
-  .wd\:\:col-4,[class*="::.wd::col-4"].\--centered,[class^=".wd::col-4"].\--centered{
+  .wd\:\:col-4,.wd\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.wd::col-4"].\--centered,[class^=".wd::col-4"].\--centered{
+  .wd\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .wd\:\:offset-4{
@@ -1829,13 +1895,13 @@ p p{
   .wd\:\:col-6{
     margin:.25rem .625rem;
   }
-  .wd\:\:col-6,[class*="::.wd::col-6"].\--centered,[class^=".wd::col-6"].\--centered{
+  .wd\:\:col-6,.wd\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.wd::col-6"].\--centered,[class^=".wd::col-6"].\--centered{
+  .wd\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .wd\:\:offset-6{
@@ -1854,13 +1920,13 @@ p p{
   .wd\:\:col-8{
     margin:.25rem .625rem;
   }
-  .wd\:\:col-8,[class*="::.wd::col-8"].\--centered,[class^=".wd::col-8"].\--centered{
+  .wd\:\:col-8,.wd\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.wd::col-8"].\--centered,[class^=".wd::col-8"].\--centered{
+  .wd\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .wd\:\:offset-8{
@@ -1879,13 +1945,13 @@ p p{
   .wd\:\:col-10{
     margin:.25rem .625rem;
   }
-  .wd\:\:col-10,[class*="::.wd::col-10"].\--centered,[class^=".wd::col-10"].\--centered{
+  .wd\:\:col-10,.wd\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.wd::col-10"].\--centered,[class^=".wd::col-10"].\--centered{
+  .wd\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .wd\:\:offset-10{
@@ -1901,7 +1967,7 @@ p p{
   .wd\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .wd\:\:col-12,[class*="::.wd::col-12"].\--centered,[class^=".wd::col-12"].\--centered{
+  .wd\:\:col-12,.wd\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -2006,11 +2072,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .xw\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .xw\:\:col-2,.xw\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .xw\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .xw\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -2028,13 +2099,13 @@ p p{
   .xw\:\:col-4{
     margin:.25rem .625rem;
   }
-  .xw\:\:col-4,[class*="::.xw::col-4"].\--centered,[class^=".xw::col-4"].\--centered{
+  .xw\:\:col-4,.xw\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xw::col-4"].\--centered,[class^=".xw::col-4"].\--centered{
+  .xw\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .xw\:\:offset-4{
@@ -2053,13 +2124,13 @@ p p{
   .xw\:\:col-6{
     margin:.25rem .625rem;
   }
-  .xw\:\:col-6,[class*="::.xw::col-6"].\--centered,[class^=".xw::col-6"].\--centered{
+  .xw\:\:col-6,.xw\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xw::col-6"].\--centered,[class^=".xw::col-6"].\--centered{
+  .xw\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .xw\:\:offset-6{
@@ -2078,13 +2149,13 @@ p p{
   .xw\:\:col-8{
     margin:.25rem .625rem;
   }
-  .xw\:\:col-8,[class*="::.xw::col-8"].\--centered,[class^=".xw::col-8"].\--centered{
+  .xw\:\:col-8,.xw\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xw::col-8"].\--centered,[class^=".xw::col-8"].\--centered{
+  .xw\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .xw\:\:offset-8{
@@ -2103,13 +2174,13 @@ p p{
   .xw\:\:col-10{
     margin:.25rem .625rem;
   }
-  .xw\:\:col-10,[class*="::.xw::col-10"].\--centered,[class^=".xw::col-10"].\--centered{
+  .xw\:\:col-10,.xw\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xw::col-10"].\--centered,[class^=".xw::col-10"].\--centered{
+  .xw\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .xw\:\:offset-10{
@@ -2125,7 +2196,7 @@ p p{
   .xw\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .xw\:\:col-12,[class*="::.xw::col-12"].\--centered,[class^=".xw::col-12"].\--centered{
+  .xw\:\:col-12,.xw\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -2230,11 +2301,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .lg\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .lg\:\:col-2,.lg\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .lg\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .lg\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -2252,13 +2328,13 @@ p p{
   .lg\:\:col-4{
     margin:.25rem .625rem;
   }
-  .lg\:\:col-4,[class*="::.lg::col-4"].\--centered,[class^=".lg::col-4"].\--centered{
+  .lg\:\:col-4,.lg\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.lg::col-4"].\--centered,[class^=".lg::col-4"].\--centered{
+  .lg\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .lg\:\:offset-4{
@@ -2277,13 +2353,13 @@ p p{
   .lg\:\:col-6{
     margin:.25rem .625rem;
   }
-  .lg\:\:col-6,[class*="::.lg::col-6"].\--centered,[class^=".lg::col-6"].\--centered{
+  .lg\:\:col-6,.lg\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.lg::col-6"].\--centered,[class^=".lg::col-6"].\--centered{
+  .lg\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .lg\:\:offset-6{
@@ -2302,13 +2378,13 @@ p p{
   .lg\:\:col-8{
     margin:.25rem .625rem;
   }
-  .lg\:\:col-8,[class*="::.lg::col-8"].\--centered,[class^=".lg::col-8"].\--centered{
+  .lg\:\:col-8,.lg\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.lg::col-8"].\--centered,[class^=".lg::col-8"].\--centered{
+  .lg\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .lg\:\:offset-8{
@@ -2327,13 +2403,13 @@ p p{
   .lg\:\:col-10{
     margin:.25rem .625rem;
   }
-  .lg\:\:col-10,[class*="::.lg::col-10"].\--centered,[class^=".lg::col-10"].\--centered{
+  .lg\:\:col-10,.lg\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.lg::col-10"].\--centered,[class^=".lg::col-10"].\--centered{
+  .lg\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .lg\:\:offset-10{
@@ -2349,7 +2425,7 @@ p p{
   .lg\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .lg\:\:col-12,[class*="::.lg::col-12"].\--centered,[class^=".lg::col-12"].\--centered{
+  .lg\:\:col-12,.lg\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);
@@ -2454,11 +2530,16 @@ p p{
     margin-left:calc((1 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
   .xl\:\:col-2{
-    flex:0 0 16.6666666667%;
     margin:.25rem .625rem;
+  }
+  .xl\:\:col-2,.xl\:\:col-2-centered{
+    flex:0 0 16.6666666667%;
     max-width:calc(16.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
+  }
+  .xl\:\:col-2-centered{
+    margin:.25rem .625rem .25rem calc((5 * 8.3333333333%) + (1.25rem / 2));
   }
   .xl\:\:offset-2{
     margin-left:calc((2 * 8.3333333333%) + (1.25rem / 2)) !important;
@@ -2476,13 +2557,13 @@ p p{
   .xl\:\:col-4{
     margin:.25rem .625rem;
   }
-  .xl\:\:col-4,[class*="::.xl::col-4"].\--centered,[class^=".xl::col-4"].\--centered{
+  .xl\:\:col-4,.xl\:\:col-4-centered{
     flex:0 0 33.3333333333%;
     max-width:calc(33.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xl::col-4"].\--centered,[class^=".xl::col-4"].\--centered{
+  .xl\:\:col-4-centered{
     margin:.25rem .625rem .25rem calc((4 * 8.3333333333%) + (1.25rem / 2));
   }
   .xl\:\:offset-4{
@@ -2501,13 +2582,13 @@ p p{
   .xl\:\:col-6{
     margin:.25rem .625rem;
   }
-  .xl\:\:col-6,[class*="::.xl::col-6"].\--centered,[class^=".xl::col-6"].\--centered{
+  .xl\:\:col-6,.xl\:\:col-6-centered{
     flex:0 0 50%;
     max-width:calc(50% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xl::col-6"].\--centered,[class^=".xl::col-6"].\--centered{
+  .xl\:\:col-6-centered{
     margin:.25rem .625rem .25rem calc((3 * 8.3333333333%) + (1.25rem / 2));
   }
   .xl\:\:offset-6{
@@ -2526,13 +2607,13 @@ p p{
   .xl\:\:col-8{
     margin:.25rem .625rem;
   }
-  .xl\:\:col-8,[class*="::.xl::col-8"].\--centered,[class^=".xl::col-8"].\--centered{
+  .xl\:\:col-8,.xl\:\:col-8-centered{
     flex:0 0 66.6666666667%;
     max-width:calc(66.6666666667% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xl::col-8"].\--centered,[class^=".xl::col-8"].\--centered{
+  .xl\:\:col-8-centered{
     margin:.25rem .625rem .25rem calc((2 * 8.3333333333%) + (1.25rem / 2));
   }
   .xl\:\:offset-8{
@@ -2551,13 +2632,13 @@ p p{
   .xl\:\:col-10{
     margin:.25rem .625rem;
   }
-  .xl\:\:col-10,[class*="::.xl::col-10"].\--centered,[class^=".xl::col-10"].\--centered{
+  .xl\:\:col-10,.xl\:\:col-10-centered{
     flex:0 0 83.3333333333%;
     max-width:calc(83.3333333333% - 1.25rem);
     min-height:1px;
     position:relative;
   }
-  [class*="::.xl::col-10"].\--centered,[class^=".xl::col-10"].\--centered{
+  .xl\:\:col-10-centered{
     margin:.25rem .625rem .25rem calc((1 * 8.3333333333%) + (1.25rem / 2));
   }
   .xl\:\:offset-10{
@@ -2573,7 +2654,7 @@ p p{
   .xl\:\:offset-11{
     margin-left:calc((11 * 8.3333333333%) + (1.25rem / 2)) !important;
   }
-  .xl\:\:col-12,[class*="::.xl::col-12"].\--centered,[class^=".xl::col-12"].\--centered{
+  .xl\:\:col-12,.xl\:\:col-12-centered{
     flex:0 0 100%;
     margin:.25rem .625rem;
     max-width:calc(100% - 1.25rem);

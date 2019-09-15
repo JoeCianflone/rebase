@@ -3,7 +3,7 @@
     <portal-target name="dropdown" slim />
     <portal-target name="overlay" slim />
     <flash-messages :flash="$page.flash" :errors="$page.errors" />
-
+    <slot name="default" />
   </section>
 </template>
 

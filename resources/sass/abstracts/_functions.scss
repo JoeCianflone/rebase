@@ -33,3 +33,16 @@
 
     @return $string;
 }
+
+
+@function column-value($cols) {
+    @if ($cols != 'auto' or $cols != auto) {
+        @return $cols * $block-width;
+    }
+
+    @return $cols;
+}
+
+@function offset-value($cols) {
+    @return calc((#{$cols} * #{$block-width}) + (#{$grid-gutter} / 2));
+}

@@ -117,7 +117,8 @@ $font-display:    #{'Times New Roman', sans-serif};
 $font-body:       #{'Arial', 'Helvetica Neue', sans-serif};
 
 $grid-columns: 12;
-$grid-gutter: rem(20px);
+$grid-gutter:  rem(20px);
+$block-width:  100% / $grid-columns;
 
 $color-true-black: #000;
 $color-true-white: #fff;

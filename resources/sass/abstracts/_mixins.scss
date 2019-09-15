@@ -16,18 +16,18 @@
     }
 }
 
-
 @mixin mq($name, $as-modifier: false) {
     @if ($as-modifier) {
-        &#{$name} {
+        @include m($name) {
             @content;
-         }
 
-         @each $k, $v in $mq-list {
-            @include for-mq($k, $name, true) {
-                @content;
-            }
-         }
+            @each $k, $v in $mq-list {
+                @include for-mq($k, $name, true) {
+                    @content;
+                }
+             }
+        }
+
     } @else {
         .#{$name} {
             @content;
@@ -95,14 +95,14 @@
 }
 
 @mixin m($name: &) {
-  @at-root {
-      [class^="#{$name}"], [class*="\:\:#{$name}"] {
-          &.\-- {
-              @content;
-
-          }
-      }
-  }
+    $x: str-replace(#{$name}, '.');
+    @at-root {
+        [class^="#{$x}"], [class*="\:\:#{$x}"] {
+            &.\-- {
+                @content;
+            }
+        }
+    }
 }
 
 @mixin debug($use: false) {

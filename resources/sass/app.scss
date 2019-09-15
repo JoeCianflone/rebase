@@ -5,6 +5,7 @@
     'abstracts/mixins',
     'abstracts/variables';
 
+@include debug(true);
 
 @import
   'vendors/normalize';

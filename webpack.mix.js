@@ -19,20 +19,12 @@ const OUTPUT_IMAGES = 'public/assets/images';
 const OUTPUT_FILES = 'public/assets/files';
 
 mix
-    .sass(INPUT_SASS + '/app.scss', OUTPUT_CSS)
-    .js(INPUT_JS + '/app.js', OUTPUT_JS)
+    .sass(`${INPUT_SASS}/app.scss`, OUTPUT_CSS)
+    .js(`${INPUT_JS}/app.js`, OUTPUT_JS)
     .options({
         processCssUrls: false,
         postCss: [
            require('postcss-import')(),
-           require('postcss-flexbugs-fixes')(),
-           require('postcss-inline-svg')(),
-           require('postcss-assets')({
-              'relative': true,
-              cachebuster: function (filePath, urlPathname) {
-                 return fs.statSync(filePath).mtime.getTime().toString(16);
-              }
-           }),
            require('css-mqpacker')(),
            require('autoprefixer')(),
            require('cssnano')({
@@ -58,8 +50,12 @@ mix
         plugins: [
             new LiveReloadPlugin(),
             new copyWebpackPlugin([{
-                from:INPUT_IMAGES,
+                from: INPUT_IMAGES,
                 to: OUTPUT_IMAGES
+            }]),
+            new copyWebpackPlugin([{
+                from: INPUT_FONTS,
+                to: OUTPUT_FONTS
             }]),
             new copyWebpackPlugin([{
                 from: INPUT_FILES,

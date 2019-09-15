@@ -1,17 +1,3 @@
-$block-width: 100% / $grid-columns;
-
-@function column-value($cols) {
-    @if ($cols != 'auto' or $cols != auto) {
-        @return $cols * $block-width;
-    }
-
-    @return $cols;
-}
-
-@function offset-value($cols) {
-    @return calc((#{$cols} * #{$block-width}) + (#{$grid-gutter} / 2));
-}
-
 @mixin column($cols, $center-column: 'false') {
     $value: column-value($cols);
     flex: 0 0 $value;
@@ -41,10 +27,12 @@ $block-width: 100% / $grid-columns;
     justify-content: flex-start;
 }
 
+/// .container --locked
+
 .container {
     @include container;
 
-    @include m{
+    @include m {
         &locked {
             @include container;
             max-width: $browser-max-size;
@@ -52,6 +40,7 @@ $block-width: 100% / $grid-columns;
     }
 }
 
+/// .row --center --column
 .row {
     @include row;
 
@@ -60,21 +49,20 @@ $block-width: 100% / $grid-columns;
         margin-right: -($grid-gutter / 2);
     }
 
-    @include e {
+    @include m {
         &center {
-            @include row;
             justify-content: center;
         }
 
         &column {
-            @include row;
             flex-direction: column;
         }
     }
 }
 
+/// .pull|left .pull|right
 .pull {
-    @include e {
+    @include p {
         &right {
             margin-left: auto;
             margin-right: 0;
@@ -86,8 +74,10 @@ $block-width: 100% / $grid-columns;
         }
     }
 }
+
+/// .order|first .order|last
 .order {
-    @include e {
+    @include p {
         &last { order: ($grid-columns) + 1; }
         &first { order: -1; }
     }
@@ -97,26 +87,24 @@ $block-width: 100% / $grid-columns;
     @include column(auto);
 }
 
+/// col-x --centered
 @for $i from 1 through $grid-columns {
     @include mq('col') {
         &-#{$i} {
             @include column($i);
 
-            @if ($i > 2 and $i % 2 == 0) {
-                @include m{
-                    &centered {
-                        $offset-cols: ($grid-columns - $i) / 2;
-                        @include column($i);
+            @if ($i >= 2 and $i % 2 == 0) {
+                &-centered {
+                    @include column($i);
+                    $offset-cols: ($grid-columns - $i) / 2;
 
-                        @if ($offset-cols > 0) {
-                            margin-left: offset-value($offset-cols);
-                        }
+                    @if ($offset-cols > 0) {
+                        margin-left: offset-value($offset-cols);
                     }
                 }
             }
         }
     }
-
     @include mq('offset') {
         &-#{$i} {
             margin-left: offset-value($i) !important;

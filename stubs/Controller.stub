@@ -2,6 +2,7 @@
 namespace {{namespace}};
 
 use Inertia\Inertia;
+use App\Actions\GetView;
 use Illuminate\Http\Request;
 
 class {{class}}
@@ -9,6 +10,6 @@ class {{class}}
 
     public function __invoke(Request $request)
     {
-        return Inertia::render("{{inertia_path}}");
+        return Inertia::render(GetView::execute($this));
     }
 }

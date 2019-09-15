@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"f04d66c3792571891d18"}[chunkId] + ""
+/******/ 		return __webpack_require__.p + "js/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"7f2b641428dcb7136a52"}[chunkId] + ""
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -12060,12 +12060,12 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./Dashboards/IndexDashboard": [
-		"./resources/js/Pages/Dashboards/IndexDashboard.vue",
+	"./Dashboard/IndexDashboard": [
+		"./resources/js/Pages/Dashboard/IndexDashboard.vue",
 		0
 	],
-	"./Dashboards/IndexDashboard.vue": [
-		"./resources/js/Pages/Dashboards/IndexDashboard.vue",
+	"./Dashboard/IndexDashboard.vue": [
+		"./resources/js/Pages/Dashboard/IndexDashboard.vue",
 		0
 	]
 };
