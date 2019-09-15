@@ -10,6 +10,6 @@ class IndexDashboardController
 
     public function __invoke(Request $request)
     {
-        return Inertia::render(GetView::execute($this));
+        return Inertia::render(GetView::execute($this))->withViewData('stripe', true);
     }
 }
