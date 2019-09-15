@@ -12,6 +12,7 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "inertiajs/inertia-laravel": "^0.1.3",
+        "laravel/cashier": "^10.2",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1"
