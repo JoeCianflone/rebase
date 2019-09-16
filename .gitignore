@@ -1,4 +1,5 @@
 /node_modules
+/public/assets
 /public/hot
 /public/storage
 /storage/*.key
@@ -10,3 +11,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+mix-manifest.json
+ziggy.js
+ziggy.min.js
