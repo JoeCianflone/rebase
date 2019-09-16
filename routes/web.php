@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Services\Dashboard\DashboardRoutes;
 use App\Domain\Services\Dashboard\Controllers\IndexDashboardController;
 
 /**
@@ -15,6 +16,3 @@ use App\Domain\Services\Dashboard\Controllers\IndexDashboardController;
  * rebase:controller IndexUserController --view
  * rebase:view IndexUser --controller
  */
-
-
-Route::get('/', IndexDashboardController::class);

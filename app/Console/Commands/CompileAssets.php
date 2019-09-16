@@ -38,7 +38,12 @@ class CompileAssets extends Command
     public function handle()
     {
         passthru("rm -Rf public/assets");
-        $this->info("Killed assets...");
+        passthru("rm resources/js/ziggy.js");
+
+        $this->info("Cleanup...\n");
+
+        $this->call('ziggy:generate', ["path" => "./resources/js/ziggy.js"]);
+        $this->info("New Ziggy file generated...\n");
 
         if ($this->option('production')) {
             passthru("yarn run prod");

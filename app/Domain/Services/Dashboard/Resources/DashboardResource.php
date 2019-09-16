@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Resources\..\..\Domain\Services\Dashboard\Resources;
+namespace App\Domain\Services\Dashboard\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Domain\Services\Dashboards\Controllers\IndexDashboardController;
 
 class DashboardResource extends JsonResource
 {
@@ -14,6 +15,6 @@ class DashboardResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [];
     }
 }
