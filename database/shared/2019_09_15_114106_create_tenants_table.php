@@ -17,7 +17,7 @@ class CreateTenantsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('account_id');
             $table->string('slug')->unique();
-            $table->string('cname')->unique()->nullable();
+            $table->boolean('uses_cname')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
