@@ -5,7 +5,7 @@ namespace App\Domain\Models;
 use App\Domain\Models\Account;
 use Illuminate\Database\Eloquent\Model;
 
-class Landlord extends Model
+class Tenant extends Model
 {
     protected $connection = 'shared';
 

@@ -4,6 +4,8 @@ use App\Domain\Services\Dashboard\DashboardRoutes;
 use App\Domain\Services\Dashboard\Controllers\IndexDashboardController;
 
 /**
+ * Vue Name         Controller
+ * ------------|----------------------------
  * Index<name>      Index<name>Controller
  * Store<name>      Store<name>Controller
  * Show<name>       Show<name>Controller

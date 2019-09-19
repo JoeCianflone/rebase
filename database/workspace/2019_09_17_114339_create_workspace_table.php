@@ -15,7 +15,7 @@ class CreateWorkspaceTable extends Migration
     {
         Schema::create('workspace', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('account_id');
+            $table->uuid('workspace_id');
             $table->string('slug')->unique()->index();
 
             $table->foreign('workspace_id')
