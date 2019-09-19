@@ -11,7 +11,7 @@ class NewController extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'rebase:controller {service} {name} {--view}';
+    protected $signature = 'rebase:controller {service} {name} {--view} {--singular}';
 
     /**
      * The console command description.
@@ -38,7 +38,11 @@ class NewController extends GeneratorCommand
      */
     public function handle()
     {
-        $this->path .= Str::plural($this->argument('service'));
+        if ($this->option('singular')) {
+            $this->path .= Str::singular($this->argument('service'));
+        } else {
+            $this->path .= Str::plural($this->argument('service'));
+        }
 
         $realViewName = Str::singular($this->argument('name')) . Str::singular($this->argument('service'));
         $realControllerName = $realViewName . 'Controller';
@@ -60,7 +64,8 @@ class NewController extends GeneratorCommand
         if ($this->option('view')) {
             $this->call("rebase:view", [
                 "service" => $this->argument('service'),
-                "name" => $this->argument('name')
+                "name" => $this->argument('name'),
+                "--singular" => $this->option('singular'),
             ]);
         }
 

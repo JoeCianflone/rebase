@@ -11,7 +11,7 @@ class NewView extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'rebase:view {service} {name} {--controller}';
+    protected $signature = 'rebase:view {service} {name} {--controller} {--singular}';
 
     /**
      * The console command description.
@@ -38,7 +38,11 @@ class NewView extends GeneratorCommand
      */
     public function handle()
     {
-        $this->path .= Str::plural($this->argument('service'));
+        if ($this->option('singular')) {
+            $this->path .= Str::singular($this->argument('service'));
+        } else {
+            $this->path .= Str::plural($this->argument('service'));
+        }
 
         $realViewName = Str::singular($this->argument('name')) . Str::singular($this->argument('service'));
         $realFileName = "{$realViewName}.vue";
@@ -51,7 +55,8 @@ class NewView extends GeneratorCommand
         if ($this->option('controller')) {
             $this->call("rebase:controller", [
                 "service" => $this->argument('service'),
-                "name" => $this->argument('name')
+                "name" => $this->argument('name'),
+                "--singular" => $this->option('singular'),
             ]);
         }
 
