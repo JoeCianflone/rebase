@@ -17,4 +17,8 @@ class EloquentLandlordRepository extends EloquentRepository
         return $this->model->where('slug', $slug)->firstOrFail();
     }
 
+    public function getAll()
+    {
+        return $this->model->all();
+    }
 }

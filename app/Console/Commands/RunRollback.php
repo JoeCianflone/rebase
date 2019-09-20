@@ -2,25 +2,23 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBHelper;
 use Illuminate\Console\Command;
-use App\Domain\Repositories\Facades\TenantRepository;
 
-class RunMigration extends Command
+class RunRollback extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'rebase:migrate {workspace?} {--all} {--workspaces} {--no-shared}';
+    protected $signature = 'rebase:rollback {workspace?} {--all} {--step=1} {--workspaces}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Runs all the migrations';
+    protected $description = 'Command description';
 
     /**
      * Create a new command instance.
@@ -39,7 +37,7 @@ class RunMigration extends Command
      */
     public function handle()
     {
-        if (! $this->option('no-shared')) {
+        if ($this->option('all')) {
             $this->callMigration('shared', config('database.shared_migrations'));
         }
 
@@ -56,7 +54,6 @@ class RunMigration extends Command
 
             $this->migrateTenant($tenant);
         }
-
     }
 
     private function migrateTenant($tenant)
@@ -70,17 +67,17 @@ class RunMigration extends Command
 
         $connection->connect();
 
-        $this->info("Starting Migration for: {$tenant->slug}");
+        $this->info("Starting Rollback for: {$tenant->slug}");
         $this->callMigration('workspace', config('database.workspace_migrations'));
-        $this->info("Starting Migration for: {$tenant->slug}");
+        $this->info("Starting Rollback for: {$tenant->slug}");
     }
 
     private function callMigration($conn, $path)
     {
-        $this->call("migrate", [
+        $this->call("migrate:rollback", [
             '--database' => $conn,
             '--path' => $path,
-            '--step' => true,
+            '--step' => $this->option('step'),
             '--force' => true,
             '--no-interaction' => true,
         ]);
