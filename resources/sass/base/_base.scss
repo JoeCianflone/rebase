@@ -223,17 +223,6 @@ a, area, button, input, label, select, summary, textarea, [tabindex] {
 [aria-controls] { cursor: pointer; }
 [aria-disabled] { cursor: default; }
 
-//
-// Debug
-//
-.debug {
-    border: 1px solid #f00 !important;
-
-    @include m{
-        &bg { background: rgba(#f00, 0.4) !important; }
-    }
-}
-
 pre {
     -ms-overflow-style: scrollbar;
     margin-bottom: 1rem;

@@ -37,12 +37,10 @@ class MakeMigration extends Command
      */
     public function handle()
     {
-        $name = $this->argument('name');
-
         $path = $this->option('shared') ? config('database.shared_migrations') : config('database.workspace_migrations');
 
         $this->call("make:migration", [
-            'name' => $name,
+            'name' => $this->argument('name'),
             '--path' => $path
         ]);
 

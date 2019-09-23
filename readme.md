@@ -30,8 +30,7 @@ php artisan rebase:controller IndexUserController --view
 php artisan rebase:view IndexUser --controller
 ```
 
-
-## BEM++
+## Expressive BEM++
 
 I've experimented with different ways of doing BEM styles and this is what I've come up with that I personally like and use:
 
@@ -50,14 +49,33 @@ There are lots of cases where I just want to override a single property. Text al
 
 `<prop>|<key>`
 
+This isn't *every* property. You have to decide what you want to create.
 
+### Tee Shirt Sizes?
+Some elements have different sizes for different tasks. Like you may want something to have a smaller font size based on something criteria. We could do this through media queries and that might make sense, but when that doesn't there's the `@` sizes we can use:
+
+`font@small`
+
+Tee sizes include:
+
+```
+xs, sm, reg, med, lg, xl, xxl
+```
+
+These don't make sense for every element, but, there are some cases where this works. Font size is the most obvious.
+
+These can also be combined with media queries:
+
+```html
+<div class="xs::font-size@sm sm::font-size@xxl">
+```
 ### Examples
 
 ```html
 <div class="container --locked">
     <div class="row justify|center">
         <div class="xs::col-12 sm::col-8 wd::col-4-centered xs::text-align|center sm::text-align|left">
-            <h3>Woot</h3>
+            <h3 class="lg::heading@xs xs::heading@lg">Woot</h3>
         </div>
     </div>
 </div>

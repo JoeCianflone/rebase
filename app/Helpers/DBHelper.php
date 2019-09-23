@@ -9,7 +9,8 @@ class DBHelper
     /** @var string */
     private $name;
 
-    public function __construct(string $id)
+
+    public function __construct(?string $id = null)
     {
         $this->name = config('database.name_prefix') . str_replace("-", "_", $id);
     }

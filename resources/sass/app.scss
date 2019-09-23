@@ -8,21 +8,23 @@
 @include debug(true);
 
 @import
-  'vendors/normalize';
+    'vendors/normalize';
 
 // @import
 //   'vendor-overrides/';
 
 @import
-  'base/base',
-  'base/colors',
-  'base/display',
-  'base/form',
-  'base/grid',
-  'base/input',
-  'base/tables',
-  'base/text';
+    'base/base',
+    'base/form',
+    'base/grid',
+    'base/input',
+    'base/tables',
+    'base/typography';
 
+@import
+    'properties/colors',
+    'properties/display',
+    'properties/typography';
 
 // @import
 //   'layout/header',

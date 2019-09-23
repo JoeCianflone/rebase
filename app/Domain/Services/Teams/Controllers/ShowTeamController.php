@@ -1,11 +1,11 @@
 <?php
-namespace App\Domain\Services\Accounts\Controllers;
+namespace App\Domain\Services\Teams\Controllers;
 
 use Inertia\Inertia;
 use App\Actions\GetView;
 use Illuminate\Http\Request;
 
-class StoreAccountController
+class ShowTeamController
 {
 
     public function __invoke(Request $request)
