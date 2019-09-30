@@ -2,13 +2,18 @@
 import Layout from '@/Templates/Master';
 
 export default {
-    components: {
-        Layout,
-    },
+    layout: Layout,
+    metaInfo: { title: 'Title' },
+
+    components: {},
 
     data: () => ({
         form: { }
     }),
+
+    props: {
+        dashboard: Object
+    }
 
     methods: {
         test() {
@@ -19,8 +24,9 @@ export default {
 }
 </script>
 
+
 <template>
-    <layout title="">
+    <div>
         <button @click="test">Test Data</button>
-    </layout>
+    </div>
 </template>

@@ -1,17 +1,22 @@
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import PortalVue from 'portal-vue';
+import VueMeta from 'vue-meta';
 
 import Vue from 'vue';
 
 Vue.config.productionTip = false;
-Vue.mixin({ methods: { route: (...args) => window.route(...args).url() } });
 
 Vue.use(InertiaApp);
 Vue.use(PortalVue);
+Vue.use(VueMeta);
 
 let app = document.getElementById('app');
 
 new Vue({
+    metaInfo: {
+        title: 'Loading...',
+        titleTemplate: '%s | Rebase App',
+      },
   render: h => h(InertiaApp, {
     props: {
       initialPage: JSON.parse(app.dataset.page),

@@ -40,6 +40,7 @@
         "typescript": "^3.6.3",
         "vue": "^2.6.6",
         "vue-class-component": "^7.1.0",
+        "vue-meta": "^2.2.2",
         "vue-moment": "^4.0.0",
         "vue-property-decorator": "^8.2.2",
         "vue-stripe": "^0.1.52",
