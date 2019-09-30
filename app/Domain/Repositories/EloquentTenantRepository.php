@@ -4,7 +4,7 @@ namespace App\Domain\Repositories;
 use App\Domain\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentLandlordRepository extends EloquentRepository
+class EloquentTenantRepository extends EloquentRepository
 {
 
     public function __construct(Tenant $model)
@@ -15,10 +15,5 @@ class EloquentLandlordRepository extends EloquentRepository
     public function getBySlug(string $slug)
     {
         return $this->model->where('slug', $slug)->firstOrFail();
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
     }
 }

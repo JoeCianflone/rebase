@@ -5,6 +5,10 @@ export default {
     components: {
         Layout,
     },
+
+    props: {
+        dashboard: Object|Array
+    }
 }
 </script>
 

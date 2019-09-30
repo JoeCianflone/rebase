@@ -41,10 +41,6 @@ class WatchAssets extends Command
         passthru("rm resources/js/ziggy.js");
 
         $this->info("Cleanup...\n");
-
-        $this->call('ziggy:generate', ["path" => "./resources/js/ziggy.js"]);
-        $this->info("New Ziggy file generated...\n");
-
         passthru("yarn run watch");
     }
 }

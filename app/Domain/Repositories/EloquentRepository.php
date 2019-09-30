@@ -1,6 +1,7 @@
 <?php
 namespace App\Domain\Repositories;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
@@ -10,14 +11,24 @@ class EloquentRepository
      */
     protected $model;
 
+    protected $withData = [];
+
+    /**
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getAll(): ?Collection
+    {
+        return $this->model->all();
+    }
+
     /**
      * @param array $request
      * @param array $updates
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function create(array $request, array $updates = []): Model
+    public function create(array $request): Model
     {
-        return $this->model->create(array_merge($request, $updates));
+        return $this->model->create(array_merge($request, $this->withData));
     }
 
     /**
@@ -25,16 +36,15 @@ class EloquentRepository
      * @param array $updates
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function refresh(Model $model, array $updates = null): Model
+    public function refresh(Model $model): Model
     {
-        if (is_null($updates)) {
-            $model->save();
-        } else {
-            foreach ($updates as $key => $value) {
+        if (count($this->withData) > 0) {
+            foreach ($this->withData as $key => $value) {
                 $model[$key] = $value;
             }
-            $model->save();
         }
+
+        $model->save();
 
         return $model;
     }
@@ -44,19 +54,38 @@ class EloquentRepository
      * @param array $update
      * @return void
      */
-    protected function update($id, array $update): void
+    public function update($id): void
     {
-        $this->model->where('id', $id)->update($update);
+        $this->model->where('id', $id)->update($this->withData);
+    }
+
+    /**
+     * @param array $data
+     * @return self
+     */
+    public function with(array $data): self
+    {
+        $this->withData = array_merge($this->withData, $data);
+
+        return $this;
+    }
+
+    /**
+     * @return self
+     */
+    public function purge(): self
+    {
+        $this->withData = [];
+
+        return $this;
     }
 
     /**
      * @param int|Ramsey\Uuid\Uuid $id
      * @return void
      */
-    protected function delete($id): void
+    public function remove($id): void
     {
-        $this->model->remove($id);
+        $this->model->destroy($id);
     }
-
-
 }

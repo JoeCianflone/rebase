@@ -1,11 +1,11 @@
 <?php
-namespace App\Domain\Services\Teams\Controllers;
+namespace App\Domain\Services\Blacklists\Controllers;
 
 use Inertia\Inertia;
 use App\Actions\GetView;
 use Illuminate\Http\Request;
 
-class DestroyTeamController
+class IndexBlacklistController
 {
 
     public function __invoke(Request $request)

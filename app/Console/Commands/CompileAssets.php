@@ -42,9 +42,6 @@ class CompileAssets extends Command
 
         $this->info("Cleanup...\n");
 
-        $this->call('ziggy:generate', ["path" => "./resources/js/ziggy.js"]);
-        $this->info("New Ziggy file generated...\n");
-
         if ($this->option('production')) {
             passthru("yarn run prod");
         } else {

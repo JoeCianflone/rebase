@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Domain\Models\User;
 use App\Domain\Models\Tenant;
 use App\Domain\Models\Account;
+use App\Domain\Models\Blacklist;
 use Illuminate\Support\ServiceProvider;
 use App\Domain\Repositories\EloquentUserRepository;
 use App\Domain\Repositories\EloquentTenantRepository;
 use App\Domain\Repositories\EloquentAccountRepository;
+use App\Domain\Repositories\EloquentBlacklistRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,9 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentAccountRepository(new Account());
         });
 
+        $this->app->singleton('BlacklistRepository', function($app) {
+            return new EloquentBlacklistRepository(new Blacklist());
+        });
     }
 
     /**
