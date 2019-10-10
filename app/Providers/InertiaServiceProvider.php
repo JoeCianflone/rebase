@@ -18,6 +18,18 @@ class InertiaServiceProvider extends ServiceProvider
             return md5_file(public_path('mix-manifest.json'));
         });
 
+
+
+        Inertia::share('auth.user', function () {
+            if (Auth::user()) {
+                return [
+                    'id' => Auth::user()->id,
+                    'name' => Auth::user()->name,
+                    'email' => Auth::user()->email,
+                ];
+            }
+        });
+
         Inertia::share([
             'app' => [ ],
             'flash' => [
@@ -25,7 +37,7 @@ class InertiaServiceProvider extends ServiceProvider
                 'alert' => function() { return Session::get('alert'); },
                 'message' => function() { return Session::get('message'); },
             ],
-            'errors' => function() { return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) []; },
+
         ]);
 
     }

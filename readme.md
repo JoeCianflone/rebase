@@ -17,6 +17,7 @@ It should also be noted that this could be a code smell. If you find yourself th
 | Type  | Vue Name      | Controller                    |
 |-------|---------------|-------------------------------|
 | GET   | Index<name>   | Index<name>Controller         |
+| GET   | Index<name>   | Create<name>Controller        |
 | POST  |               | Store<name>Controller         |
 | GET   | Show<name>    | Show<name>Controller          |
 | GET   | Edit<name>    | EditNameController            |

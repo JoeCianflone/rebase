@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::pattern( 'domain', '[a-z0-9.\-]+');
+        Route::pattern('domain', '[a-z0-9.\-]+');
         parent::boot();
     }
 
