@@ -48,5 +48,6 @@
         "vue-template-compiler": "^2.6.6",
         "vue2-dropzone": "^3.6.0",
         "webpack-livereload-plugin": "2.2.0"
-    }
+    },
+    "version": "0.0.0"
 }
