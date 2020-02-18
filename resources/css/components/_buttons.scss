@@ -1,0 +1,14 @@
+@mixin button() {
+    align-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: $border-radius;
+    cursor: pointer;
+    display:inline-flex;
+    justify-content: center;
+    line-height: $line-height-none;
+    margin: 0;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}

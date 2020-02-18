@@ -1,0 +1,35 @@
+<script>
+import Layout from '@/Templates/Master';
+
+export default {
+    layout: Layout,
+    metaInfo: { title: 'Title' },
+
+    components: {},
+
+    data: () => ({
+        form: { }
+    }),
+
+    props: { },
+
+    methods: {
+        test() {
+            this.$inertia.post(URL, this.form)
+                         .then(() => this.sending = false );
+        }
+    },
+}
+</script>
+
+
+<template>
+    <div>
+        <button @click="test">Test Data</button>
+    </div>
+</template>
+
+
+<style lang="scss" scoped>
+
+</style>

@@ -1,0 +1,14 @@
+<?php
+namespace App\Domain\Repositories;
+
+use App\Domain\Models\{{model}};
+use App\Domain\Repositories\EloquentRepository;
+
+class Eloquent{{classname}} extends EloquentRepository
+{
+
+    public function __construct({{model}} $model)
+    {
+        $this->model = $model;
+    }
+}

@@ -1,0 +1,23 @@
+<?php
+namespace App\Domain\Services\{{service}}\Resources;
+
+use App\Http\Resources\HasItem;
+use App\Http\Resources\HasMeta;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class {{classname}} extends JsonResource
+{
+    use HasMeta, HasItem;
+
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+        ];
+    }
+
+    public static function meta()
+    {
+        return [];
+    }
+}
