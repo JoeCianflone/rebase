@@ -2,27 +2,33 @@
 namespace App\Domain\Resources;
 
 use App\Http\Resources\HasMeta;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 
-class UserResource extends JsonResource
+class UserResource extends Resource
 {
 
-    use HasMeta;
-
-    public function toArray($request): array
+    public function toArray($resource): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email
+            'id' => $resource->get('id'),
+            'name' => $resource->get('name'),
+            'email' => $resource->get('email'),
+        ];
+
+    }
+
+    public function links(): array
+    {
+        return [
+            'index' => '/users',
+            'create' => '/users/create',
+            'store' => '/users',
+            'show' => '/users/{1}',
+            'edit' => '/users/{1}/edit',
+            'update' => '/users/{1}',
+            'destroy' => '/users/{1}',
         ];
     }
 
-    public function meta()
-    {
-        return [
-            'create' => 'users/create'
-        ];
-    }
 
 }
