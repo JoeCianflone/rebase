@@ -6,102 +6,57 @@ use Illuminate\Support\Collection;
 
 abstract class Resource {
 
-
     private Collection $items;
     private array $resource;
 
     private const LINKS = 'links';
-    private const DATA = 'data';
-    private const META = 'meta';
+    private const DATA  = 'data';
+    private const META  = 'meta';
+
+    public abstract function links(): array;
+    public abstract function meta(): array;
 
     public function __construct(array $items)
     {
         $this->items = collect($items);
-
         $this->buildResource(collect($items));
     }
 
-
-    public abstract function links(): array;
-
-
-
-    public function buildResouce($items)
+    public function buildResource(Collection $items): void
     {
-        $this->resource[self::DATA] = $items->map(function($item) {
-            return array_merge($this->toArray($item), $this->setItemLinks($item));
-        });
+        $links = new ResourceLinks(collect($this->links()));
+
+        $this->resource = [
+            self::DATA => $items->map(function($item) use ($links) {
+                return array_merge(
+                    $this->toArray(collect($item)),
+                    $this->getItemLinks(collect($item), $links),
+                );
+            })->toArray(),
+
+            self::META => array_merge(
+                $this->meta(),
+                $this->getMetaLinks($links),
+            )
+        ];
     }
 
-
-    public function setItemLinks($item)
+    public function getItemLinks(Collection $item, ResourceLinks $links): array
     {
-
-
-
+        return [
+            self::LINKS => $links->except('index', 'create', 'store')->hydrate($item)->toArray()
+        ];
     }
 
-    public function collect(): array
+    public function getMetaLinks(ResourceLinks $links): array
     {
-        $this->resource['data'] = $this->items->map(function($i) {
-            return array_merge($this->toArray(collect($i)), $this->linkable('single', $i['id']));
-        })->toArray();
+        return [
+            self::LINKS => $links->only('index', 'create', 'store')->toArray()
+        ];
+    }
 
-        $this->appendLinks($this->links());
-        // $this->appendMeta();
-
+    public function collect()
+    {
         return $this->resource;
-    }
-
-    public function appendLinks(array $links): void
-    {
-        $this->resource['meta'] = $this->linkable();
-    }
-
-
-    public function metaLinks(...$replacements): array
-    {
-        return [
-            self::LINKS => collect($this->links())->only('index', 'create', 'store')->toArray()
-        ];
-    }
-
-
-    private function linkReplacement(...$replacements): string
-    {
-        $count = 1;
-
-        foreach($replacements as $replacement) {
-            $hydratedLink = str_replace("{{$i}}", $replacement, $link);
-            $i += 1;
-        }
-    }
-
-    public function linkable($type = 'meta', ...$replacements)
-    {
-
-        return [
-            'links' => collect($this->links())->except('index', 'create', 'store')->map(function($link) use($replacements) {
-                $i = 1;
-                foreach($replacements as $replacement) {
-                    $hydratedLink = str_replace("{{$i}}", $replacement, $link);
-                    $i += 1;
-                }
-
-                return $hydratedLink;
-
-            })->toArray()
-        ];
-    }
-
-    public function link($key): ?string
-    {
-        return collect($this->links())->get($key);
-    }
-
-
-    public static function meta()
-    {
-        return [];
     }
 }

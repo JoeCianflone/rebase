@@ -17,20 +17,22 @@ class IndexDashboardController
         }
         $x = [
             [
-                        'id' => 22,
-            'name' => 'Joe',
-            'email' => 'joe@cianflone.co',
+                'id' => 22,
+                'name' => 'Joe',
+                'email' => 'joe@cianflone.co',
             ],[
-                        'id' => 23,
-            'name' => 'Joe',
-            'email' => 'joe@cianflone.co',
+                'id' => 23,
+                'name' => 'Joe',
+                'email' => 'joe@cianflone.co',
             ]
         ];
 
-        $x = new UserResource($x);
+        $y = new UserResource($x);
 
-        dd ($x->collect());
 
-        return Inertia::render(GetView::execute($this), ['foop' => 'var', 'poop' => 2])->withViewData('stripe', false);
+
+        return Inertia::render(GetView::execute($this), [
+            'user' => $y->collect()
+        ])->withViewData('stripe', false);
     }
 }

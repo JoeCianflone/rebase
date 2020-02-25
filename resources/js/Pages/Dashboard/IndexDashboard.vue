@@ -15,7 +15,9 @@ export default {
         }
     }),
 
-    props: { },
+    props: {
+        user: Object
+    },
 
     methods: {
         test() {

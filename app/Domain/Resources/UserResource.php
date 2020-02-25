@@ -14,7 +14,6 @@ class UserResource extends Resource
             'name' => $resource->get('name'),
             'email' => $resource->get('email'),
         ];
-
     }
 
     public function links(): array
@@ -23,12 +22,19 @@ class UserResource extends Resource
             'index' => '/users',
             'create' => '/users/create',
             'store' => '/users',
-            'show' => '/users/{1}',
-            'edit' => '/users/{1}/edit',
-            'update' => '/users/{1}',
-            'destroy' => '/users/{1}',
+            'show' => '/users/{id}',
+            'edit' => '/users/{id}/edit',
+            'update' => '/users/{id}',
+            'destroy' => '/users/{id}',
         ];
     }
 
+    public function meta(): array
+    {
+        return [
+            'one' => 'one',
+            'two' => true
+        ];
+    }
 
 }
