@@ -15,6 +15,8 @@ class IndexDashboardController
         if ($request->getMethod() === 'GET') {
             return Inertia::render(GetView::execute($this), [])->withViewData('stripe', false);
         }
+
+
         $x = [
             [
                 'id' => 22,
@@ -27,12 +29,10 @@ class IndexDashboardController
             ]
         ];
 
-        $y = new UserResource($x);
-
-
+        $resource = new UserResource($x);
 
         return Inertia::render(GetView::execute($this), [
-            'user' => $y->collect()
+            'user' => $resource->get()
         ])->withViewData('stripe', false);
     }
 }

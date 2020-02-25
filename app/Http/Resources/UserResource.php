@@ -1,13 +1,12 @@
 <?php
-namespace App\Domain\Resources;
+namespace App\Http\Resources;
 
-use App\Http\Resources\HasMeta;
 use Illuminate\Support\Collection;
 
 class UserResource extends Resource
 {
 
-    public function toArray($resource): array
+    public function toArray(Collection $resource): array
     {
         return [
             'id' => $resource->get('id'),

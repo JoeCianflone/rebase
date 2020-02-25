@@ -1,7 +1,8 @@
 <?php
-namespace App\Domain\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Support\Collection;
+use App\Http\Resources\ResourceLinks;
 
 
 abstract class Resource {
@@ -55,7 +56,7 @@ abstract class Resource {
         ];
     }
 
-    public function collect()
+    public function get(): array
     {
         return $this->resource;
     }

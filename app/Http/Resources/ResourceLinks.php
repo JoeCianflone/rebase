@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Support\Collection;
 
