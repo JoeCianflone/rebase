@@ -2,10 +2,15 @@
 namespace App\Http\Resources;
 
 use Illuminate\Support\Collection;
+use JoeCianflone\InertiaResource\Resource;
 
 class UserResource extends Resource
 {
 
+    /**
+     * @param Collection $resource
+     * @return array
+     */
     public function toArray(Collection $resource): array
     {
         return [
@@ -15,7 +20,10 @@ class UserResource extends Resource
         ];
     }
 
-    public function links(): array
+    /**
+     * @return array
+     */
+    public static function links(): array
     {
         return [
             'index' => '/users',
@@ -28,11 +36,13 @@ class UserResource extends Resource
         ];
     }
 
-    public function meta(): array
+    /**
+     * @return array
+     */
+    public static function meta(): array
     {
         return [
-            'one' => 'one',
-            'two' => true
+            "is_logged_in" => true
         ];
     }
 

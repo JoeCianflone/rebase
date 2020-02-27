@@ -15,8 +15,16 @@
         "guzzlehttp/guzzle": "^6.0",
         "inertiajs/inertia-laravel": "^0.2.4",
         "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "joecianflone/inertia-resource": "@dev"
     },
+    "repositories": [
+        {
+          "type": "git",
+          "url": "git@github.com:JoeCianflone/InertiaResource.git"
+        }
+    ],
+
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9",

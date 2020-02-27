@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Dashboard;
 use Inertia\Inertia;
 use App\Actions\GetView;
 use Illuminate\Http\Request;
-use App\Domain\Resources\UserResource;
+use App\Http\Resources\UserResource;
 
 class IndexDashboardController
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, UserResource $user)
     {
 
 
@@ -29,10 +29,9 @@ class IndexDashboardController
             ]
         ];
 
-        $resource = new UserResource($x);
 
         return Inertia::render(GetView::execute($this), [
-            'user' => $resource->get()
+            'user' => $user->transform($x)
         ])->withViewData('stripe', false);
     }
 }

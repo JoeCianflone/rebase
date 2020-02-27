@@ -31,6 +31,9 @@ export default {
 <template>
     <div>
         <button @click="test">Test</button>
+
+        <span v-if="user"> {{user.data[0].email}} </span>
+
     </div>
 </template>
 
