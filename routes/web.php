@@ -6,7 +6,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Dashboard\IndexDashboardController::class);
 Route::post('/', Dashboard\IndexDashboardController::class);
 
-// users
+// /users
 Route::get(UserResource::link('index'), Dashboard\IndexDashboardController::class);
-
-// users/{id}/edit

@@ -18,7 +18,6 @@ class CompileAssets extends Command
     public function handle(): void
     {
         passthru("rm -Rf public/assets");
-        passthru("rm resources/js/ziggy.js");
 
         $this->info("Cleanup...\n");
 

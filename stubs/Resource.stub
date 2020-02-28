@@ -1,23 +1,34 @@
 <?php
-namespace App\Domain\Services\{{service}}\Resources;
+namespace App\Http\Resources;
 
-use App\Http\Resources\HasItem;
-use App\Http\Resources\HasMeta;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
+use JoeCianflone\InertiaResource\Resource;
 
-class {{classname}} extends JsonResource
+class {{name}} extends Resource
 {
-    use HasMeta, HasItem;
 
-    public function toArray($request)
-    {
-        return [
-            'id' => $this->id,
-        ];
-    }
-
-    public static function meta()
+    /**
+     * @param Collection $resource
+     * @return array
+     */
+    public function toArray(Collection $resource): array
     {
         return [];
+    }
+
+    /**
+     * @return array
+     */
+    public static function links(): array
+    {
+        return [ ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function meta(): array
+    {
+        return [ ];
     }
 }
