@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Helpers\DBHelper;
+use App\Helpers\TenantDB;
 use App\Domain\Models\Account;
 use Illuminate\Console\Command;
 use App\Domain\Repositories\Facades\TenantRepository;
@@ -26,11 +27,13 @@ class Explode extends Command
             exit();
         }
 
+        // dd (config('tenant.shared_connection_name'), config('tenant.shared_migrations'));
+
         if (! $this->argument('workspace')) {
             $this->alert("Refreshing Shared");
             $this->call("migrate:fresh", [
-                '--database' => 'shared',
-                '--path' => config('database.shared_migrations'),
+                '--database' => config('tenant.shared_connnection_name'),
+                '--path' => config('tenant.shared_migrations'),
                 '--step' => true
             ]);
         }
@@ -41,8 +44,7 @@ class Explode extends Command
             $tenant = TenantRepository::getBySlug($this->argument('workspace'));
             AccountRepository::getById($tenant->account_id);
 
-            $tenant = new DBHelper($this->argument('workspace'));
-            $tenant->drop();
+            TenantDB::drop($this->argument('workspace'));
 
             $this->alert("Data go :boom:");
         }
@@ -50,10 +52,9 @@ class Explode extends Command
         if ($this->option('all')) {
             $this->alert ("Dropping all workspaces");
 
-            $tenants = new DBHelper();
-            $tenants->each(function($tenant) {
+            TenantDB::allTenants()->each(function($tanant) {
                 $this->alert("Dropping {$tenant->slug}");
-                $tenant->drop();
+                TenantDB::drop($tenant);
             });
 
             $this->alert("Data go :boom:");

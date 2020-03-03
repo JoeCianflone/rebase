@@ -16,11 +16,14 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('address1');
-            $table->string('address2')->nullable();
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
+            $table->string('line1');
+            $table->string('line2')->nullable();
+            $table->string('line3')->nullable();
+            $table->string('unit_number')->nullable();
+            $table->string('locality');
+            $table->string('region');
+            $table->string('postal_code');
+            $table->string('country');
             $table->boolean('has_agreed_to_terms')->default(false);
 
             $table->string('stripe_id')->nullable()->index();

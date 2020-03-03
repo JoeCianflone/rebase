@@ -57,16 +57,18 @@ class DBHelper
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     public function getAllKeys(): Collection
     {
-        $workspaces = collect(DB::select("SHOW DATABASES LIKE '{$this->prefix}%'"));
+        $prefix = config('database.name_prefix');
+
+        $workspaces = collect(DB::select("SHOW DATABASES LIKE '{$prefix}%'"));
 
         return $workspaces->flatMap(function($item) {
             return collect($item)->flatten();
         })->map(function($item) {
-            return str_replace($this->prefix, '', $item);
+            return str_replace($prefix, '', $item);
         });
     }
 
