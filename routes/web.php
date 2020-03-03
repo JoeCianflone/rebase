@@ -7,4 +7,3 @@ Route::get('/', Dashboard\IndexDashboardController::class);
 Route::post('/', Dashboard\IndexDashboardController::class);
 
 // /users
-Route::get(UserResource::link('index'), Dashboard\IndexDashboardController::class);
