@@ -2,18 +2,17 @@
 
 namespace App\Domain\Models;
 
+use App\Domain\Models\Account;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Banlist extends Model
+class Listing extends Model
 {
     /** @var string */
     protected $connection = 'shared';
 
     /** @var array */
     protected $guarded = [];
-
-    /** @var string */
-    protected $table = 'banlist';
 
     /** @var array */
     protected $dates = [
@@ -22,5 +21,12 @@ class Banlist extends Model
     ];
 
     /** @var array */
-    protected $casts = [ ];
+    protected $casts = [
+        'account_id' => 'uuid'
+    ];
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

@@ -4,16 +4,16 @@ namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Banlist extends Model
+class {{classname}} extends Model
 {
     /** @var string */
-    protected $connection = 'shared';
+    protected $connection = '{{type}}';
+
+    /** @var bool */
+    public $incrementing = false;
 
     /** @var array */
     protected $guarded = [];
-
-    /** @var string */
-    protected $table = 'banlist';
 
     /** @var array */
     protected $dates = [

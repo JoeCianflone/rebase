@@ -6,41 +6,36 @@ use App\Enums\UserRole;
 use App\Domain\Models\Workspace;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
-    public bool $incrementing = false;
+    /** @var bool */
+    public $incrementing = false;
 
-    protected string $connection = 'workspace';
+    /** @var string */
+    protected $connection = 'workspace';
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected array $fillable = [
-        'name', 'email', 'password',
-    ];
+    /** @var array */
+    protected $guarded = [ ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     */
-    protected array $hidden = [
+    /** @var array */
+    protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     */
-    protected array $casts = [
+    /** @var array */
+    protected $casts = [
         'id' => 'uuid',
         'workspace_id' => 'uuid',
         'email_verified_at' => 'datetime',
     ];
 
-    public function workspace(): self
+    public function workspace(): HasOne
     {
-       return $this->hasOne(Workspace::class);
+        return $this->hasOne(Workspace::class);
     }
 }

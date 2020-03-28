@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBHelper;
+use App\Helpers\DBWorkspace;
+use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
-use App\Domain\Repositories\Facades\TenantRepository;
+use Illuminate\Database\Eloquent\Model;
+use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunMigration extends Command
 {
-
-    protected $signature = 'rebase:migrate {workspace?} {--all} {--workspaces} {--no-shared}';
+    protected $signature = 'db:migrate {workspace?} {--all} {--workspaces} {--no-shared}';
 
     protected $description = 'Runs all the migrations';
 
@@ -18,45 +19,44 @@ class RunMigration extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         if (! $this->option('no-shared')) {
-            $this->callMigration('shared', config('database.shared_migrations'));
+            $this->callMigration('shared', config('multi-database.shared.migration_path'));
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $tenants = TenantRepository::getAll();
+            $tenants = ListingRepository::getAll();
 
-            $tenants->each(function($tenant) {
+            $tenants->each(function ($tenant) {
                 $this->migrateTenant($tenant);
             });
         }
 
         if ($this->argument('workspace')) {
-            $tenant = TenantRepository::getBySlug($this->argument('workspace'));
+            $tenant = ListingRepository::getBySlug($this->argument('workspace'));
 
             $this->migrateTenant($tenant);
         }
-
     }
 
-    private function migrateTenant($tenant)
+    /**
+     * @param Model|Listing $tenant
+     */
+    private function migrateTenant($tenant): void
     {
-        $connection = new DBHelper($tenant->account_id);
-
-        if (!$connection->exists()) {
+        if (! DBWorkspace::exists($tenant->account_id)) {
             $this->info("Connection does not exist...creating");
-            $connection->create();
+            DBWorkspace::create($tenant->account_id);
         }
 
-        $connection->connect();
+        DBWorkspace::connect($tenant->account_id);
 
         $this->info("Starting Migration for: {$tenant->slug}");
-        $this->callMigration('workspace', config('database.workspace_migrations'));
-        $this->info("Starting Migration for: {$tenant->slug}");
+        $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
     }
 
-    private function callMigration($conn, $path)
+    private function callMigration(string $conn, string $path): void
     {
         $this->call("migrate", [
             '--database' => $conn,

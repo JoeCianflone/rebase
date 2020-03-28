@@ -4,20 +4,19 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 
-class NewView extends GeneratorCommand
+class NewView extends FileCommand
 {
-
-    protected $signature = 'rebase:view {service} {name} {--controller} {--singular}';
+    protected $signature = 'make:view {name} {--controller} {--singular}';
 
     protected $description = 'Stub out a view and controller file';
 
     public function __construct()
     {
         parent::__construct();
-        $this->path = "/resources/js/Pages/";
+        $this->path = config('app-paths.views');
     }
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->option('singular')) {
             $this->path .= Str::singular($this->argument('service'));
@@ -40,6 +39,5 @@ class NewView extends GeneratorCommand
                 "--singular" => $this->option('singular'),
             ]);
         }
-
     }
 }

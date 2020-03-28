@@ -8,7 +8,7 @@ class BaseMiddleware
 {
     protected array $except = [];
 
-    public function shouldIgnore($path): int
+    public function shouldIgnore(string $path): bool
     {
         if (count($this->except) <= 0) {
             return false;
@@ -21,29 +21,6 @@ class BaseMiddleware
 
         $regex = '#'.$beginning . $words . $end .'#';
 
-        return preg_match($regex, $path);
-    }
-
-    public function getTLD($request): ?string
-    {
-        if ($request->get('workspace')) {
-            return $request->get('workspace');
-        }
-
-        $parts = explode('.',$request->getHost());
-
-        if (count($parts) <= 2 || (count($parts) > 2 && strtolower($parts[0]) === 'www')) {
-            // We're going to look and see if a CNAME is set
-            return $this->checkForCNAME($parts);
-        } else {
-            return $parts[0];
-        }
-
-        return null;
-    }
-
-    private function checkForCNAME(array $hostParts): ?string
-    {
-        return null;
+        return preg_match($regex, $path) > 0;
     }
 }

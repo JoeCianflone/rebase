@@ -4,9 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class CompileAssets extends Command
+class AssetsCompile extends Command
 {
-    protected $signature = 'rebase:compile {--production}';
+    protected $signature = 'assets:compile {--production}';
 
     protected $description = 'Run the compile commands';
 

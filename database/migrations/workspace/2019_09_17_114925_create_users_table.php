@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('workspace_id');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['super', 'owner', 'admin', 'worker', 'elevated', 'member', 'access'])->default(UserRole::MEMBER());
@@ -29,8 +30,6 @@ class CreateUsersTable extends Migration
                   ->references('id')
                   ->on('workspaces')
                   ->onCascade('delete');
-
-            $table->timestamps();
         });
     }
 

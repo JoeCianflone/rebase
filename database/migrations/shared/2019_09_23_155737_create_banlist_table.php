@@ -13,7 +13,7 @@ class CreateBanlistTable extends Migration
      */
     public function up()
     {
-        Schema::create('Banlist', function (Blueprint $table) {
+        Schema::create('banlist', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->index();
             $table->text('description')->nullable();

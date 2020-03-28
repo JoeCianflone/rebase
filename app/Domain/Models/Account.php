@@ -2,31 +2,37 @@
 
 namespace App\Domain\Models;
 
-use App\Domain\Models\Tenant;
 use Laravel\Cashier\Billable;
+use App\Domain\Models\Listing;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
     use Billable;
 
-    public bool $incrementing = false;
+    /** @var string */
+    protected $connection = 'shared';
 
-    protected string $connection = 'shared';
+    /** @var bool */
+    public $incrementing = false;
 
-    protected array $guarded = [];
+    /** @var array */
+    protected $guarded = [];
 
-    protected array $dates = [
+    /** @var array */
+    protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    protected array $casts = [
+    /** @var array */
+    protected $casts = [
         'id' => 'uuid'
     ];
 
-    public function tenant(): self
+    public function listings(): HasMany
     {
-        return $this->hasOne(Tenant::class);
+        return $this->hasMany(Listing::class);
     }
 }

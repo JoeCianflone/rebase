@@ -1,6 +1,8 @@
 <?php
 namespace App\Domain\Repositories;
 
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +17,20 @@ class EloquentRepository
         return $this->model->all();
     }
 
+    public function generateUUID(): string
+    {
+        return Str::uuid()->toString();
+    }
+
+    public function make(array $request): Model
+    {
+        collect($this->model)->map(function ($key, $value) {
+            $this->model->{$key} = $value;
+        });
+
+        return $this->model;
+    }
+
     public function create(array $request): Model
     {
         return $this->model->create(array_merge($request, $this->withData));
@@ -24,7 +40,7 @@ class EloquentRepository
     {
         if (count($this->withData) > 0) {
             foreach ($this->withData as $key => $value) {
-                $model[$key] = $value;
+                $model->{$key} = $value;
             }
         }
 
@@ -34,8 +50,7 @@ class EloquentRepository
     }
 
     /**
-     * @param int|Ramsey\Uuid\Uuid $id
-     * @param array $update
+     * @param int|\Ramsey\Uuid\Uuid $id
      * @return void
      */
     public function update($id): void
@@ -64,12 +79,8 @@ class EloquentRepository
         return $this;
     }
 
-    /**
-     * @param int|Ramsey\Uuid\Uuid $id
-     * @return void
-     */
-    public function remove($id): void
+    public function remove(Model $model): void
     {
-        $this->model->destroy($id);
+        $model->delete();
     }
 }

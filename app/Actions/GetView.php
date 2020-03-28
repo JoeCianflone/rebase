@@ -17,13 +17,22 @@ class GetView
     const CONTROLLER_FOLDER = "Controllers\\";
     const CONTROLLER_SUFFIX = "Controller";
 
-    public static function execute($class)
+    public static function execute(object $class): string
     {
         $refClass = new ReflectionClass($class);
 
-        return str_replace(self::CONTROLLER_SUFFIX, '',
-                    str_replace('\\', '/',
-                        str_replace(self::SERVICES_PATH, '',
-                            str_replace(self::CONTROLLER_FOLDER, '', $refClass->name))));
+        return str_replace(
+            self::CONTROLLER_SUFFIX,
+            '',
+            str_replace(
+                        '\\',
+                        '/',
+                        str_replace(
+                            self::SERVICES_PATH,
+                            '',
+                            str_replace(self::CONTROLLER_FOLDER, '', $refClass->name)
+                        )
+                    )
+        );
     }
 }

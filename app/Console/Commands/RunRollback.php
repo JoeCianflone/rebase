@@ -2,58 +2,65 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\DBWorkspace;
+use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
+use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunRollback extends Command
 {
+    protected $signature = 'db:rollback
+                                  {workspace?}
+                                  {--all}
+                                  {--step=1}
+                                  {--workspaces}';
 
-    protected $signature = 'rebase:rollback {workspace?} {--all} {--step=1} {--workspaces}';
-
-    protected $description = 'Command description';
+    protected $description = 'Roll back migrations';
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->option('all')) {
-            $this->callMigration('shared', config('database.shared_migrations'));
+            $this->callMigration('shared', config('multi-database.shared.migration_path'));
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $tenants = TenantRepository::getAll();
+            $listings = ListingRepository::getAll();
 
-            $tenants->each(function($tenant) {
-                $this->migrateTenant($tenant);
+            $listings->each(function ($listing) {
+                $this->migrateWorkspace($listing);
             });
         }
 
         if ($this->argument('workspace')) {
-            $tenant = TenantRepository::getBySlug($this->argument('workspace'));
+            $listing = ListingRepository::getBySlug($this->argument('workspace'));
 
-            $this->migrateTenant($tenant);
+            $this->migrateWorkspace($listing);
         }
     }
 
-    private function migrateTenant($tenant)
+    /**
+     * @param Model|Listing $listing
+     */
+    private function migrateWorkspace($listing): void
     {
-        $connection = new DBHelper($tenant->account_id);
-
-        if (!$connection->exists()) {
+        if (!DBWorkspace::exists($listing->account_id)) {
             $this->info("Connection does not exist...creating");
-            $connection->create();
+            DBWorkspace::create($listing->account_id);
         }
 
-        $connection->connect();
+        DBWorkspace::connect($listing->account_id);
 
-        $this->info("Starting Rollback for: {$tenant->slug}");
-        $this->callMigration('workspace', config('database.workspace_migrations'));
-        $this->info("Starting Rollback for: {$tenant->slug}");
+        $this->info("Starting Rollback for: {$listing->slug}");
+        $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
     }
 
-    private function callMigration($conn, $path)
+    private function callMigration(string $conn, string $path): void
     {
         $this->call("migrate:rollback", [
             '--database' => $conn,

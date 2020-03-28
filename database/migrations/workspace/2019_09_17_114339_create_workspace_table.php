@@ -13,15 +13,10 @@ class CreateWorkspaceTable extends Migration
      */
     public function up()
     {
-        Schema::create('workspace', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->uuid('workspace_id');
+        Schema::create('workspaces', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('account_id');
             $table->string('slug')->unique()->index();
-
-            $table->foreign('workspace_id')
-                  ->references('id')
-                  ->on('workspaces')
-                  ->onCascade('delete');
 
             $table->timestamps();
         });

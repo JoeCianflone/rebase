@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class InertiaServiceProvider extends ServiceProvider
@@ -14,32 +16,26 @@ class InertiaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Inertia::version(function () {
-            return md5_file(public_path('mix-manifest.json'));
-        });
+        Inertia::version(fn(): ?string => md5_file(public_path('mix-manifest.json')) ?: null );
 
-
-
-        Inertia::share('auth.user', function () {
-            if (Auth::user()) {
-                return [
-                    'id' => Auth::user()->id,
-                    'name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                ];
-            }
-        });
+        // Inertia::share('auth.user', function () {
+        //     if (Auth::user()) {
+        //         return [
+        //             'id' => Auth::user()->id,
+        //             'name' => Auth::user()->name,
+        //             'email' => Auth::user()->email,
+        //         ];
+        //     }
+        // });
 
         Inertia::share([
-            'app' => [ ],
+            'app' => [],
             'flash' => [
-                'success' => function() { return Session::get('success'); },
-                'alert' => function() { return Session::get('alert'); },
-                'message' => function() { return Session::get('message'); },
+                'success' => fn(): Session => Session::get('success'),
+                'alert'   => fn(): Session => Session::get('alert'),
+                'message' => fn(): Session => Session::get('message'),
             ],
-
         ]);
-
     }
 
     /**

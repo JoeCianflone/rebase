@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Facade;
 
 class BanlistRepository extends Facade
 {
-
-    protected static function getFacadeAccessor(): string { return 'BanlistRepository'; }
+    protected static function getFacadeAccessor(): string
+    {
+        return 'BanlistRepository';
+    }
 }

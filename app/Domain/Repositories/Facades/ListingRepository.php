@@ -3,10 +3,10 @@ namespace App\Domain\Repositories\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class WorkspaceRepository extends Facade
+class ListingRepository extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'WorkspaceRepository';
+        return 'ListingRepository';
     }
 }

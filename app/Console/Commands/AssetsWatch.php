@@ -4,22 +4,20 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class WatchAssets extends Command
+class AssetsWatch extends Command
 {
+    protected $signature = 'assets:watch';
 
-    protected $signature = 'rebase:watch';
-
-    protected $description = 'Run the watcher';
+    protected $description = 'Run the watcher, this really only exists on the chance the asset pipeline gets complex';
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         passthru("rm -Rf public/assets");
-        passthru("rm resources/js/ziggy.js");
 
         $this->info("Cleanup...\n");
         passthru("yarn run watch");

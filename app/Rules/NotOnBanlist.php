@@ -26,7 +26,7 @@ class NotOnBanlist implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !BanlistRepository::hasSlug($value);
+        return ! BanlistRepository::hasSlug($value);
     }
 
     /**

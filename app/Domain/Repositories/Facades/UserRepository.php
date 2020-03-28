@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Facade;
 
 class UserRepository extends Facade
 {
-
-    protected static function getFacadeAccessor(): string { return 'UserRepository'; }
+    protected static function getFacadeAccessor(): string
+    {
+        return 'UserRepository';
+    }
 }

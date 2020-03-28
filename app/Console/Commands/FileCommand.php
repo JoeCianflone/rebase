@@ -6,22 +6,21 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
-abstract class GeneratorCommand extends Command
+abstract class FileCommand extends Command
 {
-
-    protected $path = "";
+    protected string $path = "";
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    abstract public function handle();
+    abstract public function handle(): void;
 
 
-    protected function getStub(string $type): string
+    protected function getStub(string $type): ?string
     {
-        return rtrim(file_get_contents(base_path("stubs/$type.stub")));
+        return rtrim(file_get_contents(base_path("stubs/$type.stub"))) ?? null;
     }
 
     protected function replaceStubParts(string $stub, ?Collection $replacements = null): string
@@ -44,7 +43,7 @@ abstract class GeneratorCommand extends Command
 
     protected function ucDeconstructPath(string $path): array
     {
-        $pathParts = collect(explode('/', $path))->map(function($item) {
+        $pathParts = collect(explode('/', $path))->map(function ($item) {
             return ucwords($item);
         });
 
@@ -55,12 +54,12 @@ abstract class GeneratorCommand extends Command
     {
         $className = array_pop($parts);
         $namespace = trim(implode("\\", $parts), "\\");
-        $path = trim(str_replace("\\", "/",$namespace), "/");
+        $path = trim(str_replace("\\", "/", $namespace), "/");
 
         return [$className, $namespace, $path];
     }
 
-    protected function toDisk($name, $stub)
+    protected function toDisk(string $name, string $stub): bool
     {
         $disk = Storage::disk('console');
         $file = "{$this->path}/{$name}";
@@ -75,5 +74,6 @@ abstract class GeneratorCommand extends Command
 
         $disk->put($file, $stub);
 
+        return true;
     }
 }

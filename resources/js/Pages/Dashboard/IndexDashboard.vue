@@ -1,42 +1,39 @@
 <script>
-import Layout from '@/Templates/Master';
+import Layout from "@/Templates/Master";
 
 export default {
-    layout: Layout,
-    metaInfo: { title: 'Title' },
+  layout: Layout,
+  metaInfo: { title: "Title" },
 
-    components: {},
+  components: {},
 
-    data: () => ({
-        form: {
-            id: 1,
-            name: 'Joe Cianflone',
-            email: 'joe@cianflone.co',
-        }
-    }),
+  data: () => ({
+    form: {
+      id: 1,
+      name: "Joe Cianflone",
+      email: ""
+    }
+  }),
 
-    props: {
-        user: Object
-    },
+  props: {
+    user: Object
+  },
 
-    methods: {
-        test() {
-            this.$inertia.post('/', this.form)
-                         .then(() => this.sending = false );
-        }
-    },
-}
+  methods: {
+    test() {
+      this.$inertia.post("/", this.form).then(() => (this.sending = false));
+    }
+  }
+};
 </script>
 
 <template>
-    <div>
-        <button @click="test">Test</button>
+  <div>
+    <button @click="test">Test</button>
 
-        <span v-if="user"> {{user.data[0].email}} </span>
-
-    </div>
+    <span v-if="user">{{user.data[0].email}}</span>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-
 </style>

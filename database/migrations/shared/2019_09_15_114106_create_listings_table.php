@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTenantsTable extends Migration
+class CreateListingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateTenantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tenants', function (Blueprint $table) {
+        Schema::create('listings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('account_id');
-            $table->string('slug')->unique();
-            $table->boolean('uses_cname')->default(false);
-            $table->string("db_connection")->nullable()->index()->unique();
+            $table->uuid('workspace_id')->index()->unique();
+            $table->string('slug')->index()->unique();
+            $table->string('domain')->nullable()->index()->unique();
             $table->boolean('is_active')->default(true);
+
             $table->timestamps();
 
             $table->foreign('account_id')
@@ -36,6 +37,6 @@ class CreateTenantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('listings');
     }
 }
