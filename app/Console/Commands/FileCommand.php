@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,6 @@ abstract class FileCommand extends Command
     }
 
     abstract public function handle(): void;
-
 
     protected function getStub(string $type): ?string
     {
@@ -36,9 +36,13 @@ abstract class FileCommand extends Command
         return $hydratedStub;
     }
 
-    protected function flipSlashes(string $path): string
+    protected function flipSlashes(string $str, bool $reverse = false): string
     {
-        return str_replace('\\', '/', $path);
+        if ($reverse) {
+            return str_replace('/', '\\', $str);
+        }
+
+        return str_replace('\\', '/', $str);
     }
 
     protected function ucDeconstructPath(string $path): array
@@ -75,5 +79,21 @@ abstract class FileCommand extends Command
         $disk->put($file, $stub);
 
         return true;
+    }
+
+    protected function setPath($singular, $folder): string
+    {
+        if ($singular) {
+            $folder = "/" . Str::singular($folder);
+        } else {
+            $folder = "/" . Str::plural($folder);
+        }
+
+        return $folder;
+    }
+
+    protected function setFileName(string $folder, string $name): string
+    {
+        return Str::singular($this->argument('folder')) . Str::singular($this->argument('name'));
     }
 }

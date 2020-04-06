@@ -25,14 +25,14 @@ class GetView
             self::CONTROLLER_SUFFIX,
             '',
             str_replace(
-                        '\\',
-                        '/',
-                        str_replace(
-                            self::SERVICES_PATH,
-                            '',
-                            str_replace(self::CONTROLLER_FOLDER, '', $refClass->name)
-                        )
-                    )
+                '\\',
+                '/',
+                str_replace(
+                    self::SERVICES_PATH,
+                    '',
+                    str_replace(self::CONTROLLER_FOLDER, '', $refClass->name)
+                )
+            )
         );
     }
 }

@@ -4,11 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 
-class NewView extends FileCommand
+class MakeView extends FileCommand
 {
-    protected $signature = 'make:view {name} {--controller} {--singular}';
+    protected $signature = 'make:view {folder : path to the view file, will be in Pages}
+                                      {name : name of the view file}
+                                      {--singular}
+                                      {--controller : scaffold out a controller using the same view information}';
 
-    protected $description = 'Stub out a view and controller file';
+    protected $description = 'Stub out a view file';
 
     public function __construct()
     {
@@ -18,23 +21,18 @@ class NewView extends FileCommand
 
     public function handle(): void
     {
-        if ($this->option('singular')) {
-            $this->path .= Str::singular($this->argument('service'));
-        } else {
-            $this->path .= Str::plural($this->argument('service'));
-        }
-
-        $realViewName = Str::singular($this->argument('name')) . Str::singular($this->argument('service'));
-        $realFileName = "{$realViewName}.vue";
+        $this->path  .= $this->setPath($this->option('singular'), $this->argument('folder'));
+        $fileName     = $this->setFileName($this->argument('folder'), $this->argument('name'));
+        $fullFileName = "{$fileName}.vue";
 
         $stub = $this->replaceStubParts($this->getStub('View'));
 
-        $this->toDisk("{$realFileName}", $stub);
+        $this->toDisk("{$fullFileName}", $stub);
         $this->info("View created");
 
         if ($this->option('controller')) {
-            $this->call("rebase:controller", [
-                "service" => $this->argument('service'),
+            $this->call("make:controller", [
+                "folder" => $this->argument('folder'),
                 "name" => $this->argument('name'),
                 "--singular" => $this->option('singular'),
             ]);

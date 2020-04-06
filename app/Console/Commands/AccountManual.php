@@ -41,6 +41,11 @@ class AccountManual extends Command
 
     public function handle(): void
     {
+        if (app()->environment() !== 'local') {
+            $this->error("This command only runs in local environments");
+            exit();
+        }
+
         $accountName = $this->ask("Account Name (required)");
         $slug = $this->ask("Slug (required)");
 
