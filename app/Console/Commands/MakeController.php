@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
+use App\Helpers\FileGenerator;
+use Illuminate\Console\Command;
 
-class MakeController extends FileCommand
+class MakeController extends Command
 {
     protected $signature = 'make:controller {folder : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
                                             {name : name for the controller file itself}
@@ -16,24 +18,25 @@ class MakeController extends FileCommand
     public function __construct()
     {
         parent::__construct();
-        $this->path = config('app-paths.controllers');
     }
 
     public function handle(): void
     {
-        $this->path  .= $this->setPath($this->option('singular'), $this->argument('folder'));
-        $fileName     = $this->setFileName($this->argument('folder'), $this->argument('name'));
-        $fullFileName = "{$fileName}.php";
+        $file = new FileGenerator(config('app-paths.controllers'), $this->option('singular'));
 
-        $namespace = Str::ucfirst(str_replace("/", "\\", $this->path));
+        $file->setFolder($this->argument('folder'));
+        $file->setName($this->argument('name'), '.php');
 
-        $stub = $this->replaceStubParts($this->getStub('Controller'), collect([
-            "{{class}}" => $fileName,
-            "{{namespace}}" => $namespace
+        $hydratedFile = $file->hydrateStub('Controller', collect([
+            "{{class}}" => $file->getFilename(false),
+            "{{namespace}}" => $file->getNamespace(),
         ]));
 
-        $this->toDisk("{$fullFileName}", $stub);
-        $this->info("Controller created");
+        if ($file->toDisk($hydratedFile)) {
+            $this->info("Controller created");
+        } else {
+            $this->error("File already exists");
+        }
 
         if ($this->option('view')) {
             $this->call("make:view", [

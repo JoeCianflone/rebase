@@ -82,6 +82,7 @@ Some of these commands are overrides of standard Laravel commands and some of th
 
 | Command | Description |
 | --- | --- |
+| `make:domain` | Generates the `nginx.conf` file for a custom domain and SSL certs |
 | `make:model` | Generates a model |
 | `make:controller` | Generates a controller |
 | `make:view` | Generates an Inertia view file |
@@ -126,3 +127,7 @@ You don't _need_ folders, but logical/physical separation can help if you have a
 ## Sub Domain
 
 Sub-domain routing ready to go out-of-the-box. I'll put some more stuff here soon.
+
+## Custom Domains
+
+These will work out-of-the-box too now. You'll need to make sure `certbot` is set up on your server so that can handle the whole process of cert setup and renewal. I'll put more info up here soon, but this all works for `nginx` only. I only use that so I have no plans on supporting something else

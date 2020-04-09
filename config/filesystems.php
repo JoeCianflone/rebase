@@ -61,6 +61,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'root' => [
+            'driver' => 'local',
+            'root' => '/',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

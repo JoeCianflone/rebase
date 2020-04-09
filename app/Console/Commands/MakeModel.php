@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\FileGenerator;
 use Illuminate\Console\Command;
-use App\Console\Commands\FileCommand;
 
-class MakeModel extends FileCommand
+class MakeModel extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:model {file} {--shared}';
+    protected $signature = 'make:model {name} {--shared}';
 
     /**
      * The console command description.
@@ -29,23 +29,22 @@ class MakeModel extends FileCommand
     public function __construct()
     {
         parent::__construct();
-        $this->path = config('app-paths.models');
     }
 
     public function handle(): void
     {
-        $fileName = $this->argument('file');
-        $stub = $this->replaceStubParts($this->getStub('Model'), collect([
-            "{{classname}}" => $fileName,
+        $file = new FileGenerator(config('app-paths.models'));
+        $file->setName($this->argument('name'), '.php');
+
+        $hydratedFile = $file->hydrateStub('Model', collect([
+            "{{classname}}" => $file->getFilename(false),
             "{{type}}" => $this->option('shared') ? 'shared' : 'workspace',
         ]));
 
-        $fileName = "{$fileName}.php";
-
-        if ($this->toDisk($fileName, $stub)) {
+        if ($file->toDisk($hydratedFile)) {
             $this->info("Model created");
         } else {
-            $this->info("Model creation halted");
+            $this->error("File already exists");
         }
     }
 }

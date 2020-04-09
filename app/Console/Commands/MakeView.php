@@ -3,8 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
+use App\Helpers\FileGenerator;
+use Illuminate\Console\Command;
 
-class MakeView extends FileCommand
+class MakeView extends Command
 {
     protected $signature = 'make:view {folder : path to the view file, will be in Pages}
                                       {name : name of the view file}
@@ -16,19 +18,21 @@ class MakeView extends FileCommand
     public function __construct()
     {
         parent::__construct();
-        $this->path = config('app-paths.views');
     }
 
     public function handle(): void
     {
-        $this->path  .= $this->setPath($this->option('singular'), $this->argument('folder'));
-        $fileName     = $this->setFileName($this->argument('folder'), $this->argument('name'));
-        $fullFileName = "{$fileName}.vue";
+        $file = new FileGenerator(config('app-paths.views'), $this->option('singular'));
 
-        $stub = $this->replaceStubParts($this->getStub('View'));
+        $file->setFolder($this->argument('folder'));
+        $file->setName($this->argument('name'), '.vue');
 
-        $this->toDisk("{$fullFileName}", $stub);
-        $this->info("View created");
+        $hydratedFile = $file->hydrateStub('View');
+        if ($file->toDisk($hydratedFile)) {
+            $this->info("View created");
+        } else {
+            $this->error("File already exists");
+        }
 
         if ($this->option('controller')) {
             $this->call("make:controller", [
