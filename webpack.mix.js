@@ -5,22 +5,10 @@ const imageminPlugin = require('imagemin-webpack-plugin').default;
 const copyWebpackPlugin = require('copy-webpack-plugin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 
-// Folders
-const INPUT_SASS ='resources/css';
-const INPUT_JS = 'resources/js'
-const INPUT_FONTS = 'resources/fonts'
-const INPUT_IMAGES = 'resources/images'
-const INPUT_FILES = 'resources/files'
-
-const OUTPUT_JS = 'public/assets/js';
-const OUTPUT_CSS = 'public/assets/css';
-const OUTPUT_FONTS = 'public/assets/fonts';
-const OUTPUT_IMAGES = 'public/assets/images';
-const OUTPUT_FILES = 'public/assets/files';
 
 mix
-    .sass(`${INPUT_SASS}/app.scss`, OUTPUT_CSS)
-    .js(`${INPUT_JS}/app.js`, OUTPUT_JS)
+    .sass(`${process.env.MIX_INPUT_STYLE}/app.scss`, process.env.MIX_OUTPUT_STYLE)
+    .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
     .options({
         processCssUrls: false,
         postCss: [
@@ -44,22 +32,22 @@ mix
         resolve: {
             alias: {
                 'vue$': 'vue/dist/vue.runtime.esm.js',
-                '@': path.resolve(INPUT_JS),
+                '@': path.resolve(process.env.MIX_INPUT_JS),
             },
         },
         plugins: [
             new LiveReloadPlugin(),
             new copyWebpackPlugin([{
-                from: INPUT_IMAGES,
-                to: OUTPUT_IMAGES
+                from: process.env.MIX_INPUT_IMAGES,
+                to: process.env.MIX_OUTPUT_IMAGES
             }]),
             new copyWebpackPlugin([{
-                from: INPUT_FONTS,
-                to: OUTPUT_FONTS
+                from: process.env.MIX_INPUT_FONTS,
+                to: process.env.MIX_OUTPUT_FONTS
             }]),
             new copyWebpackPlugin([{
-                from: INPUT_FILES,
-                to: OUTPUT_FILES
+                from: process.env.MIX_INPUT_FILES,
+                to: process.env.MIX_OUTPUT_FILES
             }]),
             new imageminPlugin({
                 test: /\.(jpe?g|png|gif|svg)$/i,

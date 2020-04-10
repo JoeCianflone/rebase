@@ -5,6 +5,7 @@
 /vendor
 .cache
 /public/assets
+/public/mix-*
 .env
 .env.backup
 .phpunit.result.cache
