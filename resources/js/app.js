@@ -3,12 +3,14 @@ import PortalVue from "portal-vue"
 import VueMeta from "vue-meta"
 
 import Vue from "vue"
+import VueCompositionApi from "@vue/composition-api"
 
 Vue.config.productionTip = false
 
 Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
+Vue.use(VueCompositionApi)
 
 let app = document.getElementById("app")
 

@@ -1,48 +1,48 @@
 @function line-height($pxFont) {
-    @return $pxFont / $font-base;
+   @return $pxFont / $font-base;
 }
 
 @function rem($pxFont) {
-    @return (($pxFont / $font-base)) * 1rem;
+   @return (($pxFont / $font-base)) * 1rem;
 }
 
 @function fluid-font($min-size, $max-size) {
-    @return calc(#{$min-size} + (#{$max-size} - #{$min-size}) * (100vw - #{$browser-min-size}) / (#{$browser-max-size} - #{$browser-min-size}));
+   @return calc(#{$min-size} + (#{$max-size} - #{$min-size}) * (100vw - #{$browser-min-size}) / (#{$browser-max-size} - #{$browser-min-size}));
 }
 
 @function transition($items...) {
-    $x: null;
+   $x: null;
 
-    @each $item in $items {
-        @if ($x == null) {
-            $x: "#{$x} #{$item} #{$animation-normal}";
-        } @else {
-            $x: "#{$x}, #{$item} #{$animation-normal}";
-        }
-    }
+   @each $item in $items {
+      @if ($x == null) {
+         $x: '#{$x} #{$item} #{$animation-normal}';
+      } @else {
+         $x: '#{$x}, #{$item} #{$animation-normal}';
+      }
+   }
 
-    @return unquote($x);
+   @return unquote($x);
 }
 
 @function str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
+   $index: str-index($string, $search);
 
-    @if $index {
-        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-    }
+   @if $index {
+      @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+   }
 
-    @return $string;
+   @return $string;
 }
 
 
 @function column-value($cols) {
-    @if ($cols != 'auto' or $cols != auto) {
-        @return $cols * $block-width;
-    }
+   @if ($cols != 'auto' or $cols != auto) {
+      @return $cols * $block-width;
+   }
 
-    @return $cols;
+   @return $cols;
 }
 
 @function offset-value($cols) {
-    @return calc((#{$cols} * #{$block-width}) + (#{$grid-gutter} / 2));
+   @return calc((#{$cols} * #{$block-width}) + (#{$grid-gutter} / 2));
 }

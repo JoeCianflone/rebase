@@ -25,10 +25,11 @@ export default {
 }
 </script>
 
+<style lang="scss">
+</style>
+
 <template>
-   <div>
-      <button @click="test">Test</button>
-   </div>
+   <div></div>
 </template>
 
-<style lang="scss" scoped></style>
+

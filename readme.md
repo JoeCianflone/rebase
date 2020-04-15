@@ -131,3 +131,17 @@ Sub-domain routing ready to go out-of-the-box. I'll put some more stuff here soo
 ## Custom Domains
 
 These will work out-of-the-box too now. You'll need to make sure `certbot` is set up on your server so that can handle the whole process of cert setup and renewal. I'll put more info up here soon, but this all works for `nginx` only. I only use that so I have no plans on supporting something else
+
+# Front End Resources
+
+Rebase uses Vue and InertiaJS for the front end, not Blade. Since Inertia does work with React and other front ends, it is possible to use something else, if necessary, but the baseline components will be built using VueJS. This uses Laravel Mix because this is really just Laravel with some conventions spelled out, Laravel uses Mix by default so, so does Rebase.
+
+## InertiaJS & VueJS
+
+We use Inertia because the mix of Vue/Blade files drives me crazy. I want everything in one place and I don't want to build a freaking SPA. Why? Too many hassles in my opinion, but inertia is sensible. It gives you the power of Laravel/PHP for the backend and Vue (or whatever) for the front.
+
+We still end up with a great separation of concerns because the controllers need to spit out data and the views handle it, so you don't end up doing anything stupid in the views.
+
+## Baseline CSS
+
+All CSS is styled via Sass. Check `app/resources/css` to see the folder structure. Styles are pre-processed with Sass and the resulting CSS is again processed with PostCSS. This allows us to use all the Sass-style goodness while also getting some interesting/useful plugins for optimizing our code via PostCSS. PostCSS is mostly used for optimization of code.

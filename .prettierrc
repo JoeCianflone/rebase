@@ -3,5 +3,13 @@
    "proseWrap": "never",
    "printWidth": 80,
    "semi": false,
-   "tabWidth": 3
+   "tabWidth": 3,
+   "overrides": [
+      {
+         "files": ["*.scss"],
+         "options": {
+            "singleQuote": true
+         }
+      }
+   ]
 }
