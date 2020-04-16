@@ -1,12 +1,9 @@
 @charset 'UTF-8';
-
-@import 'abstracts/abstracts';
-
-// @include debug(true);
-
-// Package is pulled in via Yarn and we use postcss-imports
-// to pull the code into our project. So if you're
-// wondering, no this isn't an HTTP request
 @import url('normalize.css/normalize.css');
 
-@import 'base/base';
+@import 'shared/abstracts/abstracts';
+@import 'app/variables';
+@import 'shared/baseline';
+
+@import 'shared/components/components';
+@import 'app/components/components';

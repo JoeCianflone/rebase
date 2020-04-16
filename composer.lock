@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18b752eef87b60b1cbf3a9cdd22c0fb7",
+    "content-hash": "73a009a073ce2a615716a701b6d0b9da",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -60,25 +60,26 @@
         },
         {
             "name": "brick/math",
-            "version": "0.8.14",
+            "version": "0.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "6f7a46b5c3d487b277f38fbd17df57d348cace8a"
+                "reference": "9b08d412b9da9455b210459ff71414de7e6241cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/6f7a46b5c3d487b277f38fbd17df57d348cace8a",
-                "reference": "6f7a46b5c3d487b277f38fbd17df57d348cace8a",
+                "url": "https://api.github.com/repos/brick/math/zipball/9b08d412b9da9455b210459ff71414de7e6241cd",
+                "reference": "9b08d412b9da9455b210459ff71414de7e6241cd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "ext-json": "*",
+                "php": "^7.1|^8.0"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "2.*",
-                "phpunit/phpunit": "7.*",
-                "vimeo/psalm": "3.*"
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^7.5.15|^8.5",
+                "vimeo/psalm": "^3.5"
             },
             "type": "library",
             "autoload": {
@@ -101,7 +102,7 @@
                 "brick",
                 "math"
             ],
-            "time": "2020-02-17T13:57:43+00:00"
+            "time": "2020-04-15T15:59:35+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -1111,12 +1112,12 @@
             "time": "2020-02-28T14:50:19+00:00"
         },
         {
-            "name": "joecianflone/inertia-resource",
+            "name": "joe-cianflone/inertia-resource",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:JoeCianflone/InertiaResource.git",
-                "reference": "80c6be4f0e49eca0895bef2ab539524508f5da57"
+                "reference": "7b05b44538a1ab919d438d65f7340108d52486c1"
             },
             "require": {
                 "illuminate/support": "^6.17|^7.0",
@@ -1132,7 +1133,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "JoeCianflone\\InertiaResource\\": "src"
+                    "JoeCianflone\\InertiaResource\\": "src/"
                 }
             },
             "license": [
@@ -1145,7 +1146,7 @@
                 }
             ],
             "description": "Simple Resource Thing",
-            "time": "2020-03-07T15:46:47+00:00"
+            "time": "2020-04-15T18:02:20+00:00"
         },
         {
             "name": "laravel/cashier",
@@ -7926,7 +7927,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "joecianflone/inertia-resource": 20
+        "joe-cianflone/inertia-resource": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

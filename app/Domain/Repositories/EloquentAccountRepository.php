@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace App\Domain\Repositories;
 
 use Ramsey\Uuid\Uuid;

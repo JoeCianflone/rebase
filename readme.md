@@ -142,6 +142,35 @@ We use Inertia because the mix of Vue/Blade files drives me crazy. I want everyt
 
 We still end up with a great separation of concerns because the controllers need to spit out data and the views handle it, so you don't end up doing anything stupid in the views.
 
-## Baseline CSS
+## Rebase CSS
 
 All CSS is styled via Sass. Check `app/resources/css` to see the folder structure. Styles are pre-processed with Sass and the resulting CSS is again processed with PostCSS. This allows us to use all the Sass-style goodness while also getting some interesting/useful plugins for optimizing our code via PostCSS. PostCSS is mostly used for optimization of code.
+
+### Structure
+
+The structure of the CSS has been optimized for sharing code between different applications while also allowing the app to make significant UI changes without affecting upstream systems (you still need to be careful when you pull in changes). Here's the structure:
+
+```
+   /css
+    - shared
+        - abstracts
+            - functions
+            - mixins
+        - baseline
+        - components
+    - app
+        - variables
+        - components
+```
+
+The `shared` folder contains all the things that upstream may update at some point. Abstracts are filled with global `mixins` and `functions` to help make your sass life a little easier. `baseline` is an override of some things that happen in `normalize.css`. Nothing too serious, but just some general things that I like that would probably not be appropriate for `normalize`. The `shared/components` will be for global component mixins. These can be wholesale overridden by components in `app/components`. The idea is to just start with _something_ that looks decent enough.
+
+The `app` folder is where application specific CSS will go. The `variables` file again gives you baseline things that you can update. But it's not recommend that you delete anything from this file as they could be used in default components. Feel free to override or augment as you see fit.
+
+#### Update Issues
+
+Looking at this the first time, you might see a potential issue that could arise: a `git pull upstream master` could, in theory, delete your `variables` file. This **is** a real possibility, but not likely. The baseline variables are kept in a `shared/abstracts/.variables` that file could change as we add more things, but once `rebase` goes into production, there will be no updates to the `_variables` file itself. All changes will be communicated down via the `.variables`. This allows developers to then pull in just the stuff they need.
+
+### Styles in `.vue` files or `.scss` files
+
+Put them where you feel comfortable, but be consistent for the project.
