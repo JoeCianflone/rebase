@@ -205,6 +205,14 @@ Put them where you feel comfortable, but be consistent for the project.
 
 Do not use flexbox for page-level layout. We use CSS Grids for the main aspects of all our pages. Flexbox should be used for things in **one** dimension--this means things like a navigation system, but not the container of the navigation system.
 
+## Packages we use, but are not included
+
+Running list of packages we don't include but have used and will use when the need comes up.
+
+-  `yarn add @popperjs/core` -- popup blocks
+-  `yarn add fuse.js` -- fuzzy search
+-
+
 # The rest is up to the project
 
 At this point, this feels like the most we can create on a global level. There may be other things as we go along, but we're not going to try and force out everything, we're going to grow the system organically. I know, that can sometimes lead to terrible things happening, but, I'm a gardener...no seriously...one rule I've learned about gardening is that weeds happen, you can put down all the barriers and mulch you want, they will find a way. If you assume your barriers will _always_ work your garden will be overrun within a year. You've gotta prune it.
