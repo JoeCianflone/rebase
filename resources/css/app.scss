@@ -1,8 +1,9 @@
 @charset 'UTF-8';
-@import url('normalize.css/normalize.css');
 
+@import url('normalize.css/normalize.css');
 @import 'shared/abstracts/abstracts';
-@import 'app/variables';
+
+@import 'app/variables'; // order is important, this is _exactly_ where it should be
 @import 'shared/baseline';
 
 @import 'shared/components/components';

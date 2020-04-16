@@ -44,7 +44,7 @@
    @if ($as-modifier) {
       @media (map-get($_mq, '#{$query}-and-up')) {
          &#{$query} {
-            @include q {
+            @include query {
                &#{$name} {
                   @content;
                }
@@ -54,7 +54,7 @@
    } @else {
       @media (map-get($_mq, '#{$query}-and-up')) {
          .#{$query} {
-            @include q {
+            @include query {
                &#{$name} {
                   @content;
                }
@@ -79,19 +79,19 @@
    }
 }
 
-@mixin e() {
-   &\: {
+@mixin element() {
+   &- {
       @content;
    }
 }
 
-@mixin p() {
-   &\| {
+@mixin property() {
+   &-- {
       @content;
    }
 }
 
-@mixin q() {
+@mixin query() {
    &\:\: {
       @content;
    }
