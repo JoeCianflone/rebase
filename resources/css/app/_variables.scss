@@ -1,16 +1,15 @@
-$browser-min-size: 350px !default;
-$browser-max-size: 1440px !default;
-$font-base: 16px !default;
-$icon-path: '/';
+$browser-min-size:   350px !default;
+$browser-max-size:   1440px !default;
+$font-base:          16px !default;
+$icon-path:          '/';
 
-$radius-1: 1px;
-$radius-2: 2px;
-$radius-3: 3px;
-$radius-4: 4px;
-$radius-5: 5px;
-
-$radius-50: 50%;
-$radius-100: 100%;
+$radius-1:     1px;
+$radius-2:     2px;
+$radius-3:     3px;
+$radius-4:     4px;
+$radius-5:     5px;
+$radius-50:    50%;
+$radius-100:   100%;
 
 $mq-list: (
    'xs': 480px,  // extra small
@@ -43,75 +42,75 @@ $xw-and-up: map-get($_mq, 'xw-and-up');
 $lg-and-up: map-get($_mq, 'lg-and-up');
 $xl-and-up: map-get($_mq, 'xl-and-up');
 
-$size-8: rem(8px);
-$size-10: rem(10px);
-$size-12: rem(12px);
-$size-14: rem(14px);
-$size-16: rem(16px);
-$size-18: rem(18px);
-$size-20: rem(20px);
-$size-24: rem(24px);
-$size-30: rem(30px);
-$size-36: rem(36px);
-$size-48: rem(48px);
-$size-60: rem(60px);
-$size-72: rem(72px);
-$size-80: rem(80px);
-$size-96: rem(96px);
+$size-8:   rem(8px);
+$size-10:  rem(10px);
+$size-12:  rem(12px);
+$size-14:  rem(14px);
+$size-16:  rem(16px);
+$size-18:  rem(18px);
+$size-20:  rem(20px);
+$size-24:  rem(24px);
+$size-30:  rem(30px);
+$size-36:  rem(36px);
+$size-48:  rem(48px);
+$size-60:  rem(60px);
+$size-72:  rem(72px);
+$size-80:  rem(80px);
+$size-96:  rem(96px);
 $size-128: rem(128px);
 
 // KERNING = LETTER-SPACING
 $kerning-tightest: -0.1em;
-$kerning-tighter: -0.05em;
-$kerning-tight: -0.025em;
-$kerning-normal: 0;
-$kerning-wide: 0.025em;
-$kerning-wider: 0.05em;
-$kerning-widest: 0.1em;
+$kerning-tighter:  -0.05em;
+$kerning-tight:    -0.025em;
+$kerning-normal:    0;
+$kerning-wide:      0.025em;
+$kerning-wider:     0.05em;
+$kerning-widest:    0.1em;
 
 // LEADING = LINE-HEIGHT
-$leading-none: 1;
-$leading-tight: 1.25;
-$leading-snug: 1.375;
-$leading-normal: 1.5;
+$leading-none:    1;
+$leading-tight:   1.25;
+$leading-snug:    1.375;
+$leading-normal:  1.5;
 $leading-relaxed: 1.625;
-$leading-loose: 2;
+$leading-loose:   2;
 
-$spacing-4: rem(4px);
-$spacing-8: rem(8px);
-$spacing-12: rem(12px);
-$spacing-16: rem(16px);
-$spacing-20: rem(20px);
-$spacing-24: rem(24px);
-$spacing-32: rem(32px);
-$spacing-40: rem(40px);
-$spacing-48: rem(48px);
-$spacing-64: rem(64px);
-$spacing-80: rem(80px);
-$spacing-96: rem(96px);
-$spacing-128: rem(128px);
-$spacing-160: rem(160px);
-$spacing-192: rem(192px);
-$spacing-224: rem(224px);
-$spacing-256: rem(256px);
+$spacing-4:    rem(4px);
+$spacing-8:    rem(8px);
+$spacing-12:   rem(12px);
+$spacing-16:   rem(16px);
+$spacing-20:   rem(20px);
+$spacing-24:   rem(24px);
+$spacing-32:   rem(32px);
+$spacing-40:   rem(40px);
+$spacing-48:   rem(48px);
+$spacing-64:   rem(64px);
+$spacing-80:   rem(80px);
+$spacing-96:   rem(96px);
+$spacing-128:  rem(128px);
+$spacing-160:  rem(160px);
+$spacing-192:  rem(192px);
+$spacing-224:  rem(224px);
+$spacing-256:  rem(256px);
 
-$weight-thin: 100;
+$weight-thin:        100;
 $weight-extra-light: 200;
-$weight-light: 300;
-$weight-regular: 400;
-$weight-medium: 500;
-$weight-semi-bold: 600;
-$weight-bold: 700;
-$weight-extra-bold: 800;
-$weight-black: 900;
+$weight-light:       300;
+$weight-regular:     400;
+$weight-medium:      500;
+$weight-semi-bold:   600;
+$weight-bold:        700;
+$weight-extra-bold:  800;
+$weight-black:       900;
 
-$font-system: #{-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif};
+$font-system:  #{-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif};
 $font-display: #{'Times New Roman', sans-serif};
-$font-body: #{'Arial', 'Helvetica Neue', sans-serif};
+$font-body:    #{'Arial', 'Helvetica Neue', sans-serif};
 
 $grid-columns: 12;
-$grid-gutter: rem(20px);
-$block-width: 100% / $grid-columns;
+$grid-gutter:  rem(20px);
+$block-width:  100% / $grid-columns;
 
 $color-true-black: #000;
 $color-true-white: #fff;
