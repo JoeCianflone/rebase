@@ -174,3 +174,39 @@ Looking at this the first time, you might see a potential issue that could arise
 ### Styles in `.vue` files or `.scss` files
 
 Put them where you feel comfortable, but be consistent for the project.
+
+## Potential Baseline Components
+
+### Atoms
+
+-  text
+-  headlines
+-  button
+-  input (text & textarea)
+-  input (select)
+-  input (checkbox)
+-  input (radio)
+-  errors
+-  label
+
+### Molecules
+
+-  dropdown
+-  modal
+-  accordion
+-  popovers
+-  toasts
+-  tables (responsive)
+-  cards
+-  breadcrumbs
+-  icons
+
+### How to grid
+
+Do not use flexbox for page-level layout. We use CSS Grids for the main aspects of all our pages. Flexbox should be used for things in **one** dimension--this means things like a navigation system, but not the container of the navigation system.
+
+# The rest is up to the project
+
+At this point, this feels like the most we can create on a global level. There may be other things as we go along, but we're not going to try and force out everything, we're going to grow the system organically. I know, that can sometimes lead to terrible things happening, but, I'm a gardener...no seriously...one rule I've learned about gardening is that weeds happen, you can put down all the barriers and mulch you want, they will find a way. If you assume your barriers will _always_ work your garden will be overrun within a year. You've gotta prune it.
+
+The same thing is true for a design system or meta-framework. Constant pruning is needed and it's never done. So that's my mentality here. We're not forcing conventions, but as they show up, we'll add them in
