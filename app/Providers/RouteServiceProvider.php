@@ -44,6 +44,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapRoutes('web');
     }
 
+    /**
+     * @param string|null ...$middleware
+     * @return void
+     */
     private function mapRoutes(?string ...$middleware): void
     {
         foreach (glob(base_path('routes/*.php')) as $file) {
@@ -51,5 +55,17 @@ class RouteServiceProvider extends ServiceProvider
                  ->namespace($this->namespace)
                  ->group($file);
         }
+    }
+
+    /**
+     * @param string $routePath
+     * @param string|null ...$middleware
+     * @return void
+     */
+    private function explicitRoutes(string $routePath, ?string ...$middleware): void
+    {
+        Route::middleware($middleware)
+             ->namespace($this->namespace)
+             ->group(base_path($routePath));
     }
 }

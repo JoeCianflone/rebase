@@ -100,10 +100,10 @@ Some of these commands are overrides of standard Laravel commands and some of th
 Currently, we only have the `web.php` file for handling routes. You should break this apart when it becomes necessary to do so. This depends on the application itself, but the guidance here is to be simple. In rebase, we're able to just go into the `RouteServiceProvider` and add another file name.
 
 ```php
-    protected function mapWebRoutes()
+    protected function map()
     {
         // add your file name to the list...
-        $this->mapRoutes('web.php', 'workspace/web.php', 'shared/foo.php');
+        $this->explicitRoute('workspace/web.php', 'web', 'admin', 'whatever');
     }
 ```
 
@@ -169,7 +169,7 @@ The `app` folder is where application specific CSS will go. The `variables` file
 
 #### Update Issues
 
-Looking at this the first time, you might see a potential issue that could arise: a `git pull upstream master` could, in theory, delete your `variables` file. This **is** a real possibility, but not likely. The baseline variables are kept in a `shared/abstracts/.variables` that file could change as we add more things, but once `rebase` goes into production, there will be no updates to the `_variables` file itself. All changes will be communicated down via the `.variables`. This allows developers to then pull in just the stuff they need.
+Looking at this the first time, you might see a potential issue that could arise: a `git pull upstream master` could, in theory, delete your `variables` file. This **is** a real possibility, but not likely. The baseline variables are kept in `app/.variables` that file could change as we add more things, but once `rebase` goes into production, there will be no updates to the `_variables` file itself. All changes will be communicated down via the `.variables`. This allows developers to then pull in just the stuff they need.
 
 ### Styles in `.vue` files or `.scss` files
 
@@ -211,7 +211,6 @@ Running list of packages we don't include but have used and will use when the ne
 
 -  `yarn add @popperjs/core` -- popup blocks
 -  `yarn add fuse.js` -- fuzzy search
--
 
 # The rest is up to the project
 
