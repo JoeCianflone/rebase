@@ -1,0 +1,218 @@
+$browser-min-size:   350px !default;
+$browser-max-size:   1440px !default;
+$font-base:          16px !default;
+$icon-path:          '/' !default;
+
+$radius-0:     0 !default;
+$radius-1:     1px !default;
+$radius-2:     2px !default;
+$radius-3:     3px !default;
+$radius-4:     4px !default;
+$radius-5:     5px !default;
+$radius-50:    50% !default;
+$radius-100:   100% !default;
+
+$mq-list: (
+   'xs': 480px,  // extra small
+   'sm': 576px,  // small
+   'md': 768px,  // medium
+   'wd': 992px,  // wide
+   'xw': 1024px, // extra wide
+   'lg': 1280px, // large
+   'xl': 1366px  // extra large
+) !default;
+
+$_mq: (
+   'xs-and-up': 'min-width: 0px',
+   'sm-and-up': "min-width: #{map-get($mq-list, 'sm')}",
+   'md-and-up': "min-width: #{map-get($mq-list, 'md')}",
+   'wd-and-up': "min-width: #{map-get($mq-list, 'wd')}",
+   'xw-and-up': "min-width: #{map-get($mq-list, 'xw')}",
+   'lg-and-up': "min-width: #{map-get($mq-list, 'lg')}",
+   'xl-and-up': "min-width: #{map-get($mq-list, 'xl')}",
+) !default;
+
+//
+// Mobile First
+//
+$xs-and-up: map-get($_mq, 'xs-and-up') !default;
+$sm-and-up: map-get($_mq, 'sm-and-up') !default;
+$md-and-up: map-get($_mq, 'md-and-up') !default;
+$wd-and-up: map-get($_mq, 'wd-and-up') !default;
+$xw-and-up: map-get($_mq, 'xw-and-up') !default;
+$lg-and-up: map-get($_mq, 'lg-and-up') !default;
+$xl-and-up: map-get($_mq, 'xl-and-up') !default;
+
+$size-8:   rem(8px) !default;
+$size-10:  rem(10px) !default;
+$size-12:  rem(12px) !default;
+$size-14:  rem(14px) !default;
+$size-16:  rem(16px) !default;
+$size-18:  rem(18px) !default;
+$size-20:  rem(20px) !default;
+$size-24:  rem(24px) !default;
+$size-30:  rem(30px) !default;
+$size-36:  rem(36px) !default;
+$size-48:  rem(48px) !default;
+$size-60:  rem(60px) !default;
+$size-72:  rem(72px) !default;
+$size-80:  rem(80px) !default;
+$size-96:  rem(96px) !default;
+$size-128: rem(128px) !default;
+
+// KERNING = LETTER-SPACING
+$kerning-tightest: -0.1em !default;
+$kerning-tighter:  -0.05em !default;
+$kerning-tight:    -0.025em !default;
+$kerning-normal:    0 !default;
+$kerning-wide:      0.025em !default;
+$kerning-wider:     0.05em !default;
+$kerning-widest:    0.1em !default;
+
+// LEADING = LINE-HEIGHT
+$leading-none:    1 !default;
+$leading-tight:   1.25 !default;
+$leading-snug:    1.375 !default;
+$leading-normal:  1.5 !default;
+$leading-relaxed: 1.625 !default;
+$leading-loose:   2 !default;
+
+$spacing-0:    0 !default;
+$spacing-4:    rem(4px) !default;
+$spacing-8:    rem(8px) !default;
+$spacing-12:   rem(12px) !default;
+$spacing-16:   rem(16px) !default;
+$spacing-20:   rem(20px) !default;
+$spacing-24:   rem(24px) !default;
+$spacing-32:   rem(32px) !default;
+$spacing-40:   rem(40px) !default;
+$spacing-48:   rem(48px) !default;
+$spacing-64:   rem(64px) !default;
+$spacing-80:   rem(80px) !default;
+$spacing-96:   rem(96px) !default;
+$spacing-128:  rem(128px) !default;
+$spacing-160:  rem(160px) !default;
+$spacing-192:  rem(192px) !default;
+$spacing-224:  rem(224px) !default;
+$spacing-256:  rem(256px) !default;
+
+$weight-thin:        100 !default;
+$weight-extra-light: 200 !default;
+$weight-light:       300 !default;
+$weight-regular:     400 !default;
+$weight-medium:      500 !default;
+$weight-semi-bold:   600 !default;
+$weight-bold:        700 !default;
+$weight-extra-bold:  800 !default;
+$weight-black:       900 !default;
+
+$font-system:  #{-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif} !default;
+$font-display: #{'Times New Roman', sans-serif} !default;
+$font-body:    #{'Arial', 'Helvetica Neue', sans-serif} !default;
+
+$grid-columns: 12 !default;
+$grid-gutter:  rem(20px) !default;
+$block-width:  100% / $grid-columns !default;
+
+$color-true-black: #000 !default;
+$color-true-white: #fff !default;
+
+$color-gray-10: #f7fafc !default;
+$color-gray-20: #edf2f7 !default;
+$color-gray-30: #e2e8f0 !default;
+$color-gray-40: #cbd5e0 !default;
+$color-gray-50: #a0aec0 !default;
+$color-gray-60: #718096 !default;
+$color-gray-70: #4a5568 !default;
+$color-gray-80: #2d3748 !default;
+$color-gray-90: #1a202c !default;
+
+$color-red-10: #fff5f5 !default;
+$color-red-20: #fed7d7 !default;
+$color-red-30: #feb2b2 !default;
+$color-red-40: #fc8181 !default;
+$color-red-50: #f56565 !default;
+$color-red-60: #e53e3e !default;
+$color-red-70: #c53030 !default;
+$color-red-80: #9b2c2c !default;
+$color-red-90: #742a2a !default;
+
+$color-orange-10: #fffaf0 !default;
+$color-orange-20: #feebc8 !default;
+$color-orange-30: #fbd38d !default;
+$color-orange-40: #f6ad55 !default;
+$color-orange-50: #ed8936 !default;
+$color-orange-60: #dd6b20 !default;
+$color-orange-70: #c05621 !default;
+$color-orange-80: #9c4221 !default;
+$color-orange-90: #7b341e !default;
+
+$color-yellow-10: #fffff0 !default;
+$color-yellow-20: #fefcbf !default;
+$color-yellow-30: #faf089 !default;
+$color-yellow-40: #f6e05e !default;
+$color-yellow-50: #ecc94b !default;
+$color-yellow-60: #d69e2e !default;
+$color-yellow-70: #b7791f !default;
+$color-yellow-80: #975a16 !default;
+$color-yellow-90: #744210 !default;
+
+$color-teal-10: #e6fffa !default;
+$color-teal-20: #b2f5ea !default;
+$color-teal-30: #81e6d9 !default;
+$color-teal-40: #4fd1c5 !default;
+$color-teal-50: #38b2ac !default;
+$color-teal-60: #319795 !default;
+$color-teal-70: #2c7a7b !default;
+$color-teal-80: #285e61 !default;
+$color-teal-90: #234e52 !default;
+
+$color-green-10: #f0fff4 !default;
+$color-green-20: #c6f6d5 !default;
+$color-green-30: #9ae6b4 !default;
+$color-green-40: #68d391 !default;
+$color-green-50: #48bb78 !default;
+$color-green-60: #38a169 !default;
+$color-green-70: #2f855a !default;
+$color-green-80: #276749 !default;
+$color-green-90: #22543d !default;
+
+$color-blue-10: #ebf8ff !default;
+$color-blue-20: #bee3f8 !default;
+$color-blue-30: #90cdf4 !default;
+$color-blue-40: #63b3ed !default;
+$color-blue-50: #4299e1 !default;
+$color-blue-60: #3182ce !default;
+$color-blue-70: #2b6cb0 !default;
+$color-blue-80: #2c5282 !default;
+$color-blue-90: #2a4365 !default;
+
+$color-indego-10: #ebf4ff !default;
+$color-indego-20: #c3dafe !default;
+$color-indego-30: #a3bffa !default;
+$color-indego-40: #7f9cf5 !default;
+$color-indego-50: #667eea !default;
+$color-indego-60: #5a67d8 !default;
+$color-indego-70: #4c51bf !default;
+$color-indego-80: #434190 !default;
+$color-indego-90: #3c366b !default;
+
+$color-purple-10: #faf5ff !default;
+$color-purple-20: #e9d8fd !default;
+$color-purple-30: #d6bcfa !default;
+$color-purple-40: #b794f4 !default;
+$color-purple-50: #9f7aea !default;
+$color-purple-60: #805ad5 !default;
+$color-purple-70: #6b46c1 !default;
+$color-purple-80: #553c9a !default;
+$color-purple-90: #44337a !default;
+
+$color-pink-10: #fff5f7 !default;
+$color-pink-20: #fed7e2 !default;
+$color-pink-30: #fbb6ce !default;
+$color-pink-40: #f687b3 !default;
+$color-pink-50: #ed64a6 !default;
+$color-pink-60: #d53f8c !default;
+$color-pink-70: #b83280 !default;
+$color-pink-80: #97266d !default;
+$color-pink-90: #702459 !default;

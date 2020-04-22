@@ -10,6 +10,9 @@
       "prod": "yarn run production",
       "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
    },
+   "husky": {
+        "pre-commit": "yarn stan"
+   },
    "browserslist": [
       "last 6 version",
       "> 1%"
@@ -41,6 +44,7 @@
    "devDependencies": {
       "eslint": "^6.1.0",
       "eslint-plugin-vue": "^6.2.1",
+      "husky": "^4.2.5",
       "prettier": "^2.0.4",
       "stylelint": "^13.3.2",
       "stylelint-config-sass-guidelines": "^7.0.0",
