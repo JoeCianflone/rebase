@@ -3,33 +3,36 @@
 namespace App\Domain\Repositories;
 
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
+use App\Helpers\QueryCache;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
 {
     protected Model $model;
-
+    protected QueryCache $cache;
+    protected string $cacheKey = "";
     protected array $withData = [];
 
-    public function getAll(): ?Collection
+    public function __construct()
     {
-        return $this->model->all();
+        $this->cache = resolve('QueryCache');
+        $this->cache->setKey($this->cacheKey);
     }
 
-    public function generateUUID(): string
+    public function with(array $data): self
     {
-        return Str::uuid()->toString();
+        $this->withData = array_merge($this->withData, $data);
+
+        return $this;
     }
 
-    public function make(array $request): Model
+    public function purge(): self
     {
-        collect($this->model)->map(function ($key, $value) {
-            $this->model->{$key} = $value;
-        });
+        $this->withData = [];
 
-        return $this->model;
+        return $this;
     }
 
     public function create(array $request): Model
@@ -39,11 +42,9 @@ class EloquentRepository
 
     public function refresh(Model $model): Model
     {
-        if (count($this->withData) > 0) {
-            foreach ($this->withData as $key => $value) {
-                $model->{$key} = $value;
-            }
-        }
+        collect($this->withData)->each(function ($item, $key) use ($model) {
+            $model->{$key} = $item;
+        });
 
         $model->save();
 
@@ -52,32 +53,10 @@ class EloquentRepository
 
     /**
      * @param int|\Ramsey\Uuid\Uuid $id
-     * @return void
      */
     public function update($id): void
     {
         $this->model->where('id', $id)->update($this->withData);
-    }
-
-    /**
-     * @param array $data
-     * @return self
-     */
-    public function with(array $data): self
-    {
-        $this->withData = array_merge($this->withData, $data);
-
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function purge(): self
-    {
-        $this->withData = [];
-
-        return $this;
     }
 
     public function remove(Model $model): void

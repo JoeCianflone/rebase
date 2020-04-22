@@ -5,6 +5,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Actions\GetView;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Domain\Repositories\Facades\UserRepository;
 
 class DashboardIndex
 {

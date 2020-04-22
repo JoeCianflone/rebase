@@ -58,7 +58,8 @@ class MakeRepository extends Command
 
         $hydratedFile = $file->hydrateStub('Repository', collect([
             "{{classname}}" => $file->getFilename(false),
-            "{{model}}" => $this->argument('model'),
+            "{{model}}" => ucfirst($this->argument('model')),
+            "{{cache}}" => strtolower($this->argument('model')),
         ]));
 
         if ($file->toDisk($hydratedFile)) {

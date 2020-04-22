@@ -3,13 +3,20 @@
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Listing;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\Repositories\EloquentRepository;
+use App\Domain\Repositories\Traits\EloquentQueries;
 
 class EloquentListingRepository extends EloquentRepository
 {
+    use EloquentQueries;
+
+    protected string $cacheKey = 'user';
+
     public function __construct(Listing $model)
     {
+        parent::__construct();
         $this->model = $model;
     }
 
@@ -20,11 +27,15 @@ class EloquentListingRepository extends EloquentRepository
 
     public function getBySlug(string $slug): ?Model
     {
-        return $this->model->where('slug', $slug)->firstOrFail();
+        return $this->cache
+                    ->as('getBySlug')
+                    ->from(fn () => $this->model->where('slug', $slug)->firstOrFail());
     }
 
     public function getByDomain(string $domain): ?Model
     {
-        return $this->model->where('domain', $domain)->firstOrFail();
+        return $this->cache
+                    ->as('getByDomain')
+                    ->from(fn () => $this->model->where('domain', $domain)->firstOrFail());
     }
 }
