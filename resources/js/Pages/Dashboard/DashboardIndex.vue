@@ -3,33 +3,21 @@ import Layout from "@/Templates/Master"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "Title" },
+   metaInfo: { title: "Test" },
 
-   components: {},
+   components: {
+   },
 
-   data: () => ({
-      form: {
-         id: 1,
-         name: "Joe Cianflone",
-         email: ""
-      }
-   }),
+   data() {
+      return { }
+   },
 
    props: {},
 
-   methods: {
-      test() {
-         this.$inertia.post("/", this.form).then(() => (this.sending = false))
-      }
-   }
+   methods: {},
 }
 </script>
-
-<style lang="scss">
-</style>
 
 <template>
    <div></div>
 </template>
-
-

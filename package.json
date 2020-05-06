@@ -2,6 +2,7 @@
    "private": true,
    "scripts": {
       "stan": "clear && vendor/bin/phpstan analyse",
+      "fix": "php-cs-fixer fix",
       "dev": "yarn run development",
       "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
       "watch": "yarn run development --watch",
@@ -9,9 +10,6 @@
       "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
       "prod": "yarn run production",
       "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-   },
-   "husky": {
-        "pre-commit": "yarn stan"
    },
    "browserslist": [
       "last 6 version",

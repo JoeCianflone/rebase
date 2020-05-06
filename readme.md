@@ -2,9 +2,40 @@
 
 Rebase is not a framework. It's a meta-framework and set of conventions for building large apps in Laravel. I try to codify how I name things and conventions I use below. I should also note that while this is open for anyone to use, it's really _my_ way of doing things, so I am probably not open to changes, but I'd be happy to talk about them with anyone who has a question. If you don't like this that's totally fine too, you don't need to use this, you don't need to like my standards either, I'm good with that.
 
-## This is a WIP
+## Intended Usage
 
-If you're looking at this, cool, but there's a lot I've left out and I know it's not there at the moment. I've got a running list, please don't ask/tell me stuff, I know. :)
+My goal here isn't to reinvent anything but to connect it in a way that makes development fast for my projects. This document is intended to explain how things should be put together.
+
+### Step 1: Fork this repository
+
+When starting a new project, the first thing is to fork this repository. This repo needs to become your `upstream master` so that way you can pull in any changes we make in here.
+
+### Step 2: Install these things
+
+A couple of things you're going to need globally installed on your machine:
+
+-  Yarn (not NPM, this uses yarn and even the underlying commands use them)
+-  Composer (duh)
+-  PHPStan
+-  PHP CS Fixer
+
+You might think, "I don't want PHPStan on my machine," because you're cool and make your own rules. Well, ok, sure. But the codebase uses a tool called `husky` to add a bunch of pre-commit hooks to the code that will run tests and linters among other things. So, you do you...but you'll need to disable all that stuff the `package.json` file. No I'm not telling you how, I want you to run those, so if you break it tough :)
+
+### Step 3: Install
+
+Run the following: `composer install && yarn`
+
+#### Step 3a: Where's the database?
+
+I use Homestead because it's stupid simple to set up and I think Docker is hot mess. I'm sure it's not actually that way, but well, I don't care. I use Homestead. I mention this because now it's going to be time to run the migration and seed the database, for me this means I need to ssh into Homestead...for you...idk...what do you do for Docker? I think it's kill a chicken in a cemetery at midnight and rub it's blood into your chair then pray to the old gods for access. You do lose 1 day of your life for every time they grant you access, but hey, that's Docker.
+
+Anyway...once you're ready run `php artisan db:migrate`
+
+Yes, this is a different command from the standard Laravel one...that's because we've got multiple databases. This will seed your shared database.
+
+## Please Remember: this is a WIP
+
+If you're looking at this, cool, but there's a lot I've left out and I know it's not there at the moment. I've got a running list, please don't ask/tell me stuff, I know I've put together a roadmap.
 
 ## First, PHP
 
@@ -38,7 +69,7 @@ All that being said, I did **add** folders, because adding folders makes perfect
 
 ## What this should and should not do
 
-This isn't a full or complete application. This should do just the basics
+This isn't a full or complete application. This should do just the basics. It's your job to build the app on top of this code.
 
 ## Shared vs Workspace
 
@@ -130,7 +161,7 @@ Sub-domain routing ready to go out-of-the-box. I'll put some more stuff here soo
 
 ## Custom Domains
 
-These will work out-of-the-box too now. You'll need to make sure `certbot` is set up on your server so that can handle the whole process of cert setup and renewal. I'll put more info up here soon, but this all works for `nginx` only. I only use that so I have no plans on supporting something else
+These will work out-of-the-box too now. You'll need to make sure `certbot` is set up on your server so that can handle the whole process of cert setup and renewal. I'll put more info up here soon, but this all works for `nginx` only. I only use that so I have no plans on supporting something else at this time.
 
 # Front End Resources
 
@@ -206,11 +237,11 @@ Do not use flexbox for page-level layout. We use CSS Grids for the main aspects 
 
 Running list of packages we don't include but have used and will use when the need comes up.
 
--  `yarn add @popperjs/core` -- popup blocks
+-  `yarn add @popperjs/core` -- popup helper/block
 -  `yarn add fuse.js` -- fuzzy search
 
 # The rest is up to the project
 
 At this point, this feels like the most we can create on a global level. There may be other things as we go along, but we're not going to try and force out everything, we're going to grow the system organically. I know, that can sometimes lead to terrible things happening, but, I'm a gardener...no seriously...one rule I've learned about gardening is that weeds happen, you can put down all the barriers and mulch you want, they will find a way. If you assume your barriers will _always_ work your garden will be overrun within a year. You've gotta prune it.
 
-The same thing is true for a design system or meta-framework. Constant pruning is needed and it's never done. So that's my mentality here. We're not forcing conventions, but as they show up, we'll add them in
+The same thing is true for a design system or meta-framework. Constant pruning is needed and it's never done. So that's my mentality here. We're not forcing conventions, but as they show up, we'll add them in.
