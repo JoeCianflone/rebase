@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Str;
 use App\Helpers\FileGenerator;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 
 class MakeRepository extends Command
 {
@@ -29,7 +27,6 @@ class MakeRepository extends Command
                      });');
     }
 
-
     private function stubOutFacade(FileGenerator $file): FileGenerator
     {
         $file->setNameSuffix('Repository');
@@ -38,13 +35,13 @@ class MakeRepository extends Command
         $file->setFolder('Facades');
 
         $hydratedFacade = $file->hydrateStub('RepositoryFacade', collect([
-            "{{classname}}" => $file->getFilename(false),
+            '{{classname}}' => $file->getFilename(false),
         ]));
 
         if ($file->toDisk($hydratedFacade)) {
-            $this->info("Facade created");
+            $this->info('Facade created');
         } else {
-            $this->error("Facade already exists");
+            $this->error('Facade already exists');
         }
 
         return $file;
@@ -57,15 +54,15 @@ class MakeRepository extends Command
         $file->setName($this->argument('name'), '.php');
 
         $hydratedFile = $file->hydrateStub('Repository', collect([
-            "{{classname}}" => $file->getFilename(false),
-            "{{model}}" => ucfirst($this->argument('model')),
-            "{{cache}}" => strtolower($this->argument('model')),
+            '{{classname}}' => $file->getFilename(false),
+            '{{model}}' => ucfirst($this->argument('model')),
+            '{{cache}}' => strtolower($this->argument('model')),
         ]));
 
         if ($file->toDisk($hydratedFile)) {
-            $this->info("Repository created");
+            $this->info('Repository created');
         } else {
-            $this->error("Repository already exists");
+            $this->error('Repository already exists');
         }
 
         return $file;

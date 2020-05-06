@@ -23,8 +23,6 @@ class MakeModel extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -37,14 +35,14 @@ class MakeModel extends Command
         $file->setName($this->argument('name'), '.php');
 
         $hydratedFile = $file->hydrateStub('Model', collect([
-            "{{classname}}" => $file->getFilename(false),
-            "{{type}}" => $this->option('shared') ? 'shared' : 'workspace',
+            '{{classname}}' => $file->getFilename(false),
+            '{{type}}' => $this->option('shared') ? 'shared' : 'workspace',
         ]));
 
         if ($file->toDisk($hydratedFile)) {
-            $this->info("Model created");
+            $this->info('Model created');
         } else {
-            $this->error("File already exists");
+            $this->error('File already exists');
         }
     }
 }

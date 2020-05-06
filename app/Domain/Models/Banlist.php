@@ -22,5 +22,5 @@ class Banlist extends Model
     ];
 
     /** @var array */
-    protected $casts = [ ];
+    protected $casts = [];
 }

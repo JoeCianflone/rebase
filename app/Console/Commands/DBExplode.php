@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
-use App\Domain\Models\Account;
-use Illuminate\Console\Command;
 use App\Domain\Repositories\Facades\AccountRepository;
 use App\Domain\Repositories\Facades\ListingRepository;
+use App\Helpers\DBWorkspace;
+use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DBExplode extends Command
@@ -24,8 +23,8 @@ class DBExplode extends Command
 
     public function handle(): void
     {
-        if (app()->environment() !== 'local') {
-            $this->error("This command only runs in local environments");
+        if ('local' !== app()->environment()) {
+            $this->error('This command only runs in local environments');
             exit();
         }
 
@@ -39,18 +38,18 @@ class DBExplode extends Command
             $this->dropAllWorkspaces();
         }
 
-        $this->line("");
-        $this->info("Data go :boom:");
+        $this->line('');
+        $this->info('Data go :boom:');
     }
 
     private function dropShared(): void
     {
-        $this->alert("Refreshing Shared Database");
+        $this->alert('Refreshing Shared Database');
 
-        $this->call("migrate:fresh", [
+        $this->call('migrate:fresh', [
             '--database' => config('multi-database.shared.connection'),
             '--path' => config('multi-database.shared.migration_path'),
-            '--step' => true
+            '--step' => true,
         ]);
     }
 
@@ -59,11 +58,11 @@ class DBExplode extends Command
         $allSpaces = DBWorkspace::allSpaces(config('multi-database.workspace.prefix'));
 
         if ($allSpaces->count() > 0) {
-            $this->line("");
+            $this->line('');
             DBWorkspace::allSpaces(config('multi-database.workspace.prefix'))->each(function ($id) {
                 DBWorkspace::drop($id);
 
-                $this->line("<comment>Dropped: ".config('multi-database.workspace.prefix')."{$id}</comment>");
+                $this->line('<comment>Dropped: '.config('multi-database.workspace.prefix')."{$id}</comment>");
             });
         }
     }

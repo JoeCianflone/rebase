@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
 use App\Domain\Models\Listing;
+use App\Domain\Repositories\Facades\ListingRepository;
+use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunMigration extends Command
 {
@@ -21,7 +21,7 @@ class RunMigration extends Command
 
     public function handle(): void
     {
-        if (! $this->option('no-shared')) {
+        if (!$this->option('no-shared')) {
             $this->callMigration('shared', config('multi-database.shared.migration_path'));
         }
 
@@ -41,12 +41,12 @@ class RunMigration extends Command
     }
 
     /**
-     * @param Model|Listing $tenant
+     * @param Listing|Model $tenant
      */
     private function migrateTenant($tenant): void
     {
-        if (! DBWorkspace::exists($tenant->account_id)) {
-            $this->info("Connection does not exist...creating");
+        if (!DBWorkspace::exists($tenant->account_id)) {
+            $this->info('Connection does not exist...creating');
             DBWorkspace::create($tenant->account_id);
         }
 
@@ -58,7 +58,7 @@ class RunMigration extends Command
 
     private function callMigration(string $conn, string $path): void
     {
-        $this->call("migrate", [
+        $this->call('migrate', [
             '--database' => $conn,
             '--path' => $path,
             '--step' => true,

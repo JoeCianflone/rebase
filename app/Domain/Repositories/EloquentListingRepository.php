@@ -1,12 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Listing;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\EloquentRepository;
 use App\Domain\Repositories\Traits\EloquentQueries;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentListingRepository extends EloquentRepository
 {
@@ -28,14 +28,16 @@ class EloquentListingRepository extends EloquentRepository
     public function getBySlug(string $slug): ?Model
     {
         return $this->cache
-                    ->as('getBySlug')
-                    ->from(fn () => $this->model->where('slug', $slug)->firstOrFail());
+            ->as('getBySlug')
+            ->from(fn () => $this->model->where('slug', $slug)->firstOrFail())
+        ;
     }
 
     public function getByDomain(string $domain): ?Model
     {
         return $this->cache
-                    ->as('getByDomain')
-                    ->from(fn () => $this->model->where('domain', $domain)->firstOrFail());
+            ->as('getByDomain')
+            ->from(fn () => $this->model->where('domain', $domain)->firstOrFail())
+        ;
     }
 }

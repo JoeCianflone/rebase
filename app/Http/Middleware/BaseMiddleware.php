@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Str;
-
 class BaseMiddleware
 {
     protected array $except = [];
@@ -14,12 +12,12 @@ class BaseMiddleware
             return false;
         }
 
-        $path = rtrim(ltrim($path, "/"), "/");
-        $beginning = "^";
-        $end = "$";
-        $words = str_replace("*", "[\S+]*", implode('$|^', $this->except));
+        $path = rtrim(ltrim($path, '/'), '/');
+        $beginning = '^';
+        $end = '$';
+        $words = str_replace('*', '[\\S+]*', implode('$|^', $this->except));
 
-        $regex = '#'.$beginning . $words . $end .'#';
+        $regex = '#'.$beginning.$words.$end.'#';
 
         return preg_match($regex, $path) > 0;
     }

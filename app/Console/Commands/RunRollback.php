@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
 use App\Domain\Models\Listing;
+use App\Domain\Repositories\Facades\ListingRepository;
+use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunRollback extends Command
 {
@@ -45,12 +45,12 @@ class RunRollback extends Command
     }
 
     /**
-     * @param Model|Listing $listing
+     * @param Listing|Model $listing
      */
     private function migrateWorkspace($listing): void
     {
         if (!DBWorkspace::exists($listing->account_id)) {
-            $this->info("Connection does not exist...creating");
+            $this->info('Connection does not exist...creating');
             DBWorkspace::create($listing->account_id);
         }
 
@@ -62,7 +62,7 @@ class RunRollback extends Command
 
     private function callMigration(string $conn, string $path): void
     {
-        $this->call("migrate:rollback", [
+        $this->call('migrate:rollback', [
             '--database' => $conn,
             '--path' => $path,
             '--step' => $this->option('step'),

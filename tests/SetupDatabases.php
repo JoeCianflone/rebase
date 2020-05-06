@@ -10,12 +10,12 @@ trait SetupDatabases
 
         config(['database.connections.shared' => [
             'driver' => 'sqllite',
-            'database' => ':memory:'
+            'database' => ':memory:',
         ],
             'database.connections.workspace' => [
                 'driver' => 'sqllite',
-                'database' => ':memory:'
-            ]
+                'database' => ':memory:',
+            ],
         ]);
 
         $this->artisan('migrate');

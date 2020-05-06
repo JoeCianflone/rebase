@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Enums;
 
 use MyCLabs\Enum\Enum;
@@ -14,11 +15,11 @@ use MyCLabs\Enum\Enum;
  */
 class UserRole extends Enum
 {
-    private const SUPER    = 'super';
-    private const OWNER    = 'owner';
-    private const ADMIN    = 'admin';
-    private const WORKER   = 'worker';
+    private const SUPER = 'super';
+    private const OWNER = 'owner';
+    private const ADMIN = 'admin';
+    private const WORKER = 'worker';
     private const ELEVATED = 'elevated';
-    private const MEMBER   = 'member';
-    private const ACCESS   = 'access';
+    private const MEMBER = 'member';
+    private const ACCESS = 'access';
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use App\Helpers\DBWorkspace;
-use Illuminate\Http\Request;
-use App\Exceptions\DomainNotFoundException;
 use App\Domain\Repositories\Facades\ListingRepository;
+use App\Exceptions\DomainNotFoundException;
+use App\Helpers\DBWorkspace;
+use Closure;
+use Illuminate\Http\Request;
 
 class WorkspaceSetup extends BaseMiddleware
 {
@@ -65,7 +65,6 @@ class WorkspaceSetup extends BaseMiddleware
         return $next($request);
     }
 
-
     private function getWorkspaceFromURI(string $hostname): string
     {
         $host = explode('.', $hostname);
@@ -82,12 +81,12 @@ class WorkspaceSetup extends BaseMiddleware
 
     private function isUsingCustomDomain(array $parts): bool
     {
-        return count($parts) <= 2 || strtolower($parts[0]) === 'www';
+        return count($parts) <= 2 || 'www' === strtolower($parts[0]);
     }
 
     private function getCustomDomainName(array $host): string
     {
-        if (strtolower($host[0]) === 'www') {
+        if ('www' === strtolower($host[0])) {
             return "{$host[1]}.{$host[2]}";
         }
 

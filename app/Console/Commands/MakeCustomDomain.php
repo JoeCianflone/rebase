@@ -27,8 +27,6 @@ class MakeCustomDomain extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -54,9 +52,9 @@ class MakeCustomDomain extends Command
         ]));
 
         if ($file->toDisk($hydrate, true)) {
-            $this->info("nginx conf created");
+            $this->info('nginx conf created');
         } else {
-            $this->error("File already exists");
+            $this->error('File already exists');
         }
 
         exec('sudo service restart nginx');

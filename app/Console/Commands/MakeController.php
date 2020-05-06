@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Str;
 use App\Helpers\FileGenerator;
 use Illuminate\Console\Command;
 
@@ -28,21 +27,21 @@ class MakeController extends Command
         $file->setName($this->argument('name'), '.php');
 
         $hydratedFile = $file->hydrateStub('Controller', collect([
-            "{{class}}" => $file->getFilename(false),
-            "{{namespace}}" => $file->getNamespace(),
+            '{{class}}' => $file->getFilename(false),
+            '{{namespace}}' => $file->getNamespace(),
         ]));
 
         if ($file->toDisk($hydratedFile)) {
-            $this->info("Controller created");
+            $this->info('Controller created');
         } else {
-            $this->error("File already exists");
+            $this->error('File already exists');
         }
 
         if ($this->option('view')) {
-            $this->call("make:view", [
-                "folder" => $this->argument('folder'),
-                "name" => $this->argument('name'),
-                "--singular" => $this->option('singular'),
+            $this->call('make:view', [
+                'folder' => $this->argument('folder'),
+                'name' => $this->argument('name'),
+                '--singular' => $this->option('singular'),
             ]);
         }
     }

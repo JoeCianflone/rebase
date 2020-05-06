@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Helpers\QueryCache;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,8 +13,6 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -22,8 +20,6 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -35,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('QueryCache', function ($app) {
             $key = Session::get('workspace_id') ?? Session::getId();
+
             return new QueryCache($key);
         });
     }

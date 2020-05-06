@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'views'         => 'resources/js/Pages',
-    'controllers'   => 'app/Http/Controllers',
-    'models'        => 'app/Domain/Models',
-    'repositories'  => 'app/Domain/Repositories',
+    'views' => 'resources/js/Pages',
+    'controllers' => 'app/Http/Controllers',
+    'models' => 'app/Domain/Models',
+    'repositories' => 'app/Domain/Repositories',
 ];

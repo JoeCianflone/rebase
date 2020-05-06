@@ -2,16 +2,14 @@
 
 namespace App\Console\Commands;
 
-use Ramsey\Uuid\Uuid;
+use App\Domain\Repositories\Facades\AccountRepository;
+use App\Domain\Repositories\Facades\ListingRepository;
+use App\Domain\Repositories\Facades\UserRepository;
+use App\Domain\Repositories\Facades\WorkspaceRepository;
 use App\Enums\UserRole;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Domain\Repositories\Facades\UserRepository;
-use App\Domain\Repositories\Facades\AccountRepository;
-use App\Domain\Repositories\Facades\ListingRepository;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class AccountManual extends Command
 {
@@ -31,8 +29,6 @@ class AccountManual extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -41,27 +37,27 @@ class AccountManual extends Command
 
     public function handle(): void
     {
-        if (app()->environment() !== 'local') {
-            $this->error("This command only runs in local environments");
+        if ('local' !== app()->environment()) {
+            $this->error('This command only runs in local environments');
             exit();
         }
 
-        $accountName = $this->ask("Account Name (required)");
-        $slug = $this->ask("Slug (required)");
+        $accountName = $this->ask('Account Name (required)');
+        $slug = $this->ask('Slug (required)');
 
-        $line1 = $this->ask("Address Line 1 (required)");
-        $line2 = $this->ask("Address Line 2");
-        $line3 = $this->ask("Address Line 3");
-        $unitNumber = $this->ask("Unit Number");
+        $line1 = $this->ask('Address Line 1 (required)');
+        $line2 = $this->ask('Address Line 2');
+        $line3 = $this->ask('Address Line 3');
+        $unitNumber = $this->ask('Unit Number');
 
-        $locality = $this->ask("City (required)");
-        $state = $this->ask("State (required)");
-        $postalCode = $this->ask("Postal Code (required)");
-        $country = $this->ask("Country (required)", 'USA');
+        $locality = $this->ask('City (required)');
+        $state = $this->ask('State (required)');
+        $postalCode = $this->ask('Postal Code (required)');
+        $country = $this->ask('Country (required)', 'USA');
 
-        $name = $this->ask("Account Owners Name (required)");
-        $email = $this->ask("Account Owners Email Address (required)");
-        $password = $this->secret("Account Owners Password (required)");
+        $name = $this->ask('Account Owners Name (required)');
+        $email = $this->ask('Account Owners Email Address (required)');
+        $password = $this->secret('Account Owners Password (required)');
 
         if ($this->hasMissingFields($accountName, $line1, $locality, $state, $postalCode, $country, $name, $email, $password)) {
             $this->error('All required fields are...required');
@@ -84,7 +80,7 @@ class AccountManual extends Command
             'locality' => $locality,
             'region' => $state,
             'postal_code' => $postalCode,
-            'country' =>$country,
+            'country' => $country,
             'has_agreed_to_terms' => true,
         ]);
 
@@ -111,7 +107,6 @@ class AccountManual extends Command
         ]);
     }
 
-
     private function spinUpDB(): string
     {
         $newAccountUUID = AccountRepository::generateUUID();
@@ -119,7 +114,7 @@ class AccountManual extends Command
         DBWorkspace::create($newAccountUUID);
         DBWorkspace::connect($newAccountUUID);
 
-        $this->call("migrate", [
+        $this->call('migrate', [
             '--database' => config('multi-database.workspace.connection'),
             '--path' => config('multi-database.workspace.migration_path'),
             '--step' => true,

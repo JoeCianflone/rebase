@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
+     * The path to the "home" route for your application.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+    /**
      * This namespace is applied to your controller routes.
      *
      * In addition, it is set as the URL generator's root namespace.
@@ -17,16 +23,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * The path to the "home" route for your application.
-     *
-     * @var string
-     */
-    public const HOME = '/home';
-
-    /**
      * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -36,8 +33,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
-     *
-     * @return void
      */
     public function map()
     {
@@ -45,27 +40,26 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param string|null ...$middleware
-     * @return void
+     * @param null|string ...$middleware
      */
     private function mapRoutes(?string ...$middleware): void
     {
         foreach (glob(base_path('routes/*.php')) as $file) {
             Route::middleware($middleware)
-                 ->namespace($this->namespace)
-                 ->group($file);
+                ->namespace($this->namespace)
+                ->group($file)
+            ;
         }
     }
 
     /**
-     * @param string $routePath
-     * @param string|null ...$middleware
-     * @return void
+     * @param null|string ...$middleware
      */
     private function explicitRoutes(string $routePath, ?string ...$middleware): void
     {
         Route::middleware($middleware)
-             ->namespace($this->namespace)
-             ->group(base_path($routePath));
+            ->namespace($this->namespace)
+            ->group(base_path($routePath))
+        ;
     }
 }

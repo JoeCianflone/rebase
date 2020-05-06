@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Helpers;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class QueryCache

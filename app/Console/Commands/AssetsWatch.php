@@ -17,9 +17,9 @@ class AssetsWatch extends Command
 
     public function handle(): void
     {
-        passthru("rm -Rf public/assets");
+        passthru('rm -Rf public/assets');
 
         $this->info("Cleanup...\n");
-        passthru("yarn run watch");
+        passthru('yarn run watch');
     }
 }

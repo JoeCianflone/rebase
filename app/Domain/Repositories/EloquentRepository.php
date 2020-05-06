@@ -1,18 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use Ramsey\Uuid\Uuid;
 use App\Helpers\QueryCache;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
 {
     protected Model $model;
     protected QueryCache $cache;
-    protected string $cacheKey = "";
+    protected string $cacheKey = '';
     protected array $withData = [];
 
     public function __construct()

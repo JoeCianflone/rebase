@@ -2,20 +2,19 @@
 
 namespace App\Domain\Models;
 
-use Laravel\Cashier\Billable;
-use App\Domain\Models\Listing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Cashier\Billable;
 
 class Account extends Model
 {
     use Billable;
 
-    /** @var string */
-    protected $connection = 'shared';
-
     /** @var bool */
     public $incrementing = false;
+
+    /** @var string */
+    protected $connection = 'shared';
 
     /** @var array */
     protected $guarded = [];
@@ -28,7 +27,7 @@ class Account extends Model
 
     /** @var array */
     protected $casts = [
-        'id' => 'uuid'
+        'id' => 'uuid',
     ];
 
     public function listings(): HasMany

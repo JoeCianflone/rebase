@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workspace extends Model
 {
+    /** @var bool */
+    public $incrementing = false;
     /** @var string */
     protected $connection = 'workspace';
 
     /** @var array */
     protected $guarded = [];
-
-    /** @var bool */
-    public $incrementing = false;
 
     /** @var array */
     protected $dates = [
@@ -23,6 +22,6 @@ class Workspace extends Model
 
     /** @var array */
     protected $casts = [
-        'id' => 'uuid'
+        'id' => 'uuid',
     ];
 }

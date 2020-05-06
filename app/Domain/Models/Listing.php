@@ -2,7 +2,6 @@
 
 namespace App\Domain\Models;
 
-use App\Domain\Models\Account;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,7 +21,7 @@ class Listing extends Model
 
     /** @var array */
     protected $casts = [
-        'account_id' => 'uuid'
+        'account_id' => 'uuid',
     ];
 
     public function account(): BelongsTo

@@ -12,7 +12,7 @@ return PhpCsFixer\Config::create()
         '@PhpCsFixer' => true,
     ])
     ->setFinder(PhpCsFixer\Finder::create()
-        ->exclude('vendor')
+        ->exclude('vendor/')
         ->exclude('bootstrap/')
         ->exclude('public/')
         ->exclude('resources/')

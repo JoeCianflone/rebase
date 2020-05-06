@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Str;
 use App\Helpers\FileGenerator;
 use Illuminate\Console\Command;
 
@@ -29,16 +28,16 @@ class MakeView extends Command
 
         $hydratedFile = $file->hydrateStub('View');
         if ($file->toDisk($hydratedFile)) {
-            $this->info("View created");
+            $this->info('View created');
         } else {
-            $this->error("File already exists");
+            $this->error('File already exists');
         }
 
         if ($this->option('controller')) {
-            $this->call("make:controller", [
-                "folder" => $this->argument('folder'),
-                "name" => $this->argument('name'),
-                "--singular" => $this->option('singular'),
+            $this->call('make:controller', [
+                'folder' => $this->argument('folder'),
+                'name' => $this->argument('name'),
+                '--singular' => $this->option('singular'),
             ]);
         }
     }

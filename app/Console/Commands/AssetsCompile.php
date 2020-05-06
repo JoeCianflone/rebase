@@ -17,14 +17,14 @@ class AssetsCompile extends Command
 
     public function handle(): void
     {
-        passthru("rm -Rf public/assets");
+        passthru('rm -Rf public/assets');
 
         $this->info("Cleanup...\n");
 
         if ($this->option('production')) {
-            passthru("yarn run prod");
+            passthru('yarn run prod');
         } else {
-            passthru("yarn run dev");
+            passthru('yarn run dev');
         }
     }
 }
