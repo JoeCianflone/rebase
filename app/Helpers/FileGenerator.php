@@ -4,34 +4,50 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FileGenerator
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $path;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     */
     private ?string $stub;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $folder = '';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $prefix = '';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $suffix = '';
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $name;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private string $filename;
 
-    /** @var null|bool */
+    /**
+     * @var null|bool
+     */
     private ?bool $pluralizeFolders = null;
 
     /**

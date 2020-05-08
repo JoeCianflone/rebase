@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\SetupDatabases;
 use Tests\TestCase;
+use Tests\SetupDatabases;
 
 /**
  * @internal
@@ -13,8 +13,10 @@ class ViewRegistrationPageTest extends TestCase
 {
     use SetupDatabases;
 
-    /** @test */
-    public function userCanViewRegistationPage()
+    /**
+     * @test
+     */
+    public function userCanViewRegistationPage(): void
     {
         $response = $this->get('/register');
 

@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use App\Domain\Repositories\Facades\BanlistRepository;
 use Illuminate\Contracts\Validation\Rule;
+use App\Domain\Repositories\Facades\BanlistRepository;
 
 class NotOnBanlist implements Rule
 {

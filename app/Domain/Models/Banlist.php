@@ -6,21 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banlist extends Model
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = 'shared';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $table = 'banlist';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [];
 }

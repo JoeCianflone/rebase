@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Domain\Repositories\Facades\AccountRepository;
-use App\Domain\Repositories\Facades\ListingRepository;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
+use App\Domain\Repositories\Facades\AccountRepository;
+use App\Domain\Repositories\Facades\ListingRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DBExplode extends Command
@@ -59,7 +59,7 @@ class DBExplode extends Command
 
         if ($allSpaces->count() > 0) {
             $this->line('');
-            DBWorkspace::allSpaces(config('multi-database.workspace.prefix'))->each(function ($id) {
+            DBWorkspace::allSpaces(config('multi-database.workspace.prefix'))->each(function ($id): void {
                 DBWorkspace::drop($id);
 
                 $this->line('<comment>Dropped: '.config('multi-database.workspace.prefix')."{$id}</comment>");

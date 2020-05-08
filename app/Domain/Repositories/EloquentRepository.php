@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Helpers\QueryCache;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
+use App\Helpers\QueryCache;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
 {
@@ -63,7 +63,7 @@ class EloquentRepository
 
     public function refresh(Model $model): Model
     {
-        collect($this->withData)->each(function ($item, $key) use ($model) {
+        collect($this->withData)->each(function ($item, $key) use ($model): void {
             $model->{$key} = $item;
         });
 

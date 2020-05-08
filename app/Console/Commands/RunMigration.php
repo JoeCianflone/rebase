@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Domain\Models\Listing;
-use App\Domain\Repositories\Facades\ListingRepository;
 use App\Helpers\DBWorkspace;
+use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunMigration extends Command
 {
@@ -28,7 +28,7 @@ class RunMigration extends Command
         if ($this->option('workspaces') || $this->option('all')) {
             $tenants = ListingRepository::all();
 
-            $tenants->each(function ($tenant) {
+            $tenants->each(function ($tenant): void {
                 $this->migrateTenant($tenant);
             });
         }

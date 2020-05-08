@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Domain\Repositories\Facades\ListingRepository;
-use App\Exceptions\DomainNotFoundException;
-use App\Helpers\DBWorkspace;
 use Closure;
+use App\Helpers\DBWorkspace;
 use Illuminate\Http\Request;
+use App\Exceptions\DomainNotFoundException;
+use App\Domain\Repositories\Facades\ListingRepository;
 
 class WorkspaceSetup extends BaseMiddleware
 {

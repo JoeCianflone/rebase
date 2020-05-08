@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
+use App\Domain\Models\User;
 use App\Domain\Models\Account;
 use App\Domain\Models\Banlist;
 use App\Domain\Models\Listing;
-use App\Domain\Models\User;
 use App\Domain\Models\Workspace;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
+use App\Domain\Repositories\EloquentUserRepository;
 use App\Domain\Repositories\EloquentAccountRepository;
 use App\Domain\Repositories\EloquentBanlistRepository;
 use App\Domain\Repositories\EloquentListingRepository;
-use App\Domain\Repositories\EloquentUserRepository;
 use App\Domain\Repositories\EloquentWorkspaceRepository;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

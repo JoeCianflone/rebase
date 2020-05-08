@@ -6,22 +6,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workspace extends Model
 {
-    /** @var bool */
+    /**
+     * @var bool
+     */
     public $incrementing = false;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = 'workspace';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [
         'id' => 'uuid',
     ];

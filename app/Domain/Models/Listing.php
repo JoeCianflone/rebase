@@ -7,19 +7,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Listing extends Model
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = 'shared';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [
         'account_id' => 'uuid',
     ];

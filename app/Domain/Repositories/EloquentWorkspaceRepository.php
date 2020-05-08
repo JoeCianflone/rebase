@@ -12,7 +12,6 @@ class EloquentWorkspaceRepository extends EloquentRepository
 
     public function __construct(Workspace $model)
     {
-
         $this->model = $model;
     }
 }

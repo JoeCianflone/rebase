@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Actions\GetView;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Actions\GetView;
+use Illuminate\Http\Request;
 
 class DashboardIndex
 {

@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Domain\Models\Listing;
-use App\Domain\Repositories\Facades\ListingRepository;
 use App\Helpers\DBWorkspace;
+use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\Repositories\Facades\ListingRepository;
 
 class RunRollback extends Command
 {
@@ -32,7 +32,7 @@ class RunRollback extends Command
         if ($this->option('workspaces') || $this->option('all')) {
             $listings = ListingRepository::all();
 
-            $listings->each(function ($listing) {
+            $listings->each(function ($listing): void {
                 $this->migrateWorkspace($listing);
             });
         }

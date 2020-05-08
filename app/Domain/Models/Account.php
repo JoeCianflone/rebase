@@ -2,30 +2,40 @@
 
 namespace App\Domain\Models;
 
+use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laravel\Cashier\Billable;
 
 class Account extends Model
 {
     use Billable;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     public $incrementing = false;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = 'shared';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [
         'id' => 'uuid',
     ];

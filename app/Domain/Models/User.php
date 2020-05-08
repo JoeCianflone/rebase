@@ -2,29 +2,39 @@
 
 namespace App\Domain\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     public $incrementing = false;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = 'workspace';
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [
         'id' => 'uuid',
         'workspace_id' => 'uuid',
