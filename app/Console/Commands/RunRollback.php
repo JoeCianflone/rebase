@@ -30,7 +30,7 @@ class RunRollback extends Command
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $listings = ListingRepository::getAll();
+            $listings = ListingRepository::all();
 
             $listings->each(function ($listing) {
                 $this->migrateWorkspace($listing);

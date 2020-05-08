@@ -10,6 +10,7 @@ use App\Enums\UserRole;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AccountManual extends Command
 {
@@ -64,7 +65,7 @@ class AccountManual extends Command
             die();
         }
 
-        if (ListingRepository::slugExists($slug)) {
+        if (ListingRepository::hasSlug($slug)) {
             $this->error('Slug Exists, cannot create listing');
             die();
         }
@@ -85,13 +86,13 @@ class AccountManual extends Command
         ]);
 
         $workspace = WorkspaceRepository::create([
-            'id' => WorkspaceRepository::generateUUID(),
+            'id' => Str::uuid()->toString(),
             'account_id' => $account->id,
             'slug' => $slug,
         ]);
 
         $user = UserRepository::create([
-            'id' => UserRepository::generateUUID(),
+            'id' => Str::uuid()->toString(),
             'workspace_id' => $workspace->id,
             'first_name' => explode(' ', $name)[0],
             'last_name' => explode(' ', $name)[1],
@@ -109,7 +110,7 @@ class AccountManual extends Command
 
     private function spinUpDB(): string
     {
-        $newAccountUUID = AccountRepository::generateUUID();
+        $newAccountUUID = Str::uuid()->toString();
 
         DBWorkspace::create($newAccountUUID);
         DBWorkspace::connect($newAccountUUID);

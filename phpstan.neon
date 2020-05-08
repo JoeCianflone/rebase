@@ -12,6 +12,7 @@ parameters:
     universalObjectCratesClasses:
         - Illuminate\Database\Eloquent\Model
 
+
     ignoreErrors:
         - '#Unsafe usage of new static#'
 

@@ -8,6 +8,7 @@ class Workspace extends Model
 {
     /** @var bool */
     public $incrementing = false;
+
     /** @var string */
     protected $connection = 'workspace';
 

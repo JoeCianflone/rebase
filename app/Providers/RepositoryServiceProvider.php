@@ -20,7 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('ListingRepository', function (Application $app) {
             return new EloquentListingRepository(new Listing());
@@ -46,7 +46,7 @@ class RepositoryServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot()
+    public function boot(): void
     {
     }
 }

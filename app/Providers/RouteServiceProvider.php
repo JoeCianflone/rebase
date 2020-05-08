@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      */
-    public function boot()
+    public function boot(): void
     {
         Route::pattern('domain', '[a-z0-9.\-]+');
         parent::boot();
@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      */
-    public function map()
+    public function map(): void
     {
         $this->mapRoutes('web');
     }

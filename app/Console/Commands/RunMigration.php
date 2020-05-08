@@ -26,7 +26,7 @@ class RunMigration extends Command
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $tenants = ListingRepository::getAll();
+            $tenants = ListingRepository::all();
 
             $tenants->each(function ($tenant) {
                 $this->migrateTenant($tenant);

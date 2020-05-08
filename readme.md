@@ -107,6 +107,13 @@ There are some controllers that will never `store` or `update` the database in a
 
 In case you're thinking, "login and logout are the only examples where this would make sense," I could make an argument for payments. Some people could make the argument that you're "updating the account" and that may very well be the case. But sometimes a payment is one-off, maybe the account doesn't get updated, or maybe your app does something where you need to FIRST process a payment THEN hand off control to something else before you update. Bottom line, you could have 1000 different things going on before an account update should ever happen. In that case, maybe `process` is the right name. All I'm saying is, this document doesn't prescribe anything in particular
 
+## Query Names
+
+Call me crazy, but I hate not knowing what a function should be called. Is it `$this->getBy()` or is it `$this->findBy()`? This is one of those things that happens when you have more than one person working on a project, or, like me...you forget. Here's how you name different types of queries:
+
+-  `getByX()`: When you would like to get one or more things
+-  `hasX()`: When you are wondering if something exists
+
 ## New Commands
 
 Some of these commands are overrides of standard Laravel commands and some of these are new.

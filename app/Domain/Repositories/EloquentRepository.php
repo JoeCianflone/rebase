@@ -6,18 +6,40 @@ namespace App\Domain\Repositories;
 
 use App\Helpers\QueryCache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Ramsey\Uuid\Uuid;
 
 class EloquentRepository
 {
     protected Model $model;
     protected QueryCache $cache;
     protected string $cacheKey = '';
+
     protected array $withData = [];
 
     public function __construct()
     {
         $this->cache = resolve('QueryCache');
         $this->cache->setKey($this->cacheKey);
+    }
+
+    /**
+     * @return null|Collection<Model>
+     */
+    public function all(): ?Collection
+    {
+        return $this->cache
+            ->as('all')
+            ->from(fn () => $this->model->all())
+        ;
+    }
+
+    public function getByID(Uuid $id): ?Model
+    {
+        return $this->cache
+            ->as('getByID.'.$id)
+            ->from(fn () => $this->model->whereId($id)->first())
+        ;
     }
 
     public function with(array $data): self
@@ -55,7 +77,7 @@ class EloquentRepository
      */
     public function update($id): void
     {
-        $this->model->where('id', $id)->update($this->withData);
+        $this->model->whereId($id)->update($this->withData);
     }
 
     public function remove(Model $model): void

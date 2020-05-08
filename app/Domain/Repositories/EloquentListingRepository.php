@@ -5,27 +5,22 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\Listing;
-use App\Domain\Repositories\Traits\EloquentQueries;
-use Illuminate\Database\Eloquent\Model;
 
 class EloquentListingRepository extends EloquentRepository
 {
-    use EloquentQueries;
-
-    protected string $cacheKey = 'user';
+    protected string $cacheKey = 'listing';
 
     public function __construct(Listing $model)
     {
-        parent::__construct();
         $this->model = $model;
     }
 
-    public function slugExists(string $slug): bool
+    public function hasSlug(string $slug): bool
     {
-        return $this->model->where('slug', $slug)->count() > 0;
+        return $this->model->whereSlug($slug)->count() > 0;
     }
 
-    public function getBySlug(string $slug): ?Model
+    public function getBySlug(string $slug): ?Listing
     {
         return $this->cache
             ->as('getBySlug')
@@ -33,7 +28,7 @@ class EloquentListingRepository extends EloquentRepository
         ;
     }
 
-    public function getByDomain(string $domain): ?Model
+    public function getByDomain(string $domain): ?Listing
     {
         return $this->cache
             ->as('getByDomain')

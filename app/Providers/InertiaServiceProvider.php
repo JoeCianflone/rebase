@@ -12,7 +12,7 @@ class InertiaServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register()
+    public function register(): void
     {
         Inertia::version(fn (): ?string => md5_file(public_path('mix-manifest.json')) ?: null);
 
@@ -39,7 +39,7 @@ class InertiaServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot()
+    public function boot(): void
     {
     }
 }
