@@ -9,9 +9,9 @@ class CreateAccountsTable extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('address_line1');
@@ -30,14 +30,12 @@ class CreateAccountsTable extends Migration
 
             $table->timestamps();
         });
-
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-
     }
 }

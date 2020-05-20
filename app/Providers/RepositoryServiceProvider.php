@@ -22,16 +22,13 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentAccountRepository(new Account());
         });
 
-        $this->app->singleton('WorkspaceRepository', function($app) {
+        $this->app->singleton('WorkspaceRepository', function ($app) {
             return new EloquentWorkspaceRepository(new Workspace());
-         });
-
+        });
 
         $this->app->singleton('UserRepository', function (Application $app) {
             return new EloquentUserRepository(new User());
         });
-
-
     }
 
     /**

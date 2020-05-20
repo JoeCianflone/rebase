@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use App\Domain\Repositories\Facades\AccountRepository;
-use App\Domain\Repositories\Facades\ListingRepository;
 use App\Domain\Repositories\Facades\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

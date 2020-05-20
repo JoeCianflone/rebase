@@ -2,14 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\UserRole;
 use Illuminate\Support\Str;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use App\Domain\Repositories\Facades\UserRepository;
 use App\Domain\Repositories\Facades\AccountRepository;
-use App\Domain\Repositories\Facades\ListingRepository;
 use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class AccountManual extends Command
@@ -103,7 +101,7 @@ class AccountManual extends Command
             'first_name' => explode(' ', $name)[0],
             'last_name' => explode(' ', $name)[1],
             'email' => $email,
-            'password' => Hash::make($password)
+            'password' => Hash::make($password),
         ]);
     }
 

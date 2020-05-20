@@ -9,14 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Workspace extends Model
 {
     /**
-     * @var string
-     */
-    protected $connection = 'shared';
-
-    /**
      * @var bool
      */
     public $incrementing = false;
+    /**
+     * @var string
+     */
+    protected $connection = 'shared';
 
     /**
      * @var array
