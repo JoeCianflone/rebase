@@ -10,6 +10,9 @@ use App\Domain\Repositories\Facades\ListingRepository;
 
 class WorkspaceSetup extends BaseMiddleware
 {
+    /**
+     * @var array<string>
+     */
     protected array $except = [
         'storage',
         'storage/*',
@@ -26,41 +29,41 @@ class WorkspaceSetup extends BaseMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($this->shouldIgnore($request->path())) {
-            return $next($request);
-        }
+        // if ($this->shouldIgnore($request->path())) {
+        //     return $next($request);
+        // }
 
-        try {
-            $workspace = $this->getWorkspaceFromURI($request->getHost());
+        // try {
+        //     $workspace = $this->getWorkspaceFromURI($request->getHost());
 
-            if ($this->checkByDomain) {
-                $listing = ListingRepository::getByDomain($workspace);
-                config(['session.domain' => $workspace]);
-                $workspaceURL = "https://{$workspace}";
-            } else {
-                $listing = ListingRepository::getBySlug($workspace);
-                $workspaceURL = "https://{$workspace}.".config('app.domain');
-            }
+        //     if ($this->checkByDomain) {
+        //         $listing = ListingRepository::getByDomain($workspace);
+        //         config(['session.domain' => $workspace]);
+        //         $workspaceURL = "https://{$workspace}";
+        //     } else {
+        //         $listing = ListingRepository::getBySlug($workspace);
+        //         $workspaceURL = "https://{$workspace}.".config('app.domain');
+        //     }
 
-            DBWorkspace::connect($listing->workspace_id);
+        //     DBWorkspace::connect($listing->workspace_id);
 
-            session([
-                'workspace_id' => $listing->workspace_id,
-                'workspace_slug' => $listing->slug,
-                'workspace_url' => $workspaceURL,
-            ]);
-        } catch (DomainNotFoundException $e) {
-            session()->flush();
-            session([
-                'workspace_id' => null,
-                'workspace_slug' => null,
-                'workspace_url' => null,
-            ]);
+        //     session([
+        //         'workspace_id' => $listing->workspace_id,
+        //         'workspace_slug' => $listing->slug,
+        //         'workspace_url' => $workspaceURL,
+        //     ]);
+        // } catch (DomainNotFoundException $e) {
+        //     session()->flush();
+        //     session([
+        //         'workspace_id' => null,
+        //         'workspace_slug' => null,
+        //         'workspace_url' => null,
+        //     ]);
 
-            // return Redirect::route('shared.get.index.register')
-            //                  ->with('message', "Good News! That site is available to register")
-            //                  ->with('slug', $slug);
-        }
+        //     // return Redirect::route('shared.get.index.register')
+        //     //                  ->with('message', "Good News! That site is available to register")
+        //     //                  ->with('slug', $slug);
+        // }
 
         return $next($request);
     }

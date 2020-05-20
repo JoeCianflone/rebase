@@ -4,7 +4,6 @@ namespace App\Domain\Models;
 
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
@@ -38,10 +37,6 @@ class Account extends Model
      */
     protected $casts = [
         'id' => 'uuid',
+        'is_business' => 'boolean',
     ];
-
-    public function listings(): HasMany
-    {
-        return $this->hasMany(Listing::class);
-    }
 }

@@ -65,7 +65,7 @@ class AccountManual extends Command
             die();
         }
 
-        if (ListingRepository::hasSlug($slug)) {
+        if (WorkspaceRepository::hasSlug($slug)) {
             $this->error('Slug Exists, cannot create listing');
             die();
         }
@@ -75,20 +75,26 @@ class AccountManual extends Command
         $account = AccountRepository::create([
             'id' => $uuid,
             'name' => $accountName,
-            'line1' => $line1,
-            'line2' => $line2,
-            'line3' => $line3,
-            'locality' => $locality,
-            'region' => $state,
+            'address_line1' => $line1,
+            'address_line2' => $line2,
+            'address_line3' => $line3,
+            'city' => $locality,
+            'state' => $state,
             'postal_code' => $postalCode,
             'country' => $country,
-            'has_agreed_to_terms' => true,
         ]);
 
         $workspace = WorkspaceRepository::create([
             'id' => Str::uuid()->toString(),
             'account_id' => $account->id,
             'slug' => $slug,
+            // 'address_line1' => $line1,
+            // 'address_line2' => $line2,
+            // 'address_line3' => $line3,
+            // 'locality' => $locality,
+            // 'region' => $state,
+            // 'postal_code' => $postalCode,
+            // 'country' => $country,
         ]);
 
         $user = UserRepository::create([
@@ -97,14 +103,7 @@ class AccountManual extends Command
             'first_name' => explode(' ', $name)[0],
             'last_name' => explode(' ', $name)[1],
             'email' => $email,
-            'password' => Hash::make($password),
-            'role' => UserRole::OWNER(),
-        ]);
-
-        $listing = ListingRepository::create([
-            'account_id' => $account->id,
-            'workspace_id' => $workspace->id,
-            'slug' => $workspace->slug,
+            'password' => Hash::make($password)
         ]);
     }
 

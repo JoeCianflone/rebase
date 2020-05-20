@@ -3,10 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Helpers\DBWorkspace;
-use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\Facades\ListingRepository;
+use App\Domain\Models\Workspace;
+use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class RunRollback extends Command
 {
@@ -30,33 +29,30 @@ class RunRollback extends Command
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $listings = ListingRepository::all();
+            $workspaces = WorkspaceRepository::all();
 
-            $listings->each(function ($listing): void {
-                $this->migrateWorkspace($listing);
+            $workspaces->each(function ($workspace): void {
+                $this->migrateWorkspace($workspace);
             });
         }
 
         if ($this->argument('workspace')) {
-            $listing = ListingRepository::getBySlug($this->argument('workspace'));
+            $workspace = WorkspaceRepository::getBySlug($this->argument('workspace'));
 
-            $this->migrateWorkspace($listing);
+            $this->migrateWorkspace($workspace);
         }
     }
 
-    /**
-     * @param Listing|Model $listing
-     */
-    private function migrateWorkspace($listing): void
+    private function migrateWorkspace(Workspace $workspace): void
     {
-        if (!DBWorkspace::exists($listing->account_id)) {
+        if (!DBWorkspace::exists($workspace->account_id)) {
             $this->info('Connection does not exist...creating');
-            DBWorkspace::create($listing->account_id);
+            DBWorkspace::create($workspace->account_id);
         }
 
-        DBWorkspace::connect($listing->account_id);
+        DBWorkspace::connect($workspace->account_id);
 
-        $this->info("Starting Rollback for: {$listing->slug}");
+        $this->info("Starting Rollback for: {$workspace->slug}");
         $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
     }
 

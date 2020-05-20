@@ -28,11 +28,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('emails.text', 'text');
         Blade::component('emails.headline', 'headline');
         Blade::component('emails.divider', 'divider');
-
-        $this->app->singleton('QueryCache', function ($app) {
-            $key = Session::get('workspace_id') ?? Session::getId();
-
-            return new QueryCache($key);
-        });
     }
 }

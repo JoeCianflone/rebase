@@ -3,10 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Helpers\DBWorkspace;
-use App\Domain\Models\Listing;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\Facades\ListingRepository;
+use App\Domain\Models\Workspace;
+use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class RunMigration extends Command
 {
@@ -26,33 +25,30 @@ class RunMigration extends Command
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
-            $tenants = ListingRepository::all();
+            $workspaces = WorkspaceRepository::all();
 
-            $tenants->each(function ($tenant): void {
-                $this->migrateTenant($tenant);
+            $workspaces->each(function ($workspace): void {
+                $this->migrateTenant($workspace);
             });
         }
 
         if ($this->argument('workspace')) {
-            $tenant = ListingRepository::getBySlug($this->argument('workspace'));
+            $workspace = WorkspaceRepository::getBySlug($this->argument('workspace'));
 
-            $this->migrateTenant($tenant);
+            $this->migrateTenant($workspace);
         }
     }
 
-    /**
-     * @param Listing|Model $tenant
-     */
-    private function migrateTenant($tenant): void
+    private function migrateTenant(Workspace $workspace): void
     {
-        if (!DBWorkspace::exists($tenant->account_id)) {
+        if (!DBWorkspace::exists($workspace->account_id)) {
             $this->info('Connection does not exist...creating');
-            DBWorkspace::create($tenant->account_id);
+            DBWorkspace::create($workspace->account_id);
         }
 
-        DBWorkspace::connect($tenant->account_id);
+        DBWorkspace::connect($workspace->account_id);
 
-        $this->info("Starting Migration for: {$tenant->slug}");
+        $this->info("Starting Migration for: {$workspace->slug}");
         $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
     }
 

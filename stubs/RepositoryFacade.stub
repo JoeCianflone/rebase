@@ -1,10 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Domain\Repositories\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class {{classname}} extends Facade
+class {{classame}} extends Facade
 {
-
-    protected static function getFacadeAccessor(): string { return '{{classname}}'; }
+    protected static function getFacadeAccessor(): string
+    {
+        return '{{classname}}';
+    }
 }

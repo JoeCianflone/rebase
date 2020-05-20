@@ -17,7 +17,7 @@
    ],
    "husky": {
       "hooks": {
-         "pre-commit": "yarn cleanup"
+         "pre-commit": "yarn cleanup && yarn stan"
       }
    },
    "dependencies": {

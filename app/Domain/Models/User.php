@@ -37,7 +37,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'id' => 'uuid',
-        'workspace_id' => 'uuid',
         'email_verified_at' => 'datetime',
     ];
 
@@ -45,4 +44,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Workspace::class);
     }
+
 }

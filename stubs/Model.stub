@@ -1,26 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class {{classname}} extends Model
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $connection = '{{type}}';
 
-    /** @var bool */
+    /**
+     * @var bool
+     */
     public $incrementing = false;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $casts = [ ];
 }

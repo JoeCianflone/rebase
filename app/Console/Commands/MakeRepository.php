@@ -22,8 +22,8 @@ class MakeRepository extends Command
         $facade = $this->stubOutFacade(new FileGenerator(config('app-paths.repositories'), false));
 
         $this->line('<comment>Please make sure you input the following into your RepositoryServiceProvider:</comment>');
-        $this->info('$this->app->singleton(\''.$repo->getFilename(false).'\', function($app) {
-                        return new '.$facade->getFilename(false).'(new '.$this->argument('model').'());
+        $this->info('$this->app->singleton(\''.$facade->getFilename(false).'\', function($app) {
+                        return new '.$repo->getFilename(false).'(new '.$this->argument('model').'());
                      });');
     }
 

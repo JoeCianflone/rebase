@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Workspace extends Model
 {
     /**
+     * @var string
+     */
+    protected $connection = 'shared';
+
+    /**
      * @var bool
      */
     public $incrementing = false;
-
-    /**
-     * @var string
-     */
-    protected $connection = 'workspace';
 
     /**
      * @var array

@@ -23,7 +23,15 @@ class MakeCustomDomain extends Command
      *
      * @var string
      */
-    protected $description = '';
+    protected $description = 'Run this command to trigger the build steps needed for a new custom domain to be set up for a user';
+
+    private string $appIPAddress = '';
+
+    private string $defaultAppRoot = '';
+
+    private string $defaultAppDomain = '';
+
+    private string $defaultSupportEmailAddress = '';
 
     /**
      * Create a new command instance.
@@ -40,7 +48,15 @@ class MakeCustomDomain extends Command
      */
     public function handle()
     {
-        exec('sudo certbot certonly --nginx -d '.$this->argument('name').' -m '.$this->argument('support_email').' --agree-tos');
+        $currentIP = gethostbyname($this->argument('name'));
+
+        if ($currentIP !== $this->appIPAddress) {
+            $this->error('IP of the site does not match our IP Address');
+            exit(1);
+        }
+
+        $this->info('Generate the SSL Cert');
+        shell_exec('sudo certbot certonly --nginx -d '.$this->argument('name').' -m '.$this->argument('support_email').' --agree-tos');
 
         $file = new FileGenerator('/etc/nginx/sites-available', true);
         $file->setName($this->argument('name'), '', true);
@@ -54,9 +70,10 @@ class MakeCustomDomain extends Command
         if ($file->toDisk($hydrate, true)) {
             $this->info('nginx conf created');
         } else {
-            $this->error('File already exists');
+            $this->error('File already exists...aborting');
+            exit(1);
         }
 
-        exec('sudo service restart nginx');
+        shell_exec('sudo service restart nginx');
     }
 }

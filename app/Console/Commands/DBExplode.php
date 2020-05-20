@@ -6,6 +6,7 @@ use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use App\Domain\Repositories\Facades\AccountRepository;
 use App\Domain\Repositories\Facades\ListingRepository;
+use App\Domain\Repositories\Facades\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DBExplode extends Command
@@ -72,7 +73,7 @@ class DBExplode extends Command
         $this->alert("Dropping workspace {$workspaceName}");
 
         try {
-            $listing = ListingRepository::getBySlug($workspaceName);
+            $listing = WorkspaceRepository::getBySlug($workspaceName);
             DBWorkspace::drop(AccountRepository::getById($listing->account_id));
         } catch (ModelNotFoundException $e) {
             $this->error("Unable to find workspace {$workspaceName}");
