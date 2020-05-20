@@ -13,10 +13,9 @@ class MakeCustomDomain extends Command
      * @var string
      */
     protected $signature = 'make:domain
-                            {name: this is the domain you are setting up like, foo.com}
+                            {domain: this is the domain you are setting up like, foo.com}
                             {app_root: what is the full app root like, /home/forge/foo.com/public, note you\'re going all the way to the public folder here}
-                            {app_domain: what is the normal app domain like, rebase.test, this is the "main domain" where the app is located, has nothing to do with their custom domain}
-                            {support_email: certbot needs an email, this should NOT be the customer, this is an IT email address so you know something is up if something happens to a cert}';
+                            {app_domain: what is the normal app domain like, rebase.test, this is the "main domain" where the app is located, has nothing to do with their custom domain}';
 
     /**
      * The console command description.
@@ -25,13 +24,9 @@ class MakeCustomDomain extends Command
      */
     protected $description = 'Run this command to trigger the build steps needed for a new custom domain to be set up for a user';
 
-    private string $appIPAddress = '';
+    protected string $nginxSitesAvailable = '/etc/nginx/sites-available';
 
-    private string $defaultAppRoot = '';
-
-    private string $defaultAppDomain = '';
-
-    private string $defaultSupportEmailAddress = '';
+    protected string $nginxSitesEnabled = '/etc/nginx/sites-enabled';
 
     /**
      * Create a new command instance.
@@ -48,32 +43,41 @@ class MakeCustomDomain extends Command
      */
     public function handle()
     {
-        $currentIP = gethostbyname($this->argument('name'));
+        $this->call('verify:domain', [
+            'domain' => $this->argument('domain'),
+        ]);
 
-        if ($currentIP !== $this->appIPAddress) {
-            $this->error('IP of the site does not match our IP Address');
-            exit(1);
-        }
+        $this->call('make:ssl', [
+            'domain' => $this->argument('domain'),
+        ]);
 
-        $this->info('Generate the SSL Cert');
-        shell_exec('sudo certbot certonly --nginx -d '.$this->argument('name').' -m '.$this->argument('support_email').' --agree-tos');
-
-        $file = new FileGenerator('/etc/nginx/sites-available', true);
-        $file->setName($this->argument('name'), '', true);
+        $file = new FileGenerator($this->nginxSitesAvailable, true);
+        $file->setName($this->argument('domain'), '.conf', true);
 
         $hydrate = $file->hydrateStub('Nginx', collect([
-            '{{domain}}' => $this->argument('name'),
-            '{{app_root}}' => $this->argument('app_root'),
-            '{{app_domain}}' => $this->argument('app_domain'),
+            '{{domain}}' => $this->argument('domain'),
+            '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
+            '{{app_domain}}' => config('domain.url'),
         ]));
 
         if ($file->toDisk($hydrate, true)) {
-            $this->info('nginx conf created');
+            $this->symlinkFile($file->getFilename());
         } else {
-            $this->error('File already exists...aborting');
+            $this->error($file->getFilename().' already exists');
+
             exit(1);
         }
 
         shell_exec('sudo service restart nginx');
+    }
+
+    private function symlinkFile(string $filename): void
+    {
+        $this->info('Symlinking '.$filename);
+
+        $sitesAvailable = $this->nginxSitesAvailable.'/'.$filename;
+        $sitesEnabled = $this->nginxSitesEnabled.'/'.$filename;
+
+        shell_exec('ln -s '.$sitesAvailable.' '.$sitesEnabled);
     }
 }

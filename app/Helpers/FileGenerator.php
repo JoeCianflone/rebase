@@ -10,44 +10,20 @@ use Illuminate\Support\Facades\Storage;
 
 class FileGenerator
 {
-    /**
-     * @var string
-     */
     private string $path;
 
-    /**
-     * @var null|string
-     */
     private ?string $stub;
 
-    /**
-     * @var string
-     */
     private string $folder = '';
 
-    /**
-     * @var string
-     */
     private string $prefix = '';
 
-    /**
-     * @var string
-     */
     private string $suffix = '';
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $filename;
 
-    /**
-     * @var null|bool
-     */
     private ?bool $pluralizeFolders = null;
 
     /**

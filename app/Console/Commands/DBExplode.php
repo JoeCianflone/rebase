@@ -67,13 +67,16 @@ class DBExplode extends Command
         }
     }
 
-    private function dropWorkspace(string $workspaceName): void
+    /**
+     * @param mixed $workspaceName
+     */
+    private function dropWorkspace($workspaceName): void
     {
         $this->alert("Dropping workspace {$workspaceName}");
 
         try {
-            $listing = WorkspaceRepository::getBySlug($workspaceName);
-            DBWorkspace::drop(AccountRepository::getById($listing->account_id));
+            $workspace = WorkspaceRepository::getBySlug($workspaceName);
+            DBWorkspace::drop(AccountRepository::getByID($workspace->account_id));
         } catch (ModelNotFoundException $e) {
             $this->error("Unable to find workspace {$workspaceName}");
 
