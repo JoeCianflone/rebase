@@ -85,6 +85,7 @@ class AccountManual extends Command
         $workspace = WorkspaceRepository::create([
             'id' => Str::uuid()->toString(),
             'account_id' => $account->id,
+            'name' => $accountName,
             'slug' => $slug,
             // 'address_line1' => $line1,
             // 'address_line2' => $line2,

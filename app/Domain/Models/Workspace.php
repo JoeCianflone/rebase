@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Workspace extends Model
 {
@@ -35,5 +36,12 @@ class Workspace extends Model
      */
     protected $casts = [
         'id' => 'uuid',
+        'account_id' => 'uuid',
+        'is_active' => 'boolean',
     ];
+
+    public function account(): HasOne
+    {
+        return $this->hasOne(Account::class);
+    }
 }

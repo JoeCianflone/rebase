@@ -3,7 +3,6 @@
 namespace App\Domain\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -40,8 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function workspace(): HasOne
+    public function workspace(): void
     {
-        return $this->hasOne(Workspace::class);
     }
 }

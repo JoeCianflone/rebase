@@ -2135,16 +2135,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969"
+                "reference": "2e3299cea6f485ca64d19c540f46d7896c512ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/93ebc5712cdad8d5f489b500c59d122df2e53969",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969",
+                "url": "https://api.github.com/repos/opis/closure/zipball/2e3299cea6f485ca64d19c540f46d7896c512ace",
+                "reference": "2e3299cea6f485ca64d19c540f46d7896c512ace",
                 "shasum": ""
             },
             "require": {
@@ -2192,7 +2192,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-11-29T22:36:02+00:00"
+            "time": "2020-05-21T20:09:36+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -2867,16 +2867,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.35.0",
+            "version": "v7.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "937bd36cb7b385e4511def0d1520b477ed5ffa68"
+                "reference": "b0f4e9afe20285297fc48b06b28adcf88ac79e0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/937bd36cb7b385e4511def0d1520b477ed5ffa68",
-                "reference": "937bd36cb7b385e4511def0d1520b477ed5ffa68",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b0f4e9afe20285297fc48b06b28adcf88ac79e0d",
+                "reference": "b0f4e9afe20285297fc48b06b28adcf88ac79e0d",
                 "shasum": ""
             },
             "require": {
@@ -2920,7 +2920,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-05-20T20:30:12+00:00"
+            "time": "2020-05-22T02:18:11+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

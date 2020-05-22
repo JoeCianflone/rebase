@@ -23,6 +23,10 @@ class CreateAccountsTable extends Migration
             $table->string('postal_code');
             $table->string('country')->default('USA');
 
+            $table->boolean('is_business')->default(false);
+            $table->timestamp('agrees_to_terms_at')->nullable();
+            $table->timestamp('agrees_to_privacy_at')->nullable();
+
             $table->string('stripe_id')->nullable()->index();
             $table->string('card_brand')->nullable();
             $table->string('card_last_four', 4)->nullable();

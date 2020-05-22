@@ -23,12 +23,12 @@ class DBExplode extends Command
 
     public function handle(): void
     {
+        $this->dropShared();
+
         if ('local' !== app()->environment()) {
             $this->error('This command only runs in local environments');
             exit();
         }
-
-        $this->dropShared();
 
         if ($this->argument('workspace_name')) {
             $this->dropWorkspace($this->argument('workspace_name'));

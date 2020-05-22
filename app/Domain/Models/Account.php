@@ -4,6 +4,7 @@ namespace App\Domain\Models;
 
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
@@ -30,6 +31,8 @@ class Account extends Model
     protected $dates = [
         'created_at',
         'updated_at',
+        'agrees_to_terms_at',
+        'agrees_to_privacy_at',
     ];
 
     /**
@@ -39,4 +42,9 @@ class Account extends Model
         'id' => 'uuid',
         'is_business' => 'boolean',
     ];
+
+    public function workspaces(): HasMany
+    {
+        return $this->hasMany(Workspace::class);
+    }
 }
