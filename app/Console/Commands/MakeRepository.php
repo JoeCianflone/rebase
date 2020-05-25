@@ -34,9 +34,9 @@ class MakeRepository extends Command
         $file->setName($this->argument('name'), '.php');
         $file->setFolder('Facades');
 
-        $file->hydrateStub('RepositoryFacade', collect([
+        $file->hydrateStub('RepositoryFacade', [
             '{{classname}}' => $file->getFilename(false),
-        ]));
+        ]);
 
         if ($file->toDisk()) {
             $this->info('Facade created');
@@ -53,11 +53,11 @@ class MakeRepository extends Command
         $file->setNameSuffix('Repository');
         $file->setName($this->argument('name'), '.php');
 
-        $file->hydrateStub('Repository', collect([
+        $file->hydrateStub('Repository', [
             '{{classname}}' => $file->getFilename(false),
             '{{model}}' => ucfirst($this->argument('model')),
             '{{cache}}' => strtolower($this->argument('model')),
-        ]));
+        ]);
 
         if ($file->toDisk()) {
             $this->info('Repository created');

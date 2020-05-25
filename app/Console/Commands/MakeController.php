@@ -26,10 +26,10 @@ class MakeController extends Command
         $file->setFolder($this->argument('folder'));
         $file->setName($this->argument('name'), '.php');
 
-        $file->hydrateStub('Controller', collect([
+        $file->hydrateStub('Controller', [
             '{{class}}' => $file->getFilename(false),
             '{{namespace}}' => $file->getNamespace(),
-        ]));
+        ]);
 
         if ($file->toDisk()) {
             $this->info('Controller created');

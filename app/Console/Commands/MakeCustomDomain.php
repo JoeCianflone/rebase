@@ -54,11 +54,11 @@ class MakeCustomDomain extends Command
         $file = new FileGenerator($this->nginxSitesAvailable, true);
         $file->setName($this->argument('domain'), '.conf', true);
 
-        $file->hydrateStub('Nginx', collect([
+        $file->hydrateStub('Nginx', [
             '{{domain}}' => $this->argument('domain'),
             '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
             '{{app_domain}}' => config('domain.url'),
-        ]));
+        ]);
 
         if ($file->toDisk(true)) {
             $this->symlinkFile($file->getFilename());

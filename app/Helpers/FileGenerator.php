@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class FileGenerator
@@ -93,17 +92,13 @@ class FileGenerator
         }
     }
 
-    public function hydrateStub(string $stub, ?Collection $replacements = null): void
+    public function hydrateStub(string $stub, array $replacements = []): void
     {
-        $stub = $this->getStub($stub);
+        $this->hydratedStub = $this->getStub($stub);
 
-        if (!is_null($replacements)) {
-            foreach ($replacements as $key => $value) {
-                $stub = str_replace($key, $value, $stub);
-            }
-        }
-
-        $this->hydratedStub = $stub;
+        collect($replacements)->each(function ($item, $key): void {
+            $this->hydratedStub = str_replace($key, $item, $this->hydratedStub);
+        });
     }
 
     public function getHydratedStub(): string
