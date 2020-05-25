@@ -6,7 +6,7 @@ namespace App\Domain\Repositories\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class {{classame}} extends Facade
+class {{classname}} extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

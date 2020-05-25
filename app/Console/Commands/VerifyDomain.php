@@ -44,6 +44,7 @@ class VerifyDomain extends Command
 
         if ($domainIP !== config('domain.ip1')) {
             $this->error($this->argument('domain').' is not currently pointing to our IP address');
+            exit(1);
         }
 
         $this->info('Domain is pointing to our servers!');

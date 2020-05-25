@@ -14,7 +14,6 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-
     index index.html index.htm index.php;
 
     charset utf-8;

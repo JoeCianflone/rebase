@@ -34,12 +34,12 @@ class MakeModel extends Command
         $file = new FileGenerator(config('app-paths.models'));
         $file->setName($this->argument('name'), '.php');
 
-        $hydratedFile = $file->hydrateStub('Model', collect([
+        $file->hydrateStub('Model', collect([
             '{{classname}}' => $file->getFilename(false),
             '{{type}}' => $this->option('shared') ? 'shared' : 'workspace',
         ]));
 
-        if ($file->toDisk($hydratedFile)) {
+        if ($file->toDisk()) {
             $this->info('Model created');
         } else {
             $this->error('File already exists');

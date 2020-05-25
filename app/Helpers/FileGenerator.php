@@ -26,6 +26,8 @@ class FileGenerator
 
     private ?bool $pluralizeFolders = null;
 
+    private ?string $hydratedStub;
+
     /**
      * @param bool $singular
      */
@@ -91,7 +93,7 @@ class FileGenerator
         }
     }
 
-    public function hydrateStub(string $stub, ?Collection $replacements = null): string
+    public function hydrateStub(string $stub, ?Collection $replacements = null): void
     {
         $stub = $this->getStub($stub);
 
@@ -101,7 +103,12 @@ class FileGenerator
             }
         }
 
-        return $stub;
+        $this->hydratedStub = $stub;
+    }
+
+    public function getHydratedStub(): string
+    {
+        return $this->hydratedStub;
     }
 
     public function getStub(string $name): ?string
@@ -109,7 +116,7 @@ class FileGenerator
         return rtrim(file_get_contents(base_path("stubs/{$name}.stub"))) ?? null;
     }
 
-    public function toDisk(string $hydratedStub, bool $useRoot = false): bool
+    public function toDisk(bool $useRoot = false): bool
     {
         $disk = Storage::disk('console');
         if ($useRoot) {
@@ -122,7 +129,7 @@ class FileGenerator
             return false;
         }
 
-        $disk->put($file, $hydratedStub);
+        $disk->put($file, $this->hydratedStub);
 
         return true;
     }

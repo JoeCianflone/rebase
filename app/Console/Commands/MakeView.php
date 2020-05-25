@@ -26,8 +26,9 @@ class MakeView extends Command
         $file->setFolder($this->argument('folder'));
         $file->setName($this->argument('name'), '.vue');
 
-        $hydratedFile = $file->hydrateStub('View');
-        if ($file->toDisk($hydratedFile)) {
+        $file->hydrateStub('View');
+
+        if ($file->toDisk()) {
             $this->info('View created');
         } else {
             $this->error('File already exists');

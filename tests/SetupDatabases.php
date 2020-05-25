@@ -9,11 +9,11 @@ trait SetupDatabases
         parent::setUp();
 
         config(['database.connections.shared' => [
-            'driver' => 'sqllite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
         ],
             'database.connections.workspace' => [
-                'driver' => 'sqllite',
+                'driver' => 'sqlite',
                 'database' => ':memory:',
             ],
         ]);

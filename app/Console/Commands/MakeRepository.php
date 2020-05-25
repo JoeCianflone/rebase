@@ -34,11 +34,11 @@ class MakeRepository extends Command
         $file->setName($this->argument('name'), '.php');
         $file->setFolder('Facades');
 
-        $hydratedFacade = $file->hydrateStub('RepositoryFacade', collect([
+        $file->hydrateStub('RepositoryFacade', collect([
             '{{classname}}' => $file->getFilename(false),
         ]));
 
-        if ($file->toDisk($hydratedFacade)) {
+        if ($file->toDisk()) {
             $this->info('Facade created');
         } else {
             $this->error('Facade already exists');
@@ -53,13 +53,13 @@ class MakeRepository extends Command
         $file->setNameSuffix('Repository');
         $file->setName($this->argument('name'), '.php');
 
-        $hydratedFile = $file->hydrateStub('Repository', collect([
+        $file->hydrateStub('Repository', collect([
             '{{classname}}' => $file->getFilename(false),
             '{{model}}' => ucfirst($this->argument('model')),
             '{{cache}}' => strtolower($this->argument('model')),
         ]));
 
-        if ($file->toDisk($hydratedFile)) {
+        if ($file->toDisk()) {
             $this->info('Repository created');
         } else {
             $this->error('Repository already exists');
