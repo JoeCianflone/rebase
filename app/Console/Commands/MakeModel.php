@@ -31,18 +31,21 @@ class MakeModel extends Command
 
     public function handle(): void
     {
-        $file = new FileGenerator(config('app-paths.models'));
-        $file->setName($this->argument('name'), '.php');
+        $file = new FileGenerator($this->argument('name'));
 
-        $file->hydrateStub('Model', [
-            '{{classname}}' => $file->getFilename(false),
-            '{{type}}' => $this->option('shared') ? 'shared' : 'workspace',
-        ]);
+        $file->setFileExtensionAs('php')
+            ->setPath(config('app-paths.models'))
+            ->hydrate('Model', [
+                '{{classname}}' => $file->getName(),
+                '{{type}}' => $this->option('shared') ? 'shared' : 'workspace',
+            ])
+        ;
 
-        if ($file->toDisk()) {
+        if ($file->writeToDisk()) {
             $this->info('Model created');
         } else {
             $this->error('File already exists');
+            exit(1);
         }
     }
 }

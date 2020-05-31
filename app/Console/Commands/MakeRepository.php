@@ -18,51 +18,52 @@ class MakeRepository extends Command
 
     public function handle(): void
     {
-        $repo = $this->stubOutRepository(new FileGenerator(config('app-paths.repositories'), false));
-        $facade = $this->stubOutFacade(new FileGenerator(config('app-paths.repositories'), false));
+        $repo = $this->stubOutRepository();
+        $facade = $this->stubOutFacade();
 
         $this->line('<comment>Please make sure you input the following into your RepositoryServiceProvider:</comment>');
-        $this->info('$this->app->singleton(\''.$facade->getFilename(false).'\', function($app) {
-                        return new '.$repo->getFilename(false).'(new '.$this->argument('model').'());
+        $this->info('$this->app->singleton(\''.$facade->getName().'\', function($app) {
+                        return new '.$repo->getName().'(new '.$this->argument('model').'());
                      });');
     }
 
-    private function stubOutFacade(FileGenerator $file): FileGenerator
+    private function stubOutFacade(): FileGenerator
     {
-        $file->setNameSuffix('Repository');
+        $file = new FileGenerator($this->argument('name'), null, 'Repository');
+        $file->setFileExtensionAs('php')
+            ->setPath(config('app-paths.repositories'), 'Facades')
+            ->hydrate('RepositoryFacade', [
+                '{{classname}}' => $file->getName(),
+            ])
+        ;
 
-        $file->setName($this->argument('name'), '.php');
-        $file->setFolder('Facades');
-
-        $file->hydrateStub('RepositoryFacade', [
-            '{{classname}}' => $file->getFilename(false),
-        ]);
-
-        if ($file->toDisk()) {
+        if ($file->writeToDisk()) {
             $this->info('Facade created');
         } else {
             $this->error('Facade already exists');
+            exit(1);
         }
 
         return $file;
     }
 
-    private function stubOutRepository(FileGenerator $file): FileGenerator
+    private function stubOutRepository(): FileGenerator
     {
-        $file->setNamePrefix('Eloquent');
-        $file->setNameSuffix('Repository');
-        $file->setName($this->argument('name'), '.php');
+        $file = new FileGenerator($this->argument('name'), 'Eloquent', 'Repository');
+        $file->setFileExtensionAs('php')
+            ->setPath(config('app-paths.repositories'))
+            ->hydrate('Repository', [
+                '{{classname}}' => $file->getName(),
+                '{{model}}' => ucfirst($this->argument('model')),
+                '{{cache}}' => strtolower($this->argument('model')),
+            ])
+        ;
 
-        $file->hydrateStub('Repository', [
-            '{{classname}}' => $file->getFilename(false),
-            '{{model}}' => ucfirst($this->argument('model')),
-            '{{cache}}' => strtolower($this->argument('model')),
-        ]);
-
-        if ($file->toDisk()) {
+        if ($file->writeToDisk()) {
             $this->info('Repository created');
         } else {
             $this->error('Repository already exists');
+            exit(1);
         }
 
         return $file;

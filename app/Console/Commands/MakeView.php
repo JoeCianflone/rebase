@@ -21,17 +21,17 @@ class MakeView extends Command
 
     public function handle(): void
     {
-        $file = new FileGenerator(config('app-paths.views'), $this->option('singular'));
+        $file = new FileGenerator($this->argument('name'));
+        $file->setFileExtensionAs('vue')
+            ->setPath(config('app-paths.views'), $this->argument('folder'))
+            ->hydrate('View')
+        ;
 
-        $file->setFolder($this->argument('folder'));
-        $file->setName($this->argument('name'), '.vue');
-
-        $file->hydrateStub('View');
-
-        if ($file->toDisk()) {
+        if ($file->writeToDisk()) {
             $this->info('View created');
         } else {
             $this->error('File already exists');
+            exit(1);
         }
 
         if ($this->option('controller')) {

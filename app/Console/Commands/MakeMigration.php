@@ -25,7 +25,5 @@ class MakeMigration extends Command
             'name' => $this->argument('name'),
             '--path' => $path,
         ]);
-
-        exit();
     }
 }

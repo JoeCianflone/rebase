@@ -41,6 +41,5 @@ class MakeSSLCert extends Command
         }
 
         shell_exec('sudo certbot certonly --nginx -d '.$this->argument('domain').' -m '.config('domain.support').' --agree-tos');
-        exit(0);
     }
 }

@@ -48,6 +48,5 @@ class VerifyDomain extends Command
         }
 
         $this->info('Domain is pointing to our servers!');
-        exit(0);
     }
 }

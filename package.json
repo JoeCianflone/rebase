@@ -1,7 +1,7 @@
 {
    "private": true,
    "scripts": {
-      "stan": "vendor/bin/phpstan analyse",
+      "stan": "vendor/bin/phpstan analyse --memory-limit=2G",
       "cleanup": "php-cs-fixer fix",
       "dev": "yarn run development",
       "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -45,7 +45,7 @@
    },
    "version": "0.0.1",
    "devDependencies": {
-      "eslint": "^6.1.0",
+      "eslint": "^7.1.0",
       "eslint-plugin-vue": "^6.2.1",
       "husky": "^4.2.5",
       "prettier": "^2.0.4",

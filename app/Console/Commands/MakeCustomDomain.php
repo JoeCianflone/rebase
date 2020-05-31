@@ -51,19 +51,22 @@ class MakeCustomDomain extends Command
             'domain' => $this->argument('domain'),
         ]);
 
-        $file = new FileGenerator($this->nginxSitesAvailable, true);
-        $file->setName($this->argument('domain'), '.conf', true);
+        $file = new FileGenerator($this->nginxSitesAvailable);
 
-        $file->hydrateStub('Nginx', [
-            '{{domain}}' => $this->argument('domain'),
-            '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
-            '{{app_domain}}' => config('domain.url'),
-        ]);
+        $file->setFileExtensionAs('conf')
+            ->shouldBePlural(false)
+            ->setPath(config('app-paths.nginx'), 'sites-available')
+            ->hydrate('Nginx', [
+                '{{domain}}' => $this->argument('domain'),
+                '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
+                '{{app_domain}}' => config('domain.url'),
+            ])
+        ;
 
-        if ($file->toDisk(true)) {
-            $this->symlinkFile($file->getFilename());
+        if ($file->writeToDisk()) {
+            $this->symlinkFile($file->getName(true));
         } else {
-            $this->error($file->getFilename().' already exists');
+            $this->error($file->getName().' already exists');
 
             exit(1);
         }
@@ -75,8 +78,8 @@ class MakeCustomDomain extends Command
     {
         $this->info('Symlinking '.$filename);
 
-        $sitesAvailable = $this->nginxSitesAvailable.'/'.$filename;
-        $sitesEnabled = $this->nginxSitesEnabled.'/'.$filename;
+        $sitesAvailable = config('app-paths.nginx').'sites-available/'.$filename;
+        $sitesEnabled = config('app-paths.nginx').'sites-enabled/'.$filename;
 
         shell_exec('ln -s '.$sitesAvailable.' '.$sitesEnabled);
     }

@@ -27,7 +27,7 @@ class DBExplode extends Command
 
         if ('local' !== app()->environment()) {
             $this->error('This command only runs in local environments');
-            exit();
+            exit(1);
         }
 
         if ($this->argument('workspace_name')) {
@@ -79,8 +79,6 @@ class DBExplode extends Command
             DBWorkspace::drop(AccountRepository::getByID($workspace->account_id));
         } catch (ModelNotFoundException $e) {
             $this->error("Unable to find workspace {$workspaceName}");
-
-            exit();
         }
     }
 }

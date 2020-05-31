@@ -21,17 +21,18 @@ class MakeController extends Command
 
     public function handle(): void
     {
-        $file = new FileGenerator(config('app-paths.controllers'), $this->option('singular'));
+        $file = new FileGenerator($this->argument('name'));
 
-        $file->setFolder($this->argument('folder'));
-        $file->setName($this->argument('name'), '.php');
+        $file->setFileExtensionAs('php')
+            ->shouldBePlural($this->option('singular'))
+            ->setPath(config('app-paths.controllers'), $this->argument('folder'))
+            ->hydrate('Controller', [
+                '{{class}}' => $file->getName(),
+                '{{namespace}}' => $file->getNamespace(),
+            ])
+        ;
 
-        $file->hydrateStub('Controller', [
-            '{{class}}' => $file->getFilename(false),
-            '{{namespace}}' => $file->getNamespace(),
-        ]);
-
-        if ($file->toDisk()) {
+        if ($file->writeToDisk()) {
             $this->info('Controller created');
         } else {
             $this->error('File already exists');
