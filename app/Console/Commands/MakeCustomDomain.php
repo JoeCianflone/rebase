@@ -64,9 +64,9 @@ class MakeCustomDomain extends Command
         ;
 
         if ($file->writeToDisk()) {
-            $this->symlinkFile($file->getName(true));
+            $this->symlinkFile($file->getFileName());
         } else {
-            $this->error($file->getName().' already exists');
+            $this->error($file->getFileName().' already exists');
 
             exit(1);
         }

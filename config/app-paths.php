@@ -1,10 +1,13 @@
 <?php
 
 return [
-    'views' => 'resources/js/Pages',
-    'controllers' => 'app/Http/Controllers',
-    'models' => 'app/Domain/Models',
-    'repositories' => 'app/Domain/Repositories',
+    'views' => env('PATH_VIEWS', 'resources/js/Pages'),
 
-    'nginx' => '/etc/nginx',
+    'controllers' => env('PATH_COONTROLLERS', 'app/Http/Controllers'),
+
+    'models' => env('PATH_MODELS', 'app/Domain/Models'),
+
+    'repositories' => env('PATH_REPOSITORIES', 'app/Domain/Repositories'),
+
+    'nginx' => env('PATH_NGINX', '/etc/nginx'),
 ];

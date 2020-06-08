@@ -2,11 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Dashboard\DashboardIndex::class);
+// Route::prefix('customers')->name('customers.')->group(function (): void {});
 
-/*
- * Routes for your shared application pages. This DOES NOT mean shared as in
- * "every app has this route" shared means it only uses the shared DB.
- *
- * Think: super-admin stuff
- */
+// Route::prefix('reports')->name('reports.')->group(function (): void {
+//     /*
+//      * GET /
+//      * GET /reports/accounts/closed
+//      * GET /reports/accounts/new
+//      * GET /reports/accounts/breakdown
+//      * GET /reports/accounts/unpaid
+//      * GET /reports/accounts/declined-payment
+//      *
+//      */
+// });

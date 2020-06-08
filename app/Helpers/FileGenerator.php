@@ -55,7 +55,7 @@ class FileGenerator
 
     public function setPath(string $path, ?string $folders = null): self
     {
-        $this->path = $path;
+        $this->path = $path.'/';
 
         if (!is_null($folders)) {
             if ($this->pluralizeFolders) {
@@ -68,33 +68,20 @@ class FileGenerator
         return $this;
     }
 
-    public function getName(bool $withExtension = true): string
+    public function getName(): string
     {
-        if ($withExtension) {
-            return "{$this->name}.{$this->extension}";
-        }
-
         return $this->name;
+    }
+
+    public function getFileName(): string
+    {
+        return "{$this->name}{$this->extension}";
     }
 
     public function getNamespace(): string
     {
         return Str::ucfirst(str_replace('/', '\\', $this->path));
     }
-
-    // public function setName(string $name, string $extension, bool $useExact = false): void
-    // {
-    //     if (!$useExact) {
-    //         $name = ucfirst(Str::singular($name));
-    //     }
-
-    //     $this->name = $this->addPrefixAndSuffixToName(Str::singular($this->folder).$name);
-    //     if ('' !== trim($extension)) {
-    //         $this->filename = "{$this->name}.".str_replace('.', '', $extension);
-    //     } else {
-    //         $this->filename = $this->name;
-    //     }
-    // }
 
     public function hydrate(string $stub, array $replacements = []): void
     {
@@ -122,7 +109,7 @@ class FileGenerator
             $disk = Storage::disk('root');
         }
 
-        $file = "{$this->path}/{$this->getName(true)}";
+        $file = "{$this->path}/{$this->getFileName()}";
 
         if ($disk->exists($file)) {
             return false;

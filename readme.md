@@ -79,33 +79,36 @@ So these terms are important to the system. They have meaning. Specifically, the
 
 ## Controller/View Names
 
-While this does follow some basic RESTful conventions. This is not a RESTful API. These are URL's so we don't need to feel compelled to stick to a REST convention if/when it doesn't make sense, but generally these are the conventions that Laravel uses for Resource Controllers so these are the default names we start with:
+While this does follow some basic RESTful conventions. This is not a RESTful API. These are URL's so we don't need to feel compelled to stick to a REST convention if/when it doesn't make sense, but generally these are the conventions that Laravel uses for Resource Controllers so these are the default names we start with, but I add non-RESTful matching names when it makes sense. Take a look at this fake `photos` section for a better understanding:
 
-| Method | URI | Name/Key | Controller Name | View Name |
-| --- | --- | --- | --- | --- |
-| GET | /photos | photos.index | PhotosIndex | PhotosIndex |
-| GET | /photos/create | photos.create | PhotosCreate | PhotosCreate |
-| POST | /photos/store | photos.store | PhotosStore | - |
-| GET | /photos/{photo} | photos.show | PhotosShow | PhotosShow |
-| GET | /photos/{photo}/edit | photos.edit | PhotosEdit | PhotosEdit |
-| PATCH/PUT | /photos/{photo} | photos.update | PhotosUpdate | - |
-| DELETE | /photos/{photo} | photos.destroy | PhotosDestroy | - |
-
-### But these _are_ using restful conventions...so...wat?
-
-Look the basics of RESTful naming make sense, I'm not saying they don't. So using the names is a great idea, _when they make sense to use._ Depending on the app you're building conventions you'll need to think through your own conventions, so don't become a REST-crazed nutter. Here are some names I use all the time that don't fit but work!
-
-| Method | URI     | Name/Key            | Controller Name | View Name  |
-| ------ | ------- | ------------------- | --------------- | ---------- |
-| GET    | /login  | auth.login          | LoginIndex      | LoginIndex |
-| POST   | /login  | auth.process.login  | ProcessLogin    | -          |
-| POST   | /logout | auth.process.logout | ProcessLogout   | -          |
+| Method    | URI                  | Name/Key             | Controller Name    | View Name   | Description                                           |
+| --------- | -------------------- | -------------------- | ------------------ | ----------- | ----------------------------------------------------- |
+| GET       | /photo               | view.photo           | ViewPhoto          | ViewPhoto   | Singular View                                         |
+| GET       | /photos              | list.photos          | ListPhotos         | ListPhotos  | Lists other resources, think user list                |
+| GET       | /photos/create       | create.photo         | CreatePhoto        | CreatePhoto | -                                                     |
+| POST      | /photo               | store.photo          | StorePhoto         | -           | -                                                     |
+| POST      | /photo               | process.photo        | ProcessPhoto       | -           | Does something, doesn't save data, think login/logout |
+| GET       | /photos/{photo}      | show.photos          | ShowPhoto          | ShowPhoto   | -                                                     |
+| GET       | /photos/{photo}/edit | edit.photo           | EditPhoto          | EditPhoto   | -                                                     |
+| PATCH/PUT | /photos/{photo}      | update.photo         | UpdatePhoto        | -           | -                                                     |
+| DELETE    | /photos/{photo}      | destroy.photo        | DestroyPhoto       | -           | -                                                     |
+| POST      | /photos              | store.group.photos   | StoreGroupPhotos   | -           | -                                                     |
+| PATCH/PUT | /photos              | update.group.photos  | UpdateGroupPhotos  | -           | -                                                     |
+| DELETE    | /photos              | destroy.group.photos | DestroyGroupPhotos | -           | -                                                     |
 
 ### `process` Controllers
 
 There are some controllers that will never `store` or `update` the database in any way. They process data in some way, but that's about all they do. I think a great example of this is Login/Logout. You're not storing anything, you're just checking the data you're given. I guess you could name it something like `PostLogin` or `PostLogout` and `post.login` but why are we tying it to a method name? Just call-it-like-it-is: processing.
 
 In case you're thinking, "login and logout are the only examples where this would make sense," I could make an argument for payments. Some people could make the argument that you're "updating the account" and that may very well be the case. But sometimes a payment is one-off, maybe the account doesn't get updated, or maybe your app does something where you need to FIRST process a payment THEN hand off control to something else before you update. Bottom line, you could have 1000 different things going on before an account update should ever happen. In that case, maybe `process` is the right name. All I'm saying is, this document doesn't prescribe anything in particular
+
+### `group` Controllers
+
+The way I work, every controller works on a single object. Take the `photos` example above. If you were to upload a single photo and add some text to it or a title or whatever, you're working on a single photo. In that case, you'd call the route `store.photo`. In most applications, that's probably the only route you'd need. But, what if you're uploading 100 pictures and you have a bunch of bulk edits you'd like to make? Well, you could just call the `store.photo` route 100 times, that might make sense for what you're doing. Another thing you could do would be to allow the `store.photo` route to take either either a single object or an array. Depending on your team and your application those solutions could totally make sense. 
+
+However, something I find is that when I need to do bulk operations, there are other things I also need to do along the way. Maybe I need to validate a CSV file, or check some extra data exists somewhere...and maybe for whatever reason this logic doesn't need to exist when I'm storing a single photo. These situations don't come up every day, but when they do they're kinda annoying. I've seen single action controllers balloon up because of unique things that have to be done on bulk updates. 
+
+This is where the `Group` convention comes up. If the actions become "different enough" or your team doesn't like the idea of overloading a controller or you just like this better, then the idea is that you have two different controllers: one for a single action; one for an action that needs to occur over multiple objects. You name these with `group` in them to differentiate that these work on groups of items. Also, because I'm crazy, you should make sure your noun makes sense. You don't `UpdateGroupPhoto` you `UpdateGroupPhotos` (Update a Group of Photos...see?).
 
 ## Query Names
 
@@ -118,20 +121,20 @@ Call me crazy, but I hate not knowing what a function should be called. Is it `$
 
 Some of these commands are overrides of standard Laravel commands and some of these are new.
 
-| Command | Description |
-| --- | --- |
-| `make:domain` | Generates the `nginx.conf` file for a custom domain and SSL certs |
-| `make:model` | Generates a model |
-| `make:controller` | Generates a controller |
-| `make:view` | Generates an Inertia view file |
-| `make:inertia-resource` | Generates a resource file |
-| `make:repository` | Will generate a new repository and give you the code you need to add to the ServiceProvider |
-| `db:migration` | Runs all the migrations either on shared, workspace or both |
-| `db:explode` | _WILL ONLY RUN LOCALLY_ drops all Workspace DB's and refreshes the Shared DB |
-| `db:rollback` | Rolls back the last migration either on shared, a single workspace, or all workspaces |
-| `assets:compile` | Packages and compiles all the code |
-| `assets:watch` | Runs a watcher over JS and Sass |
-| `account:new` | A CLI way of creating a new workspace, good for spinning up tests and such |
+| Command                 | Description                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| `make:domain`           | Generates the `nginx.conf` file for a custom domain and SSL certs                           |
+| `make:model`            | Generates a model                                                                           |
+| `make:controller`       | Generates a controller                                                                      |
+| `make:view`             | Generates an Inertia view file                                                              |
+| `make:inertia-resource` | Generates a resource file                                                                   |
+| `make:repository`       | Will generate a new repository and give you the code you need to add to the ServiceProvider |
+| `db:migration`          | Runs all the migrations either on shared, workspace or both                                 |
+| `db:explode`            | _WILL ONLY RUN LOCALLY_ drops all Workspace DB's and refreshes the Shared DB                |
+| `db:rollback`           | Rolls back the last migration either on shared, a single workspace, or all workspaces       |
+| `assets:compile`        | Packages and compiles all the code                                                          |
+| `assets:watch`          | Runs a watcher over JS and Sass                                                             |
+| `account:new`           | A CLI way of creating a new workspace, good for spinning up tests and such                  |
 
 ## Routes
 
@@ -161,6 +164,10 @@ Again, you see we have the `workspace`/`shared` division here, but I've also add
 Take a look at that `RouteServiceProvider` file to see how we handle the middleware. This will probably change a bit in the future, I'm not 100% happy with this, but it works for now.
 
 You don't _need_ folders, but logical/physical separation can help if you have a lot of routes...and I do mean _a lot_. Personally, if you have 20 routes files 5 lines of code in them I think you're doing it wrong. But that's me, I think looking at routes is a great way to get a sense of scope of an application so the more you can stuff into one file the better. Just be sensible.
+
+### Already Set Up Routes
+
+TBD
 
 ## Sub Domain
 
