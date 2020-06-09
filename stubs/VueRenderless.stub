@@ -1,0 +1,13 @@
+<script>
+export default {
+   name: "{{name}}",
+   render() {
+      return this.$scopedSlots.default({})
+   },
+   props: {},
+
+   data: () => ({}),
+
+   methods: {},
+}
+</script>

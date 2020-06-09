@@ -7,8 +7,8 @@ use Illuminate\Console\Command;
 
 class MakeController extends Command
 {
-    protected $signature = 'make:controller {folder : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
-                                            {name : name for the controller file itself}
+    protected $signature = 'make:controller {name : name for the controller file itself}
+                                            {folder? : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
                                             {--view : will scaffold out a view file for you using the same information}
                                             {--singular}';
 

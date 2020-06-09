@@ -3,7 +3,7 @@ import Layout from "@/Templates/Master"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "Title" },
+   metaInfo: { title: "{{name}}" },
 
    components: {},
 
