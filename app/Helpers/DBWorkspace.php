@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use App\Actions\GetWorkspaceName;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class DBWorkspace
 {
-    public static function getName(string $id): string
-    {
-        return  config('multi-database.workspace.prefix').str_replace('-', '_', $id);
-    }
-
     public static function exists(string $id): bool
     {
-        $name = self::getName($id);
+        $name = GetWorkspaceName::execute($id);
 
         $result = DB::select("SHOW DATABASES LIKE '{$name}'");
 
@@ -25,14 +21,14 @@ class DBWorkspace
 
     public static function create(string $id): bool
     {
-        $name = self::getName($id);
+        $name = GetWorkspaceName::execute($id);
 
         return DB::statement("CREATE DATABASE {$name};");
     }
 
     public static function drop(string $id): bool
     {
-        $name = self::getName($id);
+        $name = GetWorkspaceName::execute($id);
 
         return DB::statement("DROP DATABASE {$name};");
     }
@@ -44,21 +40,5 @@ class DBWorkspace
             ->reject(fn ($item) => $item == config('multi-database.shared.name'))
             ->map(fn ($item) => str_replace($prefix, '', $item))
         ;
-    }
-
-    public static function connect(string $id): void
-    {
-        $name = self::getName($id);
-
-        DB::disconnect('workspace');
-        DB::purge('workspace');
-
-        config()->set('database.connections.workspace.database', $name);
-        config()->set('multi-database.workspace.name', $name);
-        config()->set('queue.connections.redis.queue', $name);
-        // config()->set('queue.failed.database', $name);
-        // config()->set('multi-database.connections.workspace.host', $name());
-        // config()->set('multi-database.connections.workspace.username', $name());
-        // config()->set('multi-database.connections.workspace.password', $name());
     }
 }

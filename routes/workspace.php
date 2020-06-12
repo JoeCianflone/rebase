@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Workspace')->group(function (): void {
+    Route::get('/', function () {
+        return '<html><body><h1>Hello there12</h1></body></html>';
+    });
+
     // Route::prefix('forgot')->name('forgot.')->group(function (): void {
 //     /*
 //      * GET /forgot/password

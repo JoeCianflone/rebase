@@ -4,8 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use App\Helpers\DBWorkspace;
+use App\Mail\WelcomeAccount;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Helpers\WorkspaceConnectionManager;
 use App\Domain\Repositories\Facades\UserRepository;
 use App\Domain\Repositories\Facades\AccountRepository;
 use App\Domain\Repositories\Facades\WorkspaceRepository;
@@ -68,10 +71,10 @@ class AccountManual extends Command
             die();
         }
 
-        $uuid = $this->spinUpDB();
+        $workspaceUUID = $this->spinUpWorkspace();
 
         $account = AccountRepository::create([
-            'id' => $uuid,
+            'id' => Str::uuid()->toString(),
             'name' => $accountName,
             'address_line1' => $line1,
             'address_line2' => $line2,
@@ -83,17 +86,10 @@ class AccountManual extends Command
         ]);
 
         $workspace = WorkspaceRepository::create([
-            'id' => Str::uuid()->toString(),
+            'id' => $workspaceUUID,
             'account_id' => $account->id,
             'name' => $accountName,
             'slug' => $slug,
-            // 'address_line1' => $line1,
-            // 'address_line2' => $line2,
-            // 'address_line3' => $line3,
-            // 'locality' => $locality,
-            // 'region' => $state,
-            // 'postal_code' => $postalCode,
-            // 'country' => $country,
         ]);
 
         $user = UserRepository::create([
@@ -104,14 +100,18 @@ class AccountManual extends Command
             'email' => $email,
             'password' => Hash::make($password),
         ]);
+
+        Mail::to($user->email)->send(new WelcomeAccount());
     }
 
-    private function spinUpDB(): string
+    private function spinUpWorkspace(): string
     {
-        $newAccountUUID = Str::uuid()->toString();
+        $newWorkspaceID = Str::uuid()->toString();
 
-        DBWorkspace::create($newAccountUUID);
-        DBWorkspace::connect($newAccountUUID);
+        DBWorkspace::create($newWorkspaceID);
+
+        WorkspaceConnectionManager::disconnect();
+        WorkspaceConnectionManager::connect($newWorkspaceID);
 
         $this->call('migrate', [
             '--database' => config('multi-database.workspace.connection'),
@@ -121,7 +121,7 @@ class AccountManual extends Command
             '--no-interaction' => true,
         ]);
 
-        return $newAccountUUID;
+        return $newWorkspaceID;
     }
 
     private function hasMissingFields(?string ...$fields): bool

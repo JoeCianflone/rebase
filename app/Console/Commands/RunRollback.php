@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use App\Domain\Models\Workspace;
+use App\Helpers\WorkspaceConnectionManager;
 use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class RunRollback extends Command
@@ -45,12 +46,13 @@ class RunRollback extends Command
 
     private function migrateWorkspace(Workspace $workspace): void
     {
-        if (!DBWorkspace::exists($workspace->account_id)) {
+        if (!DBWorkspace::exists($workspace->id)) {
             $this->info('Connection does not exist...creating');
-            DBWorkspace::create($workspace->account_id);
+            DBWorkspace::create($workspace->id);
         }
 
-        DBWorkspace::connect($workspace->account_id);
+        WorkspaceConnectionManager::disconnect();
+        WorkspaceConnectionManager::connect($workspace->id);
 
         $this->info("Starting Rollback for: {$workspace->slug}");
         $this->callMigration('workspace', config('multi-database.workspace.migration_path'));

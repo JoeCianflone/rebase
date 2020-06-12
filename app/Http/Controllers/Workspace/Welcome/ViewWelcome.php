@@ -14,6 +14,8 @@ class ViewWelcome extends BaseController
 {
     public function __invoke(Request $request): Response
     {
+        dd("Hi there I'm in Welcome");
+
         return Inertia::render(GetView::execute($this));
     }
 }

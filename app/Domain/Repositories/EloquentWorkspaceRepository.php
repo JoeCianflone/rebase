@@ -24,7 +24,15 @@ class EloquentWorkspaceRepository extends EloquentRepository
     {
         return $this->cache
             ->as('getBySlug')
-            ->execute(fn () => $this->model->whereSlug('$slug')->firstOrFail())
+            ->execute(fn () => $this->model->whereSlug($slug)->firstOrFail())
+        ;
+    }
+
+    public function getByDomain(string $domain): Workspace
+    {
+        return $this->cache
+            ->as('getByDomain')
+            ->execute(fn () => $this->model->whereDomain($domain)->firstOrFail())
         ;
     }
 
