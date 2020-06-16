@@ -4,10 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use App\Helpers\DBWorkspace;
-use App\Mail\WelcomeAccount;
 use Illuminate\Console\Command;
+use App\Events\NewAccountCreated;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use App\Helpers\WorkspaceConnectionManager;
 use App\Domain\Repositories\Facades\UserRepository;
 use App\Domain\Repositories\Facades\AccountRepository;
@@ -101,7 +100,7 @@ class AccountManual extends Command
             'password' => Hash::make($password),
         ]);
 
-        Mail::to($user->email)->send(new WelcomeAccount());
+        event(new NewAccountCreated($workspace, $user));
     }
 
     private function spinUpWorkspace(): string

@@ -40,7 +40,6 @@ class WorkspaceConnectionManager
             'session.files' => storage_path('framework/sessions/'.$name),
             'cache.prefix' => $name,
             'filesystem.disks.local.root' => storage_path('app/'.$name),
-            'queue.connections.redis.queue' => $name,
         ]);
 
         app('cache')->forgetDriver(config('cache.default'));
