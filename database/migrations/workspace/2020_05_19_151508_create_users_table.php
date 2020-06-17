@@ -21,12 +21,6 @@ class CreateUsersTable extends Migration
             $table->json('profile')->nullable();
 
             $table->timestamps();
-
-            // $table->foreign('workspace_id')
-            //     ->references('id')
-            //     ->on(config('multi-database.shared.name').'.workspaces')
-            //     ->onDelete('cascade')
-            // ;
         });
     }
 

@@ -20,8 +20,6 @@ class ConnectToWorkspace extends BaseMiddleware
         'horizon/*',
     ];
 
-    private bool $checkByDomain = false;
-
     /**
      * @return mixed
      */
@@ -32,22 +30,27 @@ class ConnectToWorkspace extends BaseMiddleware
             return $next($request);
         }
 
-        $workspace = $host->isCustomDomain() ? WorkspaceRepository::getByDomain($host->getDomain()) : WorkspaceRepository::getBySlug($host->getSlug());
+        try {
+            $workspace = $host->isCustomDomain() ? WorkspaceRepository::getByDomain($host->getDomain()) : WorkspaceRepository::getBySlug($host->getSlug());
 
-        WorkspaceConnectionManager::disconnect();
-        WorkspaceConnectionManager::connect($workspace->id);
+            WorkspaceConnectionManager::disconnect();
+            WorkspaceConnectionManager::connect($workspace->id);
 
-        if ($host->isCustomDomain()) {
-            config([
-                'session.domain' => $host->getDomain(),
+            if ($host->isCustomDomain()) {
+                config([
+                    'session.domain' => $host->getDomain(),
+                ]);
+            }
+
+            session([
+                'workspace_id' => $workspace->id,
+                'workspace_slug' => $workspace->slug,
+                'workspace_url' => $host->getURL(),
             ]);
+        } catch (\Exception $e) {
+            // Just redirect to the registration page, in app you should send a message or do something if this happens
+            return redirect()->route('view.registration');
         }
-
-        session([
-            'workspace_id' => $workspace->id,
-            'workspace_slug' => $workspace->slug,
-            'workspace_url' => $host->getURL(),
-        ]);
 
         return $next($request);
     }

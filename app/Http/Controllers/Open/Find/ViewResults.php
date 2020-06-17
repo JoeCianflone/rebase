@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller as BaseController;
 
 class ViewResults extends BaseController
 {
+
     public function __invoke(Request $request): Response
     {
         return Inertia::render(GetView::execute($this));

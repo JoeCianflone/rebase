@@ -39,7 +39,7 @@ class AccountManual extends Command
     public function handle(): void
     {
         if ('local' !== app()->environment()) {
-            $this->error('This command only runs in local environments');
+            $this->error('This command only runs in local environments, it is for messing around pre-ui only.');
             exit();
         }
 

@@ -167,7 +167,7 @@ You don't _need_ folders, but logical/physical separation can help if you have a
 
 ### Already Set Up Routes
 
-TBD
+All the set-up routes are listed in the 3 main under `/routes`.
 
 ## Sub Domain
 
@@ -219,29 +219,7 @@ Put them where you feel comfortable, but be consistent for the project.
 
 ## Potential Baseline Components
 
-### Atoms
-
--  text
--  headlines
--  button
--  input (text & textarea)
--  input (select)
--  input (checkbox)
--  input (radio)
--  errors
--  label
-
-### Molecules
-
--  dropdown
--  modal
--  accordion
--  popovers
--  toasts
--  tables (responsive)
--  cards
--  breadcrumbs
--  icons
+TBD -- I want rebase to be design agnostic as much as possible so I don't know how much of this I *can* and *should* do. I'll kinda play it by ear as I build out more stuff and see where it goes. 
 
 ### How to grid
 

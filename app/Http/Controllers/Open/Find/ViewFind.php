@@ -14,8 +14,6 @@ class ViewFind extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        dd('hello there find');
-
         return Inertia::render(GetView::execute($this));
     }
 }

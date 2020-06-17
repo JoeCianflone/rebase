@@ -1,6 +1,8 @@
 # Things that Rebase should do
 
-## Public Routes
+Running list of stuff Rebase itself should handle out-of-the-box. 
+
+## Public/Open Routes
 
 -  auth - login
 -  auth - logout

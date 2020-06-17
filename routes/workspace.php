@@ -2,52 +2,38 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Workspace')->group(function (): void {
-    Route::get('/', function () {
-        return '<html><body><h1>Hello there12</h1></body></html>';
-    });
-
-    // Route::prefix('forgot')->name('forgot.')->group(function (): void {
-//     /*
-//      * GET /forgot/password
-//      * POST /forgot/password
-//      *
-//      * GET /forgot/reset/{token}
-//      * POST /forgot/reset/{token}
-//      */
-// });
-
-// Route::prefix('password')->name('password.')->group(function (): void {
-//     /*
-//      * GET /password/confirm
-//      * POST /password/confirm
-//      */
-// });
+Route::namespace('Workspace')->middleware(['workspace.connection'])->group(function (): void {
+    Route::get('/login', Auth\ViewLogin::class)->name('view.login');
+    /*
+     * GET /forgot/password
+     * POST /forgot/password
+     *
+     * GET  /forgot/reset/{token}
+     * POST /forgot/reset/{token}
+     *
+     * GET  /password/confirm
+     * POST /password/confirm
+     *
+     * GET  /login
+     * POST /login
+     *
+     * GET /logout
+     *
+     * GET /welcome/{slide}?
+     * POST /welcome/complete
+     *
+     * GET /dashboard
+     *
+     * GET /account
+     * GET /account/edit
+     * PUT /account
+     *
+     * GET  /account/credit-card
+     * POST /account/credit-card
+     *
+     * GET /account/invoices
+     *
+     * GET /account/plan
+     * PUT /account/plan
+     */
 });
-
-// Route::prefix('auth')->name('auth.')->group(function (): void {
-//     /*
-//      * GET /login
-//      * POST /login
-//      *
-//      * GET /logout
-//      */
-// });
-
-// // These are our "onboarding" routes, if needed
-// Route::prefix('welcome')->name('welcome')->group(function (): void {});
-
-// Route::get('/dashboard', Dashboard\ViewDashboard::class)->name('dashboard.view');
-
-// Route::prefix('account')->name('account.')->group(function (): void {
-//     /*
-//      * GET /
-//      * POST /
-//      * POST /credit-card
-//      *
-//      * GET /account/invoices
-//      * GET /account/plan-update
-//      */
-// });
-
-// Route::prefix('users')->name('users.')->group(function (): void {});
