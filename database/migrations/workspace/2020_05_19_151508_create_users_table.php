@@ -13,18 +13,20 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->uuid('workspace_id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('avatar')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->json('profile')->nullable();
+
             $table->timestamps();
 
-            $table->foreign('workspace_id')
-                ->references('id')
-                ->on(config('multi-database.shared.name').'.workspaces')
-                ->onDelete('cascade')
-            ;
+            // $table->foreign('workspace_id')
+            //     ->references('id')
+            //     ->on(config('multi-database.shared.name').'.workspaces')
+            //     ->onDelete('cascade')
+            // ;
         });
     }
 
