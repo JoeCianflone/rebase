@@ -51,16 +51,17 @@ class MakeCustomDomain extends Command
             'domain' => $this->argument('domain'),
         ]);
 
-        $file = new FileGenerator($this->nginxSitesAvailable);
-
-        $file->setFileExtensionAs('conf')
-            ->shouldBePlural(false)
+        $file = (new FileGenerator($this->nginxSitesAvailable))
+            ->setFileExtensionAs('conf')
+            ->shouldBeSingular(true)
             ->setPath(config('app-paths.nginx'), 'sites-available')
-            ->hydrate('Nginx', [
-                '{{domain}}' => $this->argument('domain'),
-                '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
-                '{{app_domain}}' => config('domain.url'),
-            ])
+        ;
+
+        $file->hydrate('Nginx', [
+            '{{domain}}' => $this->argument('domain'),
+            '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
+            '{{app_domain}}' => config('domain.url'),
+        ])
         ;
 
         if ($file->writeToDisk()) {

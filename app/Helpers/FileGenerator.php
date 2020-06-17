@@ -17,7 +17,7 @@ class FileGenerator
 
     private string $name;
 
-    private bool $pluralizeFolders = true;
+    private bool $isSingular = false;
 
     private ?string $hydratedStub;
 
@@ -46,9 +46,9 @@ class FileGenerator
         return $this;
     }
 
-    public function shouldBePlural(bool $pluralizeFolders): self
+    public function shouldBeSingular(?bool $isSingular = null): self
     {
-        $this->pluralizeFolders = $pluralizeFolders;
+        $this->isSingular = $isSingular ?? false;
 
         return $this;
     }
@@ -58,10 +58,10 @@ class FileGenerator
         $this->path = $path.'/';
 
         if (!is_null($folders)) {
-            if ($this->pluralizeFolders) {
-                $this->path .= ucfirst(Str::plural($folders));
-            } else {
+            if ($this->isSingular) {
                 $this->path .= ucfirst(Str::singular($folders));
+            } else {
+                $this->path .= ucfirst(Str::plural($folders));
             }
         }
 

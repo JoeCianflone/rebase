@@ -24,8 +24,10 @@ class MakeView extends Command
 
     public function handle(): void
     {
-        $file = new FileGenerator($this->argument('name'));
-        $file->setFileExtensionAs('vue');
+        $file = (new FileGenerator($this->argument('name')))
+            ->setFileExtensionAs('vue')
+            ->shouldBeSingular($this->option('singular'))
+        ;
 
         if ($this->option('renderless') && $this->option('component')) {
             $this->error('Pick either a component OR a renderless component');
@@ -33,23 +35,11 @@ class MakeView extends Command
         }
 
         if ($this->option('component')) {
-            $file->setPath(config('app-paths.views').'/Components', $this->argument('folder'))
-                ->hydrate('VueComponent', [
-                    '{{name}}' => Str::slug($file->getName()),
-                ])
-            ;
+            $file = $this->hydrateComponent($file);
         } elseif ($this->option('renderless')) {
-            $file->setPath(config('app-paths.views').'/Components', $this->argument('folder'))
-                ->hydrate('VueRenderless', [
-                    '{{name}}' => Str::slug($file->getName()),
-                ])
-            ;
+            $file = $this->hydrateRenderlessComponent($file);
         } else {
-            $file->setPath(config('app-paths.views').'/Pages', $this->argument('folder'))
-                ->hydrate('Vue', [
-                    '{{name}}' => $file->getName(),
-                ])
-            ;
+            $file = $this->hydratePage($file);
         }
 
         if ($file->writeToDisk()) {
@@ -66,5 +56,41 @@ class MakeView extends Command
                 '--singular' => $this->option('singular'),
             ]);
         }
+    }
+
+    private function hydrateComponent(FileGenerator $file): FileGenerator
+    {
+        $file
+            ->setPath(config('app-paths.views').'/Components', $this->argument('folder'))
+            ->hydrate('VueComponent', [
+                '{{name}}' => Str::slug($file->getName()),
+            ])
+        ;
+
+        return $file;
+    }
+
+    private function hydrateRenderlessComponent(FileGenerator $file): FileGenerator
+    {
+        $file
+            ->setPath(config('app-paths.views').'/Components', $this->argument('folder'))
+            ->hydrate('VueRenderless', [
+                '{{name}}' => Str::slug($file->getName()),
+            ])
+        ;
+
+        return $file;
+    }
+
+    private function hydratePage(FileGenerator $file): FileGenerator
+    {
+        $file
+            ->setPath(config('app-paths.views').'/Pages', $this->argument('folder'))
+            ->hydrate('Vue', [
+                '{{name}}' => $file->getName(),
+            ])
+        ;
+
+        return $file;
     }
 }

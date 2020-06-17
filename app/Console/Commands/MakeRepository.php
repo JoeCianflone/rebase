@@ -29,12 +29,13 @@ class MakeRepository extends Command
 
     private function stubOutFacade(): FileGenerator
     {
-        $file = new FileGenerator($this->argument('name'), null, 'Repository');
-        $file->setFileExtensionAs('php')
+        $file = (new FileGenerator($this->argument('name'), null, 'Repository'))
+            ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'), 'Facades')
-            ->hydrate('RepositoryFacade', [
-                '{{classname}}' => $file->getName(),
-            ])
+        ;
+        $file->hydrate('RepositoryFacade', [
+            '{{classname}}' => $file->getName(),
+        ])
         ;
 
         if ($file->writeToDisk()) {
@@ -49,14 +50,15 @@ class MakeRepository extends Command
 
     private function stubOutRepository(): FileGenerator
     {
-        $file = new FileGenerator($this->argument('name'), 'Eloquent', 'Repository');
-        $file->setFileExtensionAs('php')
+        $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
+            ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'))
-            ->hydrate('Repository', [
-                '{{classname}}' => $file->getName(),
-                '{{model}}' => ucfirst($this->argument('model')),
-                '{{cache}}' => strtolower($this->argument('model')),
-            ])
+        ;
+        $file->hydrate('Repository', [
+            '{{classname}}' => $file->getName(),
+            '{{model}}' => ucfirst($this->argument('model')),
+            '{{cache}}' => strtolower($this->argument('model')),
+        ])
         ;
 
         if ($file->writeToDisk()) {
