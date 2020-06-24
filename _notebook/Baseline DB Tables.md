@@ -1,3 +1,9 @@
+# Understand the Table setup
+
+Obviously, this is not **all** the tables you'll need for a project, but this is just the baseline for how the DB is set up to work. This is a mult-tenant/multi-db setup and we have two connections by default: `shared` is for data that is global to all accounts and projects and `workspace` is for the individual sites. 
+
+However, there is something important to understand about this setup. There could be multiple workspaces inside a workspace connection. Huh? What? I know I need to work on the naming a bit, but here me out. 
+
 ## Connection: Shared
 
 - Accounts
@@ -21,7 +27,6 @@
   - is_active
   - is_published
   
-
 ## Connection: Workspace
 
 User_Workspace 

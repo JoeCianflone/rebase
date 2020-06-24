@@ -70,10 +70,11 @@ class AccountManual extends Command
             die();
         }
 
-        $workspaceUUID = $this->spinUpWorkspace();
+        $accountID = Str::uuid()->toString();
+        $workspaceID = $this->spinUpWorkspace($accountID);
 
         $account = AccountRepository::create([
-            'id' => Str::uuid()->toString(),
+            'id' => $accountID,
             'name' => $accountName,
             'address_line1' => $line1,
             'address_line2' => $line2,
@@ -85,7 +86,7 @@ class AccountManual extends Command
         ]);
 
         $workspace = WorkspaceRepository::create([
-            'id' => $workspaceUUID,
+            'id' => $workspaceID,
             'account_id' => $account->id,
             'name' => $accountName,
             'slug' => $slug,
@@ -103,11 +104,11 @@ class AccountManual extends Command
         event(new NewAccountCreated($workspace, $user));
     }
 
-    private function spinUpWorkspace(): string
+    private function spinUpWorkspace(string $accountID): string
     {
         $newWorkspaceID = Str::uuid()->toString();
 
-        DBWorkspace::create($newWorkspaceID);
+        DBWorkspace::create($accountID);
 
         WorkspaceConnectionManager::disconnect();
         WorkspaceConnectionManager::connect($newWorkspaceID);

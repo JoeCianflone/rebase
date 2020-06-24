@@ -14,8 +14,6 @@ class ViewLogin extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        dd('View Login');
-
         return Inertia::render(GetView::execute($this));
     }
 }

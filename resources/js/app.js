@@ -17,14 +17,14 @@ let app = document.getElementById("app")
 new Vue({
    metaInfo: {
       title: "Loading...",
-      titleTemplate: "%s | Rebase App"
+      titleTemplate: "%s | Rebase App",
    },
-   render: h =>
+   render: (h) =>
       h(InertiaApp, {
          props: {
             initialPage: JSON.parse(app.dataset.page),
-            resolveComponent: name =>
-               import(`@/Pages/${name}`).then(module => module.default)
-         }
-      })
+            resolveComponent: (name) =>
+               import(`@/Pages/${name}`).then((module) => module.default),
+         },
+      }),
 }).$mount(app)

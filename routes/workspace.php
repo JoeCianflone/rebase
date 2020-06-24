@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Workspace')->middleware(['workspace.connection'])->group(function (): void {
-    Route::get('/login', Auth\ViewLogin::class)->name('view.login');
     /*
      * GET /forgot/password
      * POST /forgot/password
@@ -36,4 +35,6 @@ Route::namespace('Workspace')->middleware(['workspace.connection'])->group(funct
      * GET /account/plan
      * PUT /account/plan
      */
+
+    Route::get('/login', Auth\ViewLogin::class)->name('view.login');
 });

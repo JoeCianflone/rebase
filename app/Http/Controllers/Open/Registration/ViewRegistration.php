@@ -14,8 +14,6 @@ class ViewRegistration extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        dd('Hi registration');
-
         return Inertia::render(GetView::execute($this));
     }
 }

@@ -29,10 +29,16 @@ class InertiaServiceProvider extends ServiceProvider
         Inertia::share([
             'app' => [],
             'flash' => [
-                'success' => fn (): Session => Session::get('success'),
-                'alert' => fn (): Session => Session::get('alert'),
-                'message' => fn (): Session => Session::get('message'),
+                'success' => fn (): ?Session => Session::get('success'),
+                'alert' => fn (): ?Session => Session::get('alert'),
+                'message' => fn (): ?Session => Session::get('message'),
             ],
+            'errors' => function () {
+                return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [
+                    'name' => 'Oh you done messed up!',
+                    'thing' => 'This is just a top error!!',
+                ];
+            },
         ]);
     }
 
