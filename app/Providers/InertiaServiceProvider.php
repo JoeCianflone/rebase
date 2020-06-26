@@ -34,10 +34,7 @@ class InertiaServiceProvider extends ServiceProvider
                 'message' => fn (): ?Session => Session::get('message'),
             ],
             'errors' => function () {
-                return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [
-                    'name' => 'Oh you done messed up!',
-                    'thing' => 'This is just a top error!!',
-                ];
+                return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [];
             },
         ]);
     }

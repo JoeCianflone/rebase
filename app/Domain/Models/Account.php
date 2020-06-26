@@ -23,7 +23,27 @@ class Account extends Model
     /**
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'id',
+        'name',
+        'address_line1',
+        'address_line2',
+        'address_line3',
+        'unit_number',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'is_business',
+        'agrees_to_terms_at',
+        'agrees_to_privacy_at',
+        'stripe_id',
+        'card_brand',
+        'card_last_four',
+        'trial_ends_at',
+        'created_at',
+        'updated_at',
+    ];
 
     /**
      * @var array

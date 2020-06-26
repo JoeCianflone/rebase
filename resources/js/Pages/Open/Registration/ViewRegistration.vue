@@ -1,5 +1,5 @@
 <script>
-import Layout from "@/Templates/Master"
+import Layout from "@/Templates/Public"
 import RebaseInput from "@/Components/Form/RebaseInput"
 import RebaseFormItem from "@/Components/Form/RebaseFormItem"
 import Toast from "@/Components/Toast"
@@ -21,11 +21,7 @@ export default {
 
    data: () => ({
       sending: true,
-      form: {
-         id: 1,
-         name: "",
-         email: "",
-      },
+      form: {},
    }),
 
    methods: {
@@ -41,15 +37,18 @@ export default {
       <fieldset>
          <legend>Please Register Your Account</legend>
 
-         <toast title="Holy Canolli" :listing="$page.errors" type="error" />
-         <toast title="Holy Non-Canolli" message="Look what do you want me to say?" type="message" />
+         <h2>Registration Workflow</h2>
 
-         <rebase-form-item :errors="$page.errors.name">
-            Enter your name:
-            <rebase-input v-model="form.name" type="text" />
-         </rebase-form-item>
+         <ol>
+            <li>Whats the name of their company/team</li>
+            <li>Slugify their company/team name and give them the option to edit it</li>
+            <li>Get the users name, email, and password</li>
+            <li>Take payment</li>
+            <li>If payment goes through spin up new account -- send welcome email</li>
+            <li>If payment does not go through kick them back</li>
+            <li>Send user to their example.foo.com subdomain have them log in</li>
+         </ol>
       </fieldset>
-      <button @click="send">Test</button>
    </form>
 </template>
 

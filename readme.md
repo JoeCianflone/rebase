@@ -67,6 +67,14 @@ All that being said, I did **add** folders, because adding folders makes perfect
 
 -  stubs -- These are where I keep my stubs/overrides
 
+## A Note About Models
+
+One thing I've recently changed my mind on is `fillable` vs `guarded` in models. I've switched all my models to be fillable. On the worst end of things, it's not *that* hard to switch to `guarded` but here's my thinking on it. The concept of doing `$guarded = [];` helps the developer rapidly develop and iterate. You add a new attribute to a model and you go and test and everything will just work. When you're using `$fillable = [...];` you now need to remember that you also need to add that property to your list in your model. Ugh I know, 3 whole extra seconds of work!
+
+If you couldn't tell from that last line, I personally realized it's just not that big of a deal to have to remember to add a line to a model. Sure, it's an exta step, but we're not talking even 30 seconds of work! The upside of using fillable though means you don't have to hold all the attribute names in your head anymore. Maybe this is just my problem because I have ADHD...but I always run into this issue where I forget what's on a particular model. Like, is it `address_line1` or is it `address_line_1` or `address1`? Now you could say, "well just open up the databse and look at the table," but fucking why? I'm in code, why do I need to open another program to figure out what fields are currently present? This is also great for *new* developers because now they can all just go to the models and *actually see* what's on it at that time. 
+
+So yea, it's a little bit of extra overhead, but I think this is worth it becaue it will enhance the DX (developer experience) down the road. 
+
 ## What this should and should not do
 
 This isn't a full or complete application. This should do just the basics. It's your job to build the app on top of this code.

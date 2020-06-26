@@ -21,7 +21,16 @@ class Workspace extends Model
     /**
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'id',
+        'account_id',
+        'name',
+        'slug',
+        'domain',
+        'is_active',
+        'created_at',
+        'updated_at',
+    ];
 
     /**
      * @var array
