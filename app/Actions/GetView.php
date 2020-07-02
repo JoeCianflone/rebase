@@ -10,31 +10,17 @@ use ReflectionClass;
  * This will turn:
  *      App\Http\Controllers\Dashboard\IndexDashboardController
  * to:
- *      IndexDashboard
+ *      Dashboar/IndexDashboard
  * Makes life easier to find the Inertia file.
  */
 class GetView
 {
-    const SERVICES_PATH = 'App\\Http\\';
-    const CONTROLLER_FOLDER = 'Controllers\\';
-    const CONTROLLER_SUFFIX = 'Controller';
-
-    public static function execute(object $class): string
+    public static function execute(object $class, string $location = 'app'): string
     {
         $refClass = new ReflectionClass($class);
 
-        return str_replace(
-            self::CONTROLLER_SUFFIX,
-            '',
-            str_replace(
-                '\\',
-                '/',
-                str_replace(
-                    self::SERVICES_PATH,
-                    '',
-                    str_replace(self::CONTROLLER_FOLDER, '', $refClass->name)
-                )
-            )
-        );
+        $path = 'shared' === $location ? config('app-paths.view_shared_pages') : config('app-paths.view_app_pages');
+
+        return $path.str_replace(ucfirst(config('app-paths.controllers')), '', str_replace('\\', '/', $refClass->name));
     }
 }

@@ -1,9 +1,5 @@
 <script>
 export default {
-   name: "with-validation",
-
-   components: {},
-
    props: {
       errors: {
          type: Object | Array,
@@ -11,10 +7,6 @@ export default {
       },
       position: String,
    },
-
-   data: () => ({}),
-
-   methods: {},
 }
 </script>
 

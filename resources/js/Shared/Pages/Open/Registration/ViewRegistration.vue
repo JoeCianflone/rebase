@@ -1,18 +1,11 @@
 <script>
-import Layout from "@/Templates/Public"
-import RebaseInput from "@/Components/Form/RebaseInput"
-import RebaseFormItem from "@/Components/Form/RebaseFormItem"
-import Toast from "@/Components/Toast"
+import Layout from "@/Shared/Templates/Open"
 
 export default {
    layout: Layout,
    metaInfo: { title: "Please Register" },
 
-   components: {
-      RebaseInput,
-      RebaseFormItem,
-      Toast,
-   },
+   components: {},
 
    props: {
       errors: Object,
@@ -21,24 +14,41 @@ export default {
 
    data: () => ({
       sending: true,
-      form: {},
+      form: {
+         name: null,
+         op: "",
+      },
    }),
 
    methods: {
-      send() {
-         console.log(this.form)
-      },
+      send() {},
    },
 }
 </script>
 
 <template>
-   <form action="post" @submit.prevent>
+   <form action="post" @submit.prevent="send">
       <fieldset>
          <legend>Please Register Your Account</legend>
 
          <h2>Registration Workflow</h2>
 
+         <FormField>
+            Hi there this is a label for my form name:
+            <FormText v-model="form.name" type="text" :slugify="true" />
+         </FormField>
+
+         <FormField :errors="$page.errors.options">
+            Please Select From One of the Following:
+            <FormSelect v-model="form.op" defaultText="Select an Option" :options="['A', 'B', 'C']" />
+         </FormField>
+
+         <FormField>
+            Give us a Message:
+            <FormTextArea v-model="form.message" rows="5" />
+         </FormField>
+
+         <Button icon="user">Submit This Shit</Button>
          <ol>
             <li>Whats the name of their company/team</li>
             <li>Slugify their company/team name and give them the option to edit it</li>

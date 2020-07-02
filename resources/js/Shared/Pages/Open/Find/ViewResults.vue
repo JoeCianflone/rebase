@@ -1,9 +1,9 @@
 <script>
-import Layout from "@/Templates/Master"
+import Layout from "@/Shared/Templates/Primary"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "ViewFind" },
+   metaInfo: { title: "ViewResults" },
 
    components: {},
 
@@ -11,8 +11,8 @@ export default {
       form: {
          id: 1,
          name: "",
-         email: ""
-      }
+         email: "",
+      },
    }),
 
    props: {},
@@ -20,8 +20,8 @@ export default {
    methods: {
       test() {
          this.$inertia.post("/", this.form).then(() => (this.sending = false))
-      }
-   }
+      },
+   },
 }
 </script>
 

@@ -14,6 +14,6 @@ class ViewRegistration extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        return Inertia::render(GetView::execute($this));
+        return Inertia::render(GetView::execute($this, 'shared'));
     }
 }

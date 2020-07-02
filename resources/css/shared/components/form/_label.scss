@@ -1,0 +1,24 @@
+.label {
+   display: flex;
+
+   &.-label-left,
+   &.-label-right {
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   &.-label-top {
+      flex-direction: column;
+      padding-bottom: $spacing-8;
+   }
+
+   &.-label-left {
+      padding-right: $spacing-8;
+   }
+
+   input,
+   select,
+   textarea {
+      flex-grow: 1;
+   }
+}
