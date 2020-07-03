@@ -48,19 +48,13 @@ class Account extends Model
     /**
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'agrees_to_terms_at',
-        'agrees_to_privacy_at',
-    ];
-
-    /**
-     * @var array
-     */
     protected $casts = [
         'id' => 'uuid',
         'is_business' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'agrees_to_terms_at' => 'datetime',
+        'agrees_to_privacy_at' => 'datetime',
     ];
 
     public function workspaces(): HasMany

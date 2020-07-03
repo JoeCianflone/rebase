@@ -23,13 +23,13 @@ class CreateUserWorkspaceTable extends Migration
 
             $table->foreign('account_id')
                 ->references('id')
-                ->on(config('multi-database.shared.name').'.users')
+                ->on(config('multi-database.shared.name').'.accounts')
                 ->onDelete('cascade')
             ;
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on(config('multi-database.workspace.name').'.users')
+                ->on(config('multi-database.shared.name').'.users')
                 ->onDelete('cascade')
             ;
 

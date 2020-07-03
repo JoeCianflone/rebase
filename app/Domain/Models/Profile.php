@@ -7,7 +7,7 @@ namespace App\Domain\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Workspace extends Model
+class Profile extends Model
 {
     /**
      * @var bool
@@ -17,18 +17,18 @@ class Workspace extends Model
     /**
      * @var string
      */
-    protected $connection = 'shared';
+    protected $connection = 'workspace';
 
     /**
      * @var array
      */
     protected $fillable = [
         'id',
-        'account_id',
-        'name',
-        'slug',
-        'domain',
-        'is_active',
+        'user_id',
+        'first_name',
+        'last_name',
+        'avatar',
+        'other',
         'created_at',
         'updated_at',
     ];
@@ -38,14 +38,14 @@ class Workspace extends Model
      */
     protected $casts = [
         'id' => 'uuid',
-        'account_id' => 'uuid',
-        'is_active' => 'boolean',
+        'user_id' => 'uuid',
+        'other' => 'json',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function account(): HasOne
+    public function user(): HasOne
     {
-        return $this->hasOne(Account::class);
+        return $this->hasOne(User::class);
     }
 }

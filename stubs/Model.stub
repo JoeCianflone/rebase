@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class {{classname}} extends Model
 {
-    /**
-     * @var string
-     */
-    protected $connection = '{{type}}';
 
     /**
      * @var bool
@@ -19,20 +15,25 @@ class {{classname}} extends Model
     public $incrementing = false;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $guarded = [];
+    protected $connection = '{{type}}';
 
     /**
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
+    protected $fillable = [
+        'id',
+        'created_at'
+        'updated_at'
     ];
 
     /**
      * @var array
      */
-    protected $casts = [ ];
+    protected $casts = [
+        'id' => 'uuid'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

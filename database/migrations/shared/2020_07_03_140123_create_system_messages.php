@@ -14,7 +14,8 @@ class CreateSystemMessages extends Migration
         Schema::create('system_messages', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->string('headline')->nullable();
-            $table->text('body')->nullable();
+            $table->text('entry')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

@@ -17,19 +17,19 @@ class User extends Authenticatable
     /**
      * @var string
      */
-    protected $connection = 'workspace';
+    protected $connection = 'shared';
 
     /**
      * @var array
      */
     protected $fillable = [
         'id',
-        'first_name',
-        'last_name',
-        'avatar',
         'email',
         'password',
-        'profile',
+        'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -45,10 +45,7 @@ class User extends Authenticatable
     protected $casts = [
         'id' => 'uuid',
         'email_verified_at' => 'datetime',
-        'profile' => 'json',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-
-    public function workspace(): void
-    {
-    }
 }

@@ -14,8 +14,8 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('avatar')->nullable();
             $table->json('other')->nullable()->index();
 
