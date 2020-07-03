@@ -8,7 +8,6 @@ use MyCLabs\Enum\Enum;
  * @method static UserRole SUPER()
  * @method static UserRole ACCOUNT_OWNER()
  * @method static UserRole ACCOUNT_ADMIN()
- * @method static UserRole WORKSPACE_OWNER()
  * @method static UserRole WORKSPACE_ADMIN()
  * @method static UserRole WORKSPACE_EDITOR()
  * @method static UserRole WORKSPACE_DESIGNER()
@@ -22,7 +21,6 @@ class UserRole extends Enum
     private const SUPER = 'super';
     private const ACCOUNT_OWNER = 'account_owner';
     private const ACCOUNT_ADMIN = 'account_admin';
-    private const WORKSPACE_OWNER = 'workspace_owner';
     private const WORKSPACE_ADMIN = 'workspace_admin';
     private const WORKSPACE_EDITOR = 'workspace_editor';
     private const WORKSPACE_DESIGNER = 'workspace_designer';

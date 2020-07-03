@@ -10,7 +10,7 @@ use ReflectionClass;
  * This will turn:
  *      App\Http\Controllers\Dashboard\IndexDashboardController
  * to:
- *      Dashboar/IndexDashboard
+ *      Dashboard/IndexDashboard
  * Makes life easier to find the Inertia file.
  */
 class GetView
