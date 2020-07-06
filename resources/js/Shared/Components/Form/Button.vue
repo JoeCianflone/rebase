@@ -8,26 +8,18 @@ export default {
    props: {
       type: {
          type: String,
-         default: "primary",
+         default: "button",
       },
       icon: {
          type: [String, Boolean],
          default: false,
       },
    },
-   computed: {
-      classObject: function () {
-         return {
-            "-primary": this.type === "primary",
-            "-secondary": this.type === "secondary",
-         }
-      },
-   },
 }
 </script>
 
 <template>
-   <button v-on="$listeners" v-bind="$attrs" class="button" :class="classObject">
+   <button v-on="$listeners" v-bind="$attrs" class="button" :type="type">
       <slot />
       <Icon v-if="icon" :name="icon" class="-icon-right" :size="18" />
    </button>

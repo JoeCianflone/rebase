@@ -8,12 +8,14 @@ import VueCompositionApi from "@vue/composition-api"
 import FormText from "@/Shared/Components/Form/FormText"
 import FormSelect from "@/Shared/Components/Form/FormSelect"
 import FormField from "@/Shared/Components/Form/FormField"
+import FormGroup from "@/Shared/Components/Form/FormGroup"
 import FormTextArea from "@/Shared/Components/Form/FormTextArea"
 import Button from "@/Shared/Components/Form/Button"
 
 Vue.component("FormText", FormText)
 Vue.component("FormSelect", FormSelect)
 Vue.component("FormField", FormField)
+Vue.component("FormGroup", FormGroup)
 Vue.component("FormTextArea", FormTextArea)
 Vue.component("Button", Button)
 

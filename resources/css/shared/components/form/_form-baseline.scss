@@ -1,17 +1,24 @@
+$form-text-color: $color-gray-80;
+$form-border-radius: $radius-2;
+$form-border: 1px solid $color-gray-50;
+$form-font-size: $size-16;
+$form-line-height: normal;
+$form-height: $spacing-40;
+
 @mixin baseline-input {
    align-content: flex-start;
    align-items: center;
    background: $color-true-white;
-   border: 1px solid $color-gray-50;
-   border-radius: 2px;
-   color: $color-gray-80;
+   border: $form-border;
+   border-radius: $form-border-radius;
+   color: $form-text-color;
    display: inline-flex;
    flex: 1 1 auto;
-   font-size: $size-16;
+   font-size: $form-font-size;
    justify-content: flex-start;
-   line-height: normal;
+   line-height: $form-line-height;
    margin: 0;
-   min-height: $spacing-40;
+   min-height: $form-height;
    padding: $spacing-8;
    position: relative;
    width: 100%;

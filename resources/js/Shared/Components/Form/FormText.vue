@@ -39,5 +39,3 @@ export default {
 <template>
    <input ref="input" v-bind="$attrs" :value="value" @input="handleInput" />
 </template>
-
-<style lang="scss"></style>
