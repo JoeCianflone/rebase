@@ -1,3 +1,9 @@
-@import 'flex-grid';
+@import 'form/form-baseline'; // anything with a -baseline should come first
+
+@import 'form/input';
 @import 'form/buttons';
+@import 'form/select';
 @import 'form/label';
+
+@import 'icon';
+@import 'flex-grid';

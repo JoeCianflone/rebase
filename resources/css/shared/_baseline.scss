@@ -43,33 +43,33 @@ video {
 }
 
 ::selection {
+   background-color: $color-blue-20;
    color: $color-true-black;
    text-shadow: none;
-   background-color: $color-blue-20;
 }
 
 html {
-   -ms-overflow-style: scrollbar;
-   -ms-text-size-adjust: 100%;
-   -webkit-tap-highlight-color: rgba($color-true-black, 0);
    background-color: $color-true-white;
    box-sizing: border-box;
    display: flex;
    height: 100vh;
+   -ms-overflow-style: scrollbar;
+   -webkit-tap-highlight-color: rgba($color-true-black, 0);
+   -ms-text-size-adjust: 100%;
 }
 
 body {
-   -moz-osx-font-smoothing: grayscale !important;
-   -webkit-font-smoothing: antialiased !important;
    color: $color-true-black;
    font-family: $font-system;
+   -moz-osx-font-smoothing: grayscale !important;
+   -webkit-font-smoothing: antialiased !important;
    height: 100vh;
    line-height: $leading-normal;
    margin: $spacing-0;
    min-width: $browser-min-size;
-   width: 100vw;
    padding: $spacing-0;
    text-align: left;
+   width: 100vw;
 }
 
 //
@@ -170,12 +170,12 @@ th {
 // Links
 //
 a {
-   -webkit-text-decoration-skip: objects;
    background-color: transparent;
    color: inherit;
    cursor: pointer;
    font-family: inherit;
    font-weight: inherit;
+   -webkit-text-decoration-skip: objects;
 
    &:not([href]):not([tabindex]) {
       color: inherit;
@@ -250,7 +250,7 @@ fieldset {
 }
 
 legend {
-   color: $color-true-white;
+   color: inherit;
    display: block;
    line-height: inherit;
    margin: $spacing-0;
@@ -261,6 +261,7 @@ legend {
 
 [type='search']::-webkit-search-cancel-button {
    -webkit-appearance: none;
+   appearance: none;
 }
 
 //
@@ -292,10 +293,10 @@ textarea,
 }
 
 pre {
-   -ms-overflow-style: scrollbar;
    margin-bottom: 1rem;
    margin-top: 0;
    overflow: auto;
+   -ms-overflow-style: scrollbar;
 }
 
 figure {

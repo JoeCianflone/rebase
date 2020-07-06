@@ -1,0 +1,45 @@
+@mixin baseline-input {
+   align-content: flex-start;
+   align-items: center;
+   background: $color-true-white;
+   border: 1px solid $color-gray-50;
+   border-radius: 2px;
+   color: $color-gray-80;
+   display: inline-flex;
+   flex: 1 1 auto;
+   font-size: $size-16;
+   justify-content: flex-start;
+   line-height: normal;
+   margin: 0;
+   min-height: $spacing-40;
+   padding: $spacing-8;
+   position: relative;
+   width: 100%;
+}
+
+@mixin baseline-button {
+   align-content: center;
+   justify-content: center;
+   padding: $spacing-8 $spacing-16;
+   text-align: center;
+   text-decoration: none;
+   white-space: nowrap;
+   width: auto;
+}
+
+@mixin baseline-select {
+   -moz-appearance: none;
+   -webkit-appearance: none;
+   appearance: none;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+   background-position: calc(100% - 10px) center;
+   background-repeat: no-repeat, repeat;
+   background-size: $size-16 auto;
+   cursor: pointer;
+   max-width: 100%;
+   padding-right: $spacing-24;
+
+   > option {
+      padding: 0;
+   }
+}

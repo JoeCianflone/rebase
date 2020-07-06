@@ -55,11 +55,6 @@
 .row {
    @include row;
 
-   .row {
-      margin-left: -($grid-gutter / 2);
-      margin-right: -($grid-gutter / 2);
-   }
-
    @include property {
       &center {
          @include row;
@@ -72,6 +67,11 @@
 
          flex-direction: column;
       }
+   }
+
+   .row {
+      margin-left: -($grid-gutter / 2);
+      margin-right: -($grid-gutter / 2);
    }
 }
 
@@ -88,11 +88,13 @@
       }
    }
 }
+
 .order {
    @include element {
       &last {
          order: ($grid-columns) + 1;
       }
+
       &first {
          order: -1;
       }

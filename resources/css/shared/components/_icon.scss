@@ -1,0 +1,17 @@
+.icon {
+   fill: none;
+   line-height: normal;
+   position: relative;
+   stroke: currentColor;
+   stroke-linecap: round;
+   stroke-linejoin: round;
+   stroke-width: 2;
+
+   &.-icon-left {
+      margin-right: $spacing-8;
+   }
+
+   &.-icon-right {
+      margin-left: $spacing-8;
+   }
+}

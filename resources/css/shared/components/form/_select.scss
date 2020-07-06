@@ -1,0 +1,10 @@
+select {
+   @include baseline-input;
+   @include baseline-select;
+}
+
+@-moz-document url-prefix() {
+   select {
+      padding-left: $spacing-4; // This is needed for Firefox which does something shitty with padding
+   }
+}

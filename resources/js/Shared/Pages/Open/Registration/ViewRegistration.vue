@@ -49,6 +49,7 @@ export default {
          </FormField>
 
          <Button icon="user">Submit This Shit</Button>
+         <Button type="secondary">Submit </Button>
          <ol>
             <li>Whats the name of their company/team</li>
             <li>Slugify their company/team name and give them the option to edit it</li>

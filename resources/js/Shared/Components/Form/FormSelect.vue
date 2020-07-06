@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-   <select ref="select" v-bind="$attrs" @input="handleInput">
+   <select class="select" ref="select" v-bind="$attrs" @input="handleInput">
       <option value="" v-if="defaultText !== ''">{{ defaultText }}</option>
       <option v-for="option in options" :key="option" :selected="value === option">{{ option }}</option>
    </select>
