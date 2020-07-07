@@ -5,18 +5,24 @@ import Vue from "vue"
 import VueCompositionApi from "@vue/composition-api"
 
 // Global Components
-import FormText from "@/Shared/Components/Form/FormText"
+import FormFieldInline from "@/Shared/Components/Form/FormFieldInline"
+import FormCheckbox from "@/Shared/Components/Form/FormCheckbox"
+import FormTextArea from "@/Shared/Components/Form/FormTextArea"
 import FormSelect from "@/Shared/Components/Form/FormSelect"
 import FormField from "@/Shared/Components/Form/FormField"
 import FormGroup from "@/Shared/Components/Form/FormGroup"
-import FormTextArea from "@/Shared/Components/Form/FormTextArea"
+import FormRadio from "@/Shared/Components/Form/FormRadio"
+import FormText from "@/Shared/Components/Form/FormText"
 import Button from "@/Shared/Components/Form/Button"
 
-Vue.component("FormText", FormText)
+Vue.component("FormFieldInline", FormFieldInline)
+Vue.component("FormCheckbox", FormCheckbox)
+Vue.component("FormTextArea", FormTextArea)
 Vue.component("FormSelect", FormSelect)
 Vue.component("FormField", FormField)
 Vue.component("FormGroup", FormGroup)
-Vue.component("FormTextArea", FormTextArea)
+Vue.component("FormRadio", FormRadio)
+Vue.component("FormText", FormText)
 Vue.component("Button", Button)
 
 Vue.config.productionTip = false

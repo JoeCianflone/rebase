@@ -16,7 +16,10 @@ export default {
       sending: true,
       form: {
          name: null,
-         op: "",
+         op: null,
+         checkbox: [],
+         checkbox2: ["22"],
+         radio: "three",
       },
    }),
 
@@ -39,6 +42,28 @@ export default {
             Hi there this is a label for my form name:
             <FormText v-model="form.name" type="text" :slugify="true" />
          </FormField>
+
+         <FormFieldInline>
+            <FormCheckbox :disable-after="1" value="11" v-model="form.checkbox">
+               checkbox 1 - 1
+            </FormCheckbox>
+            <FormCheckbox :disable-after="1" value="21" v-model="form.checkbox">checkbox 2 - 1</FormCheckbox>
+            <FormCheckbox :disable-after="1" value="31" v-model="form.checkbox">checkbox 3 - 1</FormCheckbox>
+         </FormFieldInline>
+
+         <FormFieldInline>
+            <FormCheckbox :disable-after="2" value="12" v-model="form.checkbox2">
+               checkbox 1 - 2
+            </FormCheckbox>
+            <FormCheckbox value="22" v-model="form.checkbox2">2checkbox 2 - 2 </FormCheckbox>
+            <FormCheckbox :disable-after="2" value="32" v-model="form.checkbox2">checkbox 3 - 2</FormCheckbox>
+         </FormFieldInline>
+
+         <FormFieldInline>
+            <FormRadio v-model="form.radio" value="one">Value Number 1</FormRadio>
+            <FormRadio v-model="form.radio" value="two">Value Number 2</FormRadio>
+            <FormRadio v-model="form.radio" value="three">Value Number 3</FormRadio>
+         </FormFieldInline>
 
          <FormField>
             <FormGroup class="-pre -post">
@@ -64,6 +89,7 @@ export default {
 
          <Button icon="user" class="-primary" type="submit">Submit This Shit</Button>
          <Button class="-secondary">Just a button</Button>
+
          <ol>
             <li>Whats the name of their company/team</li>
             <li>Slugify their company/team name and give them the option to edit it</li>

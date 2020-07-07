@@ -3,6 +3,12 @@ textarea {
    @include baseline-input;
 }
 
+[type='checkbox'],
+[type='radio'] {
+   @include baseline-input;
+   width: auto;
+}
+
 .input-group {
    align-items: center;
    display: flex;

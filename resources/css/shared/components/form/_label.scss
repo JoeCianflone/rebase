@@ -16,6 +16,17 @@
       padding-right: $spacing-8;
    }
 
+   &.-label-right {
+      display: flex;
+      flex-grow: 0;
+      justify-content: flex-start;
+
+      input {
+         flex-grow: 0;
+         margin-right: $spacing-8;
+      }
+   }
+
    input,
    select,
    textarea {
