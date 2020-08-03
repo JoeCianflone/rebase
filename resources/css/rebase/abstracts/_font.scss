@@ -1,0 +1,7 @@
+@function line-height($pxFont) {
+   @return $pxFont / $font-base;
+}
+
+@function rem($pxFont) {
+   @return (($pxFont / $font-base)) * 1rem;
+}

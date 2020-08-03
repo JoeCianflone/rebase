@@ -1,0 +1,22 @@
+.form-item {
+   &__textbox {
+      @include form-input;
+
+      &--right {
+         @include form-input;
+      }
+   }
+
+   &__textarea {
+      @include form-input;
+   }
+
+   &__checkbox,
+   &__radio {
+      @include form-input {
+         flex-grow: 0;
+         margin-right: $px-4;
+         width: auto;
+      }
+   }
+}

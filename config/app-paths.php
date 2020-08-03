@@ -1,15 +1,19 @@
 <?php
 
 return [
-    'views' => env('PATH_VIEWS', 'resources/js/Pages'),
+    'views' => [
+        'rebase' => [
+            'pages' => env('PATH_VIEWS_REBASE_PAGES', 'Rebase/Pages'),
+            'components' => env('PATH_VIEWS_REBASE_COMPONENTS', 'Rebase/Components'),
+        ],
 
-    'view_shared_pages' => env('PATH_SHARED_PAGES', 'Shared/Pages'),
+        'app' => [
+            'pages' => env('PATH_VIEWS_APP_PAGES', 'App/Components'),
+            'components' => env('PATH_VIEWS_APP_COMPONENTS', 'App/Components'),
+        ],
+    ],
 
-    'view_shared_components' => env('PATH_SHARED_COMPONENTS', 'Shared/Components'),
-
-    'view_app_pages' => env('PATH_APP_PAGES', 'App/Pages'),
-
-    'view_app_components' => env('PATH_APP_COMPONENTS', 'App/Components'),
+    'view' => env('PATH_VIEWS', 'resources/js/Pages'),
 
     'controllers' => env('PATH_CONTROLLERS', 'app/Http/Controllers'),
 

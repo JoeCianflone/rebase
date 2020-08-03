@@ -1,0 +1,61 @@
+@mixin input-slot {
+   background-color: $color-gray-40;
+   border: $form-border;
+   font-size: $form-font-size;
+   line-height: $form-line-height;
+   min-height: $form-height;
+   padding: $px-8 $px-16;
+
+   @content;
+}
+
+.form-item {
+   &--left,
+   &--right {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+   }
+
+   &--top {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: $px-8;
+   }
+
+   &--left {
+      padding-right: $px-8;
+   }
+
+   &--right {
+      flex-grow: 0;
+      justify-content: flex-start;
+   }
+
+   &--grouped {
+      align-items: center;
+      border-radius: 0;
+      display: flex;
+      justify-content: flex-start;
+
+      input {
+         border-left: 0;
+         border-radius: 0;
+         border-right: 0;
+      }
+   }
+
+   &__pre-input {
+      @include input-slot {
+         border-bottom-left-radius: $form-border-radius;
+         border-top-left-radius: $form-border-radius;
+      }
+   }
+
+   &__post-input {
+      @include input-slot {
+         border-bottom-right-radius: $form-border-radius;
+         border-top-right-radius: $form-border-radius;
+      }
+   }
+}

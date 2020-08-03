@@ -1,0 +1,13 @@
+.form-item {
+   &__select {
+      @include form-input {
+         @include form-select;
+      }
+   }
+}
+
+@-moz-document url-prefix() {
+   .form-item__select {
+      padding-left: $px-4; // This is needed for Firefox which does something shitty with padding
+   }
+}

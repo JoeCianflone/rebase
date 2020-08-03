@@ -5,15 +5,15 @@ import Vue from "vue"
 import VueCompositionApi from "@vue/composition-api"
 
 // Global Components
-import FormFieldInline from "@/Shared/Components/Form/FormFieldInline"
-import FormCheckbox from "@/Shared/Components/Form/FormCheckbox"
-import FormTextArea from "@/Shared/Components/Form/FormTextArea"
-import FormSelect from "@/Shared/Components/Form/FormSelect"
-import FormField from "@/Shared/Components/Form/FormField"
-import FormGroup from "@/Shared/Components/Form/FormGroup"
-import FormRadio from "@/Shared/Components/Form/FormRadio"
-import FormText from "@/Shared/Components/Form/FormText"
-import Button from "@/Shared/Components/Form/Button"
+import FormFieldInline from "@/Rebase/Components/Form/FormFieldInline"
+import FormCheckbox from "@/Rebase/Components/Form/FormCheckbox"
+import FormTextArea from "@/Rebase/Components/Form/FormTextArea"
+import FormSelect from "@/Rebase/Components/Form/FormSelect"
+import FormField from "@/Rebase/Components/Form/FormField"
+import FormGroup from "@/Rebase/Components/Form/FormGroup"
+import FormRadio from "@/Rebase/Components/Form/FormRadio"
+import FormText from "@/Rebase/Components/Form/FormText"
+import Button from "@/Rebase/Components/Form/Button"
 
 Vue.component("FormFieldInline", FormFieldInline)
 Vue.component("FormCheckbox", FormCheckbox)

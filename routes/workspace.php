@@ -37,4 +37,20 @@ Route::namespace('Workspace')->middleware(['workspace.connection'])->group(funct
      */
 
     Route::get('/login', Auth\ViewLogin::class)->name('view.login');
+
+    /*
+     * GET /reports
+     * GET /reports/accounts/closed
+     * GET /reports/accounts/new
+     * GET /reports/accounts/breakdown
+     * GET /reports/accounts/unpaid
+     * GET /reports/accounts/declined-payment
+     *
+     * GET /customers/accounts
+     * GET /customers/workspaces
+     * GET /customers/accounts/{accountID}
+     *
+     * GET /customers/notification
+     *
+     */
 });

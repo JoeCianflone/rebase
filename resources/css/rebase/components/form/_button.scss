@@ -1,0 +1,27 @@
+.button {
+   &--primary {
+      @include form-input {
+         @include form-button {
+            background: $color-gray-80;
+            border-color: $color-gray-80;
+            border-width: 2px;
+            color: $color-gray-30;
+         }
+      }
+   }
+
+   &--secondary {
+      @include form-input {
+         @include form-button {
+            background: transparent;
+            border-color: $color-gray-80;
+            border-width: 2px;
+            color: $color-gray-80;
+         }
+      }
+   }
+
+   &--is-block {
+      width: 100%;
+   }
+}

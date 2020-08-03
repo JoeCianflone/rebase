@@ -1,0 +1,312 @@
+@at-root {
+   /* stylelint-disable  */
+   @-ms-viewport {
+      width: device-width;
+   }
+   /* stylelint-enabled */
+}
+
+* {
+   box-sizing: inherit;
+   -webkit-overflow-scrolling: touch;
+
+   &::before,
+   &::after {
+      box-sizing: inherit;
+   }
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+   display: block;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+   vertical-align: middle;
+}
+
+:focus {
+   outline: none;
+}
+
+::selection {
+   background-color: $color-blue-20;
+   color: $color-true-black;
+   text-shadow: none;
+}
+
+html {
+   background-color: $color-true-white;
+   box-sizing: border-box;
+   display: flex;
+   height: 100%;
+   -ms-overflow-style: scrollbar;
+   -webkit-tap-highlight-color: rgba($color-true-black, 0);
+   -ms-text-size-adjust: 100%;
+}
+
+body {
+   color: $color-true-black;
+   font-family: $font-system;
+   -moz-osx-font-smoothing: grayscale !important;
+   -webkit-font-smoothing: antialiased !important;
+   height: 100%;
+   line-height: $leading-normal;
+   margin: $px-0;
+   min-width: $browser-min-size;
+   padding: $px-0;
+   text-align: left;
+   width: 100vw;
+}
+
+//
+// Images
+//
+img {
+   border-style: none;
+   font-style: italic;
+   margin: $px-0;
+   max-width: 100%;
+   padding: $px-0;
+   vertical-align: middle;
+
+   &[width],
+   &[height] {
+      max-width: none;
+   }
+}
+
+svg {
+   fill: currentColor;
+
+   &:not(:root) {
+      overflow: hidden;
+   }
+}
+
+//
+// Typography
+//
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+dl,
+dd,
+dt li {
+   margin: $px-0;
+   padding: $px-0;
+}
+
+p,
+ul,
+ol {
+   font-size: inherit;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+   margin-bottom: $px-0;
+}
+
+nav {
+   ol,
+   ul {
+      list-style-type: none;
+      margin: $px-0;
+      padding: $px-0;
+   }
+}
+
+dfn {
+   font-style: italic;
+}
+
+address {
+   font-style: normal;
+   line-height: inherit;
+   margin: $px-0;
+   padding: $px-0;
+}
+
+//
+// Tables
+//
+table {
+   border-collapse: collapse;
+}
+
+caption {
+   caption-side: bottom;
+   margin: $px-0;
+   padding: $px-0;
+   text-align: left;
+}
+
+th {
+   text-align: inherit;
+}
+
+//
+// Links
+//
+a {
+   background-color: transparent;
+   color: inherit;
+   cursor: pointer;
+   font-family: inherit;
+   font-weight: inherit;
+   -webkit-text-decoration-skip: objects;
+
+   &:not([href]):not([tabindex]) {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+         color: inherit;
+         text-decoration: none;
+      }
+
+      &:focus {
+         outline: 0;
+      }
+   }
+}
+
+//
+// Forms
+//
+label {
+   display: inline-block;
+}
+
+button {
+   border-radius: $radius-0;
+   padding: $px-0;
+
+   &:focus {
+      outline: 1px dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+   }
+}
+
+html [type='button'] {
+   -webkit-appearance: button;
+}
+
+input {
+   &[type='text'],
+   &[type='email'],
+   &[type='password'],
+   &[type='number'] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+   }
+
+   &[type='date'],
+   &[type='time'],
+   &[type='datetime-local'],
+   &[type='month'] {
+      -webkit-appearance: listbox;
+   }
+}
+
+textarea {
+   overflow: auto;
+   resize: vertical;
+}
+
+button,
+label {
+   cursor: pointer;
+}
+
+fieldset {
+   border: 0;
+   margin: $px-0;
+   min-width: 0;
+   padding: $px-0;
+}
+
+legend {
+   color: inherit;
+   display: block;
+   line-height: inherit;
+   margin: $px-0;
+   max-width: 100%;
+   padding: $px-0;
+   width: 100%;
+}
+
+[type='search']::-webkit-search-cancel-button {
+   -webkit-appearance: none;
+   appearance: none;
+}
+
+//
+// Touch
+//
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+   -ms-touch-action: manipulation;
+   touch-action: manipulation;
+}
+
+[aria-busy='true'] {
+   cursor: progress;
+}
+
+[aria-controls] {
+   cursor: pointer;
+}
+
+[aria-disabled] {
+   cursor: default;
+}
+
+pre {
+   margin-bottom: 1rem;
+   margin-top: 0;
+   overflow: auto;
+   -ms-overflow-style: scrollbar;
+}
+
+figure {
+   margin: 0 0 1rem;
+}
+
+output {
+   display: inline-block;
+}
+
+summary {
+   cursor: pointer;
+}

@@ -19,9 +19,9 @@ class InertiaServiceProvider extends ServiceProvider
         // Inertia::share('auth.user', function () {
         //     if (Auth::user()) {
         //         return [
-        //             'id' => Auth::user()->id,
-        //             'name' => Auth::user()->name,
-        //             'email' => Auth::user()->email,
+        //             'id' => auth()->id,
+        //             'name' => auth()->name,
+        //             'email' => auth()->email,
         //         ];
         //     }
         // });

@@ -19,7 +19,7 @@ class GetView
     {
         $refClass = new ReflectionClass($class);
 
-        $path = 'shared' === $location ? config('app-paths.view_shared_pages') : config('app-paths.view_app_pages');
+        $path = 'rebase' === $location ? config('app-paths.views.rebase.pages') : config('app-paths.views.app.pages');
 
         return $path.str_replace(ucfirst(config('app-paths.controllers')), '', str_replace('\\', '/', $refClass->name));
     }
