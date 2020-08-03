@@ -8,12 +8,12 @@ return [
         ],
 
         'app' => [
-            'pages' => env('PATH_VIEWS_APP_PAGES', 'App/Components'),
+            'pages' => env('PATH_VIEWS_APP_PAGES', 'App/Pages'),
             'components' => env('PATH_VIEWS_APP_COMPONENTS', 'App/Components'),
         ],
     ],
 
-    'view' => env('PATH_VIEWS', 'resources/js/Pages'),
+    'view' => env('PATH_VIEWS', 'resources/js'),
 
     'controllers' => env('PATH_CONTROLLERS', 'app/Http/Controllers'),
 

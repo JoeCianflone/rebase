@@ -10,7 +10,8 @@ class MakeController extends Command
     protected $signature = 'make:controller {name : name for the controller file itself}
                                             {folder? : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
                                             {--view : will scaffold out a view file for you using the same information}
-                                            {--singular}';
+                                            {--singular}
+                                            {--rebase}';
 
     protected $description = 'Stub out a controller and view file';
 
@@ -29,6 +30,7 @@ class MakeController extends Command
 
         $file->hydrate('Controller', [
             '{{class}}' => $file->getName(),
+            '{{rebase}}' => $this->option('rebase') ? ", 'rebase'" : '',
             '{{namespace}}' => $file->getNamespace(),
         ]);
 
@@ -43,6 +45,7 @@ class MakeController extends Command
                 'folder' => $this->argument('folder'),
                 'name' => $this->argument('name'),
                 '--singular' => $this->option('singular'),
+                '--rebase' => $this->option('rebase'),
             ]);
         }
     }

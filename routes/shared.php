@@ -2,26 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
+/*
+ * GET  /get-started
+ *
+ * GET  /login --> /find
+ * GET  /find
+ * POST /find
+ * GET  /find/results
+ *
+ * GET  /register --> /registration
+ * GET  /registration
+ * POST /registration
+ *
+ * GET /legal/privacy
+ * GET /legal/terms-and-conditions
+ */
 Route::domain(config('app.url'))->namespace('Shared')->group(function (): void {
-    Route::get('/design', Design\ViewDesign::class)->middleware('only.local');
+    Route::get('/design', Design\ViewDesign::class)->name('view.design')->middleware('only.local');
 
-    /*
-     * GET  /get-started
-     * GET  /find
-     * POST /find
-     * GET  /find/results
-     *
-     * GET  /registration
-     * POST /registration
-     *
-     * // These are kinda my thinking on where routes like this could go
-     * // I'm not 100% sure I like it, but since legal crap is really
-     * // part of the application and not marketing, it makes sense
-     * // for it to live in the application, at least thats what
-     * // I think for now, that could change.
-     * GET /legal/privacy
-     * GET /legal/terms-and-conditions
-     */
+    Route::get('legal/privacy', Legal\ViewPrivacy::class)->name('view.privacy');
+    Route::get('legal/terms', Legal\ViewTerms::class)->name('view.terms');
 
     /*
      * I'm jacking this idea from Slack. This is a page that will allow a user to pick between

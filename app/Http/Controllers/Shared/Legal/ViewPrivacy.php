@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace {{namespace}};
+namespace App\Http\Controllers\Shared\Legal;
 
 use Inertia\Inertia;
 use Inertia\Response;
@@ -10,11 +10,10 @@ use App\Actions\GetView;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as BaseController;
 
-class {{class}} extends BaseController
+class ViewPrivacy extends BaseController
 {
-
     public function __invoke(Request $request): Response
     {
-        return Inertia::render(GetView::execute($this{{rebase}}));
+        return Inertia::render(GetView::execute($this, 'rebase'));
     }
 }

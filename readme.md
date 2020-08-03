@@ -2,9 +2,12 @@
 
 Rebase is not a framework. It's a meta-framework and set of conventions for building large apps in Laravel. I try to codify how I name things and conventions I use below. I should also note that while this is open for anyone to use, it's really _my_ way of doing things, so I am probably not open to changes, but I'd be happy to talk about them with anyone who has a question. If you don't like this that's totally fine too, you don't need to use this, you don't need to like my standards either, I'm good with that.
 
-## Intended Usage
+## Intended Usage and Project Goals
 
-My goal here isn't to reinvent anything but to connect it in a way that makes development fast for my projects. This document is intended to explain how things should be put together.
+I have two main goals with this project: 
+
+1. Not reinvent the wheel every time I build something -- so many times I start a new project and I'm re-doing all this stuff. I don't want to do that any more I want to have a consistent structure, setup, and language between all projects. 
+2. Make it simple for downstream/upstream communication to occur -- Composer allows me to update my backend dependencies, Yarn allows me to update my front end...what about project specific things I write? Shouldn't there be an easy way to pass down updates from rebase to different projects? Shouldn't I be able to pass back a fix from a project to Rebase itself? So many times as developers working on multiple projects we don't think about how to share the code *we* write with all our own projects. This project will have a simple way to pass up/down new updates without blowing up user code via simple conventions that everyone can follow.
 
 ### Step 1: Fork this repository
 
@@ -14,7 +17,7 @@ When starting a new project, the first thing is to fork this repository. This re
 
 A couple of things you're going to need globally installed on your machine:
 
--  Yarn (not NPM, this uses yarn and even the underlying commands use them)
+-  Yarn (not NPM, this uses yarn and even the underlying commands use yarn)
 -  Composer (duh)
 -  PHPStan
 -  PHP CS Fixer
@@ -35,13 +38,26 @@ Yes, this is a different command from the standard Laravel one...that's because 
 
 ## Please Remember: this is a WIP
 
-If you're looking at this, cool, but there's a lot I've left out and I know it's not there at the moment. I've got a running list, please don't ask/tell me stuff, I know I've put together a roadmap.
+If you're looking at this, cool, but there's a lot I've left out and I know it's not there at the moment. I've got a running list, please don't ask/tell me stuff, I know I've put together a road map.
 
 ## First, PHP
 
 This is using the latest version of PHP. While Laravel itself doesn't _need_ PHP 7.4, Rebase does make use of some 7.4 functionality so make sure you're on that locally, or you're gonna have a bad time. I'll update this to PHP 8 when it's stable, I usually wait about 2 to 4 weeks after release so if there are any gnarly bugs they're worked out.
 
-## Directory Changes
+## Folder Language
+
+Language is important. Not just programming-wise, but the words we use in talking about our projects. Rebase *is* multi-tenant but I've found that calling things *tenant* and *landlord* seem to confuse people outside of the development world. To that end, I want to make sure that the language used *inside* the project is consistent so everyone working in it, with it, and around it knows what the hell we're talking about.
+
+### Shared vs Workspace
+
+The first two big divisions in the folder structure are between `shared` things and `workspace` things. `shared` in here means "landlord" or code that runs on the TLD. `workspace` means "tenant" or code that runs on the sub-domain. These are important distinctions because sometimes developers think of "shared" as "global" or "code that's used in multiple places and that is **not** the case here. You see this division in lots of places, but if it's ever not clear, that's a problem that needs to be addressed. 
+
+### App vs Rebase
+
+This one kinda annoys me, but I can't think of anything better so until I do we gotta live with it. In this context, I'm only talking about `App` and `Rebase` inside the `js` or `css` folders. You shouldn't see these words outside of there (with the exception being the `app` directory for Laravel). In this context, `App` refers to "downstream things built on top of Rebase" while `Rebase` means "things that the upstream project, Rebase, controls." You really need to think about these two folders as which project controls what happens. So if you're working on your own project you put all your own JS/CSS inside `App`. This allows you to easily override upstream stuff and allows for upstream to update stuff too. 
+
+
+## Directory Augmentation
 
 There are no directory changes from a base Laravel standpoint. All folders are additive but more about organization, I did not and will not be changing the `app` folder. I get why some people think that's a good idea, but I'm personally against it. Why? Because it's just _one more thing_ I need to teach another developer. I've build some rather large Laravel projects the base structure is fine! When you move things, you now gotta remember where you put it and why, that's overhead you don't need.
 
@@ -55,7 +71,7 @@ All that being said, I did **add** folders, because adding folders makes perfect
    -  Domain -- I think this makes sense, but I consider my domain to be my `models` and `repositories` that act on those models
       -  Models -- Eloquent models
       -  Repositories
-         -  Facades -- Yes, I use facades for my `repositores` suck it, I love them.
+         -  Facades -- Yes, I use facades for my `repositories` suck it, I love them.
    -  Enums
    -  Helpers -- A group of functions that help you in some way. See `DBWorkspace` for more understanding
 
@@ -71,9 +87,9 @@ All that being said, I did **add** folders, because adding folders makes perfect
 
 One thing I've recently changed my mind on is `fillable` vs `guarded` in models. I've switched all my models to be fillable. On the worst end of things, it's not *that* hard to switch to `guarded` but here's my thinking on it. The concept of doing `$guarded = [];` helps the developer rapidly develop and iterate. You add a new attribute to a model and you go and test and everything will just work. When you're using `$fillable = [...];` you now need to remember that you also need to add that property to your list in your model. Ugh I know, 3 whole extra seconds of work!
 
-If you couldn't tell from that last line, I personally realized it's just not that big of a deal to have to remember to add a line to a model. Sure, it's an exta step, but we're not talking even 30 seconds of work! The upside of using fillable though means you don't have to hold all the attribute names in your head anymore. Maybe this is just my problem because I have ADHD...but I always run into this issue where I forget what's on a particular model. Like, is it `address_line1` or is it `address_line_1` or `address1`? Now you could say, "well just open up the databse and look at the table," but fucking why? I'm in code, why do I need to open another program to figure out what fields are currently present? This is also great for *new* developers because now they can all just go to the models and *actually see* what's on it at that time. 
+If you couldn't tell from that last line, I personally realized it's just not that big of a deal to have to remember to add a line to a model. Sure, it's an extra step, but we're not talking even 30 seconds of work! The upside of using fillable though means you don't have to hold all the attribute names in your head anymore. Maybe this is just my problem because I have ADHD...but I always run into this issue where I forget what's on a particular model. Like, is it `address_line1` or is it `address_line_1` or `address1`? Now you could say, "well just open up the database and look at the table," but fucking why? I'm in code, why do I need to open another program to figure out what fields are currently present? This is also great for *new* developers because now they can all just go to the models and *actually see* what's on it at that time. 
 
-So yea, it's a little bit of extra overhead, but I think this is worth it becaue it will enhance the DX (developer experience) down the road. 
+So yea, it's a little bit of extra overhead, but I think this is worth it because it will enhance the DX (developer experience) down the road. 
 
 ## What this should and should not do
 
@@ -139,6 +155,7 @@ Some of these commands are overrides of standard Laravel commands and some of th
 | `assets:watch`          | Runs a watcher over JS and Sass                                                             |
 | `account:new`           | A CLI way of creating a new workspace, good for spinning up tests and such                  |
 
+
 ## Routes
 
 Currently, we only have the `web.php` file for handling routes. You should break this apart when it becomes necessary to do so. This depends on the application itself, but the guidance here is to be simple. In rebase, we're able to just go into the `RouteServiceProvider` and add another file name.
@@ -150,8 +167,6 @@ Currently, we only have the `web.php` file for handling routes. You should break
         $this->explicitRoute('workspace/web.php', 'web', 'admin', 'whatever');
     }
 ```
-
-Again, you see we have the `workspace`/`shared` division here, but I've also added `public`. If you're wondering what a `public` route looks like think about registration, privacy pages, terms of service. `shared` routes are probably some super-admin level pages where you can view all accounts or listings too. You can add whatever files you'd like to the `routes` folder and it will be registered:
 
 ```php
     private function mapRoutes(?string ...$middleware): void
@@ -170,7 +185,7 @@ You don't _need_ folders, but logical/physical separation can help if you have a
 
 ### Already Set Up Routes
 
-All the set-up routes are listed in the 3 main under `/routes`.
+All the set-up routes are listed in the 2 main under `/routes`.
 
 ## Sub Domain
 
@@ -190,9 +205,15 @@ We use Inertia because the mix of Vue/Blade files drives me crazy. I want everyt
 
 We still end up with a great separation of concerns because the controllers need to spit out data and the views handle it, so you don't end up doing anything stupid in the views.
 
+
+## JavaScript and Scss Setup
+
+
+
+
 ## Rebase CSS
 
-All CSS is styled via Sass. Check `app/resources/css` to see the folder structure. Styles are pre-processed with Sass and the resulting CSS is again processed with PostCSS. This allows us to use all the Sass-style goodness while also getting some interesting/useful plugins for optimizing our code via PostCSS. PostCSS is mostly used for optimization of code.
+All CSS is styled via Sass. Check `app/resources/css` to see the folder structure. Styles are pre-processed with Sass and the resulting CSS is processed with PostCSS. This allows us to use all the Sass-style goodness while also getting some interesting/useful plugins for optimizing our code via PostCSS. PostCSS is mostly used for optimization of code.
 
 ### Structure
 
@@ -216,9 +237,10 @@ The `rebase` folder contains all the things that upstream may update at some poi
 
 The `app` folder is where application specific CSS will go. In there you'll find a `_variables.scss` file where you can add and override current default variables. All our current default values are located in `shared/abstracts/_defaults.scss`. It is recommended you _do not edit this file_ it's the shared systems default values. These can be overridden via a `git pull` so make no changes there. All your application changes should happen in the `app` folder. Every variable _can_ be overridden.
 
+
 ### Styles in `.vue` files or `.scss` files
 
-Put them where you feel comfortable, but be consistent for the project.
+Put styles in the .scss files. 
 
 ## Potential Baseline Components
 
