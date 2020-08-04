@@ -53,9 +53,14 @@ class FileGenerator
         return $this;
     }
 
-    public function setPath(string $path, ?string $folders = null): self
+    public function setPath(string $path, ?bool $useShared, ?string $folders = null): self
     {
         $this->path = $path.'/';
+
+        if (!is_null($useShared)) {
+            $this->path .= $useShared ? config('app-paths.shared') : config('app-paths.workspace');
+            $this->path .= '/';
+        }
 
         if (!is_null($folders)) {
             if ($this->isSingular) {

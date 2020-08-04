@@ -13,6 +13,10 @@ return [
         ],
     ],
 
+    'shared' => env('PATH_SHARED', 'Shared'),
+
+    'workspace' => env('PATH_WORKSPACE', 'Workspace'),
+
     'view' => env('PATH_VIEWS', 'resources/js'),
 
     'controllers' => env('PATH_CONTROLLERS', 'app/Http/Controllers'),

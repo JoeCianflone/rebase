@@ -54,7 +54,7 @@ class MakeCustomDomain extends Command
         $file = (new FileGenerator($this->nginxSitesAvailable))
             ->setFileExtensionAs('conf')
             ->shouldBeSingular(true)
-            ->setPath(config('app-paths.nginx'), 'sites-available')
+            ->setPath(config('app-paths.nginx'), null, 'sites-available')
         ;
 
         $file->hydrate('Nginx', [

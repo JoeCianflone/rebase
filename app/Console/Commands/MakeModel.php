@@ -33,7 +33,7 @@ class MakeModel extends Command
     {
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.models'))
+            ->setPath(config('app-paths.models'), null)
         ;
         $file->hydrate('Model', [
             '{{classname}}' => $file->getName(),

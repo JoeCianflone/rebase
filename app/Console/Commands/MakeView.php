@@ -12,6 +12,7 @@ class MakeView extends Command
                                       {folder? : path to the view file inside the js folder}
                                       {--singular}
                                       {--rebase}
+                                      {--shared}
                                       {--component : use this if you want to make a standard Vue component}
                                       {--renderless : use this if you want to make a renderless component}
                                       {--controller : scaffold out a controller using the same view information}';
@@ -55,6 +56,7 @@ class MakeView extends Command
                 'folder' => $this->argument('folder'),
                 'name' => $this->argument('name'),
                 '--singular' => $this->option('singular'),
+                '--shared' => $this->option('shared'),
                 '--rebase' => $this->option('rebase'),
             ]);
         }
@@ -72,7 +74,7 @@ class MakeView extends Command
     private function hydrateComponent(FileGenerator $file): FileGenerator
     {
         $file
-            ->setPath($this->getCorrectPath('components'), $this->argument('folder'))
+            ->setPath($this->getCorrectPath('components'), null, $this->argument('folder'))
             ->hydrate('VueComponent', [
                 '{{name}}' => Str::slug($file->getName()),
             ])
@@ -84,7 +86,7 @@ class MakeView extends Command
     private function hydrateRenderlessComponent(FileGenerator $file): FileGenerator
     {
         $file
-            ->setPath($this->getCorrectPath('components'), $this->argument('folder'))
+            ->setPath($this->getCorrectPath('components'), null, $this->argument('folder'))
             ->hydrate('VueRenderless', [
                 '{{name}}' => Str::slug($file->getName()),
             ])
@@ -96,7 +98,7 @@ class MakeView extends Command
     private function hydratePage(FileGenerator $file): FileGenerator
     {
         $file
-            ->setPath($this->getCorrectPath('pages'), $this->argument('folder'))
+            ->setPath($this->getCorrectPath('pages'), $this->option('shared'), $this->argument('folder'))
             ->hydrate('Vue', [
                 '{{name}}' => $file->getName(),
             ])

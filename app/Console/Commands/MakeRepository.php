@@ -31,7 +31,7 @@ class MakeRepository extends Command
     {
         $file = (new FileGenerator($this->argument('name'), null, 'Repository'))
             ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.repositories'), 'Facades')
+            ->setPath(config('app-paths.repositories'), null, 'Facades')
         ;
         $file->hydrate('RepositoryFacade', [
             '{{classname}}' => $file->getName(),
@@ -52,7 +52,7 @@ class MakeRepository extends Command
     {
         $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
             ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.repositories'))
+            ->setPath(config('app-paths.repositories'), null)
         ;
         $file->hydrate('Repository', [
             '{{classname}}' => $file->getName(),

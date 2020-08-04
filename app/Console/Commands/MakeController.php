@@ -11,6 +11,7 @@ class MakeController extends Command
                                             {folder? : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
                                             {--view : will scaffold out a view file for you using the same information}
                                             {--singular}
+                                            {--shared}
                                             {--rebase}';
 
     protected $description = 'Stub out a controller and view file';
@@ -25,7 +26,7 @@ class MakeController extends Command
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('php')
             ->shouldBeSingular($this->option('singular'))
-            ->setPath(config('app-paths.controllers'), $this->argument('folder'))
+            ->setPath(config('app-paths.controllers'), $this->option('shared'), $this->argument('folder'))
         ;
 
         $file->hydrate('Controller', [
@@ -44,6 +45,7 @@ class MakeController extends Command
             $this->call('make:view', [
                 'folder' => $this->argument('folder'),
                 'name' => $this->argument('name'),
+                '--shared' => $this->option('shared'),
                 '--singular' => $this->option('singular'),
                 '--rebase' => $this->option('rebase'),
             ]);
