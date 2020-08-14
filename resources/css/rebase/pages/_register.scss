@@ -1,0 +1,47 @@
+.layout {
+   display: grid;
+   grid-gap: $px-16;
+   grid-template-areas: 'secondary' 'main';
+   grid-template-columns: 1fr;
+   grid-template-rows: 1fr 2fr;
+   height: 100vh;
+
+   @include at('md') {
+      align-items: center;
+      grid-template-areas: 'main secondary';
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 1fr;
+   }
+
+   &__main {
+      grid-area: main;
+   }
+
+   &__secondary {
+      background: $color-gray-80;
+      color: $color-gray-40;
+      grid-area: secondary;
+      padding: $px-16;
+
+      @include at('md') {
+         align-items: center;
+         display: flex;
+         height: 100vh;
+      }
+   }
+}
+
+.step-counter {
+   color: $color-gray-40;
+   font-size: $px-20;
+
+   &__item {
+      padding: $px-8 0;
+
+      &--current {
+         color: $color-blue-40;
+         font-size: $px-24;
+         padding: $px-8 0;
+      }
+   }
+}

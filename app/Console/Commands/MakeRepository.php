@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class MakeRepository extends Command
 {
-    protected $signature = 'make:repository {name} {model}';
+    protected $signature = 'make:repository {name} {model?}';
 
     protected $description = 'Generate a repository/facade';
 
@@ -18,12 +18,14 @@ class MakeRepository extends Command
 
     public function handle(): void
     {
-        $repo = $this->stubOutRepository();
+        $modelName = $this->argument('model') ?? $this->argument('name');
+
+        $repo = $this->stubOutRepository($modelName);
         $facade = $this->stubOutFacade();
 
         $this->line('<comment>Please make sure you input the following into your RepositoryServiceProvider:</comment>');
         $this->info('$this->app->singleton(\''.$facade->getName().'\', function($app) {
-                        return new '.$repo->getName().'(new '.$this->argument('model').'());
+                        return new '.$repo->getName().'(new '.$modelName.'());
                      });');
     }
 
@@ -33,10 +35,10 @@ class MakeRepository extends Command
             ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'), null, 'Facades')
         ;
+
         $file->hydrate('RepositoryFacade', [
             '{{classname}}' => $file->getName(),
-        ])
-        ;
+        ]);
 
         if ($file->writeToDisk()) {
             $this->info('Facade created');
@@ -48,18 +50,18 @@ class MakeRepository extends Command
         return $file;
     }
 
-    private function stubOutRepository(): FileGenerator
+    private function stubOutRepository(string $modelName): FileGenerator
     {
         $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
             ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'), null)
         ;
+
         $file->hydrate('Repository', [
             '{{classname}}' => $file->getName(),
-            '{{model}}' => ucfirst($this->argument('model')),
-            '{{cache}}' => strtolower($this->argument('model')),
-        ])
-        ;
+            '{{model}}' => ucfirst($modelName),
+            '{{cache}}' => strtolower($modelName),
+        ]);
 
         if ($file->writeToDisk()) {
             $this->info('Repository created');

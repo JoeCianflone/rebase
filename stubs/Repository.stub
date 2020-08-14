@@ -14,7 +14,7 @@ class Eloquent{{model}}Repository extends EloquentRepository
 
     public function __construct({{model}} $model)
     {
-        $this->cache = new QueryCache({{cache}});
+        $this->cache = new QueryCache('{{cache}}');
         $this->model = $model;
     }
 

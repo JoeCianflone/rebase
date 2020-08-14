@@ -1,7 +1,10 @@
 <script>
 export default {
    components: {},
-   data: () => ({}),
+   data: () => ({
+      errors: Object,
+      alerts: Object,
+   }),
    methods: {
       url() {
          return location.pathname.substr(1)
@@ -15,6 +18,6 @@ export default {
       <portal-target name="dropdown" slim />
       <portal-target name="overlay" slim />
 
-      <slot />
+      <slot></slot>
    </section>
 </template>

@@ -6,6 +6,11 @@
             border-color: $color-gray-80;
             border-width: 2px;
             color: $color-gray-30;
+
+            &:disabled {
+               background: $color-gray-60;
+               border-color: $color-gray-60;
+            }
          }
       }
    }
@@ -17,6 +22,11 @@
             border-color: $color-gray-80;
             border-width: 2px;
             color: $color-gray-80;
+
+            &:disabled {
+               border-color: $color-gray-60;
+               color: $color-gray-60;
+            }
          }
       }
    }

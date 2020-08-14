@@ -5,11 +5,13 @@ namespace App\Providers;
 use App\Domain\Models\User;
 use App\Domain\Models\Account;
 use App\Domain\Models\Workspace;
+use App\Domain\Models\BannedSlug;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use App\Domain\Repositories\EloquentUserRepository;
 use App\Domain\Repositories\EloquentAccountRepository;
 use App\Domain\Repositories\EloquentWorkspaceRepository;
+use App\Domain\Repositories\EloquentBannedSlugRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,10 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->singleton('UserRepository', function (Application $app) {
             return new EloquentUserRepository(new User());
+        });
+
+        $this->app->singleton('BannedSlugRepository', function ($app) {
+            return new EloquentBannedSlugRepository(new BannedSlug());
         });
     }
 

@@ -36,18 +36,30 @@ Route::domain(config('app.url'))->namespace('Shared')->group(function (): void {
      * we want to help guide them to the right place. The /find route is our
      * search page that will allow them to search for their correct login.
      */
-    Route::get('/login', function () {
-        return redirect()->route('view.find');
-    });
+    Route::get('/login', fn () => redirect()->route('view.find'));
 
     Route::get('/find', Find\ViewFind::class)->name('view.find');
     Route::post('/find', Find\ProcessFind::class)->name('process.find');
     Route::get('/find/results', Find\ViewResults::class)->name('view.results');
 
-    Route::get('/register', function () {
-        return redirect()->route('view.registration');
-    });
+    Route::get('/register', fn () => redirect()->route('view.register.workspace'));
+    Route::get('/registration', fn () => redirect()->route('view.register.workspace'));
 
-    Route::get('/registration', Registration\ViewRegistration::class)->name('view.registration');
-    Route::post('/registration', Registration\StoreRegistration::class)->name('store.registration');
+    /*
+     * register/workspace
+     * register/user
+     * register/pay
+     * register/complete
+     * register/fail
+     */
+    Route::get('/register/workspace', Register\ViewRegisterWorkspace::class)->name('view.register.workspace');
+    Route::get('/register/user', Register\ViewRegisterUser::class)->name('view.register.user');
+    Route::get('/register/pay', Register\ViewRegisterPay::class)->name('view.register.pay');
+    Route::get('/register/complete', Register\ViewRegisterComplete::class)->name('view.register.complete');
+
+    Route::post('/register/workspace', Register\ProcessRegisterWorkspace::class)->name('process.register.workspace');
+    Route::post('/register/user', Register\ProcessRegisterUser::class)->name('process.register.user');
+    Route::post('/register/pay', Register\ProcessRegisterPay::class)->name('process.register.pay');
+
+    // Route::post('/registration', Registration\StoreRegistration::class)->name('store.registration');
 });

@@ -6,6 +6,10 @@ export default {
    components: { Icon },
 
    props: {
+      sending: {
+         type: Boolean,
+         default: false,
+      },
       type: {
          type: String,
          default: "button",
@@ -19,7 +23,7 @@ export default {
 </script>
 
 <template>
-   <button v-on="$listeners" v-bind="$attrs" :type="type">
+   <button v-on="$listeners" v-bind="$attrs" :type="type" :disabled="sending">
       <slot />
       <Icon v-if="icon" :name="icon" class="icon--right" :size="18" />
    </button>

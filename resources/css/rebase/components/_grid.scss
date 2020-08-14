@@ -1,0 +1,52 @@
+.grid {
+   column-gap: $px-16;
+   display: grid;
+   grid-template-columns: repeat(12, 1fr);
+   row-gap: $px-16;
+}
+
+.col {
+   @for $i from 12 through 1 {
+      &-#{$i} {
+         grid-column-end: span #{$i};
+
+         @if ($i % 2 == 0) {
+            &--center {
+               $col-start: ((12 - $i) / 2) + 1;
+               grid-column-end: span #{$i};
+               grid-column-start: $col-start;
+            }
+         }
+      }
+      @if ($i > 1) {
+         &-at-#{$i} {
+            grid-column-start: $i;
+         }
+      }
+   }
+}
+
+@each $query, $val in $mq {
+   .col {
+      @include query($query) {
+         @for $i from 12 through 1 {
+            &-#{$i} {
+               grid-column-end: span #{$i};
+
+               @if ($i % 2 == 0) {
+                  &--center {
+                     $col-start: ((12 - $i) / 2) + 1;
+                     grid-column-end: span #{$i};
+                     grid-column-start: $col-start;
+                  }
+               }
+            }
+            @if ($i > 1) {
+               &-at-#{$i} {
+                  grid-column-start: $i;
+               }
+            }
+         }
+      }
+   }
+}

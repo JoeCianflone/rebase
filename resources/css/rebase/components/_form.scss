@@ -18,16 +18,11 @@ $form-height: $px-40;
 }
 
 @mixin form-input {
-   align-content: flex-start;
-   align-items: center;
    background: $color-true-white;
    border: $form-border;
    border-radius: $form-border-radius;
    color: $form-text-color;
-   display: inline-flex;
-   flex: 1 1 auto;
    font-size: $form-font-size;
-   justify-content: flex-start;
    line-height: $form-line-height;
    margin: 0;
    min-height: $form-height;
