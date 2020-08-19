@@ -85,16 +85,6 @@ export default {
 
          <Button icon="user" class="button--primary" type="submit">Submit This Shit</Button>
          <Button class="button--secondary">Just a button</Button>
-
-         <ol>
-            <li>Whats the name of their company/team</li>
-            <li>Slugify their company/team name and give them the option to edit it</li>
-            <li>Get the users name, email, and password</li>
-            <li>Take payment</li>
-            <li>If payment goes through spin up new account -- send welcome email</li>
-            <li>If payment does not go through kick them back</li>
-            <li>Send user to their example.foo.com subdomain have them log in</li>
-         </ol>
       </fieldset>
    </form>
 </template>

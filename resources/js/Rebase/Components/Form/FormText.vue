@@ -38,3 +38,17 @@ export default {
 <template>
    <input class="form-item__textbox" ref="input" v-bind="$attrs" :value="value" @input="handleInput" />
 </template>
+
+<style lang="scss" scoped>
+@import '@@/abstract';
+
+.form-item {
+   &__textbox {
+      @include form-input;
+
+      &--right {
+         @include form-input;
+      }
+   }
+}
+</style>

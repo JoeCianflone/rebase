@@ -2,6 +2,7 @@
 import Layout from "@/Rebase/Templates/Open"
 
 import { CardNumber, CardExpiry, CardCvc, createToken, handleCardSetup, createPaymentMethod } from "vue-stripe-elements-plus"
+import _ from "lodash"
 
 export default {
    layout: Layout,
@@ -16,13 +17,9 @@ export default {
    data: function () {
       return {
          sending: false,
-         number: false,
-         expiry: false,
-         cvc: false,
          form: {
-            validatedName: this.name,
-            validatedEmail: this.email,
-            validatedSlug: this.slug,
+            payment_method: null,
+            plan: null,
          },
       }
    },
@@ -40,9 +37,11 @@ export default {
    methods: {
       pay() {
          this.sending = true
+         let vm = this
+
          handleCardSetup(this.intent.client_secret).then(function (result) {
-            this.form.payment_method = result.setupIntent.payment_method
-            this.$inertia.post("/registration/pay", this.form)
+            vm.form.payment_method = result.setupIntent.payment_method
+            vm.$inertia.post("/register/pay", vm.form).then(() => (vm.sending = false))
          })
       },
    },
@@ -53,27 +52,29 @@ export default {
    <section class="layout">
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
-            <FormField validate="name" class="col-10--center md::col-8--center">
-               What's your name:
-               <FormText v-model="form.name" />
+            <FormField class="col-10--centered md::col-8--centered" validation="plan">
+               Please Select From One of the Following:
+               <FormSelect v-model="form.plan" defaultText="Select an Option">
+                  <option v-for="product in $page.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
+               </FormSelect>
             </FormField>
 
-            <FormField class="col-10--center md::col-8--center">
+            <FormField class="col-10--centered md::col-8--centered">
                Card Number:
-               <card-number ref="cardNumber" :stripe="stripe_key" @change="number = $event.complete" />
+               <card-number ref="cardNumber" :stripe="stripe_key" />
             </FormField>
 
             <FormField class="col-8 col-at-2 md::col-6 md::col-at-3">
                Expires:
-               <card-expiry ref="cardExpiry" :stripe="stripe_key" @change="expiry = $event.complete" />
+               <card-expiry ref="cardExpiry" :stripe="stripe_key" />
             </FormField>
 
             <FormField class="col-2">
                CVC:
-               <card-cvc ref="cardCvc" :stripe="stripe_key" @change="cvc = $event.complete" />
+               <card-cvc ref="cardCvc" :stripe="stripe_key" />
             </FormField>
 
-            <Button class="button--primary col-10--center md::col-4--center" type="submit" :sending="sending">Pay</Button>
+            <Button class="button--primary col-10--centered md::col-4--centered" type="submit" :disable="sending">Pay</Button>
          </section>
       </form>
       <aside class="layout__secondary">

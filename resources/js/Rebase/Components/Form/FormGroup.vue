@@ -20,3 +20,43 @@ export default {
       </div>
    </div>
 </template>
+
+<style lang="scss" scoped>
+@import '@@/abstract';
+
+@mixin input-slot {
+   background-color: $color-gray-40;
+   border: $form-border;
+   font-size: $form-font-size;
+   line-height: $form-line-height;
+   min-height: $form-height;
+   padding: $px-8 $px-16;
+
+   @content;
+}
+
+.form-item {
+   &--grouped {
+      align-items: center;
+      border-radius: 0;
+      display: flex;
+      justify-content: flex-start;
+   }
+
+   &__pre-input {
+      @include input-slot {
+         border-bottom-left-radius: $form-border-radius;
+         border-top-left-radius: $form-border-radius;
+         margin-right: -2px;
+      }
+   }
+
+   &__post-input {
+      @include input-slot {
+         border-bottom-right-radius: $form-border-radius;
+         border-top-right-radius: $form-border-radius;
+         margin-left: -2px;
+      }
+   }
+}
+</style>

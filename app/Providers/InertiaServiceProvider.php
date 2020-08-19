@@ -27,7 +27,11 @@ class InertiaServiceProvider extends ServiceProvider
         });
 
         Inertia::share([
-            'app' => [],
+            'app' => [
+                'name' => fn () => config('app.name'),
+                'domain' => fn () => config('app.domain'),
+                'pricing' => fn () => config('pricing.product.test'),
+            ],
             'flash' => [
                 'success' => fn (): ?string => Session::get('success'),
                 'alert' => fn (): ?string => Session::get('alert'),

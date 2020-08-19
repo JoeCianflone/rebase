@@ -37,3 +37,17 @@ export default {
       <slot />
    </LabelWrapper>
 </template>
+
+<style lang="scss" scoped>
+@import '@@/abstract';
+
+.form-item {
+   &__radio {
+      @include form-input {
+         flex-grow: 0;
+         margin-right: $px-4;
+         width: auto;
+      }
+   }
+}
+</style>

@@ -1,6 +1,7 @@
 import { InertiaApp } from "@inertiajs/inertia-vue"
 import PortalVue from "portal-vue"
 import VueMeta from "vue-meta"
+import VueDraggable from "vue-draggable"
 import Vue from "vue"
 
 // Global Components
@@ -29,6 +30,7 @@ Vue.config.productionTip = false
 Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
+Vue.use(VueDraggable)
 
 let app = document.getElementById("app")
 

@@ -1,52 +1,41 @@
 .grid {
+   align-items: end;
    column-gap: $px-16;
    display: grid;
-   grid-template-columns: repeat(12, 1fr);
+   grid-template-columns: repeat($grid-cols, 1fr);
    row-gap: $px-16;
 }
 
-.col {
-   @for $i from 12 through 1 {
-      &-#{$i} {
-         grid-column-end: span #{$i};
+@mixin grid-maker {
+   @for $count from $grid-cols through 1 {
+      &-#{$count} {
+         grid-column-end: span #{$count};
+         grid-column-start: auto;
 
-         @if ($i % 2 == 0) {
-            &--center {
-               $col-start: ((12 - $i) / 2) + 1;
-               grid-column-end: span #{$i};
+         @if ($count % 2 == 0 and $count < $grid-cols) {
+            &--centered {
+               $col-start: (($grid-cols - $count) / 2) + 1;
+               grid-column-end: span #{$count};
                grid-column-start: $col-start;
             }
          }
       }
-      @if ($i > 1) {
-         &-at-#{$i} {
-            grid-column-start: $i;
+      @if ($count > 1) {
+         &-at-#{$count} {
+            grid-column-start: $count;
          }
       }
    }
 }
 
+.col {
+   @include grid-maker;
+}
+
 @each $query, $val in $mq {
    .col {
       @include query($query) {
-         @for $i from 12 through 1 {
-            &-#{$i} {
-               grid-column-end: span #{$i};
-
-               @if ($i % 2 == 0) {
-                  &--center {
-                     $col-start: ((12 - $i) / 2) + 1;
-                     grid-column-end: span #{$i};
-                     grid-column-start: $col-start;
-                  }
-               }
-            }
-            @if ($i > 1) {
-               &-at-#{$i} {
-                  grid-column-start: $i;
-               }
-            }
-         }
+         @include grid-maker;
       }
    }
 }

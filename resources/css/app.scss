@@ -1,12 +1,10 @@
 @charset 'UTF-8';
 
+@import 'abstract';
+
 @import url('normalize.css/normalize.css');
-@import 'rebase/abstracts/abstracts';
-
-@import 'app/variables'; // order is important, this is _exactly_ where it should be
+@import 'rebase/components/form';
+@import 'rebase/components/grid';
 @import 'rebase/baseline';
-
-@import 'rebase/components/components';
-@import 'app/components/components';
 
 @import 'rebase/pages/register';

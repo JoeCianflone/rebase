@@ -17,4 +17,12 @@ export default {
    <textarea class="form-item__textarea" ref="textarea" v-bind="$attrs" :value="value" @input="$emit('input', $event.target.value)">{{ defaultText }}</textarea>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import '@@/abstract';
+
+.form-item {
+   &__textarea {
+      @include form-input;
+   }
+}
+</style>

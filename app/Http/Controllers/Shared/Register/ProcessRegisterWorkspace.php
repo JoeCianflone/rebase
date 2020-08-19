@@ -24,8 +24,8 @@ class ProcessRegisterWorkspace extends BaseController
             }],
         ]);
 
-        return Redirect::route('view.register.user')->with([
-            'slug' => $request->input('slug'),
-        ]);
+        session(['account.workspace' => $request->input('slug')]);
+
+        return Redirect::route('view.register.user');
     }
 }

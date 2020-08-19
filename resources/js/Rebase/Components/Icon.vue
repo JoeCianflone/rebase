@@ -35,3 +35,33 @@ export default {
       <use v-bind="{ 'xlink:href': '/assets/images/feather-sprite@4.28.0.svg#' + name }" />
    </svg>
 </template>
+
+<style lang="scss" scoped>
+@import '@@/abstract';
+
+@mixin icon {
+   fill: none;
+   line-height: normal;
+   position: relative;
+   stroke: currentColor;
+   stroke-linecap: round;
+   stroke-linejoin: round;
+   stroke-width: 2;
+
+   @content;
+}
+
+.icon {
+   &--left {
+      @include icon {
+         margin-right: $px-8;
+      }
+   }
+
+   &--right {
+      @include icon {
+         margin-left: $px-8;
+      }
+   }
+}
+</style>

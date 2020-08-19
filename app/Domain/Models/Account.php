@@ -24,17 +24,17 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'name',
-        'address_line1',
+        'id',                   // required
+        'name',                 // required
+        'address_line1',        // required
         'address_line2',
         'address_line3',
         'unit_number',
-        'city',
-        'state',
-        'postal_code',
+        'city',                 // required
+        'state',                // required
+        'postal_code',          // required
         'country',
-        'is_business',
+        'is_business',          // false
         'agrees_to_terms_at',
         'agrees_to_privacy_at',
         'stripe_id',
