@@ -32,16 +32,9 @@ class ProcessRegisterPay extends BaseController
             'postal_code' => session('account.postal_code'),
         ]);
 
-        /*
-         * 1. Create a new Account
-         * 2. create a new subscription for the Account
-         * 3. Spin up the new site for them
-         * 4. Return them to a page that makes sense
-         */
-
         // @phpstan-ignore-next-line
         $account->newSubscription(config('pricing.plan.test'), $request->input('plan'))->create($request->input('payment_method'));
 
-        return 'yay';
+        event('account-paid');
     }
 }
