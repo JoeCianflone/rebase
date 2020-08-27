@@ -22,8 +22,8 @@ class BannedSlug extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'slug',
+        'id',               // required
+        'slug',             // required
         'description',
         'created_at',
         'updated_at',

@@ -22,11 +22,11 @@ class UserWorkspace extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'user_id',
-        'account_id',
-        'workspace_id',
-        'role',
+        'id',               // required
+        'user_id',          // required
+        'account_id',       // required
+        'workspace_id',     // required
+        'role',             // required
         'create_at',
         'updated_at',
     ];

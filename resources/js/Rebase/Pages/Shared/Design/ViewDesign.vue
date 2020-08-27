@@ -36,7 +36,7 @@ export default {
 
          <FormField validate="name">
             Hi there this is a label for my form name:
-            <FormText v-model="form.name" type="text" :slugify="true" />
+            <FormInput v-model="form.name" type="text" :slugify="true" />
          </FormField>
 
          <FormFieldInline validate="checkbox">
@@ -66,7 +66,7 @@ export default {
                <template v-slot:pre>
                   $
                </template>
-               <FormText v-model="form.field" />
+               <FormInput v-model="form.field" />
                <template v-slot:post>
                   .00
                </template>

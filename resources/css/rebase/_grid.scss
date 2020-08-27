@@ -11,6 +11,8 @@
       &-#{$count} {
          grid-column-end: span #{$count};
          grid-column-start: auto;
+         overflow: hidden;
+         text-overflow: ellipsis;
 
          @if ($count % 2 == 0 and $count < $grid-cols) {
             &--centered {

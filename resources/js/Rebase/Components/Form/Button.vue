@@ -2,6 +2,7 @@
 import Icon from "../Icon"
 
 export default {
+   name: "Button",
    inheritAttrs: false,
    components: { Icon },
 
@@ -45,7 +46,7 @@ export default {
 }
 
 @mixin primary {
-   @include form-input {
+   @include form-element {
       @include form-button {
          background: $color-gray-80;
          border-color: $color-gray-80;
@@ -80,7 +81,7 @@ export default {
    }
 
    &--secondary {
-      @include form-input {
+      @include form-element {
          @include form-button {
             background: transparent;
             border-color: $color-gray-80;
@@ -96,7 +97,7 @@ export default {
    }
 
    &--link {
-      @include form-input {
+      @include form-element {
          @include form-button {
             background: transparent;
             border-color: $color-gray-80;

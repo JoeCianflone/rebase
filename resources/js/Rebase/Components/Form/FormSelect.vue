@@ -31,29 +31,23 @@ export default {
 <style lang="scss" scoped>
 @import '@@/abstract';
 
-@mixin form-select {
-   -moz-appearance: none;
-   -webkit-appearance: none;
-   appearance: none;
-   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-   background-position: calc(100% - 10px) center;
-   background-repeat: no-repeat, repeat;
-   background-size: $px-16 auto;
-   cursor: pointer;
-   max-width: 100%;
-   padding-right: $px-24;
-
-   @content;
-
-   > option {
-      padding: 0;
-   }
-}
-
 .form-item {
    &__select {
-      @include form-input {
-         @include form-select;
+      @include form-element {
+         -moz-appearance: none;
+         -webkit-appearance: none;
+         appearance: none;
+         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+         background-position: calc(100% - 10px) center;
+         background-repeat: no-repeat, repeat;
+         background-size: $px-16 auto;
+         cursor: pointer;
+         max-width: 100%;
+         padding-right: $px-24;
+
+         > option {
+            padding: 0;
+         }
       }
    }
 }
@@ -63,4 +57,5 @@ export default {
       padding-left: $px-4; // This is needed for Firefox which does something shitty with padding
    }
 }
+
 </style>

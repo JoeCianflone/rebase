@@ -5,7 +5,7 @@ $form-font-size: $px-16;
 $form-line-height: normal;
 $form-height: $px-40;
 
-@mixin form-input {
+@mixin form-element {
    background: $color-true-white;
    border: $form-border;
    border-radius: $form-border-radius;
@@ -19,6 +19,15 @@ $form-height: $px-40;
    width: 100%;
 
    @content;
+
+   &:focus {
+      @include form-element-focus;
+   }
+
+}
+
+@mixin form-element-focus {
+   box-shadow: 0 1px 3px 0 #cfd7df;
 }
 
 @mixin form-small {
@@ -32,3 +41,4 @@ $form-height: $px-40;
    line-height: 50px;
    padding: $px-8 $px-20;
 }
+

@@ -2,24 +2,27 @@
 
 namespace App\Events;
 
-use App\Domain\Models\Account;
+use App\Domain\Models\Workspace;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class NewAccountCreated
+class WorkspaceCreated
 {
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
 
-    public array $account;
+    public array $workspace;
     public array $setupData;
 
-    public function __construct(Account $account, array $setupData)
+    /**
+     * Create a new event instance.
+     */
+    public function __construct(Workspace $workspace, array $setupData = [])
     {
-        $this->account = collect($account)->toArray();
+        $this->workspace = collect($workspace)->toArray();
         $this->setupData = $setupData;
     }
 

@@ -14,8 +14,8 @@ class SendNewAccountWelcome
 
     public function handle(NewAccountCreated $event): void
     {
-        Mail::to($event->user['email'])
-            ->queue((new WelcomeAccount($event->workspace, $event->user))->onQueue('system-email'))
-        ;
+        // Mail::to($event->user['email'])
+        //     ->queue((new WelcomeAccount($event->workspace, $event->user))->onQueue('system-email'))
+        // ;
     }
 }

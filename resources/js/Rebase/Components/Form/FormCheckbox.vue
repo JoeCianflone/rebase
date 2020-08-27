@@ -75,7 +75,7 @@ export default {
 
 .form-item {
    &__checkbox {
-      @include form-input {
+      @include form-element {
          flex-grow: 0;
          margin-right: $px-4;
          width: auto;

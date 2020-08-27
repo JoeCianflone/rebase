@@ -1,5 +1,6 @@
 <script>
 export default {
+   name: "FormInput",
    inheritAttrs: false,
 
    props: {
@@ -44,10 +45,10 @@ export default {
 
 .form-item {
    &__textbox {
-      @include form-input;
+      @include form-element;
 
       &--right {
-         @include form-input;
+         @include form-element;
       }
    }
 }

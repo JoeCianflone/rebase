@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('avatar')->nullable();
-            $table->json('other')->nullable()->index();
+            $table->json('workspace_data')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')

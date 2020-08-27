@@ -22,7 +22,7 @@ export default {
 
 .form-item {
    &__textarea {
-      @include form-input;
+      @include form-element;
    }
 }
 </style>

@@ -37,10 +37,10 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="test">
          <section class="grid">
             <FormField class="col-10--centered md::col-8--centered" validate="slug">
-               What's your workspace name:
+               <FieldLabel>What's your workspace name:</FieldLabel>
                <FormGroup>
-                  <FormText v-model="form.slug" :slugify="true" />
-                  <template v-slot:post> .{{ $page.app.domain }} </template>
+                  <FormInput v-model="form.slug" :slugify="true" />
+                  <template #post> .{{ $page.app.domain }} </template>
                </FormGroup>
             </FormField>
             <Button class="button--primary col-10--centered md::col-4--centered" type="submit" :disable="sending">Check</Button>

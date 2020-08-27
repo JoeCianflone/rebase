@@ -53,24 +53,24 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
             <FormField class="col-10--centered md::col-8--centered" validation="plan">
-               Please Select From One of the Following:
+               <FieldLabel>Please Select From One of the Following:</FieldLabel>
                <FormSelect v-model="form.plan" defaultText="Select an Option">
                   <option v-for="product in $page.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
                </FormSelect>
             </FormField>
 
             <FormField class="col-10--centered md::col-8--centered">
-               Card Number:
+               <FieldLabel>Card Number:</FieldLabel>
                <card-number ref="cardNumber" :stripe="stripe_key" />
             </FormField>
 
             <FormField class="col-8 col-at-2 md::col-6 md::col-at-3">
-               Expires:
+               <FieldLabel>Expires:</FieldLabel>
                <card-expiry ref="cardExpiry" :stripe="stripe_key" />
             </FormField>
 
             <FormField class="col-2">
-               CVC:
+               <FieldLabel>CVC:</FieldLabel>
                <card-cvc ref="cardCvc" :stripe="stripe_key" />
             </FormField>
 

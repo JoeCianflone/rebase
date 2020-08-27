@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use App\Helpers\FileGenerator;
 use Illuminate\Console\Command;
 
@@ -21,23 +22,24 @@ class MakeRepository extends Command
         $modelName = $this->argument('model') ?? $this->argument('name');
 
         $repo = $this->stubOutRepository($modelName);
-        $facade = $this->stubOutFacade();
+        $facade = $this->stubOutFacade($modelName);
 
         $this->line('<comment>Please make sure you input the following into your RepositoryServiceProvider:</comment>');
-        $this->info('$this->app->singleton(\''.$facade->getName().'\', function($app) {
+        $this->info('$this->app->singleton(\''.$facade->getName().'\', function(Application $app) {
                         return new '.$repo->getName().'(new '.$modelName.'());
                      });');
     }
 
-    private function stubOutFacade(): FileGenerator
+    private function stubOutFacade(string $modelName): FileGenerator
     {
-        $file = (new FileGenerator($this->argument('name'), null, 'Repository'))
+        $file = (new FileGenerator(Str::replaceFirst('Repository', '', $this->argument('name')), null, 'Repository'))
             ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'), null, 'Facades')
         ;
 
         $file->hydrate('RepositoryFacade', [
             '{{classname}}' => $file->getName(),
+            '{{model}}' => $modelName,
         ]);
 
         if ($file->writeToDisk()) {
@@ -52,7 +54,7 @@ class MakeRepository extends Command
 
     private function stubOutRepository(string $modelName): FileGenerator
     {
-        $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
+        $file = (new FileGenerator(Str::replaceFirst('Repository', '', $this->argument('name')), 'Eloquent', 'Repository'))
             ->setFileExtensionAs('php')
             ->setPath(config('app-paths.repositories'), null)
         ;

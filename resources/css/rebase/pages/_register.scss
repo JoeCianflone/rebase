@@ -47,13 +47,13 @@
 }
 
 .StripeElement {
-   @include form-input;
+   @include form-element;
 }
 
-input:focus,
-.StripeElement--focus {
-   box-shadow: 0 1px 3px 0 #cfd7df;
-}
+// input:focus,
+// .StripeElement--focus {
+//    box-shadow: 0 1px 3px 0 #cfd7df;
+// }
 
 .StripeElement--invalid {
    border-color: #fa755a;

@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserWorkspaceTable extends Migration
+class CreateUserWorkspacesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('user_workspace', function (Blueprint $table): void {
-            $table->id();
+        Schema::create('user_workspaces', function (Blueprint $table): void {
+            $table->uuid('id')->primary();
             $table->uuid('account_id');
             $table->uuid('user_id');
             $table->uuid('workspace_id');

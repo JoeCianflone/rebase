@@ -4,9 +4,10 @@ import { states } from "@/Rebase/consts"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "ViewRegisterUser" },
+   metaInfo: { title: "Register Part 2" },
 
    components: {},
+   remember: 'form',
 
    data: function () {
       return {
@@ -16,6 +17,7 @@ export default {
          form: {
             name: null,
             email: null,
+            business_name: null,
             is_business: false,
             address_line1: null,
             address_line2: null,
@@ -49,41 +51,46 @@ export default {
                Great news <strong>{{ form.validatedSlug }}.{{ $page.app.domain }}</strong> is available!
             </p>
             <FormField class="col-10--centered md::col-8--centered" validate="is_business">
-               This account is for:
+               <FieldLabel>This account is for:</FieldLabel>
                <FormSelect v-model="form.is_business" defaultText="Select an Account Type">
                   <option :value="false">Personal Use</option>
                   <option :value="true">A Business</option>
                </FormSelect>
             </FormField>
 
+            <FormField v-if="form.is_business === 'true'" validate="business_name" class="col-10--centered md::col-8--centered">
+               <FieldLabel>What's your businesses name:</FieldLabel>
+               <FormInput v-model="form.business_name" />
+            </FormField>
+
             <FormField validate="name" class="col-10--centered md::col-8--centered">
-               What's your name:
-               <FormText v-model="form.name" />
+               <FieldLabel>What's your name:</FieldLabel>
+               <FormInput v-model="form.name" />
             </FormField>
 
             <FormField validate="email" class="col-10--centered md::col-8--centered">
-               What's your email address:
-               <FormText v-model="form.email" type="email" />
+               <FieldLabel>What's your email address:</FieldLabel>
+               <FormInput v-model="form.email" type="email" />
             </FormField>
 
             <FormField validate="address_line1" class="col-10--centered md::col-6 md::col-at-3">
-               Account Address Line 1:
-               <FormText v-model="form.address_line1" />
+               <FieldLabel>Address Line 1:</FieldLabel>
+               <FormInput v-model="form.address_line1" />
             </FormField>
             <FormField validate="unit_number" class="col-10--centered md::col-2">
-               Unit Number:
-               <FormText v-model="form.unit_number" />
+               <FieldLabel>Unit Number:</FieldLabel>
+               <FormInput v-model="form.unit_number" />
             </FormField>
 
             <template v-if="showAddress">
                <FormField validate="address_line2" class="col-10--centered md::col-8--centered">
-                  Account Address Line 2:
-                  <FormText v-model="form.address_line2" />
+                  <FieldLabel>Address Line 2:</FieldLabel>
+                  <FormInput v-model="form.address_line2" />
                </FormField>
 
                <FormField validate="address_line3" class="col-10--centered md::col-8--centered">
-                  Account Address Line 3:
-                  <FormText v-model="form.address_line3" />
+                  <FieldLabel>Address Line 3:</FieldLabel>
+                  <FormInput v-model="form.address_line3" />
                </FormField>
             </template>
             <div class="col-10--centered md::col-8--centered">
@@ -91,19 +98,20 @@ export default {
             </div>
 
             <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">
-               Account City:
-               <FormText v-model="form.city" />
+               <FieldLabel>City:</FieldLabel>
+               <FormInput v-model="form.city" />
             </FormField>
 
             <FormField validate="state" class="col-10--centered md::col-2">
-               Account State:
+               <FieldLabel>State:</FieldLabel>
                <FormSelect v-model="form.state" defaultText="Select" :options="states" />
             </FormField>
 
             <FormField validate="address_line3" class="col-10--centered md::col-2">
-               Postal Code:
-               <FormText v-model="form.postal_code" />
+               <FieldLabel>Postal Code:</FieldLabel>
+               <FormInput v-model="form.postal_code" />
             </FormField>
+
             <Button class="button--primary col-10--centered md::col-4--centered" type="submit" :disable="sending">Go Pay</Button>
          </section>
       </form>

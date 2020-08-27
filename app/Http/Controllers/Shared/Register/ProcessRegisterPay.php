@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Shared\Register;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Events\NewAccountCreated;
 use App\Domain\Repositories\Facades\AccountRepository;
 use App\Http\Controllers\Controller as BaseController;
 
@@ -35,6 +36,10 @@ class ProcessRegisterPay extends BaseController
         // @phpstan-ignore-next-line
         $account->newSubscription(config('pricing.plan.test'), $request->input('plan'))->create($request->input('payment_method'));
 
-        event('account-paid');
+        event(new NewAccountCreated($account, [
+            'workspace' => session('account.workspace'),
+            'name' => session('account.user.name'),
+            'email' => session('account.email'),
+        ]));
     }
 }
