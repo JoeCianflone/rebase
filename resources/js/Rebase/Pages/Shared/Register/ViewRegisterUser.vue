@@ -18,7 +18,7 @@ export default {
             name: null,
             email: null,
             business_name: null,
-            is_business: false,
+            is_business: '',
             address_line1: null,
             address_line2: null,
             address_line3: null,
@@ -47,25 +47,22 @@ export default {
    <section class="layout">
       <form class="layout__main" action="post" @submit.prevent="test">
          <section class="grid">
-            <p v-if="form.validatedSlug" class="col-10--centered md::col-8--centered">
-               Great news <strong>{{ form.validatedSlug }}.{{ $page.app.domain }}</strong> is available!
+            <p v-if="slug" class="col-10--centered md::col-8--centered">
+               Great news <strong>{{ slug }}.{{ $page.app.domain }}</strong>&nbsp;is available!
             </p>
-            <FormField class="col-10--centered md::col-8--centered" validate="is_business">
-               <FieldLabel>This account is for:</FieldLabel>
-               <FormSelect v-model="form.is_business" defaultText="Select an Account Type">
-                  <option :value="false">Personal Use</option>
-                  <option :value="true">A Business</option>
-               </FormSelect>
-            </FormField>
-
-            <FormField v-if="form.is_business === 'true'" validate="business_name" class="col-10--centered md::col-8--centered">
-               <FieldLabel>What's your businesses name:</FieldLabel>
-               <FormInput v-model="form.business_name" />
-            </FormField>
 
             <FormField validate="name" class="col-10--centered md::col-8--centered">
                <FieldLabel>What's your name:</FieldLabel>
                <FormInput v-model="form.name" />
+            </FormField>
+
+            <FormField v-if="form.is_business" validate="business_name" class="col-10--centered md::col-8--centered">
+               <FieldLabel>What's your businesses name:</FieldLabel>
+               <FormInput v-model="form.business_name" />
+            </FormField>
+
+            <FormField validate="is_business" class="col-10--centered md::col-8--centered">
+               <FormCheckbox v-model="form.is_business">This is a business account</FormCheckbox>
             </FormField>
 
             <FormField validate="email" class="col-10--centered md::col-8--centered">
@@ -77,6 +74,7 @@ export default {
                <FieldLabel>Address Line 1:</FieldLabel>
                <FormInput v-model="form.address_line1" />
             </FormField>
+
             <FormField validate="unit_number" class="col-10--centered md::col-2">
                <FieldLabel>Unit Number:</FieldLabel>
                <FormInput v-model="form.unit_number" />
@@ -93,8 +91,9 @@ export default {
                   <FormInput v-model="form.address_line3" />
                </FormField>
             </template>
+
             <div class="col-10--centered md::col-8--centered">
-               <Button class="button--primary-small" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button><br /><br />
+               <Button as="secondary" size="sm"  @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button><br /><br />
             </div>
 
             <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">
@@ -107,12 +106,12 @@ export default {
                <FormSelect v-model="form.state" defaultText="Select" :options="states" />
             </FormField>
 
-            <FormField validate="address_line3" class="col-10--centered md::col-2">
+            <FormField validate="postal_code" class="col-10--centered md::col-2">
                <FieldLabel>Postal Code:</FieldLabel>
                <FormInput v-model="form.postal_code" />
             </FormField>
 
-            <Button class="button--primary col-10--centered md::col-4--centered" type="submit" :disable="sending">Go Pay</Button>
+            <Button class="col-10--centered md::col-4--centered" type="submit" :disable="sending">Go Pay</Button>
          </section>
       </form>
       <aside class="layout__secondary">

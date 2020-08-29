@@ -1,5 +1,5 @@
 .grid {
-   align-items: end;
+   align-items: baseline;
    column-gap: $px-16;
    display: grid;
    grid-template-columns: repeat($grid-cols, 1fr);
@@ -9,22 +9,32 @@
 @mixin grid-maker {
    @for $count from $grid-cols through 1 {
       &-#{$count} {
+         display: flex;
          grid-column-end: span #{$count};
          grid-column-start: auto;
          overflow: hidden;
-         text-overflow: ellipsis;
+         padding: $px-4 0;
+         width: 100%;
 
          @if ($count % 2 == 0 and $count < $grid-cols) {
             &--centered {
                $col-start: (($grid-cols - $count) / 2) + 1;
+               display: flex;
                grid-column-end: span #{$count};
                grid-column-start: $col-start;
+               overflow: hidden;
+               padding: $px-4 0;
+               width: 100%;
             }
          }
       }
       @if ($count > 1) {
          &-at-#{$count} {
+            display: flex;
             grid-column-start: $count;
+            overflow: hidden;
+            padding: $px-4 0;
+            width: 100%;
          }
       }
    }

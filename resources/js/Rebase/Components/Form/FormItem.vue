@@ -1,8 +1,10 @@
 <script>
 export default {
    props: {
-      position: String,
-      default: "top",
+      position: {
+         type: String,
+         default: "top"
+      },
    },
 }
 </script>
@@ -22,12 +24,14 @@ export default {
       align-items: center;
       display: flex;
       justify-content: space-between;
+      width: 100%;
    }
 
    &--top {
       display: flex;
       flex-direction: column;
-      padding-bottom: $px-8;
+      // padding-bottom: $px-8;
+      width: 100%;
    }
 
    &--left {

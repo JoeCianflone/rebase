@@ -11,6 +11,14 @@ export default {
          type: Boolean,
          default: false,
       },
+      as: {
+         type: String,
+         default: "primary",
+      },
+      size: {
+         type: String,
+         default: '',
+      },
       type: {
          type: String,
          default: "button",
@@ -20,11 +28,22 @@ export default {
          default: false,
       },
    },
+   computed: {
+      buttonType() {
+         let type = `button--${this.as}`;
+
+         if (this.size !== '') {
+            type = `${type} button--${this.size}`;
+         }
+
+         return type;
+      }
+   }
 }
 </script>
 
 <template>
-   <button v-on="$listeners" v-bind="$attrs" :type="type" :disabled="disable">
+   <button v-on="$listeners" :class="buttonType" v-bind="$attrs" :type="type" :disabled="disable">
       <slot />
       <Icon v-if="icon" :name="icon" class="icon--right" :size="18" />
    </button>
@@ -33,27 +52,13 @@ export default {
 <style lang="scss" scoped>
 @import '@@/abstract';
 
-@mixin form-button {
-   align-content: center;
-   justify-content: center;
-   padding: $px-8 $px-16;
-   text-align: center;
-   text-decoration: none;
-   white-space: nowrap;
-   width: auto;
-
-   @content;
-}
-
-@mixin primary {
-   @include form-element {
+.button {
+   @include as('primary') {
       @include form-button {
          background: $color-gray-80;
          border-color: $color-gray-80;
          border-width: 2px;
          color: $color-gray-30;
-
-         @content;
 
          &:disabled {
             background: $color-gray-60;
@@ -61,56 +66,42 @@ export default {
          }
       }
    }
-}
 
-.button {
-   &--primary {
-      @include primary;
+   @include as('secondary') {
+      @include form-button {
+         background: transparent;
+         border-color: $color-gray-80;
+         border-width: 2px;
+         color: $color-gray-80;
 
-      &-small {
-         @include primary {
-            @include form-small;
-         }
-      }
-
-      &-large {
-         @include primary {
-            @include form-large;
+         &:disabled {
+            border-color: $color-gray-60;
+            color: $color-gray-60;
          }
       }
    }
 
-   &--secondary {
-      @include form-element {
-         @include form-button {
-            background: transparent;
-            border-color: $color-gray-80;
-            border-width: 2px;
-            color: $color-gray-80;
+   @include as('link') {
+      @include form-button {
+         background: transparent;
+         border-color: $color-gray-80;
+         border-width: 0;
+         color: $color-blue-50;
+         padding: 0;
 
-            &:disabled {
-               border-color: $color-gray-60;
-               color: $color-gray-60;
-            }
+         &:disabled {
+            border-color: $color-gray-60;
+            color: $color-gray-60;
          }
       }
    }
 
-   &--link {
-      @include form-element {
-         @include form-button {
-            background: transparent;
-            border-color: $color-gray-80;
-            border-width: 0;
-            color: $color-blue-50;
-            padding: 0;
+   @include size('sm') {
+      @include form-small;
+   }
 
-            &:disabled {
-               border-color: $color-gray-60;
-               color: $color-gray-60;
-            }
-         }
-      }
+   @include size('lg') {
+      @include form-large;
    }
 
    &--is-block {

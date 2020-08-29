@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Shared\Register;
 
-use Inertia\Inertia;
 use App\Actions\GetView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -17,12 +16,12 @@ class ViewRegisterUser extends BaseController
      */
     public function __invoke(Request $request)
     {
-        if (!session('account.workspace')) {
+        if (!session('account.slug')) {
             return Redirect::route('view.register.workspace');
         }
 
-        return Inertia::render(GetView::execute($this, 'rebase'), [
-            'slug' => session('account.workspace'),
+        return inertia(GetView::execute($this, 'rebase'), [
+            'slug' => session('account.slug'),
         ])->withViewData('stripe', true);
     }
 }

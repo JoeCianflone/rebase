@@ -1,6 +1,6 @@
 <script>
 export default {
-   name: "fieldlabel",
+   name: "FieldLabel",
 
 }
 </script>

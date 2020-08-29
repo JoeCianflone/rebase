@@ -3262,16 +3262,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.49.0",
+            "version": "v7.50.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "db6229bff448f7f3bf7f6aee112d5d9ba34ca4ba"
+                "reference": "0195e3dcc34123df9a441069dbf08db17c3b025d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/db6229bff448f7f3bf7f6aee112d5d9ba34ca4ba",
-                "reference": "db6229bff448f7f3bf7f6aee112d5d9ba34ca4ba",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0195e3dcc34123df9a441069dbf08db17c3b025d",
+                "reference": "0195e3dcc34123df9a441069dbf08db17c3b025d",
                 "shasum": ""
             },
             "require": {
@@ -3319,7 +3319,7 @@
                 "issues": "https://github.com/stripe/stripe-php/issues",
                 "source": "https://github.com/stripe/stripe-php/tree/master"
             },
-            "time": "2020-08-19T22:48:20+00:00"
+            "time": "2020-08-28T20:17:35+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7155,16 +7155,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v5.0.0",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "a8a1ef97ffa8c41bccff4318036e5e14a76bd87f"
+                "reference": "4a343299054e9368d0db4a982a780cc4ffa12707"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/a8a1ef97ffa8c41bccff4318036e5e14a76bd87f",
-                "reference": "a8a1ef97ffa8c41bccff4318036e5e14a76bd87f",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/4a343299054e9368d0db4a982a780cc4ffa12707",
+                "reference": "4a343299054e9368d0db4a982a780cc4ffa12707",
                 "shasum": ""
             },
             "require": {
@@ -7239,7 +7239,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-08-25T17:59:40+00:00"
+            "time": "2020-08-27T18:58:22+00:00"
         },
         {
             "name": "nunomaduro/larastan",

@@ -1,10 +1,10 @@
 <script>
-import LabelWrapper from "./LabelWrapper"
+import FormItem from "./FormItem"
 import ValidationWrapper from "./ValidationWrapper"
 
 export default {
    components: {
-      LabelWrapper,
+      FormItem,
       ValidationWrapper,
    },
 
@@ -15,7 +15,9 @@ export default {
 </script>
 
 <template>
-   <ValidationWrapper :errors="$page.errors[validate]" position="left">
-      <slot />
-   </ValidationWrapper>
+   <FormItem position="left">
+      <ValidationWrapper :errors="$page.errors[validate]" position="left">
+         <slot />
+      </ValidationWrapper>
+   </FormItem>
 </template>

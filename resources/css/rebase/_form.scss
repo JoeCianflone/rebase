@@ -1,9 +1,23 @@
 $form-text-color: $color-gray-80;
 $form-border-radius: $radius-2;
-$form-border: 1px solid $color-gray-50;
+$form-border: 1px solid $color-gray-40;
+$form-border-selected: 1px solid $color-gray-50;
 $form-font-size: $px-16;
 $form-line-height: normal;
 $form-height: $px-40;
+
+
+@mixin form-element-focus {
+   border: $form-border-selected;
+   box-shadow: 0 1px 3px 0 $color-indigo-20;
+   transition: all 250ms ease-in-out;
+}
+
+@mixin form-element-unfocus {
+   border: 0;
+   box-shadow: none;
+}
+
 
 @mixin form-element {
    background: $color-true-white;
@@ -23,11 +37,40 @@ $form-height: $px-40;
    &:focus {
       @include form-element-focus;
    }
-
 }
 
-@mixin form-element-focus {
-   box-shadow: 0 1px 3px 0 #cfd7df;
+@mixin form-button {
+   align-content: center;
+   background: $color-true-white;
+   border: $form-border;
+   border-radius: $form-border-radius;
+   color: $form-text-color;
+   font-size: $form-font-size;
+   justify-content: center;
+   line-height: $form-line-height;
+   margin: 0;
+   min-height: $form-height;
+   padding: $px-8 $px-16;
+   position: relative;
+   text-align: center;
+   text-decoration: none;
+   white-space: nowrap;
+   width: auto;
+
+   @content;
+}
+
+
+@mixin form-medium {
+   font-size: $form-font-size;
+   min-height: $form-height;
+   padding: $px-8;
+}
+
+@mixin form-xsmall {
+   font-size: $px-10;
+   min-height: 25px;
+   padding: $px-4;
 }
 
 @mixin form-small {
@@ -42,3 +85,8 @@ $form-height: $px-40;
    padding: $px-8 $px-20;
 }
 
+@mixin form-xlarge {
+   font-size: $px-20;
+   line-height: 50px;
+   padding: $px-8 $px-20;
+}

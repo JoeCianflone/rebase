@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Shared\Register;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\RegisterAccountRequest;
 use App\Http\Controllers\Controller as BaseController;
 
 class ProcessRegisterUser extends BaseController
@@ -14,23 +13,8 @@ class ProcessRegisterUser extends BaseController
     /**
      * @return mixed
      */
-    public function __invoke(Request $request)
+    public function __invoke(RegisterAccountRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'max:200', 'string'],
-
-            // 'business_name' => ['max:200', 'string', Rule::requiredIf(function () use ($request) {
-            //     return 'true' === $request->input('is_business') ? true : false;
-            // })],
-            'email' => ['required', 'email', 'max:200'],
-            'address_line1' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'state' => ['required', 'string'],
-            'postal_code' => ['required', 'string', 'max:5'],
-        ], ['
-            business_name.required_if' => 'The :attribute field is required.
-        ']);
-
         session([
             'account.name' => $request->input('business_name') ?? $request->input('name'),
             'account.user.name' => $request->input('name'),

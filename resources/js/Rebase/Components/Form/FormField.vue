@@ -1,23 +1,27 @@
 <script>
-import LabelWrapper from "./LabelWrapper"
+import FormItem from "./FormItem"
 import ValidationWrapper from "./ValidationWrapper"
 
 export default {
    components: {
-      LabelWrapper,
+      FormItem,
       ValidationWrapper,
    },
 
    props: {
       validate: [String],
+      inline: {
+         type: Boolean,
+         default: false,
+      }
    },
 }
 </script>
 
 <template>
-   <ValidationWrapper :errors="$page.errors[validate]" position="right">
-      <LabelWrapper position="top">
-         <slot />
-      </LabelWrapper>
-   </ValidationWrapper>
+      <FormItem position="top" :inline="inline">
+         <ValidationWrapper :errors="$page.errors[validate]" position="right">
+            <slot />
+         </ValidationWrapper>
+      </FormItem>
 </template>

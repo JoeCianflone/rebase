@@ -1,0 +1,25 @@
+@use 'sass:list';
+
+@mixin as($name) {
+   $valid-sizes: primary, secondary, link, good, bad, warning, general;
+
+   @if not list.index($valid-sizes, $name) {
+      @error '#{$name} is not a valid. Expected one of #{$valid-sizes}.';
+   }
+
+   &--#{$name} {
+      @content;
+   }
+}
+
+@mixin size($size) {
+   $valid-sizes: xs, sm, md, lg, xl;
+
+   @if not list.index($valid-sizes, $size) {
+      @error '#{$size} is not a valid. Expected one of #{$valid-sizes}.';
+   }
+
+   &--#{$size} {
+      @content;
+   }
+}

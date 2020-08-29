@@ -43,7 +43,7 @@ export default {
                   <template #post> .{{ $page.app.domain }} </template>
                </FormGroup>
             </FormField>
-            <Button class="button--primary col-10--centered md::col-4--centered" type="submit" :disable="sending">Check</Button>
+            <Button class="col-10--centered md::col-4--centered" type="submit" :disable="sending">Check</Button>
          </section>
       </form>
       <aside class="layout__secondary">

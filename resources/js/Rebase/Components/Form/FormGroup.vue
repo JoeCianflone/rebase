@@ -41,6 +41,14 @@ export default {
       border-radius: 0;
       display: flex;
       justify-content: flex-start;
+
+      &:focus-within {
+         @include form-element-focus;
+
+         input:focus {
+            @include form-element-unfocus;
+         }
+      }
    }
 
    &__pre-input {
@@ -58,5 +66,6 @@ export default {
          margin-left: -2px;
       }
    }
+
 }
 </style>

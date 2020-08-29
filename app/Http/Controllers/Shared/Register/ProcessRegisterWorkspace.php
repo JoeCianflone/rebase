@@ -4,27 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Shared\Register;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SlugRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller as BaseController;
-use App\Domain\Repositories\Facades\BannedSlugRepository;
 
 class ProcessRegisterWorkspace extends BaseController
 {
     /**
      * @return mixed
      */
-    public function __invoke(Request $request)
+    public function __invoke(SlugRequest $request)
     {
-        $request->validate([
-            'slug' => ['required', 'unique:workspaces,slug', function ($attribute, $value, $fail): void {
-                if (BannedSlugRepository::hasSlug($value)) {
-                    $fail("{$value} is not a valid {$attribute}");
-                }
-            }],
-        ]);
-
-        session(['account.workspace' => $request->input('slug')]);
+        session(['account.slug' => $request->input('slug')]);
 
         return Redirect::route('view.register.user');
     }

@@ -1,5 +1,5 @@
 <script>
-import LabelWrapper from "./LabelWrapper"
+import FormItem from "./FormItem"
 
 export default {
    inheritAttrs: false,
@@ -9,7 +9,7 @@ export default {
       event: "change",
    },
    components: {
-      LabelWrapper,
+      FormItem,
    },
    props: {
       disableAfter: {
@@ -64,10 +64,10 @@ export default {
 </script>
 
 <template>
-   <LabelWrapper position="right">
+   <FormItem position="right">
       <input class="form-item__checkbox" :disabled="shouldBeDisabled" ref="input" type="checkbox" v-bind="$attrs" :checked="shouldBeChecked" :value="value" @change="updateInput" />
       <slot />
-   </LabelWrapper>
+   </FormItem>
 </template>
 
 <style lang="scss" scoped>

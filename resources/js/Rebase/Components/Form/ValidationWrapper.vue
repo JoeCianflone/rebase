@@ -25,12 +25,16 @@ export default {
       color: #f00;
    }
 
-   input {
+   input,
+   select,
+   .form-item__post-input,
+   .form-item__pre-input {
       border-bottom: 2px solid #f00 !important;
    }
 
    .error-message {
       color: #f00;
+      line-height: 1;
    }
 
    .right {
