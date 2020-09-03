@@ -46,8 +46,7 @@ class RouteServiceProvider extends ServiceProvider
         foreach (glob(base_path('routes/*.php')) as $file) {
             Route::middleware($middleware)
                 ->namespace($this->namespace)
-                ->group($file)
-            ;
+                ->group($file);
         }
     }
 
@@ -58,7 +57,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware($middleware)
             ->namespace($this->namespace)
-            ->group(base_path($routePath))
-        ;
+            ->group(base_path($routePath));
     }
 }

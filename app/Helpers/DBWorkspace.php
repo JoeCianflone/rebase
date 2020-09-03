@@ -38,7 +38,6 @@ class DBWorkspace
         return collect(DB::select("SHOW DATABASES LIKE '{$prefix}%'"))
             ->flatMap(fn ($item) => collect($item)->flatten())
             ->reject(fn ($item) => $item == config('multi-database.shared.name'))
-            ->map(fn ($item) => str_replace($prefix, '', $item))
-        ;
+            ->map(fn ($item) => str_replace($prefix, '', $item));
     }
 }

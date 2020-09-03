@@ -38,8 +38,4 @@ class RegisterAccountRequest extends FormRequest
     {
         return $this->request->all();
     }
-
-    protected function prepareForValidation(): void
-    {
-    }
 }

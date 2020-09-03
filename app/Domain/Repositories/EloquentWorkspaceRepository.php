@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Helpers\QueryCache;
 use App\Domain\Models\Workspace;
 
 class EloquentWorkspaceRepository extends EloquentRepository
 {
     public function __construct(Workspace $model)
     {
-        $this->cache = new QueryCache('workspace');
         $this->model = $model;
+        $this->cacheKey = 'workspace';
     }
 
     public function hasSlug(string $slug): bool
@@ -22,25 +21,16 @@ class EloquentWorkspaceRepository extends EloquentRepository
 
     public function getBySlug(string $slug): Workspace
     {
-        return $this->cache
-            ->as('getBySlug')
-            ->execute(fn () => $this->model->whereSlug($slug)->firstOrFail())
-        ;
+        return $this->cache('getBySlug', fn () => $this->model->whereSlug($slug)->firstOrFail());
     }
 
     public function getByDomain(string $domain): Workspace
     {
-        return $this->cache
-            ->as('getByDomain')
-            ->execute(fn () => $this->model->whereDomain($domain)->firstOrFail())
-        ;
+        return $this->cache('getByDomain', fn () => $this->model->whereDomain($domain)->firstOrFail());
     }
 
-    public function getByAccountId(string $id): Workspace
+    public function getByAccountID(string $id): Workspace
     {
-        return $this->cache
-            ->as('getByAccountId-'.$id)
-            ->execute(fn () => $this->model->whereAccountId($id)->firstOrFail())
-        ;
+        return $this->cache('getByAccountID', fn () => $this->model->whereAccountId($id)->firstOrFail());
     }
 }

@@ -13,7 +13,9 @@ trait EloquentWrites
 
     public function refresh(Model $model): Model
     {
-        collect($this->data)->each(fn ($item, $key) => $model->{$key} = $item);
+        collect($this->data)->each(function ($item, $key) use ($model) {
+            return $model->{$key} = $item;
+        });
 
         $model->save();
 

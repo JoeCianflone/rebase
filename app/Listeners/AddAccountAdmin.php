@@ -5,11 +5,14 @@ namespace App\Listeners;
 use App\Enums\UserRole;
 use Illuminate\Support\Str;
 use App\Events\WorkspaceCreated;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Domain\Repositories\Facades\UserRepository;
 use App\Domain\Repositories\Facades\UserWorkspaceRepository;
 
-class AddAccountAdmin
+class AddAccountAdmin implements ShouldQueue
 {
+    public $queue = 'general';
+
     /**
      * Create the event listener.
      */

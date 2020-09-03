@@ -18,7 +18,7 @@ class ViewRegisterPay extends BaseController
      */
     public function __invoke(Request $request)
     {
-        if (!session('account.workspace')) {
+        if (!session('account.slug')) {
             return Redirect::route('view.register.workspace');
         }
 

@@ -30,16 +30,15 @@ class MakeSSLCert extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (!is_string($this->argument('domain'))) {
             $this->error('Only one domain at a time please');
             exit(1);
         }
 
-        shell_exec('sudo certbot certonly --nginx -d '.$this->argument('domain').' -m '.config('domain.support').' --agree-tos');
+        /** @psalm-suppress ForbiddenCode */
+        shell_exec('sudo certbot certonly --nginx -d ' . $this->argument('domain') . ' -m ' . config('domain.support') . ' --agree-tos');
     }
 }

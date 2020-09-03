@@ -15,6 +15,8 @@ use MyCLabs\Enum\Enum;
  * @method static UserRole WORKSPACE_MEMBER()
  * @method static UserRole WORKSPACE_LIMITED_MEMBER()
  * @method static UserRole WORKSPACE_ACCESS_ONLY()
+ *
+ * @psalm-immutable
  */
 class UserRole extends Enum
 {

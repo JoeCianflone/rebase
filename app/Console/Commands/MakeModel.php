@@ -33,13 +33,11 @@ class MakeModel extends Command
     {
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.models'), null)
-        ;
+            ->setPath(config('app-paths.models'), null);
         $file->hydrate('Model', [
             '{{classname}}' => $file->getName(),
             '{{type}}' => $this->option('shared') ? 'shared' : 'workspace',
-        ])
-        ;
+        ]);
 
         if ($file->writeToDisk()) {
             $this->info('Model created');

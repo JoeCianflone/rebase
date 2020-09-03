@@ -6,10 +6,13 @@ use Illuminate\Support\Str;
 use App\Events\WorkspaceCreated;
 use App\Events\NewAccountCreated;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Domain\Repositories\Facades\WorkspaceRepository;
 
-class CreateWorkspace
+class CreateWorkspace implements ShouldQueue
 {
+    public $queue = 'general';
+
     /**
      * Create the event listener.
      */
@@ -26,7 +29,7 @@ class CreateWorkspace
             'id' => Str::uuid(),
             'account_id' => $event->account['id'],
             'name' => $event->account['name'],
-            'slug' => $event->setupData['workspace'],
+            'slug' => $event->setupData['slug'],
             'is_active' => true,
         ]);
 

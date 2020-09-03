@@ -168,7 +168,7 @@ return [
         'production' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['system-email', 'user-email', 'notifications'],
+                'queue' => ['system-email', 'user-email', 'notifications', 'general'],
                 'balance' => 'auto',
                 'processes' => 10,
                 'tries' => 3,
@@ -178,9 +178,9 @@ return [
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['system-email', 'user-email', 'notifications'],
+                'queue' => ['system-email', 'user-email', 'notifications', 'general'],
                 'balance' => 'auto',
-                'processes' => 3,
+                'processes' => 4,
                 'tries' => 1,
             ],
         ],

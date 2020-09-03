@@ -18,26 +18,23 @@ class CreateUserWorkspacesTable extends Migration
             $table->uuid('account_id');
             $table->uuid('user_id');
             $table->uuid('workspace_id');
-            $table->enum('role', Arr::flatten(UserRole::toArray()));
+            $table->enum('role', Arr::flatten(UserRole::toArray()))->default(UserRole::WORKSPACE_MEMBER());
             $table->timestamps();
 
             $table->foreign('account_id')
                 ->references('id')
                 ->on(config('multi-database.shared.name').'.accounts')
-                ->onDelete('cascade')
-            ;
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on(config('multi-database.shared.name').'.users')
-                ->onDelete('cascade')
-            ;
+                ->on(config('multi-database.workspace.name').'.users')
+                ->onDelete('cascade');
 
             $table->foreign('workspace_id')
                 ->references('id')
                 ->on(config('multi-database.shared.name').'.workspaces')
-                ->onDelete('cascade')
-            ;
+                ->onDelete('cascade');
         });
     }
 

@@ -10,10 +10,8 @@ class WorkspaceSession
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next): void
     {
         // if (!$request->session()->has('workspace_id')) {
         //     $request->session()->put('workspace_id', $workspaceID);

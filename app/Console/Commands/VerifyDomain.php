@@ -30,10 +30,8 @@ class VerifyDomain extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (!is_string($this->argument('domain'))) {
             $this->error('Domain must be a string');

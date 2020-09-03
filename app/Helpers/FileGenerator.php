@@ -97,14 +97,14 @@ class FileGenerator
         });
     }
 
-    public function getHydratedStub(): string
+    public function getHydratedStub(): ?string
     {
         return $this->hydratedStub;
     }
 
     public function getStub(string $name): ?string
     {
-        return rtrim(file_get_contents(base_path("stubs/{$name}.stub"))) ?? null;
+        return rtrim(file_get_contents(base_path("stubs/{$name}.stub"))) ?: null;
     }
 
     public function writeToDisk(bool $useRoot = false): bool

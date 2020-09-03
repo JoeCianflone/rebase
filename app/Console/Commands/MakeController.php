@@ -26,8 +26,7 @@ class MakeController extends Command
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('php')
             ->shouldBeSingular($this->option('singular'))
-            ->setPath(config('app-paths.controllers'), $this->option('shared'), $this->argument('folder'))
-        ;
+            ->setPath(config('app-paths.controllers'), $this->option('shared'), $this->argument('folder'));
 
         $file->hydrate('Controller', [
             '{{class}}' => $file->getName(),

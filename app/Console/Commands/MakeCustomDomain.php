@@ -38,10 +38,8 @@ class MakeCustomDomain extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->call('verify:domain', [
             'domain' => $this->argument('domain'),
@@ -54,34 +52,34 @@ class MakeCustomDomain extends Command
         $file = (new FileGenerator($this->nginxSitesAvailable))
             ->setFileExtensionAs('conf')
             ->shouldBeSingular(true)
-            ->setPath(config('app-paths.nginx'), null, 'sites-available')
-        ;
+            ->setPath(config('app-paths.nginx'), null, 'sites-available');
 
         $file->hydrate('Nginx', [
             '{{domain}}' => $this->argument('domain'),
-            '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
+            '{{app_root}}' => config('domain.root') . '/' . $this->argument('domain') . '/public',
             '{{app_domain}}' => config('domain.url'),
-        ])
-        ;
+        ]);
 
         if ($file->writeToDisk()) {
             $this->symlinkFile($file->getFileName());
         } else {
-            $this->error($file->getFileName().' already exists');
+            $this->error($file->getFileName() . ' already exists');
 
             exit(1);
         }
 
+        /** @psalm-suppress ForbiddenCode */
         shell_exec('sudo service restart nginx');
     }
 
     private function symlinkFile(string $filename): void
     {
-        $this->info('Symlinking '.$filename);
+        $this->info('Symlinking ' . $filename);
 
-        $sitesAvailable = config('app-paths.nginx').'sites-available/'.$filename;
-        $sitesEnabled = config('app-paths.nginx').'sites-enabled/'.$filename;
+        $sitesAvailable = config('app-paths.nginx') . 'sites-available/' . $filename;
+        $sitesEnabled = config('app-paths.nginx') . 'sites-enabled/' . $filename;
 
-        shell_exec('ln -s '.$sitesAvailable.' '.$sitesEnabled);
+        /**  @psalm-suppress ForbiddenCode */
+        shell_exec('ln -s ' . $sitesAvailable . ' ' . $sitesEnabled);
     }
 }

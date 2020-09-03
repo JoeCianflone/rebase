@@ -10,17 +10,11 @@ trait EloquentReads
 {
     public function all(): ?Collection
     {
-        return $this->cache
-            ->as('all')
-            ->execute(fn () => $this->model->all())
-        ;
+        return $this->model->all();
     }
 
     public function getByID(Uuid $id): ?Model
     {
-        return $this->cache
-            ->as('getByID'.$id)
-            ->execute(fn () => $this->model->whereId($id)->firstOrFail())
-        ;
+        return $this->cache('getByID'.$id, fn () => $this->model->whereId($id)->firstOrFail());
     }
 }

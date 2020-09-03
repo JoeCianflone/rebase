@@ -16,7 +16,7 @@ class UserWorkspace extends Model
     /**
      * @var string
      */
-    protected $connection = 'shared';
+    protected $connection = 'workspace';
 
     /**
      * @var array

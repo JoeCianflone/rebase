@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,30 +15,35 @@ class InertiaServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Inertia::version(fn (): ?string => md5_file(public_path('mix-manifest.json')) ?: null);
-
-        Inertia::share('auth.user', function () {
-            if (Auth::user()) {
-                return [
-                    'id' => Auth::user()->id,
-                    'name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                ];
-            }
+        Inertia::version(function (): ?string {
+            return md5_file(public_path('mix-manifest.json')) ?: null;
         });
 
         Inertia::share([
-            'app' => [
-                'name' => fn () => config('app.name'),
-                'domain' => fn () => config('app.domain'),
-                'pricing' => fn () => config('pricing.product.test'),
-            ],
-            'flash' => [
-                'success' => fn (): ?string => Session::get('success'),
-                'alert' => fn (): ?string => Session::get('alert'),
-                'message' => fn (): ?string => Session::get('message'),
-            ],
-            'errors' => function () {
+            'auth' => function (): array {
+                return [
+                    'user' => auth()->user() ? [
+                        'id' => auth()->user()->id,
+                        'name' => auth()->user()->name,
+                        'email' => auth()->user()->email,
+                    ] : null,
+                ];
+            },
+            'app' => function (): array {
+                return [
+                    'name' => Config::get('app.name'),
+                    'domain' => Config::get('app.domain'),
+                    'pricing' => Config::get('pricing.product.test'),
+                ];
+            },
+            'flash' => function (): array {
+                return [
+                    'success' => Session::get('success'),
+                    'alert' => Session::get('alert'),
+                    'message' => Session::get('message'),
+                ];
+            },
+            'errors' => function (): object {
                 return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [];
             },
         ]);

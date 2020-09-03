@@ -170,7 +170,7 @@ return PhpCsFixer\Config::create()
         // PHPDoc summary should end in either a full stop, exclamation mark, or question mark.
         'phpdoc_summary' => true,
         // Docblocks should only be used on structural elements.
-        'phpdoc_to_comment' => true,
+        'phpdoc_to_comment' => false,
         // PHPDoc should start and end with content, excluding the very first and last line of the docblocks.
         'phpdoc_trim' => true,
         // Removes extra blank lines after summary and after description in PHPDoc.
@@ -190,7 +190,7 @@ return PhpCsFixer\Config::create()
         // There should be exactly one blank line before a namespace declaration.
         'single_blank_line_before_namespace' => true,
         // Single-line comments and multi-line comments with only one line of actual content should use the `//` syntax.
-        'single_line_comment_style' => true,
+        'single_line_comment_style' => false,
         // Throwing exception must be done in single line.
         'single_line_throw' => true,
         // Convert double quotes to single quotes for simple strings.
@@ -240,7 +240,7 @@ return PhpCsFixer\Config::create()
         // DocBlocks must start with two asterisks, multiline comments must start with a single asterisk, after the opening slash. Both must end with a single asterisk before the closing slash.
         'multiline_comment_opening_closing' => true,
         // Forbid multi-line whitespace before the closing semicolon or move the semicolon to the new line for chained calls.
-        'multiline_whitespace_before_semicolons' => ['strategy'=>'new_line_for_chained_calls'],
+        'multiline_whitespace_before_semicolons' => ['strategy'=>'no_multi_line'],
         // Replace control structure alternative syntax to use braces.
         'no_alternative_syntax' => true,
         // There should not be a binary flag before strings.

@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Shared\Register;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\NewAccountCreated;
+use Illuminate\Support\Facades\Redirect;
 use App\Domain\Repositories\Facades\AccountRepository;
 use App\Http\Controllers\Controller as BaseController;
 
@@ -37,9 +38,13 @@ class ProcessRegisterPay extends BaseController
         $account->newSubscription(config('pricing.plan.test'), $request->input('plan'))->create($request->input('payment_method'));
 
         event(new NewAccountCreated($account, [
-            'workspace' => session('account.workspace'),
+            'slug' => session('account.slug'),
             'name' => session('account.user.name'),
             'email' => session('account.email'),
         ]));
+
+        session()->flush();
+
+        return Redirect::route('view.register.complete');
     }
 }

@@ -28,8 +28,7 @@ class MakeView extends Command
     {
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('vue')
-            ->shouldBeSingular($this->option('singular'))
-        ;
+            ->shouldBeSingular($this->option('singular'));
 
         if ($this->option('renderless') && $this->option('component')) {
             $this->error('Pick either a component OR a renderless component');
@@ -77,8 +76,7 @@ class MakeView extends Command
             ->setPath($this->getCorrectPath('components'), null, $this->argument('folder'))
             ->hydrate('VueComponent', [
                 '{{name}}' => Str::slug($file->getName()),
-            ])
-        ;
+            ]);
 
         return $file;
     }
@@ -89,8 +87,7 @@ class MakeView extends Command
             ->setPath($this->getCorrectPath('components'), null, $this->argument('folder'))
             ->hydrate('VueRenderless', [
                 '{{name}}' => Str::slug($file->getName()),
-            ])
-        ;
+            ]);
 
         return $file;
     }
@@ -101,8 +98,7 @@ class MakeView extends Command
             ->setPath($this->getCorrectPath('pages'), $this->option('shared'), $this->argument('folder'))
             ->hydrate('Vue', [
                 '{{name}}' => $file->getName(),
-            ])
-        ;
+            ]);
 
         return $file;
     }

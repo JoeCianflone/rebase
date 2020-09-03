@@ -29,9 +29,6 @@ class ProcessRegisterUser extends BaseController
             'account.postal_code' => $request->input('postal_code'),
         ]);
 
-        return Redirect::route('view.register.pay')->with([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-        ]);
+        return Redirect::route('view.register.pay');
     }
 }

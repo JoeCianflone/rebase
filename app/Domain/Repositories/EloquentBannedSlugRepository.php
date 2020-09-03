@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Helpers\QueryCache;
 use App\Domain\Models\BannedSlug;
 
 class EloquentBannedSlugRepository extends EloquentRepository
 {
     public function __construct(BannedSlug $model)
     {
-        $this->cache = new QueryCache('bannedslug');
         $this->model = $model;
+        $this->cacheKey = 'banned-slugs';
     }
 
     public function hasSlug(string $slug): bool
