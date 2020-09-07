@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 
 class InertiaServiceProvider extends ServiceProvider
@@ -43,8 +44,9 @@ class InertiaServiceProvider extends ServiceProvider
                     'message' => Session::get('message'),
                 ];
             },
-            'errors' => function (): object {
-                return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : (object) [];
+
+            'errors' => function (): array {
+                return Session::get('errors') ? Session::get('errors')->getBag('default')->getMessages() : [];
             },
         ]);
     }

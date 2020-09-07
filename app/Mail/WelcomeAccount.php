@@ -17,6 +17,8 @@ class WelcomeAccount extends Mailable implements ShouldQueue
 
     public function __construct(array $workspace, array $user)
     {
+        $this->subject = 'Welcome to Rebase';
+
         $this->workspace = $workspace;
         $this->user = $user;
     }
@@ -33,6 +35,6 @@ class WelcomeAccount extends Mailable implements ShouldQueue
 
     public function tags(): array
     {
-        return ['welcome', 'new account', 'workspace_id:'.$this->workspace['id'], 'account_id:'.$this->workspace['account_id']];
+        return ['welcome', 'new account', 'workspace_id:' . $this->workspace['id'], 'account_id:' . $this->workspace['account_id']];
     }
 }

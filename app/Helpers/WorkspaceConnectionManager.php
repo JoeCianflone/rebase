@@ -35,11 +35,11 @@ class WorkspaceConnectionManager
         config([
             'database.connections.workspace.database' => $name,
             'database.redis.default.database' => $name,
-            'database.redis.cache.database' => $name.'_cache',
+            'database.redis.cache.database' => $name . '_cache',
             'multi-database.workspace.name' => $name,
-            'session.files' => storage_path('framework/sessions/'.$name),
+            'session.files' => storage_path('framework/sessions/' . $name),
             'cache.prefix' => $name,
-            'filesystem.disks.local.root' => storage_path('app/'.$name),
+            'filesystem.disks.local.root' => storage_path('app/' . $name),
         ]);
 
         app('cache')->forgetDriver(config('cache.default'));

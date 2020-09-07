@@ -56,14 +56,14 @@ class MakeCustomDomain extends Command
 
         $file->hydrate('Nginx', [
             '{{domain}}' => $this->argument('domain'),
-            '{{app_root}}' => config('domain.root') . '/' . $this->argument('domain') . '/public',
+            '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
             '{{app_domain}}' => config('domain.url'),
         ]);
 
         if ($file->writeToDisk()) {
             $this->symlinkFile($file->getFileName());
         } else {
-            $this->error($file->getFileName() . ' already exists');
+            $this->error($file->getFileName().' already exists');
 
             exit(1);
         }
@@ -74,12 +74,12 @@ class MakeCustomDomain extends Command
 
     private function symlinkFile(string $filename): void
     {
-        $this->info('Symlinking ' . $filename);
+        $this->info('Symlinking '.$filename);
 
-        $sitesAvailable = config('app-paths.nginx') . 'sites-available/' . $filename;
-        $sitesEnabled = config('app-paths.nginx') . 'sites-enabled/' . $filename;
+        $sitesAvailable = config('app-paths.nginx').'sites-available/'.$filename;
+        $sitesEnabled = config('app-paths.nginx').'sites-enabled/'.$filename;
 
         /**  @psalm-suppress ForbiddenCode */
-        shell_exec('ln -s ' . $sitesAvailable . ' ' . $sitesEnabled);
+        shell_exec('ln -s '.$sitesAvailable.' '.$sitesEnabled);
     }
 }

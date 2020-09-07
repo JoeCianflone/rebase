@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
+use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\Repositories\Traits\EloquentReads;
@@ -22,7 +23,7 @@ class EloquentRepository
 
     protected string $cacheKey = '';
 
-    public function cache($name, $fn)
+    public function cache(string $name, Closure $fn)
     {
         return Cache::remember("{$this->cacheKey}.{$name}", $this->cacheTime, $fn);
     }

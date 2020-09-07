@@ -12,9 +12,9 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
-        <forbiddenFunctions>
-            <function name="dd"/>
-            <function name="dump"/>
-            <function name="var_dump"/>
-        </forbiddenFunctions>
+    <forbiddenFunctions>
+        <function name="dd"/>
+        <function name="dump"/>
+        <function name="var_dump"/>
+    </forbiddenFunctions>
 <plugins><pluginClass class="Psalm\LaravelPlugin\Plugin"/></plugins></psalm>

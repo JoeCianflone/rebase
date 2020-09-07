@@ -11,7 +11,7 @@ use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class CreateWorkspace implements ShouldQueue
 {
-    public $queue = 'general';
+    public string $queue = 'general';
 
     /**
      * Create the event listener.
