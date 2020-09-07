@@ -6,7 +6,6 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 
 class InertiaServiceProvider extends ServiceProvider
