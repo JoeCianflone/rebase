@@ -1,8 +1,8 @@
 {
    "private": true,
    "scripts": {
-      "psalm": "./vendor/bin/psalm",
-      "cleanup": "php-cs-fixer fix",
+      "static-check": "./vendor/bin/psalm",
+      "php-cs": "php-cs-fixer fix",
       "dev": "yarn run development",
       "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
       "watch": "yarn run development --watch",
@@ -17,7 +17,7 @@
    ],
    "husky": {
       "hooks": {
-         "pre-commit": "yarn cleanup && yarn psalm"
+         "pre-commit": "yarn php-cs && yarn static-check"
       }
    },
    "dependencies": {
