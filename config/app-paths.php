@@ -19,7 +19,7 @@ return [
             'connection' => env('DB_SHARED_CONNECTION_NAME', 'shared'),
             'migration_path' => env('DB_SHARED_MIGRATIONS', 'database/migrations'),
         ],
-    
+
         'workspace' => [
             'name' => '',
             'prefix' => env('DB_WORKSPACE_PREFIX', 'rebase_'),

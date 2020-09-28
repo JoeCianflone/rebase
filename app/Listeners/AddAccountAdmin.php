@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 use App\Events\AccountReady;
 use App\Events\WorkspaceCreated;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Domain\Facades\UserRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Domain\Facades\UserWorkspaceRepository;
 
 class AddAccountAdmin implements ShouldQueue

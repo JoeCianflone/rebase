@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Helpers\HostHelper;
 use Illuminate\Http\Request;
-use App\Helpers\WorkspaceConnectionManager;
 use App\Domain\Facades\WorkspaceRepository;
+use App\Helpers\WorkspaceConnectionManager;
 
 class ConnectToWorkspace extends BaseMiddleware
 {

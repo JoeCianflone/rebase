@@ -4,8 +4,8 @@ namespace App\Services\Registration;
 
 use Closure;
 use App\Contracts\Pipe;
-use Laravel\Cashier\Exceptions\PaymentFailure;
 use App\Domain\Facades\AccountRepository;
+use Laravel\Cashier\Exceptions\PaymentFailure;
 
 class CreateNewAccountAndSubscription implements Pipe
 {

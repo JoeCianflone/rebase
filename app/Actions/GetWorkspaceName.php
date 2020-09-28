@@ -11,5 +11,3 @@ class GetWorkspaceName
         return  config('app-paths.db.workspace.prefix').str_replace('-', '_', $id);
     }
 }
-
-

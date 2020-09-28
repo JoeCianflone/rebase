@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\WorkspaceDatabase;
 use Illuminate\Console\Command;
+use App\Helpers\WorkspaceDatabase;
 use App\Domain\Facades\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -32,7 +32,6 @@ class DBExplode extends Command
             exit();
         }
 
-        
         if ($this->confirm('You are about to delete all your databases, you sure you know what you\'re doing??')) {
             $this->info('Hold on to your butts');
 

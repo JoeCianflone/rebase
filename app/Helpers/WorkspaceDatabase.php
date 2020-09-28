@@ -75,5 +75,5 @@ class WorkspaceDatabase
         ]);
 
         app('cache')->forgetDriver(config('cache.default'));
-    }    
+    }
 }

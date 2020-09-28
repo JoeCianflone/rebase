@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Actions\Action;
 use App\Actions\GetView;
-use App\Actions\GetWorkspaceName;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Cashier;
+use App\Actions\GetWorkspaceName;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;

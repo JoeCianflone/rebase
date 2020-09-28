@@ -3,10 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Domain\Models\Workspace;
 use App\Helpers\WorkspaceDatabase;
 use App\Domain\Facades\CustomerRepository;
-use App\Helpers\WorkspaceConnectionManager;
 
 class RunMigration extends Command
 {
@@ -45,7 +43,6 @@ class RunMigration extends Command
         }
     }
 
-
     private function migrateShared(): void
     {
         $this->callMigration();
@@ -53,14 +50,14 @@ class RunMigration extends Command
 
     private function migrateWorkspace($customerID): void
     {
-         if (! WorkspaceDatabase::exists($customerID)) {
+        if (!WorkspaceDatabase::exists($customerID)) {
             WorkspaceDatabase::create($customerID);
-         }
+        }
 
-         WorkspaceDatabase::disconnect();
-         WorkspaceDatabase::connect($customerID);
+        WorkspaceDatabase::disconnect();
+        WorkspaceDatabase::connect($customerID);
 
-         $this->callMigration(config('app-paths.db.workspace.migration_path'));
+        $this->callMigration(config('app-paths.db.workspace.migration_path'));
     }
 
     private function migrateAllWorkspaces(): void
@@ -69,7 +66,6 @@ class RunMigration extends Command
             $this->migrateWorkspace($customer->id);
         });
     }
-
 
     private function callMigration(?string $path = null): void
     {

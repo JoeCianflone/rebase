@@ -6,8 +6,8 @@ use Illuminate\Support\Str;
 use App\Events\WorkspaceCreated;
 use App\Events\NewAccountCreated;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Domain\Facades\WorkspaceRepository;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateWorkspace implements ShouldQueue
 {

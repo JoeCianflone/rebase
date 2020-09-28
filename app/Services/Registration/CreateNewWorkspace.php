@@ -9,7 +9,6 @@ class CreateNewWorkspace implements Pipe
 {
     public function handle($payload, Closure $next)
     {
-
         return $next($payload);
     }
 }

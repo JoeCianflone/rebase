@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use Closure;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
 use App\Domain\Traits\EloquentReads;
 use App\Domain\Traits\EloquentWrites;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
 {

@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\WorkspaceDatabase;
 use Illuminate\Console\Command;
-use App\Domain\Models;
-use App\Helpers\WorkspaceConnectionManager;
+use App\Helpers\WorkspaceDatabase;
 use App\Domain\Facades\WorkspaceRepository;
+use App\Helpers\WorkspaceConnectionManager;
 
 class RunRollback extends Command
 {

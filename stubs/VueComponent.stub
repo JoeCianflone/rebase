@@ -1,0 +1,22 @@
+<script>
+export default {
+   name: "{{name}}",
+
+   components: {},
+
+   props: {},
+
+   data: () => ({}),
+
+   methods: {},
+}
+</script>
+
+<template>
+   <div></div>
+</template>
+
+<style lang="scss" scoped>
+   @import '@@/abstract';
+
+</style>
