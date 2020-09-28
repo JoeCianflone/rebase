@@ -10,6 +10,8 @@ class Action
 {
     use Macroable;
 
+    private static string $handler = 'handle';
+
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
@@ -22,11 +24,11 @@ class Action
             return call_user_func_array(Closure::bind($macro, null, static::class), $parameters);
         }
 
-        return call_user_func_array($macro.'::handle', $parameters);
+        return call_user_func_array($macro.'::'.static::$handler , $parameters);
     }
 
-    public static function init($arr): void
+    public static function init(array $macroGroup): void
     {
-        static::$macros = $arr;
+        static::$macros = array_merge($macroGroup, static::$macros);
     }
 }

@@ -2,6 +2,9 @@
 
 return [
     'views' => [
+        'default_location' => env('DEFAULT_VIEW_LOCATION', 'app'),
+        'secondary_location' => env('SECONDARY_VIEW_LOCATION', 'rebase'),
+
         'rebase' => [
             'pages' => env('PATH_VIEWS_REBASE_PAGES', 'Rebase/Pages'),
             'components' => env('PATH_VIEWS_REBASE_COMPONENTS', 'Rebase/Components'),

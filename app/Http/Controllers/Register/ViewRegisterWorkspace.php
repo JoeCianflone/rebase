@@ -13,6 +13,6 @@ class ViewRegisterWorkspace extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        return inertia(Action::getView($this, 'rebase'))->withViewData('stripe', true);
+        return inertia(Action::getView($this))->withViewData('stripe', true);
     }
 }

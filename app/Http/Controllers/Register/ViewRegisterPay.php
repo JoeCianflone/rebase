@@ -21,7 +21,7 @@ class ViewRegisterPay extends BaseController
             return Redirect::route('view.register.workspace');
         }
 
-        return inertia(Action::getView($this, 'rebase'), [
+        return inertia(Action::getView($this), [
             'stripe_key' => config('services.stripe.key'),
             'intent' => (new Customer())->createSetupIntent(),
             'cart' => session('cart'),

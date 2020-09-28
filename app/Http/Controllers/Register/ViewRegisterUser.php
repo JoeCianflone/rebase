@@ -20,7 +20,7 @@ class ViewRegisterUser extends BaseController
             return Redirect::route('view.register.workspace');
         }
 
-        return inertia(Action::getView($this, 'rebase'), [
+        return inertia(Action::getView($this), [
             'slug' => session('cart.slug'),
         ])->withViewData('stripe', true);
     }

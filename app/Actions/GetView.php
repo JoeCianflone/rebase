@@ -15,11 +15,9 @@ use ReflectionClass;
   */
  class GetView
  {
-     public static function handle(object $class, string $location = 'app'): string
+     public static function handle(object $class, bool $useSecondaryLocation = false): string
      {
-         if ('app' !== $location && 'rebase' !== $location) {
-             die('Loccation can only be app or rebase');
-         }
+         $location = $useSecondaryLocation ? config("app-paths.views.secondary_location") : config("app-paths.views.default_location");
 
          $path = config("app-paths.views.{$location}.pages");
 

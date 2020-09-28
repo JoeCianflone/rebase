@@ -13,6 +13,6 @@ class ViewRegisterComplete extends BaseController
 {
     public function __invoke(Request $request): Response
     {
-        return inertia(Action::getView($this, 'rebase'));
+        return inertia(Action::getView($this));
     }
 }
