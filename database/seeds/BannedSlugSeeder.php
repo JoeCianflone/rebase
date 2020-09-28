@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BannedSlugSeeder extends Seeder
 {
@@ -15,13 +18,13 @@ class BannedSlugSeeder extends Seeder
             'admin',
             'super',
             'superadmin',
+            'super-admin',
             'administrators',
             'administrator',
             'admins',
             'mysql',
             'email',
             'mail',
-            'porn',
             'horizon',
             'public',
             'master',
@@ -29,6 +32,18 @@ class BannedSlugSeeder extends Seeder
             'rebase',
             'workspace',
             'route',
+            'register',
+            'help',
+            'becker',
+            'default',
+            'demo',
+            'test',
+            'demo-test',
+            'database',
+            'info',
+            'primary',
+            'delete',
+            'rm-rf',
         ]));
     }
 

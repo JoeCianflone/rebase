@@ -171,6 +171,7 @@ return [
 
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\InertiaServiceProvider::class,
+        Dyrynda\Database\LaravelEfficientUuidServiceProvider::class,
     ],
 
     /*

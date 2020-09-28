@@ -9,11 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class BannedSlug extends Model
 {
     /**
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
      * @var string
      */
     protected $connection = 'shared';
@@ -24,7 +19,7 @@ class BannedSlug extends Model
     protected $fillable = [
         'id',               // required
         'slug',             // required
-        'description',
+        'reason',
         'created_at',
         'updated_at',
     ];
@@ -33,7 +28,6 @@ class BannedSlug extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'uuid',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

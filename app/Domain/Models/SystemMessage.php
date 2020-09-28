@@ -22,8 +22,8 @@ class SystemMessage extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
-        'headline',
+        'id',           // required
+        'headline',     // required
         'entry',
         'image_path',
         'created_at',
@@ -34,7 +34,6 @@ class SystemMessage extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'uuid',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

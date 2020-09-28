@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
+use App\Helpers\WorkspaceDatabase;
 use Illuminate\Console\Command;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
+use App\Domain\Facades\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DBExplode extends Command
 {
     protected $signature = 'db:explode
-                                {workspace_name? : optional name of the workspace you\' like to blow up}
+                                {slug? : optional name of the workspace you\' like to blow up}
                                 {--reset : just delete do not rerun the migrations}';
 
     protected $description = 'Blow out local shared and/or local workspace databases';
@@ -27,11 +27,12 @@ class DBExplode extends Command
             exit(1);
         }
 
-        if ($this->argument('workspace_name')) {
-            $this->dropWorkspace($this->argument('workspace_name'));
+        if ($this->argument('slug')) {
+            $this->dropWorkspace($this->argument('slug'));
             exit();
         }
 
+        
         if ($this->confirm('You are about to delete all your databases, you sure you know what you\'re doing??')) {
             $this->info('Hold on to your butts');
 
@@ -43,7 +44,7 @@ class DBExplode extends Command
             $this->info('Data go :boom:');
         } else {
             $this->error('OH GOD WE DELETED EVERYTHING! ');
-            $this->info('Kidding, you aborted your data is safe :)');
+            $this->info('Kidding, you aborted, your data is safe :)');
         }
     }
 
@@ -52,14 +53,9 @@ class DBExplode extends Command
         $this->alert('Refreshing Shared Database');
 
         if ($this->option('reset')) {
-            $this->call('migrate:reset', [
-                '--database' => config('multi-database.shared.connection'),
-                '--path' => config('multi-database.shared.migration_path'),
-            ]);
+            $this->call('migrate:reset');
         } else {
             $this->call('migrate:fresh', [
-                '--database' => config('multi-database.shared.connection'),
-                '--path' => config('multi-database.shared.migration_path'),
                 '--step' => true,
             ]);
         }
@@ -67,32 +63,32 @@ class DBExplode extends Command
 
     private function dropAllWorkspaces(): void
     {
-        $allSpaces = DBWorkspace::allSpaces(config('multi-database.workspace.prefix'));
+        $allSpaces = WorkspaceDatabase::allSpaces(config('app-paths.db.workspace.prefix'));
 
-        if ($allSpaces->count() > 0) {
+        if (!is_null($allSpaces) && $allSpaces->count() > 0) {
             $this->line('');
-            DBWorkspace::allSpaces(config('multi-database.workspace.prefix'))->each(function ($id): void {
-                DBWorkspace::drop($id);
+            WorkspaceDatabase::allSpaces(config('app-paths.db.workspace.prefix'))->each(function ($id): void {
+                WorkspaceDatabase::drop($id);
 
-                $this->line('<comment>Dropped: '.config('multi-database.workspace.prefix')."{$id}</comment>");
+                $this->line('<comment>Dropped: '.config('app-paths.db.workspace.prefix')."{$id}</comment>");
             });
         }
     }
 
     /**
-     * @param mixed $workspaceName
+     * @param mixed $slug
      */
-    private function dropWorkspace($workspaceName): void
+    private function dropWorkspace($slug): void
     {
         try {
-            $workspace = WorkspaceRepository::getBySlug($workspaceName);
-            $this->alert("Dropping workspace {$workspaceName}");
-            DBWorkspace::drop($workspace->id);
+            $workspace = WorkspaceRepository::getBySlug($slug);
+            $this->alert("Dropping workspace {$slug}");
+            WorkspaceDatabase::drop($workspace->customer_id);
 
             $this->line('');
-            $this->info($this->argument('workspace_name').' has gone :boom:');
+            $this->info($this->argument('slug').' has gone :boom:');
         } catch (ModelNotFoundException $e) {
-            $this->error("Unable to find workspace {$workspaceName}");
+            $this->error("Unable to find workspace {$slug}");
         }
     }
 }

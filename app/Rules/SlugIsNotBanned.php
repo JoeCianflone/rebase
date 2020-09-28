@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use App\Domain\Repositories\Facades\BannedSlugRepository;
+use App\Domain\Facades\BannedSlugRepository;
 
 class SlugIsNotBanned implements Rule
 {

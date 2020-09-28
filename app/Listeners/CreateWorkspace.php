@@ -7,7 +7,7 @@ use App\Events\WorkspaceCreated;
 use App\Events\NewAccountCreated;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
+use App\Domain\Facades\WorkspaceRepository;
 
 class CreateWorkspace implements ShouldQueue
 {
@@ -26,7 +26,7 @@ class CreateWorkspace implements ShouldQueue
     public function handle(NewAccountCreated $event): void
     {
         $workspace = WorkspaceRepository::create([
-            'id' => Str::uuid(),
+            'id' => (string) Str::uuid(),
             'account_id' => $event->account['id'],
             'name' => $event->account['name'],
             'slug' => $event->setupData['slug'],
@@ -35,11 +35,11 @@ class CreateWorkspace implements ShouldQueue
 
         $exitCode = Artisan::call("db:migrate {$workspace->slug} --no-shared");
 
-        if (0 === $exitCode) {
-            event(new WorkspaceCreated($workspace, [
-                'name' => $event->setupData['name'],
-                'email' => $event->setupData['email'],
-            ]));
-        }
+        // if (0 === $exitCode) {
+        //     event(new WorkspaceCreated($workspace, [
+        //         'name' => $event->setupData['name'],
+        //         'email' => $event->setupData['email'],
+        //     ]));
+        // }
     }
 }

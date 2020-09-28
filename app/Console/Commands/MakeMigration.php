@@ -19,7 +19,7 @@ class MakeMigration extends Command
 
     public function handle(): void
     {
-        $path = $this->option('shared') ? config('multi-database.shared.migration_path') : config('multi-database.workspace.migration_path');
+        $path = $this->option('shared') ? config('app-paths.db.shared.migration_path') : config('app-paths.db.workspace.migration_path');
 
         $this->call('make:migration', [
             'name' => $this->argument('name'),

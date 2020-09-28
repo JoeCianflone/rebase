@@ -5,26 +5,25 @@ declare(strict_types=1);
 namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Workspace extends Model
 {
+    use GeneratesUuid;
+
     /**
      * @var bool
      */
     public $incrementing = false;
 
     /**
-     * @var string
-     */
-    protected $connection = 'shared';
-
-    /**
      * @var array
      */
     protected $fillable = [
         'id',               // required
-        'account_id',       // required
+        'customer_id',       // required
         'name',             // required
         'slug',             // required
         'is_active',        // required
@@ -37,15 +36,20 @@ class Workspace extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'uuid',
-        'account_id' => 'uuid',
+        'id' => EfficientUuid::class,
+        'customer_id' => EfficientUuid::class,
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function account(): HasOne
+    public function customer(): HasOne
     {
-        return $this->hasOne(Account::class);
+        return $this->hasOne(Customer::class);
+    }
+
+    public function uuidColumns(): array
+    {
+        return ['id', 'customer_id'];
     }
 }

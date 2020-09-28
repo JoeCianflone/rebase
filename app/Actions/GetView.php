@@ -7,20 +7,21 @@ namespace App\Actions;
 use ReflectionClass;
 
 /**
- * This will turn:
+ * This will look at the current controller, same something named like this:
  *      App\Http\Controllers\Dashboard\IndexDashboardController
- * to:
- *      Dashboard/IndexDashboard
- * Makes life easier to find the Inertia file.
+ * and convert it to this:
+ *      js/Rebase/Dashboard/IndexDashboard
+ * because that is where the Index file should be located.
  */
-class GetView
+ class GetView
 {
-    public static function execute(object $class, string $location = 'app'): string
+    public static function handle(object $class, string $location = 'app'): string
     {
-        $refClass = new ReflectionClass($class);
+        if ($location !== 'app' && $location !== 'rebase') {
+            die ("Loccation can only be app or rebase");
+        }
 
-        $path = 'rebase' === $location ? config('app-paths.views.rebase.pages') : config('app-paths.views.app.pages');
-
-        return $path.str_replace(ucfirst(config('app-paths.controllers')), '', str_replace('\\', '/', $refClass->name));
+        $path =  config("app-paths.views.{$location}.pages");
+        return $path.str_replace(ucfirst(config('app-paths.controllers')), '', str_replace('\\', '/', (new ReflectionClass($class))->name));
     }
 }

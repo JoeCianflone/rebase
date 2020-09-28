@@ -19,7 +19,7 @@ class NewAccountCreated
 
     public function __construct(Account $account, array $setupData)
     {
-        $this->account = collect($account)->toArray();
+        $this->account = $account->toArray();
         $this->setupData = $setupData;
     }
 

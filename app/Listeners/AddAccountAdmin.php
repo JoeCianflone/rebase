@@ -4,10 +4,12 @@ namespace App\Listeners;
 
 use App\Enums\UserRole;
 use Illuminate\Support\Str;
+use App\Events\AccountReady;
 use App\Events\WorkspaceCreated;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Domain\Repositories\Facades\UserRepository;
-use App\Domain\Repositories\Facades\UserWorkspaceRepository;
+use App\Domain\Facades\UserRepository;
+use App\Domain\Facades\UserWorkspaceRepository;
 
 class AddAccountAdmin implements ShouldQueue
 {
@@ -29,14 +31,17 @@ class AddAccountAdmin implements ShouldQueue
             'id' => Str::uuid(),
             'name' => $event->setupData['name'],
             'email' => $event->setupData['email'],
+            'first_time_login_token' => Hash::make($event->setupData['email']),
         ]);
 
-        UserWorkspaceRepository::create([
+        $userWorkspace = UserWorkspaceRepository::create([
             'id' => Str::uuid(),
             'account_id' => $event->workspace['account_id'],
             'user_id' => $admin->id,
             'workspace_id' => $event->workspace['id'],
             'role' => UserRole::ACCOUNT_OWNER(),
         ]);
+
+        event(new AccountReady($admin, $userWorkspace));
     }
 }

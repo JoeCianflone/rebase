@@ -7,8 +7,8 @@ namespace App\Domain\Repositories;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Repositories\Traits\EloquentReads;
-use App\Domain\Repositories\Traits\EloquentWrites;
+use App\Domain\Traits\EloquentReads;
+use App\Domain\Traits\EloquentWrites;
 
 class EloquentRepository
 {
@@ -25,6 +25,6 @@ class EloquentRepository
 
     public function cache(string $name, Closure $fn)
     {
-        return Cache::remember("{$this->cacheKey}.{$name}", $this->cacheTime, $fn);
+        return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $fn);
     }
 }

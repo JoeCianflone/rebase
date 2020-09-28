@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use App\Domain\Models\Workspace;
 use Illuminate\Queue\SerializesModels;
+use App\Domain\Models\Workspace;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;

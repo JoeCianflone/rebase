@@ -23,7 +23,7 @@
    "dependencies": {
       "@babel/core": "^7.9.0",
       "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-      "@inertiajs/inertia": "^0.2.1",
+      "@inertiajs/inertia": "^0.3.4",
       "@inertiajs/inertia-vue": "^0.2.0",
       "axios": "^0.20",
       "cross-env": "^7.0.0",

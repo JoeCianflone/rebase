@@ -57,8 +57,8 @@ class FileGenerator
     {
         $this->path = $path.'/';
 
-        if (!is_null($useShared)) {
-            $this->path .= $useShared ? config('app-paths.shared') : config('app-paths.workspace');
+        if (!is_null($useShared) && $useShared === false) {
+            $this->path .=  config('app-paths.workspace');
             $this->path .= '/';
         }
 

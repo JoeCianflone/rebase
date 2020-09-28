@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Domain\Models\User;
 use App\Domain\Models\Account;
+use App\Domain\Models\User;
+use Illuminate\Foundation\Application;
 use App\Domain\Models\Workspace;
+use Illuminate\Support\ServiceProvider;
 use App\Domain\Models\BannedSlug;
 use App\Domain\Models\UserWorkspace;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
 use App\Domain\Repositories\EloquentUserRepository;
 use App\Domain\Repositories\EloquentAccountRepository;
 use App\Domain\Repositories\EloquentWorkspaceRepository;

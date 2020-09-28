@@ -2,10 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\WorkspaceCreated;
+use App\Events\AccountReady;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendWorkspaceCreatedEmail
+class SendWorkspaceCreatedEmail implements ShouldQueue
 {
+    public string $queue = 'email';
+
     /**
      * Create the event listener.
      */
@@ -16,7 +19,7 @@ class SendWorkspaceCreatedEmail
     /**
      * Handle the event.
      */
-    public function handle(WorkspaceCreated $event): void
+    public function handle(AccountReady $event): void
     {
     }
 }

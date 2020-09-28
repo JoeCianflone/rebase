@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
+use App\Helpers\WorkspaceDatabase;
 use Illuminate\Console\Command;
-use App\Domain\Models\Workspace;
+use App\Domain\Models;
 use App\Helpers\WorkspaceConnectionManager;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
+use App\Domain\Facades\WorkspaceRepository;
 
 class RunRollback extends Command
 {
@@ -26,7 +26,7 @@ class RunRollback extends Command
     public function handle(): void
     {
         if ($this->option('all')) {
-            $this->callMigration('shared', config('multi-database.shared.migration_path'));
+            $this->callMigration('shared', config('app-paths.db.shared.migration_path'));
         }
 
         if ($this->option('workspaces') || $this->option('all')) {
@@ -46,16 +46,16 @@ class RunRollback extends Command
 
     private function migrateWorkspace(Workspace $workspace): void
     {
-        if (!DBWorkspace::exists($workspace->id)) {
+        if (!WorkspaceDatabase::exists($workspace->id)) {
             $this->info('Connection does not exist...creating');
-            DBWorkspace::create($workspace->id);
+            WorkspaceDatabase::create($workspace->id);
         }
 
         WorkspaceConnectionManager::disconnect();
         WorkspaceConnectionManager::connect($workspace->id);
 
         $this->info("Starting Rollback for: {$workspace->slug}");
-        $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
+        $this->callMigration('workspace', config('app-paths.db.workspace.migration_path'));
     }
 
     private function callMigration(string $conn, string $path): void

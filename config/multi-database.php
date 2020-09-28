@@ -4,7 +4,7 @@ return [
     'shared' => [
         'name' => env('DB_DATABASE', 'rebase_shared'),
         'connection' => env('DB_SHARED_CONNECTION_NAME', 'shared'),
-        'migration_path' => env('DB_SHARED_MIGRATIONS', 'database/shared/migrations'),
+        'migration_path' => env('DB_SHARED_MIGRATIONS', 'database/migrations'),
     ],
 
     'workspace' => [

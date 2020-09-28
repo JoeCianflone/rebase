@@ -73,7 +73,7 @@ All that being said, I did **add** folders, because adding folders makes perfect
       -  Repositories
          -  Facades -- Yes, I use facades for my `repositories` suck it, I love them.
    -  Enums
-   -  Helpers -- A group of functions that help you in some way. See `DBWorkspace` for more understanding
+   -  Helpers -- A group of functions that help you in some way. See `WorkspaceDatabase` for more understanding
 
 -  database
 

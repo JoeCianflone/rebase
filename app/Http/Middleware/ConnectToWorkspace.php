@@ -6,7 +6,7 @@ use Closure;
 use App\Helpers\HostHelper;
 use Illuminate\Http\Request;
 use App\Helpers\WorkspaceConnectionManager;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
+use App\Domain\Facades\WorkspaceRepository;
 
 class ConnectToWorkspace extends BaseMiddleware
 {
@@ -18,6 +18,37 @@ class ConnectToWorkspace extends BaseMiddleware
         'storage/*',
         'horizon',
         'horizon/*',
+        'horizon/api',
+        'horizon/api/*',
+        'horizon/api/batches',
+        'horizon/api/batches/retry',
+        'horizon/api/batches/retry/*',
+        'horizon/api/batches',
+        'horizon/api/batches/*',
+        'horizon/api/jobs/completed',
+        'horizon/api/jobs/failed',
+        'horizon/api/jobs/failed/*',
+        'horizon/api/jobs/pending',
+        'horizon/api/jobs/retry/*',
+        'horizon/api/jobs',
+        'horizon/api/jobs/*',
+        'horizon/api/masters',
+        'horizon/api/metrics/jobs',
+        'horizon/api/metrics/jobs/*',
+        'horizon/api/metrics/queues',
+        'horizon/api/metrics/queues/*',
+        'horizon/api/monitoring',
+        'horizon/api/monitoring/*',
+        'horizon/api/monitoring',
+        'horizon/api/monitoring/*',
+        'horizon/api/stats',
+        'horizon/api/workload',
+        'register/*',
+        '_debugbar/assets',
+        '_debugbar/assets/*',
+        '_debugbar',
+        '_debugbar/*',
+        'stripe/*',
     ];
 
     /**
@@ -25,10 +56,11 @@ class ConnectToWorkspace extends BaseMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $host = new HostHelper($request->getHost());
         if ($this->shouldIgnore($request->path())) {
             return $next($request);
         }
+
+        $host = new HostHelper($request->getHost());
 
         try {
             $workspace = $host->isCustomDomain() ? WorkspaceRepository::getByDomain($host->getDomain()) : WorkspaceRepository::getBySlug($host->getSlug());
@@ -49,7 +81,8 @@ class ConnectToWorkspace extends BaseMiddleware
             ]);
         } catch (\Exception $e) {
             // Just redirect to the registration page, in app you should send a message or do something if this happens
-            return redirect()->route('view.registration');
+
+            return redirect()->route('view.register.workspace');
         }
 
         return $next($request);

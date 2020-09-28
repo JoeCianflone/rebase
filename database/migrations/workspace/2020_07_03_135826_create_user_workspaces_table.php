@@ -1,39 +1,39 @@
 <?php
 
-use App\Enums\UserRole;
+use App\Enums\MemberRole;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserWorkspacesTable extends Migration
+class CreateMemberWorkspacesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('user_workspaces', function (Blueprint $table): void {
-            $table->uuid('id')->primary();
-            $table->uuid('account_id');
-            $table->uuid('user_id');
-            $table->uuid('workspace_id');
-            $table->enum('role', Arr::flatten(UserRole::toArray()))->default(UserRole::WORKSPACE_MEMBER());
+        Schema::create('member_workspaces', function (Blueprint $table): void {
+            $table->efficientUuid('id')->primary();
+            $table->efficientUuid('customer_id');
+            $table->efficientUuid('member_id');
+            $table->efficientUuid('customer_workspace_id');
+            $table->enum('role', Arr::flatten(MemberRole::toArray()))->default(MemberRole::MEMBER());
             $table->timestamps();
 
-            $table->foreign('account_id')
+            $table->foreign('customer_id')
                 ->references('id')
-                ->on(config('multi-database.shared.name').'.accounts')
+                ->on(config('app-paths.db.shared.name').'.accounts')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
+            $table->foreign('member_id')
                 ->references('id')
-                ->on(config('multi-database.workspace.name').'.users')
+                ->on(config('app-paths.db.workspace.name').'.members')
                 ->onDelete('cascade');
 
-            $table->foreign('workspace_id')
+            $table->foreign('customer_workspace_id')
                 ->references('id')
-                ->on(config('multi-database.shared.name').'.workspaces')
+                ->on(config('app-paths.db.shared.name').'.customer_workspaces')
                 ->onDelete('cascade');
         });
     }
@@ -43,12 +43,12 @@ class CreateUserWorkspacesTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('user_workspace', function (Blueprint $table): void {
-            $table->dropForeign(['account_id']);
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['workspace_id']);
+        Schema::table('member_workspaces', function (Blueprint $table): void {
+            $table->dropForeign(['customer_id']);
+            $table->dropForeign(['member_id']);
+            $table->dropForeign(['customer_workspace_id']);
         });
 
-        Schema::dropIfExists('user_workspace');
+        Schema::dropIfExists('member_workspace');
     }
 }

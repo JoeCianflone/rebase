@@ -2,15 +2,21 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\DBWorkspace;
 use Illuminate\Console\Command;
 use App\Domain\Models\Workspace;
+use App\Helpers\WorkspaceDatabase;
+use App\Domain\Facades\CustomerRepository;
 use App\Helpers\WorkspaceConnectionManager;
-use App\Domain\Repositories\Facades\WorkspaceRepository;
 
 class RunMigration extends Command
 {
-    protected $signature = 'db:migrate {workspace?} {--all} {--workspaces} {--no-shared}';
+    /**
+     * php artisan db:migrate
+     * php artisan db:migrate --shared
+     * php artisan db:migrate --workspaces
+     * php artisan db:migrate 12345.
+     */
+    protected $signature = 'db:migrate {customerID?} {--workspaces} {--shared}';
 
     protected $description = 'Runs all the migrations';
 
@@ -21,47 +27,63 @@ class RunMigration extends Command
 
     public function handle(): void
     {
-        if (!$this->option('no-shared')) {
-            $this->callMigration('shared', config('multi-database.shared.migration_path'));
+        if (!$this->option('shared') && !$this->option('workspaces') && !$this->argument('customerID')) {
+            $this->migrateShared();
+            $this->migrateAllWorkspaces();
         }
 
-        if ($this->option('workspaces') || $this->option('all')) {
-            $workspaces = WorkspaceRepository::all();
-
-            $workspaces->each(function ($workspace): void {
-                $this->migrateTenant($workspace);
-            });
+        if ($this->option('shared')) {
+            $this->migrateShared();
         }
 
-        if ($this->argument('workspace')) {
-            $workspace = WorkspaceRepository::getBySlug($this->argument('workspace'));
+        if ($this->option('workspaces')) {
+            $this->migrateAllWorkspaces();
+        }
 
-            $this->migrateTenant($workspace);
+        if ($this->argument('customerID')) {
+            $this->migrateWorkspace($this->argument('customerID'));
         }
     }
 
-    private function migrateTenant(Workspace $workspace): void
+
+    private function migrateShared(): void
     {
-        if (!DBWorkspace::exists($workspace->id)) {
-            $this->info('Connection does not exist...creating');
-            DBWorkspace::create($workspace->id);
-        }
-
-        WorkspaceConnectionManager::disconnect();
-        WorkspaceConnectionManager::connect($workspace->id);
-
-        $this->info("Starting Migration for: {$workspace->slug}");
-        $this->callMigration('workspace', config('multi-database.workspace.migration_path'));
+        $this->callMigration();
     }
 
-    private function callMigration(string $conn, string $path): void
+    private function migrateWorkspace($customerID): void
     {
-        $this->call('migrate', [
-            '--database' => $conn,
-            '--path' => $path,
+         if (! WorkspaceDatabase::exists($customerID)) {
+            WorkspaceDatabase::create($customerID);
+         }
+
+         WorkspaceDatabase::disconnect();
+         WorkspaceDatabase::connect($customerID);
+
+         $this->callMigration(config('app-paths.db.workspace.migration_path'));
+    }
+
+    private function migrateAllWorkspaces(): void
+    {
+        CustomerRepository::all()->each(function ($customer): void {
+            $this->migrateWorkspace($customer->id);
+        });
+    }
+
+
+    private function callMigration(?string $path = null): void
+    {
+        $options = [
             '--step' => true,
             '--force' => true,
             '--no-interaction' => true,
-        ]);
+        ];
+
+        if (!is_null($path)) {
+            $options['--database'] = config('app-paths.db.workspace.connection');
+            $options['--path'] = $path;
+        }
+
+        $this->call('migrate', $options);
     }
 }
