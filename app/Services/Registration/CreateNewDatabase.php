@@ -2,13 +2,11 @@
 
 namespace App\Services\Registration;
 
-use Closure;
-use App\Contracts\Pipe;
 use Illuminate\Support\Facades\Artisan;
 
-class CreateNewDatabase implements Pipe
+class CreateNewDatabase
 {
-    public function handle($payload, Closure $next)
+    public function __invoke($payload)
     {
         $exitCode = Artisan::call("db:migrate {$payload->account->id} --no-shared");
 
@@ -17,6 +15,6 @@ class CreateNewDatabase implements Pipe
             return false;
         }
 
-        return $next($payload);
+        return $payload;
     }
 }

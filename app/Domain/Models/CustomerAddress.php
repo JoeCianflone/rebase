@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Domain\Models;
 
 use App\Domain\Traits\FindUuidColumns;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Member extends Authenticatable
+class CustomerAddress extends Model
 {
-    use Notifiable;
     use GeneratesUuid;
     use FindUuidColumns;
-
     /**
      * @var bool
      */
@@ -24,20 +22,22 @@ class Member extends Authenticatable
     /**
      * @var string
      */
-    protected $connection = 'workspace';
+    protected $connection = 'shared';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id',                   // required
-        'email',                // required
-        'password',
-        'name',                 // required
-        'avatar',
-        'profile',
-        'remember_token',
-        'email_verified_at',
+        'id',
+        'customer_id',
+        'is_primary',
+        'line1',
+        'line2',
+        'line3',
+        'city',
+        'state',
+        'postal_code',
+        'country',
         'created_at',
         'updated_at',
     ];
@@ -45,20 +45,17 @@ class Member extends Authenticatable
     /**
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * @var array
-     */
     protected $casts = [
-        'id' => EfficientUuid::class,
-        'profile' => 'array',
-        'email_verified_at' => 'datetime',
+        'customer_id' => EfficientUuid::class,
+        'is_primary' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
+    }
 
     public function uuidColumns(): array
     {

@@ -24,7 +24,7 @@ class Action
             return call_user_func_array(Closure::bind($macro, null, static::class), $parameters);
         }
 
-        return call_user_func_array($macro.'::'.static::$handler , $parameters);
+        return call_user_func_array($macro.'::'.static::$handler, $parameters);
     }
 
     public static function init(array $macroGroup): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
-
 use Inertia\Response;
 use App\Actions\Action;
 use Illuminate\Http\Request;

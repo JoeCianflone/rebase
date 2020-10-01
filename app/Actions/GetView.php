@@ -17,7 +17,7 @@ use ReflectionClass;
  {
      public static function handle(object $class, bool $useSecondaryLocation = false): string
      {
-         $location = $useSecondaryLocation ? config("app-paths.views.secondary_location") : config("app-paths.views.default_location");
+         $location = $useSecondaryLocation ? config('app-paths.views.secondary_location') : config('app-paths.views.default_location');
 
          $path = config("app-paths.views.{$location}.pages");
 

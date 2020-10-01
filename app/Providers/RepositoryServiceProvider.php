@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Domain\Models\User;
-use App\Domain\Models\Account;
+use App\Domain\Models\Member;
+use App\Domain\Models\Customer;
 use App\Domain\Models\Workspace;
 use App\Domain\Models\BannedSlug;
-use App\Domain\Models\UserWorkspace;
+use App\Domain\Models\MemberWorkspace;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use App\Domain\Repositories\EloquentUserRepository;
-use App\Domain\Repositories\EloquentAccountRepository;
+use App\Domain\Repositories\EloquentMemberRepository;
+use App\Domain\Repositories\EloquentCustomerRepository;
 use App\Domain\Repositories\EloquentWorkspaceRepository;
 use App\Domain\Repositories\EloquentBannedSlugRepository;
-use App\Domain\Repositories\EloquentUserWorkspaceRepository;
+use App\Domain\Repositories\EloquentMemberWorkspaceRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -22,25 +22,25 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('AccountRepository', function (Application $app) {
-            return new EloquentAccountRepository(new Account());
+        $this->app->singleton('CustomerRepository', function (Application $app) {
+            return new EloquentCustomerRepository(new Customer());
         });
 
         $this->app->singleton('WorkspaceRepository', function (Application $app) {
             return new EloquentWorkspaceRepository(new Workspace());
         });
 
-        $this->app->singleton('UserRepository', function (Application $app) {
-            return new EloquentUserRepository(new User());
+        $this->app->singleton('MemberRepository', function (Application $app) {
+            return new EloquentMemberRepository(new Member());
         });
 
         $this->app->singleton('BannedSlugRepository', function (Application $app) {
             return new EloquentBannedSlugRepository(new BannedSlug());
         });
 
-        $this->app->singleton('UserWorkspaceRepository', function (Application $app) {
-            return new EloquentUserWorkspaceRepository(new UserWorkspace());
-        });
+        // $this->app->singleton('MemberWorkspaceRepository', function (Application $app) {
+        //     return new EloquentMemberWorkspaceRepository(new MemberWorkspace());
+        // });
     }
 
     /**

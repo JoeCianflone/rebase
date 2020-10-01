@@ -12,7 +12,7 @@ class CreateSystemMessages extends Migration
     public function up(): void
     {
         Schema::create('system_messages', function (Blueprint $table): void {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('headline')->index();
             $table->text('entry')->nullable();
             $table->string('image_path')->nullable();

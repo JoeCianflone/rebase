@@ -2,13 +2,10 @@
 
 namespace App\Services\Registration;
 
-use Closure;
-use App\Contracts\Pipe;
-
-class CreateNewWorkspace implements Pipe
+class CreateNewWorkspace
 {
-    public function handle($payload, Closure $next)
+    public function __invoke($payload)
     {
-        return $next($payload);
+        return $payload;
     }
 }

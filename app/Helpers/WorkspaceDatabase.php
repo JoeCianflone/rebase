@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\Actions\GetWorkspaceName;
+use App\Actions\Action;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\Events\JobProcessing;
@@ -13,7 +13,7 @@ class WorkspaceDatabase
 {
     public static function exists(string $id): bool
     {
-        $name = GetWorkspaceName::execute($id);
+        $name = Action::getWorkspaceName($id);
 
         $result = DB::select("SHOW DATABASES LIKE '{$name}'");
 
@@ -22,14 +22,14 @@ class WorkspaceDatabase
 
     public static function create(string $id): bool
     {
-        $name = GetWorkspaceName::execute($id);
+        $name = Action::getWorkspaceName($id);
 
         return DB::statement("CREATE DATABASE {$name};");
     }
 
     public static function drop(string $id): bool
     {
-        $name = GetWorkspaceName::execute($id);
+        $name = Action::getWorkspaceName($id);
 
         return DB::statement("DROP DATABASE {$name};");
     }
@@ -44,14 +44,14 @@ class WorkspaceDatabase
 
     public static function connect(string $id): void
     {
-        $name = GetWorkspaceName::execute($id);
+        $name = Action::getWorkspaceName($id);
 
         self::connectionConfigure($name);
 
-        app('queue')->createPayloadUsing(fn () => ['workspace_id ' => $name]);
+        app('queue')->createPayloadUsing(fn () => ['customer_id ' => $name]);
         app('events')->listen(JobProcessing::class, function ($event): void {
-            if (isset($event->job->payload()['workspace_id'])) {
-                self::connectionConfigure($event->job->payload()['workspace_id']);
+            if (isset($event->job->payload()['customer_id'])) {
+                self::connectionConfigure($event->job->payload()['customer_id']);
             }
         });
     }

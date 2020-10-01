@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Register;
 
 use Illuminate\Http\Request;
+use League\Pipeline\Pipeline;
 use App\Events\StartAccountSignup;
 use Illuminate\Support\Facades\Redirect;
+use App\Services\Registration\CreateNewDatabase;
+use App\Services\Registration\CreateNewWorkspace;
 use App\Http\Controllers\Controller as BaseController;
+use App\Services\Registration\CreateFirstAdministrator;
+use App\Services\Registration\CreateNewAccountAndSubscription;
 
 class ProcessRegisterPay extends BaseController
 {
@@ -22,14 +27,16 @@ class ProcessRegisterPay extends BaseController
 
         [$cart['cart']] = [array_merge(session('cart'), $request->all())];
 
-        event(new StartAccountSignup($cart));
-        session()->flush();
+        // event(new StartAccountSignup($cart));
 
-        // event(new NewAccountCreated($account, [
-        //     'slug' => session('account.slug'),
-        //     'name' => session('account.user.name'),
-        //     'email' => session('account.email'),
-        // ]));
+        (new Pipeline())
+            ->pipe(new CreateNewAccountAndSubscription())
+                // ->pipe(new CreateNewDatabase)
+                // ->pipe(new CreateFirstAdministrator)
+                // ->pipe(new CreateNewWorkspace)
+            ->process($cart['cart']);
+
+        // session()->flush();
 
         return Redirect::route('view.register.complete');
     }

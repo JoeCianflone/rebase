@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
@@ -13,23 +12,15 @@ class StartAccountSignup
     use InteractsWithSockets;
     use SerializesModels;
 
-    public array $cart;
+    public $cart;
 
     /**
      * Create a new event instance.
+     *
+     * @param mixed $cart
      */
-    public function __construct(array $cart)
+    public function __construct($cart)
     {
         $this->cart = $cart['cart'];
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array|\Illuminate\Broadcasting\Channel
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
     }
 }

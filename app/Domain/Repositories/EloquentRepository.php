@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EloquentRepository
 {
-    use EloquentWrites;
     use EloquentReads;
+    use EloquentWrites;
 
     protected array $data = [];
 

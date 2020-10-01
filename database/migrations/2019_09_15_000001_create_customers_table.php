@@ -17,9 +17,8 @@ class CreateCustomersTable extends Migration
             $table->efficientUuid('id')->primary();
             $table->string('name');
             $table->enum('status', Arr::flatten(CustomerStatus::toArray()))->default(CustomerStatus::PENDING());
-            $table->timestamp('agrees_to_terms_at')->nullable();
-            $table->timestamp('agrees_to_privacy_at')->nullable();
-
+            $table->boolean('agreed_to_terms_at')->default(true);
+            $table->boolean('agreed_to_privacy_at')->default(true);
             $table->string('stripe_id')->nullable()->index();
             $table->string('card_brand')->nullable();
             $table->string('card_last_four', 4)->nullable();

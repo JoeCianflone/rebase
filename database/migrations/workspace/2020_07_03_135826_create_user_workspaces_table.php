@@ -15,9 +15,8 @@ class CreateMemberWorkspacesTable extends Migration
     {
         Schema::create('member_workspaces', function (Blueprint $table): void {
             $table->efficientUuid('id')->primary();
-            $table->efficientUuid('customer_id');
+            $table->efficientUuid('workspace_id');
             $table->efficientUuid('member_id');
-            $table->efficientUuid('customer_workspace_id');
             $table->enum('role', Arr::flatten(MemberRole::toArray()))->default(MemberRole::MEMBER());
             $table->timestamps();
 

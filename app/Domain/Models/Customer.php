@@ -6,6 +6,7 @@ namespace App\Domain\Models;
 
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
+use App\Domain\Traits\FindUuidColumns;
 use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
@@ -15,6 +16,7 @@ class Customer extends Model
 {
     use Billable;
     use GeneratesUuid;
+    use FindUuidColumns;
 
     /**
      * @var bool
@@ -22,22 +24,18 @@ class Customer extends Model
     public $incrementing = false;
 
     /**
+     * @var string
+     */
+    protected $connection = 'shared';
+
+    /**
      * @var array
      */
     protected $fillable = [
         'id',                   // required
         'name',                 // required
-        'address_line1',        // required
-        'address_line2',
-        'address_line3',
-        'unit_number',
-        'city',                 // required
-        'state',                // required
-        'postal_code',          // required
-        'country',
-        'is_business',          // false
-        'agrees_to_terms_at',
-        'agrees_to_privacy_at',
+        'agreed_to_terms',      // required
+        'agreed_to_privacy',    // required
         'stripe_id',
         'card_brand',
         'card_last_four',
@@ -51,7 +49,8 @@ class Customer extends Model
      */
     protected $casts = [
         'id' => EfficientUuid::class,
-        'is_business' => 'boolean',
+        'agreed_to_terms' => 'boolean',
+        'agreed_to_privacy' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'agrees_to_terms_at' => 'datetime',
@@ -72,6 +71,11 @@ class Customer extends Model
         return $this->hasMany(Workspace::class);
     }
 
+    public function customerAddresses(): HasMany
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
@@ -79,8 +83,6 @@ class Customer extends Model
 
     public function uuidColumns(): array
     {
-        return  collect($this->casts)->filter(function ($value, $key) {
-            return 'Dyrynda\Database\Casts\EfficientUuid' === $value;
-        })->keys()->toArray();
+        return $this->allUuidColumns($this->casts);
     }
 }

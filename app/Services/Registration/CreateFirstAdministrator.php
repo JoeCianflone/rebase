@@ -2,13 +2,10 @@
 
 namespace App\Services\Registration;
 
-use Closure;
-use App\Contracts\Pipe;
-
-class CreateFirstAdministrator implements Pipe
+class CreateFirstAdministrator
 {
-    public function handle($payload, Closure $next)
+    public function __invoke($payload)
     {
-        return $next($payload);
+        return $payload;
     }
 }

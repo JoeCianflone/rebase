@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
+use App\Domain\Traits\FindUuidColumns;
 use Illuminate\Database\Eloquent\Model;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Workspace extends Model
 {
     use GeneratesUuid;
+    use FindUuidColumns;
 
     /**
      * @var bool
@@ -26,8 +28,8 @@ class Workspace extends Model
         'customer_id',       // required
         'name',             // required
         'slug',             // required
-        'is_active',        // required
         'domain',
+        'is_active',        // required
         'created_at',
         'updated_at',
     ];
@@ -50,6 +52,6 @@ class Workspace extends Model
 
     public function uuidColumns(): array
     {
-        return ['id', 'customer_id'];
+        return $this->allUuidColumns($this->casts);
     }
 }

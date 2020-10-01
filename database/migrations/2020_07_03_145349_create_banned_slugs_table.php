@@ -12,7 +12,7 @@ class CreateBannedSlugsTable extends Migration
     public function up(): void
     {
         Schema::create('banned_slugs', function (Blueprint $table): void {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('slug')->index()->unique();
             $table->string('description')->nullable();
             $table->timestamps();
