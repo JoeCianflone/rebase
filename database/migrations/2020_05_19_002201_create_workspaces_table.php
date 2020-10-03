@@ -14,11 +14,11 @@ class CreateWorkspacesTable extends Migration
     public function up(): void
     {
         Schema::create('workspaces', function (Blueprint $table): void {
-            $table->efficientUuid('id')->primary();
-            $table->efficientUuid('customer_id');
+            $table->uuid('id')->primary();
+            $table->uuid('customer_id');
             $table->string('name');
-            $table->string('slug')->index();
-            $table->string('domain')->index()->nullable();
+            $table->string('slug')->unique()->index();
+            $table->string('domain')->unique()->index()->nullable();
             $table->enum('status', Arr::flatten(WorkspaceStatus::toArray()))->default(WorkspaceStatus::INACTIVE());
             $table->timestamps();
 
@@ -34,10 +34,10 @@ class CreateWorkspacesTable extends Migration
      */
     public function down(): void
     {
-        Schema::table('customer_workspaces', function (Blueprint $table): void {
+        Schema::table('workspaces', function (Blueprint $table): void {
             $table->dropForeign(['customer_id']);
         });
 
-        Schema::dropIfExists('customer_workspaces');
+        Schema::dropIfExists('workspaces');
     }
 }

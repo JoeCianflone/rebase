@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
-use App\Domain\Traits\FindUuidColumns;
+use Illuminate\Support\Str;
+use App\Domain\Models\MemberRole;
 use Illuminate\Notifications\Notifiable;
-use Dyrynda\Database\Casts\EfficientUuid;
-use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Member extends Authenticatable
 {
     use Notifiable;
-    use GeneratesUuid;
-    use FindUuidColumns;
 
     /**
      * @var bool
@@ -53,15 +50,24 @@ class Member extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'id' => EfficientUuid::class,
         'profile' => 'array',
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function uuidColumns(): array
+    public static function boot(): void
     {
-        return $this->allUuidColumns($this->casts);
+        parent::boot();
+
+        static::creating(function ($member): void {
+            $member->id = (string) Str::uuid();
+        });
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
 }

@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use Inertia\Response;
 use App\Actions\Action;
+use App\Domain\Facades\CustomerRepository;
+use App\Domain\Facades\WorkspaceRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as BaseController;
 

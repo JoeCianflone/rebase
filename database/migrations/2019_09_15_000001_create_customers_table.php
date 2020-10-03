@@ -14,7 +14,7 @@ class CreateCustomersTable extends Migration
     public function up(): void
     {
         Schema::create('customers', function (Blueprint $table): void {
-            $table->efficientUuid('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->enum('status', Arr::flatten(CustomerStatus::toArray()))->default(CustomerStatus::PENDING());
             $table->boolean('agreed_to_terms_at')->default(true);

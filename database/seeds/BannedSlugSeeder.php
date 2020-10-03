@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Ramsey\Uuid\Uuid;
+use App\Enums\MemberRoles;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -49,15 +51,12 @@ class BannedSlugSeeder extends Seeder
 
     private function slug(array $slugs): array
     {
-        $collection = collect($slugs)->map(function ($slug) {
+        return collect($slugs)->map(function ($slug) {
             return [
-                'id' => Uuid::uuid4()->toString(),
                 'slug' => $slug,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
             ];
-        });
-
-        return $collection->toArray();
+        })->toArray();
     }
 }

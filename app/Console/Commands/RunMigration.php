@@ -14,7 +14,7 @@ class RunMigration extends Command
      * php artisan db:migrate --workspaces
      * php artisan db:migrate 12345.
      */
-    protected $signature = 'db:migrate {customerID?} {--workspaces} {--shared}';
+    protected $signature = 'db:migrate {customerID?} {--workspaces} {--shared} {--seed}';
 
     protected $description = 'Runs all the migrations';
 
@@ -81,5 +81,12 @@ class RunMigration extends Command
         }
 
         $this->call('migrate', $options);
+
+        if ($this->option('seed')) {
+            $this->call('db:seed',[
+                '--database' => config('app-paths.db.workspace.connection'),
+                '--class' => 'MemberRoleSeeder',
+            ]);
+        }
     }
 }

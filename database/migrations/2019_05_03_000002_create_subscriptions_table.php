@@ -13,7 +13,7 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table): void {
             $table->bigIncrements('id');
-            $table->efficientUuid('customer_id');
+            $table->uuid('customer_id');
             $table->string('name');
             $table->string('stripe_id');
             $table->string('stripe_status');

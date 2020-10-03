@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
-use App\Domain\Traits\FindUuidColumns;
+use Illuminate\Support\Str;
+use App\Domain\Models\MemberWorkspace;
 use Illuminate\Database\Eloquent\Model;
-use Dyrynda\Database\Casts\EfficientUuid;
-use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Workspace extends Model
 {
-    use GeneratesUuid;
-    use FindUuidColumns;
 
     /**
      * @var bool
@@ -38,20 +35,29 @@ class Workspace extends Model
      * @var array
      */
     protected $casts = [
-        'id' => EfficientUuid::class,
-        'customer_id' => EfficientUuid::class,
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($workspace): void {
+            $workspace->id = (string) Str::uuid();
+        });
+    }
+
+
 
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
     }
 
-    public function uuidColumns(): array
+    public function members()
     {
-        return $this->allUuidColumns($this->casts);
+        $this->belongsToMany(Member::class)->using(MemberWorkspace::class);
     }
 }

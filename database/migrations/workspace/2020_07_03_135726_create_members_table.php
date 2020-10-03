@@ -12,7 +12,7 @@ class CreateMembersTable extends Migration
     public function up(): void
     {
         Schema::create('members', function (Blueprint $table): void {
-            $table->efficientUuid('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password')->nullable();

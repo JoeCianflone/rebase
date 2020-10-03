@@ -17,7 +17,7 @@ use MyCLabs\Enum\Enum;
  *
  * @psalm-immutable
  */
-class MemberRole extends Enum
+class MemberRoles extends Enum
 {
     private const SUPER = 'super';
     private const OWNER = 'owner';

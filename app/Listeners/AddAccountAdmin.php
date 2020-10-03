@@ -9,7 +9,7 @@ use App\Events\WorkspaceCreated;
 use Illuminate\Support\Facades\Hash;
 use App\Domain\Facades\UserRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Domain\Facades\UserWorkspaceRepository;
+use App\Domain\Facades\MemberWorkspaceRepository;
 
 class AddAccountAdmin implements ShouldQueue
 {
@@ -34,7 +34,7 @@ class AddAccountAdmin implements ShouldQueue
             'first_time_login_token' => Hash::make($event->setupData['email']),
         ]);
 
-        $userWorkspace = UserWorkspaceRepository::create([
+        $MemberWorkspace = MemberWorkspaceRepository::create([
             'id' => Str::uuid(),
             'account_id' => $event->workspace['account_id'],
             'user_id' => $admin->id,
@@ -42,6 +42,6 @@ class AddAccountAdmin implements ShouldQueue
             'role' => UserRole::ACCOUNT_OWNER(),
         ]);
 
-        event(new AccountReady($admin, $userWorkspace));
+        event(new AccountReady($admin, $MemberWorkspace));
     }
 }

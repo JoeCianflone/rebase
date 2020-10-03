@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
-use App\Domain\Traits\FindUuidColumns;
-use Dyrynda\Database\Casts\EfficientUuid;
-use Dyrynda\Database\Support\GeneratesUuid;
+use App\Domain\Models\Customer;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
 {
-    use GeneratesUuid;
-    use FindUuidColumns;
-
     /**
      * @var array
      */
@@ -35,7 +31,6 @@ class Subscription extends CashierSubscription
      * @var array
      */
     protected $casts = [
-        'customer_id' => EfficientUuid::class,
         'quantity' => 'integer',
         'trial_ends_at' => 'datetime',
         'ends_at' => 'datetime',
@@ -43,8 +38,9 @@ class Subscription extends CashierSubscription
         'updated_at' => 'datetime',
     ];
 
-    public function uuidColumns(): array
+
+    public function customer(): HasOne
     {
-        return $this->allUuidColumns($this->casts);
+        return $this->hasOne(Customer::class);
     }
 }

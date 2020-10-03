@@ -6,17 +6,12 @@ namespace App\Domain\Models;
 
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
-use App\Domain\Traits\FindUuidColumns;
 use Illuminate\Database\Eloquent\Model;
-use Dyrynda\Database\Casts\EfficientUuid;
-use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
     use Billable;
-    use GeneratesUuid;
-    use FindUuidColumns;
 
     /**
      * @var bool
@@ -48,7 +43,6 @@ class Customer extends Model
      * @var array
      */
     protected $casts = [
-        'id' => EfficientUuid::class,
         'agreed_to_terms' => 'boolean',
         'agreed_to_privacy' => 'boolean',
         'created_at' => 'datetime',
@@ -76,13 +70,9 @@ class Customer extends Model
         return $this->hasMany(CustomerAddress::class);
     }
 
-    public function subscriptions()
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
     }
 
-    public function uuidColumns(): array
-    {
-        return $this->allUuidColumns($this->casts);
-    }
 }

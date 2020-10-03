@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
-use App\Domain\Traits\FindUuidColumns;
 use Illuminate\Database\Eloquent\Model;
-use Dyrynda\Database\Casts\EfficientUuid;
-use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CustomerAddress extends Model
 {
-    use GeneratesUuid;
-    use FindUuidColumns;
     /**
      * @var bool
      */
@@ -46,7 +41,6 @@ class CustomerAddress extends Model
      * @var array
      */
     protected $casts = [
-        'customer_id' => EfficientUuid::class,
         'is_primary' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -55,10 +49,5 @@ class CustomerAddress extends Model
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
-    }
-
-    public function uuidColumns(): array
-    {
-        return $this->allUuidColumns($this->casts);
     }
 }
