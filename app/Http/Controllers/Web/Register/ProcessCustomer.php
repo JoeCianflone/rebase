@@ -20,6 +20,8 @@ class ProcessCustomer extends Controller
      */
     public function __invoke(RegisterNewCustomerRequest $request)
     {
+
+        // Move to pipeline
         $customer = CustomerRepository::create([
             'name' => $request->input('name'),
             'is_business' => $request->input('is_business'),
@@ -65,20 +67,20 @@ class ProcessCustomer extends Controller
         $workspaceName = $customer->is_business ? $customer->business_name : $customer->name;
         $workspaceName = Str::plural($workspaceName);
 
-        $workspace = WorkspaceRepository::create([
-            'customer_id' => $customer->id,
+        $customer->workspaces()->create([
             'name' => "{$workspaceName} Workspace",
             'slug' => $request->input('slug'),
         ]);
 
+
         Artisan::call("db:migrate {$customer->id} --seed");
 
         $member = MemberRepository::create([
-            'name' => 'Joe Cianflone',
-            'email' => 'joe@cianflone.co',
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
         ]);
 
-        $member->roles()->attach(1, ['workspace_id' => $workspace->id]);
+        $member->roles()->attach(1, ['workspace_id' => $customer->workspaces()->first()->id]);
 
         dd('done?');
     }
