@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Web\Register;
 
-use App\Actions\Action;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use App\Domain\Facades\MemberRepository;
@@ -59,7 +57,8 @@ class ProcessCustomer extends Controller
                 );
         } catch (PaymentFailure $e) {
             // event('Payment Failure...');
-            dd ($e);
+            dd($e);
+
             return false;
         }
 
@@ -67,9 +66,9 @@ class ProcessCustomer extends Controller
         $workspaceName = Str::plural($workspaceName);
 
         $workspace = WorkspaceRepository::create([
-          'customer_id' => $customer->id,
-          'name' =>  "{$workspaceName} Workspace",
-          'slug' => $request->input('slug'),
+            'customer_id' => $customer->id,
+            'name' => "{$workspaceName} Workspace",
+            'slug' => $request->input('slug'),
         ]);
 
         Artisan::call("db:migrate {$customer->id} --seed");
@@ -79,9 +78,8 @@ class ProcessCustomer extends Controller
             'email' => 'joe@cianflone.co',
         ]);
 
-
         $member->roles()->attach(1, ['workspace_id' => $workspace->id]);
 
-        dd ("done?");
+        dd('done?');
     }
 }

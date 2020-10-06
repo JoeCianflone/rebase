@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
  * space.rebase.test/members
  * space.rebase.test/members/{id}
  * space.rebase.test
- *
  */
-
 Route::middleware(['workspace.connection'])->group(function (): void {
     /*
      * GET /forgot/password

@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use App\Actions\Action;
-use App\Actions\GetSimpleView;
 use App\Actions\GetView;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Cashier;
+use App\Actions\GetSimpleView;
 use App\Actions\GetWorkspaceName;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Blade;

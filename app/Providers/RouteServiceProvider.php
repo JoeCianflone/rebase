@@ -33,7 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::macro('inertia', function (array $path, $data = [], $useSecondaryLocation = false) {
             $fullPath = "{$path['namespace']}/{$path['url']}";
 
-            return $this->get($path['url'], function() use ($fullPath, $data, $useSecondaryLocation) {
+            return $this->get($path['url'], function () use ($fullPath, $data, $useSecondaryLocation) {
                 return inertia(Action::getSimpleView($fullPath, $useSecondaryLocation), $data);
             });
         });
