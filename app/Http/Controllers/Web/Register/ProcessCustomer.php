@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use App\Domain\Facades\MemberRepository;
 use App\Domain\Facades\CustomerRepository;
-use App\Domain\Facades\WorkspaceRepository;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 use App\Http\Requests\RegisterNewCustomerRequest;
 
@@ -20,7 +19,6 @@ class ProcessCustomer extends Controller
      */
     public function __invoke(RegisterNewCustomerRequest $request)
     {
-
         // Move to pipeline
         $customer = CustomerRepository::create([
             'name' => $request->input('name'),
@@ -71,7 +69,6 @@ class ProcessCustomer extends Controller
             'name' => "{$workspaceName} Workspace",
             'slug' => $request->input('slug'),
         ]);
-
 
         Artisan::call("db:migrate {$customer->id} --seed");
 
