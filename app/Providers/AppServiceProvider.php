@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Actions\Action;
+use App\Actions\GetSimpleView;
 use App\Actions\GetView;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Cashier;
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
         Action::init([
             'getView' => GetView::class,
+            'getSimpleView' => GetSimpleView::class,
             'getWorkspaceName' => GetWorkspaceName::class,
         ]);
     }

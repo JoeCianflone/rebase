@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace App\Domain\Models;
 
 use Illuminate\Support\Str;
-use App\Domain\Models\MemberWorkspace;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Workspace extends Model
 {
-
     /**
      * @var bool
      */
@@ -49,14 +47,12 @@ class Workspace extends Model
         });
     }
 
-
-
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
     }
 
-    public function members()
+    public function members(): void
     {
         $this->belongsToMany(Member::class)->using(MemberWorkspace::class);
     }

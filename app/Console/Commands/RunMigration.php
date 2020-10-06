@@ -83,7 +83,7 @@ class RunMigration extends Command
         $this->call('migrate', $options);
 
         if ($this->option('seed')) {
-            $this->call('db:seed',[
+            $this->call('db:seed', [
                 '--database' => config('app-paths.db.workspace.connection'),
                 '--class' => 'MemberRoleSeeder',
             ]);

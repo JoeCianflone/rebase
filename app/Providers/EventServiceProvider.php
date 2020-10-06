@@ -13,17 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\StartAccountSignup' => [
-            'App\Listeners\RegisterNewAccount',
-        ],
-
-        'App\Events\ErrorAccountSignup' => [
-            'App\Listeners\AlertSuperAdminEmail',
-        ],
-
-        'App\Events\FinishedAccountSignup' => [
-            'App\Listeners\SendAccountWelcomeEmail',
-            'App\Listeners\AlertSuperAdminEmail',
+        'App\Events\StartCustomerSignup' => [
+            'App\Listeners\CreateNewCustomer',
         ],
     ];
 

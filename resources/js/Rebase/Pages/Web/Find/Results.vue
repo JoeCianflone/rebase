@@ -3,7 +3,7 @@ import Layout from "@/Rebase/Templates/WorkspaceMain"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "{{name}}" },
+   metaInfo: { title: "ViewResults" },
 
    components: {},
 
@@ -11,8 +11,8 @@ export default {
       form: {
          id: 1,
          name: "",
-         email: ""
-      }
+         email: "",
+      },
    }),
 
    props: {},
@@ -20,8 +20,8 @@ export default {
    methods: {
       test() {
          this.$inertia.post("/", this.form).then(() => (this.sending = false))
-      }
-   }
+      },
+   },
 }
 </script>
 
@@ -31,3 +31,4 @@ export default {
    </div>
 </template>
 
+<style lang="scss" scoped></style>

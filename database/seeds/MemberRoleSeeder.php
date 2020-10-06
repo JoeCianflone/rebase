@@ -11,14 +11,12 @@ class MemberRoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        DB::table('roles')->insert(collect(Arr::flatten(MemberRoles::toArray()))->map(function($name) {
+        DB::table('roles')->insert(collect(Arr::flatten(MemberRoles::toArray()))->map(function ($name) {
             return [
-                'name' => $name
+                'name' => $name,
             ];
         })->toArray());
     }

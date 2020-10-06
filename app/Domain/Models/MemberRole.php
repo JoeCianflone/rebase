@@ -1,12 +1,11 @@
 <?php
+
 namespace App\Domain\Models;
 
-use App\Domain\Models\Member;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberRole extends Model {
-
-
+class MemberRole extends Model
+{
     protected $connection = 'workspace';
 
     protected $fillable = [
@@ -23,8 +22,8 @@ class MemberRole extends Model {
         'updated_at' => 'datetime',
     ];
 
-
-    public function members() {
+    public function members()
+    {
         return $this->belongsToMany(Member::class);
     }
 }

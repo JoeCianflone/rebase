@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace {{namespace}};
-
+namespace App\Http\Controllers\ConfirmPassword;
 
 use Inertia\Response;
 use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class {{class}} extends Controller
+class ProcessConfirm extends Controller
 {
-
     public function __invoke(Request $request): Response
     {
-        return inertia(Action::getView($this{{rebase}}));
+        return inertia(Action::getView($this));
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Models;
 
 use Illuminate\Support\Str;
-use App\Domain\Models\MemberRole;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -69,5 +68,4 @@ class Member extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
-
 }

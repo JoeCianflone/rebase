@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Models;
 
-use App\Domain\Models\Customer;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
@@ -37,7 +36,6 @@ class Subscription extends CashierSubscription
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
 
     public function customer(): HasOne
     {

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-
     /**
      * @var string
      */
@@ -31,6 +30,4 @@ class Role extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-
 }

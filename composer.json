@@ -10,8 +10,6 @@
    "require": {
       "php": "^7.3.0",
       "doctrine/dbal": "^2.10",
-      "dyrynda/laravel-efficient-uuid": "^4.2",
-      "dyrynda/laravel-model-uuid": "^6.3",
       "fideloper/proxy": "^4.2",
       "fruitcake/laravel-cors": "^1.0",
       "guzzlehttp/guzzle": "^7.0.1",

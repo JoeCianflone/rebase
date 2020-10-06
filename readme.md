@@ -100,20 +100,23 @@ This isn't a full or complete application. This should do just the basics. It's 
 
 While this does follow some basic RESTful conventions. This is not a RESTful API. These are URL's so we don't need to feel compelled to stick to a REST convention if/when it doesn't make sense, but generally these are the conventions that Laravel uses for Resource Controllers so these are the default names we start with, but I add non-RESTful matching names when it makes sense. Take a look at this fake `photos` section for a better understanding:
 
-| Method    | URI                  | Name/Key             | Controller Name    | View Name   | Description                                           |
-| --------- | -------------------- | -------------------- | ------------------ | ----------- | ----------------------------------------------------- |
-| GET       | /photo               | view.photo           | ViewPhoto          | ViewPhoto   | Singular View                                         |
-| GET       | /photos              | list.photos          | ListPhotos         | ListPhotos  | Lists other resources, think user list                |
-| GET       | /photos/create       | create.photo         | CreatePhoto        | CreatePhoto | -                                                     |
-| POST      | /photo               | store.photo          | StorePhoto         | -           | -                                                     |
-| POST      | /photo               | process.photo        | ProcessPhoto       | -           | Does something, doesn't save data, think login/logout |
-| GET       | /photos/{photo}      | show.photos          | ShowPhoto          | ShowPhoto   | -                                                     |
-| GET       | /photos/{photo}/edit | edit.photo           | EditPhoto          | EditPhoto   | -                                                     |
-| PATCH/PUT | /photos/{photo}      | update.photo         | UpdatePhoto        | -           | -                                                     |
-| DELETE    | /photos/{photo}      | destroy.photo        | DestroyPhoto       | -           | -                                                     |
-| POST      | /photos              | store.group.photos   | StoreGroupPhotos   | -           | -                                                     |
-| PATCH/PUT | /photos              | update.group.photos  | UpdateGroupPhotos  | -           | -                                                     |
-| DELETE    | /photos              | destroy.group.photos | DestroyGroupPhotos | -           | -                                                     |
+| Method    | URI                    | Name/Key            | View and Controller Name |
+| --------- | ---------------------- | ------------------- | ------------------------ |
+| GET       | /photos                | index.photos        | Photos                   |
+| GET       | /photos/create         | create.photos       | CreatePhotos             |
+| POST      | /photos/store          | store.photos        | StorePhotos              |
+| POST      | /photos/process        | process.photos      | ProcessPhotos            |
+| GET       | /photos/{photo}        | show.photos         | ShowPhotos               |
+| GET       | /photos/{photo}/edit   | edit.photos         | EditPhotos               |
+| PATCH/PUT | /photos/{photo}/update | update.photos       | UpdatePhotos             |
+| DELETE    | /photos/{photo}/delete | delete.photos       | DeletePhotos             |
+| POST      | /photos/upload         | upload.photos       | UpdatePhotos             |
+| GET       | /photos/group/create   | group.photos.create | GroupPhotosCreate        |
+| GET       | /photos/group/edit     | group.photos.edit   | GroupPhotosEdit          |
+| PUT       | /photos/group/update   | group.photos.update | GroupPhotosUpdate        |
+| DELETE    | /photos/group/delete   | group.photos.delete | GroupPhotosDelete        |
+| POST      | /photos/group/upload   | group.photos.upload | GroupPhotosUpload        |
+| -         |
 
 ### `process` Controllers
 
@@ -128,6 +131,28 @@ The way I work, every controller works on a single object. Take the `photos` exa
 However, something I find is that when I need to do bulk operations, there are other things I also need to do along the way. Maybe I need to validate a CSV file, or check some extra data exists somewhere...and maybe for whatever reason this logic doesn't need to exist when I'm storing a single photo. These situations don't come up every day, but when they do they're kinda annoying. I've seen single action controllers balloon up because of unique things that have to be done on bulk updates. 
 
 This is where the `Group` convention comes up. If the actions become "different enough" or your team doesn't like the idea of overloading a controller or you just like this better, then the idea is that you have two different controllers: one for a single action; one for an action that needs to occur over multiple objects. You name these with `group` in them to differentiate that these work on groups of items. Also, because I'm crazy, you should make sure your noun makes sense. You don't `UpdateGroupPhoto` you `UpdateGroupPhotos` (Update a Group of Photos...see?).
+
+## Actions vs Helpers
+
+Rebase distinguishes two different types of helper that you could have in an app: `actions` and `helpers`. Helpers are your common classes that have helpful functions in them. Usually the are a group of related things, like our `WorkspaceDatabase` helper which has all the functions needed to spin-up a new database for a workspace. Actions, on the other hand, are single method classes that do a specific task. A good example of this is our `GetView` action, which helps map our Controllers to View folders.
+
+### Actions are Macroable
+
+Actions are stored in the `app/Actions` folder and they're initialized in the `AppServiceProvider` under the `Action::init()` function. 
+
+Each action class must define a single `handle()` method and it must be static. Now this isn't controlled through an interface or abstract class because the `handle` method is allowed to take in whatever parameters you need. However, the `Action::init` method *expects* a handle method and it's *expected* to be static so, if you'd like this to work, you gotta have it. 
+
+
+
+When you want to use a particular action, you call it like so:
+
+```php
+
+Action::getView('foo');
+
+```
+
+
 
 ## Query Names
 

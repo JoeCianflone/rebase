@@ -47,8 +47,6 @@ class Customer extends Model
         'agreed_to_privacy' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'agrees_to_terms_at' => 'datetime',
-        'agrees_to_privacy_at' => 'datetime',
     ];
 
     public static function boot(): void
@@ -74,5 +72,4 @@ class Customer extends Model
     {
         return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
     }
-
 }
