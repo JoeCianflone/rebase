@@ -23,7 +23,7 @@ class BaseMiddleware
     }
 
     /**
-     * This turns our list of urls into a regex. The format is 2 fold:
+     * This turns our list of urls into a regex. The format is 2 fold:.
      *
      * 1. If you have a uri with a * at the end
      * /foo/*
@@ -42,23 +42,18 @@ class BaseMiddleware
      * will become: \/foo\/([a-zA-Z\d\-]*?)\/bar/.*
      *
      * Please note if you URL has any funny characters in it you're going to need to adjust this
-     *
-     * @param Collection $exceptCollection
-     * @return string
      */
     private function generateRegexExpression(Collection $exceptCollection): string
     {
-        $words = $exceptCollection->map(function($item, $key) {
-
+        $words = $exceptCollection->map(function ($item, $key) {
             if (Str::endsWith($item, '*')) {
                 $item = Str::replaceLast('*', '#', $item);
             }
 
             $item = str_replace('*', '([a-zA-Z\d\-]*?)', $item);
             $item = str_replace('#', '.*', $item);
-            $item = str_replace('/', '\/', $item);
 
-            return $item;
+            return str_replace('/', '\/', $item);
         })->implode('|^');
 
         return '#^'.$words.'#';

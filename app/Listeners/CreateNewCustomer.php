@@ -14,7 +14,6 @@ class CreateNewCustomer implements ShouldQueue
 {
     public $queue = 'general';
 
-
     /**
      * Create the event listener.
      */
@@ -27,11 +26,11 @@ class CreateNewCustomer implements ShouldQueue
      */
     public function handle(StartCustomerSignup $event): void
     {
-        $pipeline =  (new Pipeline)
-            ->pipe(new AddCustomer)
-            ->pipe(new SubscribeCustomer)
-            ->pipe(new AddCustomerWorkspace)
-            ->pipe(new AddFirstMemberToWorkspace);
+        $pipeline = (new Pipeline())
+            ->pipe(new AddCustomer())
+            ->pipe(new SubscribeCustomer())
+            ->pipe(new AddCustomerWorkspace())
+            ->pipe(new AddFirstMemberToWorkspace());
 
         $pipeline->process(collect($event->payload));
     }

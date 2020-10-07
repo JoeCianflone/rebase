@@ -2,7 +2,6 @@
 
 namespace App\Services\Registration;
 
-use App\Domain\Models\Customer;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 
 class SubscribeCustomer
