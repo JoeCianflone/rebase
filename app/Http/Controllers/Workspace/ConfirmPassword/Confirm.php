@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Web\Design;
+namespace App\Http\Controllers\Workspace\ConfirmPassword;
 
 use Inertia\Response;
 use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class Design extends Controller
+class Confirm extends Controller
 {
     public function __invoke(Request $request): Response
     {

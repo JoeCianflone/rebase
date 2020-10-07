@@ -3,10 +3,7 @@ import Layout from "@/Rebase/Templates/WorkspaceMain"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "ViewDesign" },
-
-   components: {},
-
+   metaInfo: { title: "Design Concenpts" },
    data: () => ({
       form: {
          id: 1,
@@ -16,14 +13,6 @@ export default {
          checkbox2: [],
       },
    }),
-
-   props: {},
-
-   methods: {
-      test() {
-         this.$inertia.post("/", this.form).then(() => (this.sending = false))
-      },
-   },
 }
 </script>
 
@@ -40,17 +29,13 @@ export default {
          </FormField>
 
          <FormFieldInline validate="checkbox">
-            <FormCheckbox :disable-after="1" value="11" v-model="form.checkbox">
-               checkbox 1 - 1
-            </FormCheckbox>
+            <FormCheckbox :disable-after="1" value="11" v-model="form.checkbox"> checkbox 1 - 1 </FormCheckbox>
             <FormCheckbox :disable-after="1" value="21" v-model="form.checkbox">checkbox 2 - 1</FormCheckbox>
             <FormCheckbox :disable-after="1" value="31" v-model="form.checkbox">checkbox 3 - 1</FormCheckbox>
          </FormFieldInline>
 
          <FormFieldInline validate="checkbox2">
-            <FormCheckbox :disable-after="2" value="12" v-model="form.checkbox2">
-               checkbox 1 - 2
-            </FormCheckbox>
+            <FormCheckbox :disable-after="2" value="12" v-model="form.checkbox2"> checkbox 1 - 2 </FormCheckbox>
             <FormCheckbox value="22" v-model="form.checkbox2">2checkbox 2 - 2 </FormCheckbox>
             <FormCheckbox :disable-after="2" value="32" v-model="form.checkbox2">checkbox 3 - 2</FormCheckbox>
          </FormFieldInline>
@@ -63,13 +48,9 @@ export default {
 
          <FormField validate="field">
             <FormGroup class="-pre -post">
-               <template v-slot:pre>
-                  $
-               </template>
+               <template v-slot:pre> $ </template>
                <FormInput v-model="form.field" />
-               <template v-slot:post>
-                  .00
-               </template>
+               <template v-slot:post> .00 </template>
             </FormGroup>
          </FormField>
 
@@ -85,6 +66,11 @@ export default {
 
          <Button icon="user" class="button--primary" type="submit">Submit This Shit</Button>
          <Button class="button--secondary">Just a button</Button>
+
+         <dl>
+            <dt>Username</dt>
+            <dd>JoeCianflone</dd>
+         </dl>
       </fieldset>
    </form>
 </template>

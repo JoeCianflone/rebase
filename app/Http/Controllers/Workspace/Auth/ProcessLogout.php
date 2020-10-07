@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Workspace\Auth;
 
 use Inertia\Response;
 use App\Actions\Action;

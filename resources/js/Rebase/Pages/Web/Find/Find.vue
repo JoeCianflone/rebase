@@ -19,7 +19,10 @@ export default {
 
    methods: {
       test() {
-         this.$inertia.post("/", this.form).then(() => (this.sending = false))
+         this.$inertia.post("/", this.form, {
+            onStart: () => (this.sending = true),
+            onFinish: () => (this.sending = false),
+         })
       },
    },
 }

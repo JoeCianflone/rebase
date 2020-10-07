@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\ForgotPassword;
+namespace App\Http\Controllers\Workspace\ForgotPassword;
 
 use Inertia\Response;
 use App\Actions\Action;

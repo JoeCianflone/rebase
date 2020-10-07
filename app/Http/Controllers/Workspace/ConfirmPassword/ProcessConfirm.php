@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\ConfirmPassword;
+namespace App\Http\Controllers\Workspace\ConfirmPassword;
 
 use Inertia\Response;
 use App\Actions\Action;

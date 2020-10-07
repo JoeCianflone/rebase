@@ -10,9 +10,9 @@ export default {
    components: {
       CardNumber,
       CardExpiry,
-      CardCvc
+      CardCvc,
    },
-   remember: 'form',
+   remember: "form",
 
    data: function () {
       return {
@@ -26,7 +26,7 @@ export default {
             email: null,
             business_name: null,
             slug: this.slug,
-            is_business: '',
+            is_business: "",
             address_line1: null,
             address_line2: null,
             address_line3: null,
@@ -76,7 +76,11 @@ export default {
 
             console.log(result)
             vm.form.payment_method = result.setupIntent.payment_method
-            vm.$inertia.post("/register/customer", vm.form).then(() => (vm.sending = false))
+
+            vm.$inertia.post("/register/customer", vm.form, {
+               onStart: () => (vm.sending = true),
+               onFinish: () => (vm.sending = false),
+            })
          })
       },
    },
@@ -88,7 +92,8 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
             <p v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news <strong>{{ slug }}.{{ $page.app.domain }}</strong>&nbsp;is available!
+               Great news <strong>{{ slug }}.{{ $page.app.domain }}</strong
+               >&nbsp;is available!
             </p>
 
             <FormField validate="name" class="col-10--centered md::col-8--centered">
@@ -133,7 +138,7 @@ export default {
             </template>
 
             <div class="col-10--centered md::col-8--centered">
-               <Button as="secondary" size="sm"  @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button><br /><br />
+               <Button as="secondary" size="sm" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button><br /><br />
             </div>
 
             <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">

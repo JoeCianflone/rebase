@@ -22,23 +22,45 @@ class BaseMiddleware
         return preg_match($regex, $path) > 0;
     }
 
+    /**
+     * This turns our list of urls into a regex. The format is 2 fold:
+     *
+     * 1. If you have a uri with a * at the end
+     * /foo/*
+     *
+     * will become: \/foo\/.*
+     *
+     * 2. If you have a url with an * in the middle
+     * /foo/ * /bar
+     *
+     * will become: \/foo\/([a-zA-Z\d\-]*?)\/bar
+     *
+     * Of course they could be combined into something like the following:
+     *
+     * /foo/ * /bar/*
+     *
+     * will become: \/foo\/([a-zA-Z\d\-]*?)\/bar/.*
+     *
+     * Please note if you URL has any funny characters in it you're going to need to adjust this
+     *
+     * @param Collection $exceptCollection
+     * @return string
+     */
     private function generateRegexExpression(Collection $exceptCollection): string
     {
-        $regexString = $exceptCollection->map(function ($item, $key) {
-            $item = rtrim($item, '/');
+        $words = $exceptCollection->map(function($item, $key) {
 
-            // We need this temp state because all other * need to transform into something else that's non-greedy
-            // but the last * should be greedy and just look for anything if anyone can come up with a
-            // better and still readable way to do this I'm all ears.
             if (Str::endsWith($item, '*')) {
                 $item = Str::replaceLast('*', '#', $item);
             }
 
-            // Order here is important
+            $item = str_replace('*', '([a-zA-Z\d\-]*?)', $item);
+            $item = str_replace('#', '.*', $item);
+            $item = str_replace('/', '\/', $item);
 
-            return str_replace('/', '\/', str_replace('#', '.*', str_replace('*', '([a-zA-Z\d\-]*?)', $item)));
+            return $item;
         })->implode('|^');
 
-        return '#^'.$regexString.'#';
+        return '#^'.$words.'#';
     }
 }

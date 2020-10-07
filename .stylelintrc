@@ -2,13 +2,12 @@
    "extends": "stylelint-config-sass-guidelines",
    ignoreFiles": ["*.md"],
    "plugins": [
-      "stylelint-order"
+      "stylelint-order",
    ],
    "rules": {
       "number-leading-zero": null,
       "indentation": 3,
       "max-nesting-depth": 3,
       "order/properties-alphabetical-order": true,
-      "at-rule-no-unknown": true,
    }
 }

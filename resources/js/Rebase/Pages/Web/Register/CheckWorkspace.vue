@@ -26,7 +26,11 @@ export default {
    methods: {
       test() {
          this.sending = true
-         this.$inertia.post("/register/check-workspace", this.form).then(() => (this.sending = false))
+
+         this.$inertia.post("/register/check-workspace", this.form, {
+            onStart: () => (this.sending = true),
+            onFinish: () => (this.sending = false),
+         })
       },
    },
 }

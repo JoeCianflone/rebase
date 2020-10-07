@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Helpers\HostHelper;
 use Illuminate\Http\Request;
+use App\Helpers\WorkspaceDatabase;
 use App\Domain\Facades\WorkspaceRepository;
-use App\Helpers\WorkspaceConnectionManager;
 
 class ConnectToWorkspace extends BaseMiddleware
 {
@@ -18,8 +18,8 @@ class ConnectToWorkspace extends BaseMiddleware
         'horizon',
         'register',
         '_debugbar',
-        'telescope',
         'stripe',
+        'design',
     ];
 
     /**
@@ -36,8 +36,8 @@ class ConnectToWorkspace extends BaseMiddleware
         try {
             $workspace = $host->isCustomDomain() ? WorkspaceRepository::getByDomain($host->getDomain()) : WorkspaceRepository::getBySlug($host->getSlug());
 
-            WorkspaceConnectionManager::disconnect();
-            WorkspaceConnectionManager::connect($workspace->id);
+            WorkspaceDatabase::disconnect();
+            WorkspaceDatabase::connect($workspace->id);
 
             if ($host->isCustomDomain()) {
                 config([
@@ -53,7 +53,7 @@ class ConnectToWorkspace extends BaseMiddleware
         } catch (\Exception $e) {
             // Just redirect to the registration page, in app you should send a message or do something if this happens
 
-            return redirect()->route('view.register.workspace');
+            return redirect()->route('check-workspace.index');
         }
 
         return $next($request);

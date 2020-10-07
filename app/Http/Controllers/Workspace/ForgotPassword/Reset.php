@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Workspace\ForgotPassword;
 
 use Inertia\Response;
 use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ViewLogin extends Controller
+class Reset extends Controller
 {
     public function __invoke(Request $request): Response
     {

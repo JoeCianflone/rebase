@@ -17,7 +17,7 @@
    ],
    "husky": {
       "hooks": {
-         "pre-commit": "yarn php-cs && yarn static-check"
+         "pre-commit": "yarn php-cs"
       }
    },
    "dependencies": {
@@ -25,9 +25,10 @@
       "@babel/plugin-syntax-dynamic-import": "^7.8.3",
       "@inertiajs/inertia": "^0.3.4",
       "@inertiajs/inertia-vue": "^0.2.0",
+      "@inertiajs/progress": "^0.1.2",
       "axios": "^0.20",
       "cross-env": "^7.0.0",
-      "laravel-mix": "",
+      "laravel-mix": "^5.0.5",
       "lodash": "^4.17.15",
       "normalize.css": "^8.0.1",
       "portal-vue": "^2.1.6",
@@ -49,11 +50,11 @@
       "eslint": "^7.5.0",
       "eslint-plugin-vue": "^6.2.1",
       "husky": "^4.2.5",
-      "prettier": "^2.0.4",
+      "prettier": "^2.1.2",
       "react-is": "^16.13.1",
       "stylelint": "^13.3.2",
       "stylelint-config-sass-guidelines": "^7.0.0",
-      "stylelint-order": "^4.0.0",
+      "stylelint-order": "^4.1.0",
       "webpack-livereload-plugin": "^2.3.0"
    }
 }

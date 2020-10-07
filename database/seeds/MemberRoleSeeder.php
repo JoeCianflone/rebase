@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use App\Enums\MemberRoles;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,8 @@ class MemberRoleSeeder extends Seeder
         DB::table('roles')->insert(collect(Arr::flatten(MemberRoles::toArray()))->map(function ($name) {
             return [
                 'name' => $name,
+                'created_at' => Carbon::now()->toDateTimeString(),
+                'updated_at' => Carbon::now()->toDateTimeString(),
             ];
         })->toArray());
     }
