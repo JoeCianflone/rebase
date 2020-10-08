@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This document has been generated with
  * https://mlocati.github.io/php-cs-fixer-configurator/#version:2.16.3|configurator
@@ -10,9 +11,9 @@ return PhpCsFixer\Config::create()
         // There MUST be one blank line after the namespace declaration.
         'blank_line_after_namespace' => true,
         // The body of each structure MUST be enclosed by braces. Braces should be properly placed. Body of braces should be properly indented.
-        'braces' => ['allow_single_line_closure'=>true],
+        'braces' => ['allow_single_line_closure' => true],
         // Whitespace around the keywords of a class, trait or interfaces definition should be one space.
-        'class_definition' => ['single_line'=>true],
+        'class_definition' => ['single_line' => true],
         // The PHP constants `true`, `false`, and `null` MUST be written using the correct casing.
         'constant_case' => true,
         // The keyword `elseif` should be used instead of `else if` so that all control keywords look like single words.
@@ -30,7 +31,7 @@ return PhpCsFixer\Config::create()
         // PHP keywords MUST be in lower case.
         'lowercase_keywords' => true,
         // In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line.
-        'method_argument_space' => ['on_multiline'=>'ensure_fully_multiline'],
+        'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
         // There must be a comment when fall-through is intentional in a non-empty case body.
         'no_break_comment' => true,
         // The closing `? >` tag MUST be omitted from files containing only PHP.
@@ -58,7 +59,7 @@ return PhpCsFixer\Config::create()
         // Visibility MUST be declared on all properties and methods; `abstract` and `final` MUST be declared before the visibility; `static` MUST be declared after the visibility.
         'visibility_required' => true,
         // PHP arrays should be declared using the configured syntax.
-        'array_syntax' => ['syntax'=>'short'],
+        'array_syntax' => ['syntax' => 'short'],
         // Binary operators should be surrounded by space as configured.
         'binary_operator_spaces' => true,
         // Ensure there is no code on the same line as the PHP open tag and it is followed by a blank line.
@@ -68,7 +69,7 @@ return PhpCsFixer\Config::create()
         // A single space or none should be between cast and variable.
         'cast_spaces' => true,
         // Class, trait and interface elements must be separated with one blank line.
-        'class_attributes_separation' => ['elements'=>['method']],
+        'class_attributes_separation' => ['elements' => ['method']],
         // Concatenation should be spaced according configuration.
         'concat_space' => true,
         // Equal sign in declare statement should be surrounded by spaces or not following configuration.
@@ -104,7 +105,7 @@ return PhpCsFixer\Config::create()
         // Remove useless semicolon statements.
         'no_empty_statement' => true,
         // Removes extra blank lines and/or blank lines following configuration.
-        'no_extra_blank_lines' => ['tokens'=>['break','continue','curly_brace_block','extra','parenthesis_brace_block','return','square_brace_block','throw','use']],
+        'no_extra_blank_lines' => ['tokens' => ['break', 'continue', 'curly_brace_block', 'extra', 'parenthesis_brace_block', 'return', 'square_brace_block', 'throw', 'use']],
         // Remove leading slashes in `use` clauses.
         'no_leading_import_slash' => true,
         // The namespace declaration line shouldn't contain leading whitespace.
@@ -120,7 +121,7 @@ return PhpCsFixer\Config::create()
         // There MUST NOT be spaces around offset braces.
         'no_spaces_around_offset' => true,
         // Removes `@param`, `@return` and `@var` tags that don't provide any useful information.
-        'no_superfluous_phpdoc_tags' => ['allow_mixed'=>true,'allow_unused_params'=>true],
+        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true, 'allow_unused_params' => true],
         // Remove trailing commas in list function calls.
         'no_trailing_comma_in_list_call' => true,
         // PHP single-line arrays should not have trailing comma.
@@ -128,7 +129,7 @@ return PhpCsFixer\Config::create()
         // Removes unneeded parentheses around control statements.
         'no_unneeded_control_parentheses' => true,
         // Removes unneeded curly braces that are superfluous and aren't part of a control structure's body.
-        'no_unneeded_curly_braces' => ['namespaces'=>true],
+        'no_unneeded_curly_braces' => ['namespaces' => true],
         // Unused `use` statements must be removed.
         'no_unused_imports' => true,
         // In array declaration, there MUST NOT be a whitespace before each comma.
@@ -140,11 +141,11 @@ return PhpCsFixer\Config::create()
         // There should not be space before or after object `T_OBJECT_OPERATOR` `->`.
         'object_operator_without_whitespace' => true,
         // Ordering `use` statements.
-        'ordered_imports' => ['sort_algorithm'=>'length'],
+        'ordered_imports' => ['sort_algorithm' => 'length'],
         // PHPUnit annotations should be a FQCNs including a root namespace.
         'php_unit_fqcn_annotation' => true,
         // All items of the given phpdoc tags must be either left-aligned or (by default) aligned vertically.
-        'phpdoc_align' => ['tags'=>['method','param','property','return','throws','type','var']],
+        'phpdoc_align' => ['tags' => ['method', 'param', 'property', 'return', 'throws', 'type', 'var']],
         // PHPDoc annotation descriptions should not be a sentence.
         'phpdoc_annotation_without_dot' => true,
         // Docblocks should have the same indentation as the documented subject.
@@ -198,7 +199,7 @@ return PhpCsFixer\Config::create()
         // Each trait `use` must be done as single statement.
         'single_trait_insert_per_statement' => true,
         // Fix whitespace after a semicolon.
-        'space_after_semicolon' => ['remove_in_empty_for_expressions'=>true],
+        'space_after_semicolon' => ['remove_in_empty_for_expressions' => true],
         // Increment and decrement operators should be used if possible.
         'standardize_increment' => true,
         // Replace all `<>` with `!=`.
@@ -214,7 +215,7 @@ return PhpCsFixer\Config::create()
         // In array declaration, there MUST be a whitespace after each comma.
         'whitespace_after_comma_in_array' => true,
         // Write conditions in Yoda style (`true`), non-Yoda style (`false`) or ignore those conditions (`null`) based on configuration.
-        'yoda_style' => true,
+        'yoda_style' => false,
         // Each line of multi-line DocComments must have an asterisk [PSR-5] and must be aligned with the first one.
         'align_multiline_comment' => true,
         // Each element of an array must be indented exactly once.
@@ -240,7 +241,7 @@ return PhpCsFixer\Config::create()
         // DocBlocks must start with two asterisks, multiline comments must start with a single asterisk, after the opening slash. Both must end with a single asterisk before the closing slash.
         'multiline_comment_opening_closing' => true,
         // Forbid multi-line whitespace before the closing semicolon or move the semicolon to the new line for chained calls.
-        'multiline_whitespace_before_semicolons' => ['strategy'=>'no_multi_line'],
+        'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
         // Replace control structure alternative syntax to use braces.
         'no_alternative_syntax' => true,
         // There should not be a binary flag before strings.
@@ -291,11 +292,9 @@ return PhpCsFixer\Config::create()
         'simplified_null_return' => true,
     ])
     ->setFinder(PhpCsFixer\Finder::create()
-        ->exclude('vendor/')
-        ->exclude('bootstrap/')
-        ->exclude('public/')
-        ->exclude('resources/')
-        ->exclude('storage/')
-        ->in(__DIR__)
-    )
-;
+    ->exclude('vendor/')
+    ->exclude('bootstrap/')
+    ->exclude('public/')
+    ->exclude('resources/')
+    ->exclude('storage/')
+    ->in(__DIR__));

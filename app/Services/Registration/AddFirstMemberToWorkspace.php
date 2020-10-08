@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Registration;
 
 use App\Domain\Models\Member;
@@ -13,7 +15,9 @@ class AddFirstMemberToWorkspace
             'email' => $payload->get('email'),
         ]);
 
-        $member->roles()->attach(1, ['workspace_id' => $payload->get('customer')->workspaces()->first()->id]);
+        $member->roles()->attach(1, [
+            'workspace_id' => $payload->get('customer')->workspaces()->first()->id,
+        ]);
 
         return $payload;
     }
