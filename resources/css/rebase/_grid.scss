@@ -4,12 +4,14 @@
    display: grid;
    grid-template-columns: repeat($grid-cols, 1fr);
    row-gap: $px-16;
+   width: 100%;
 }
 
 @mixin grid-maker {
    @for $count from $grid-cols through 1 {
       &-#{$count} {
          display: flex;
+         border: 1px dashed #444;
          grid-column-end: span #{$count};
          grid-column-start: auto;
          overflow: hidden;

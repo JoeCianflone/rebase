@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::domain(config('app.url'))->group(function (): void {
     Route::inertia(['url' => 'design', 'namespace' => 'Web'])->name('design')->middleware('only.local');
+    Route::inertia(['url' => 'grid', 'namespace' => 'Web'])->name('grid')->middleware('only.local');
 
     Route::inertia(['url' => 'register/check-workspace', 'namespace' => 'Web'])->name('check-workspace.index');
     Route::post('register/check-workspace', Web\Register\ProcessCheckWorkspace::class)->name('check-workspace.process');

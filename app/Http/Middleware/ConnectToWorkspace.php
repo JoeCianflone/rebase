@@ -20,6 +20,7 @@ class ConnectToWorkspace extends BaseMiddleware
         '_debugbar',
         'stripe',
         'design',
+        'grid',
     ];
 
     /**
