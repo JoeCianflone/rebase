@@ -3,55 +3,35 @@ export default {
    name: "Icon",
    props: {
       name: String,
-      fontSize: {
-         type: String,
-         default: "18px",
-      },
       size: {
          type: Number,
-      },
-      width: {
-         type: [Number, String],
-         default: 18,
-      },
-      height: {
-         type: [Number, String],
-         default: 18,
+         default: 20,
       },
    },
    data() {
       return {
-         w: this.size ? this.size : this.width,
-         h: this.size ? this.size : this.height,
-         fs: this.size ? `${this.size}px` : this.fontSize,
+         w: `${this.size}px`,
+         h: `${this.size}px`,
       }
    },
-   methods: {},
 }
 </script>
 
 <template>
-   <svg :width="w" :height="h" :style="{ 'font-size': fs }">
-      <use v-bind="{ 'xlink:href': '/assets/images/feather-sprite@4.28.0.svg#' + name }" />
-   </svg>
+   <svg-vue :icon="name" class="icon" :style="{ width: w, height: h }"></svg-vue>
 </template>
 
-<style lang="scss" scoped>
-@import '@@/abstract';
+<style lang="scss">
+@import "@@/abstract";
 
 @mixin icon {
    fill: none;
-   line-height: normal;
-   position: relative;
-   stroke: currentColor;
-   stroke-linecap: round;
-   stroke-linejoin: round;
-   stroke-width: 2;
-
+   line-height: 0;
    @content;
 }
 
 .icon {
+   @include icon;
    &--left {
       @include icon {
          margin-right: $px-8;

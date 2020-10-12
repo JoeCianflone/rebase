@@ -2,10 +2,8 @@ const mix = require("laravel-mix")
 const path = require("path")
 const LiveReloadPlugin = require("webpack-livereload-plugin")
 
-mix.sass(
-   `${process.env.MIX_INPUT_STYLE}/app.scss`,
-   process.env.MIX_OUTPUT_STYLE
-)
+mix
+   .sass(`${process.env.MIX_INPUT_STYLE}/app.scss`, process.env.MIX_OUTPUT_STYLE)
    .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
    .options({
       extractVueStyles: true,
