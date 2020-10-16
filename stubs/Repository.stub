@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\Repositories;
 
 use App\Domain\Models\{{model}};
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use App\Domain\Repositories\EloquentRepository;
 
 class Eloquent{{model}}Repository extends EloquentRepository
@@ -14,8 +14,8 @@ class Eloquent{{model}}Repository extends EloquentRepository
 
     public function __construct({{model}} $model)
     {
-        $this->cache = new QueryCache('{{cache}}');
         $this->model = $model;
+        $this->cacheKey = '{{model}}';
     }
 
 }

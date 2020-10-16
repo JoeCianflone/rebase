@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace App\Domain\Models\Customer;
 
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Domain\Repositories\Facades\LookupRepository;
 
 class Customer extends Model
 {
@@ -19,16 +20,18 @@ class Customer extends Model
     public $incrementing = false;
 
     /**
-     * @var string
-     */
-    protected $connection = 'shared';
-
-    /**
      * @var array
      */
     protected $fillable = [
         'id',                   // required
         'name',                 // required
+        'line1',                // required
+        'line2',
+        'line3',
+        'city',                 // required
+        'state',                // required
+        'postal_code',          // required
+        'country',
         'agreed_to_terms',      // required
         'agreed_to_privacy',    // required
         'stripe_id',
@@ -56,16 +59,21 @@ class Customer extends Model
         static::creating(function ($customer): void {
             $customer->id = (string) Str::uuid();
         });
+
+        // static::created(function ($customer): void {        });
+
+        // static::updated(function ($workspace): void {
+        //     LookupRepository::updateWhere(['workspace_id' => $workspace->id], $workspace->toArray());
+        // });
+
+        // static::deleted(function ($workspace): void {
+        //     LookupRepository::removeWhere(['workspace_id' => $workspace->id]);
+        // });
     }
 
-    public function workspaces(): HasMany
+    public function lookup(): HasMany
     {
-        return $this->hasMany(Workspace::class);
-    }
-
-    public function customerAddresses(): HasMany
-    {
-        return $this->hasMany(CustomerAddress::class);
+        return $this->hasMany(Lookup::class);
     }
 
     public function subscriptions(): HasMany

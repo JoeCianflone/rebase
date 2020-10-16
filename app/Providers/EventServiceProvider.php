@@ -16,6 +16,16 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\StartCustomerSignup' => [
             'App\Listeners\CreateNewCustomer',
         ],
+
+        'App\Events\FailedCustomerSignup' => [
+            'App\Listeners\SendCustomerAlert',
+            'App\Listeners\SendSuperAdminAlert',
+        ],
+
+        'App\Events\FinishedCustomerSignup' => [
+            'App\Listeners\SendCustomerWelcomeEmail',
+            'App\Listeners\SendSuperAdminEmail',
+        ],
     ];
 
     /**

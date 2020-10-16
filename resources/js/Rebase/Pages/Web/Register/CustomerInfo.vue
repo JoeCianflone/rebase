@@ -24,12 +24,10 @@ export default {
             plan: null,
             name: null,
             email: null,
-            business_name: null,
             slug: this.slug,
-            is_business: "",
-            address_line1: null,
-            address_line2: null,
-            address_line3: null,
+            line1: null,
+            line2: null,
+            line3: null,
             unit_number: null,
             city: null,
             state: null,
@@ -60,8 +58,8 @@ export default {
                   email: vm.form.email,
                   address: {
                      city: vm.form.city,
-                     line1: vm.form.street_address1,
-                     line2: vm.form.street_address2,
+                     line1: vm.form.line1,
+                     line2: vm.form.line2,
                      postal_code: vm.form.postal_code,
                      state: vm.form.state,
                   },
@@ -74,7 +72,6 @@ export default {
                return false
             }
 
-            console.log(result)
             vm.form.payment_method = result.setupIntent.payment_method
 
             vm.$inertia.post("/register/customer", vm.form, {
@@ -92,22 +89,13 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
             <p v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news <strong>{{ slug }}.{{ $page.app.domain }}</strong
+               Great news&nbsp;<strong>{{ slug }}.{{ $page.app.domain }}</strong
                >&nbsp;is available!
             </p>
 
             <FormField validate="name" class="col-10--centered md::col-8--centered">
-               <FieldLabel>What's your name:</FieldLabel>
+               <FieldLabel>Company/Personal Name:</FieldLabel>
                <FormInput v-model="form.name" />
-            </FormField>
-
-            <FormField v-if="form.is_business" validate="business_name" class="col-10--centered md::col-8--centered">
-               <FieldLabel>What's your businesses name:</FieldLabel>
-               <FormInput v-model="form.business_name" />
-            </FormField>
-
-            <FormField validate="is_business" class="col-10--centered md::col-8--centered">
-               <FormCheckbox v-model="form.is_business">This is a business account</FormCheckbox>
             </FormField>
 
             <FormField validate="email" class="col-10--centered md::col-8--centered">
@@ -115,9 +103,9 @@ export default {
                <FormInput v-model="form.email" type="email" />
             </FormField>
 
-            <FormField validate="address_line1" class="col-10--centered md::col-6 md::col-at-3">
+            <FormField validate="line1" class="col-10--centered md::col-6 md::col-at-3">
                <FieldLabel>Address Line 1:</FieldLabel>
-               <FormInput v-model="form.address_line1" />
+               <FormInput v-model="form.line1" />
             </FormField>
 
             <FormField validate="unit_number" class="col-10--centered md::col-2">
@@ -126,14 +114,14 @@ export default {
             </FormField>
 
             <template v-if="showAddress">
-               <FormField validate="address_line2" class="col-10--centered md::col-8--centered">
+               <FormField validate="line2" class="col-10--centered md::col-8--centered">
                   <FieldLabel>Address Line 2:</FieldLabel>
-                  <FormInput v-model="form.address_line2" />
+                  <FormInput v-model="form.line2" />
                </FormField>
 
-               <FormField validate="address_line3" class="col-10--centered md::col-8--centered">
+               <FormField validate="line3" class="col-10--centered md::col-8--centered">
                   <FieldLabel>Address Line 3:</FieldLabel>
-                  <FormInput v-model="form.address_line3" />
+                  <FormInput v-model="form.line3" />
                </FormField>
             </template>
 
@@ -178,11 +166,11 @@ export default {
                <card-cvc ref="cardCvc" :stripe="stripe_key" />
             </FormField>
 
-            <FormField validate="is_business" class="col-10--centered md::col-8--centered">
+            <FormField validate="agreed_to_terms" class="col-10--centered md::col-8--centered">
                <FormCheckbox v-model="form.agreed_to_terms">I agree with the Terms of Service</FormCheckbox>
             </FormField>
 
-            <FormField validate="is_business" class="col-10--centered md::col-8--centered">
+            <FormField validate="agreed_to_privacy" class="col-10--centered md::col-8--centered">
                <FormCheckbox v-model="form.agreed_to_privacy">I agree with the Privacy Policy</FormCheckbox>
             </FormField>
             <Button class="col-10--centered md::col-4--centered" type="submit" :disable="sending">Go Pay</Button>

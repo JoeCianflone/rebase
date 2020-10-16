@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace App\Domain\Models\Customer;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SystemMessage extends Model
+class BannedSlug extends Model
 {
-    /**
-     * @var bool
-     */
-    public $incrementing = false;
-
     /**
      * @var string
      */
@@ -22,10 +17,9 @@ class SystemMessage extends Model
      * @var array
      */
     protected $fillable = [
-        'id',           // required
-        'headline',     // required
-        'entry',
-        'image_path',
+        'id',               // required
+        'slug',             // required
+        'reason',
         'created_at',
         'updated_at',
     ];

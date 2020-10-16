@@ -2,37 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace App\Domain\Models\Customer;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\Models\Workspace\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class CustomerAddress extends Model
+class Lookup extends Model
 {
-    /**
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * @var string
-     */
-    protected $connection = 'shared';
-
+    protected $table = 'lookup';
     /**
      * @var array
      */
     protected $fillable = [
-        'id',
-        'customer_id',
-        'is_primary',
-        'line1',
-        'line2',
-        'line3',
-        'city',
-        'state',
-        'postal_code',
-        'country',
+        'id',               // required
+        'customer_id',      // required
+        'workspace_id',     // required
+        'slug',             // required
+        'domain',
         'created_at',
         'updated_at',
     ];
@@ -41,7 +28,6 @@ class CustomerAddress extends Model
      * @var array
      */
     protected $casts = [
-        'is_primary' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -49,5 +35,10 @@ class CustomerAddress extends Model
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class);
     }
 }

@@ -85,10 +85,10 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => env('MAIL_MARKDOWN_THEMES', 'default'),
 
         'paths' => [
-            resource_path('views/vendor/mail'),
+            resource_path(env('MAIL_MARKDOWN_PATH', 'views/vendor/mail')),
         ],
     ],
 ];

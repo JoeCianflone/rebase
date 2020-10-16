@@ -2,29 +2,26 @@
 
 namespace App\Services\Registration;
 
-use App\Domain\Models\Customer;
+use Carbon\Carbon;
+use App\Domain\Facades\CustomerRepository;
 
 class AddCustomer
 {
     public function __invoke($payload)
     {
-        $customer = Customer::create([
+        $customer = CustomerRepository::create([
             'name' => $payload->get('name'),
-            'is_business' => $payload->get('is_business', false),
-            'business_name' => $payload->get('business_name'),
-            'agreed_to_terms' => $payload->get('agreed_to_terms'),
-            'agreed_to_privacy' => $payload->get('agreed_to_privacy'),
-        ]);
-
-        $customer->customerAddresses()->create([
-            'is_primary' => true,
-            'line1' => $payload->get('address_line1'),
-            'line2' => $payload->get('address_line2'),
-            'line3' => $payload->get('address_line3'),
+            'line1' => $payload->get('line1'),
+            'line2' => $payload->get('line2'),
+            'line3' => $payload->get('line3'),
             'unit_number' => $payload->get('unit_number'),
             'city' => $payload->get('city'),
             'state' => $payload->get('state'),
             'postal_code' => $payload->get('postal_code'),
+            'agreed_to_terms' => $payload->get('agreed_to_terms'),
+            'agreed_to_privacy' => $payload->get('agreed_to_privacy'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         $payload->put('customer', $customer);

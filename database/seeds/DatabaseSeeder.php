@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(BannedSlugSeeder::class);
+        $this->call(PersonalWorkspace::class);
+        $this->call(ExtraWorkspaces::class);
     }
 }

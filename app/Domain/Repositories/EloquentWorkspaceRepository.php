@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Domain\Models\Workspace;
+use App\Domain\Models\Workspace\Workspace;
 
 class EloquentWorkspaceRepository extends EloquentRepository
 {
@@ -16,21 +16,21 @@ class EloquentWorkspaceRepository extends EloquentRepository
 
     public function hasSlug(string $slug): bool
     {
-        return $this->model->whereSlug($slug)->count() > 0;
+        return $this->model->where('slug', '=', $slug)->count() > 0;
     }
 
-    public function getBySlug(string $slug): Workspace
+    public function whereBySlug(string $slug): Workspace
     {
-        return $this->cache('getBySlug', fn () => $this->model->whereSlug($slug)->firstOrFail());
+        return $this->cache('whereBySlug', fn () => $this->model->where('slug', '=', $slug)->firstOrFail());
     }
 
-    public function getByDomain(string $domain): Workspace
+    public function whereByDomain(string $domain): Workspace
     {
-        return $this->cache('getByDomain', fn () => $this->model->whereDomain($domain)->firstOrFail());
+        return $this->cache('whereByDomain', fn () => $this->model->where('domain', '=', $domain)->firstOrFail());
     }
 
-    public function getByAccountID(string $id): Workspace
+    public function whereByCustomerID(string $id): Workspace
     {
-        return $this->cache('getByAccountID', fn () => $this->model->whereAccountId($id)->firstOrFail());
+        return $this->cache('whereByCustomerID', fn () => $this->model->where('customer_id', '=', $id)->firstOrFail());
     }
 }

@@ -25,7 +25,7 @@ class CheckWorkspaceRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => ['required', 'unique:workspaces,slug', 'min:3', 'max:100', new SlugIsNotBanned()],
+            'slug' => ['required', 'unique:lookup,slug', 'min:3', 'max:100', new SlugIsNotBanned()],
         ];
     }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace App\Domain\Models\Workspace;
 
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
@@ -64,8 +64,8 @@ class Member extends Authenticatable
         });
     }
 
-    public function roles()
+    public function workspaces()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Workspace::class);
     }
 }

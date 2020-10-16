@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Domain\Models\Member;
-use App\Domain\Models\Customer;
-use App\Domain\Models\Workspace;
-use App\Domain\Models\BannedSlug;
-use App\Domain\Models\MemberWorkspace;
+use App\Domain\Models\Customer\Lookup;
 use Illuminate\Foundation\Application;
+use App\Domain\Models\Workspace\Member;
 use Illuminate\Support\ServiceProvider;
+use App\Domain\Models\Customer\Customer;
+use App\Domain\Models\Customer\BannedSlug;
+use App\Domain\Models\Workspace\Workspace;
+use App\Domain\Repositories\EloquentLookupRepository;
 use App\Domain\Repositories\EloquentMemberRepository;
 use App\Domain\Repositories\EloquentCustomerRepository;
 use App\Domain\Repositories\EloquentWorkspaceRepository;
 use App\Domain\Repositories\EloquentBannedSlugRepository;
-use App\Domain\Repositories\EloquentMemberWorkspaceRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -38,9 +38,9 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentBannedSlugRepository(new BannedSlug());
         });
 
-        // $this->app->singleton('MemberWorkspaceRepository', function (Application $app) {
-        //     return new EloquentMemberWorkspaceRepository(new MemberWorkspace());
-        // });
+        $this->app->singleton('LookupRepository', function (Application $app) {
+            return new EloquentLookupRepository(new Lookup());
+        });
     }
 
     /**

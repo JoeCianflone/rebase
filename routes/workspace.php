@@ -52,7 +52,7 @@ Route::middleware(['workspace.connection'])->group(function (): void {
      * PUT /account/plan
      */
 
-    // Route::get('/login', Auth\ViewLogin::class)->name('view.login');
+    Route::get('/login', Workspace\Auth\Login::class)->name('login');
 
     /*
      * GET /reports

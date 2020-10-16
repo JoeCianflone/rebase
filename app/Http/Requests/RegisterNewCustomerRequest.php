@@ -25,15 +25,17 @@ class RegisterNewCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => ['required', 'unique:workspaces,slug', 'min:3', 'max:100', new SlugIsNotBanned()],
+            'slug' => ['required', 'unique:lookup,slug', 'min:3', 'max:100', new SlugIsNotBanned()],
             'plan' => ['required'],
             'name' => ['required', 'max:200', 'string'],
-            'business_name' => ['max:200', 'required_if:is_business,=,true'],
             'email' => ['required', 'email', 'max:200'],
-            'address_line1' => ['required', 'string'],
+            'line1' => ['required', 'string'],
             'city' => ['required', 'string'],
             'state' => ['required', 'string'],
             'postal_code' => ['required', 'string', 'max:5'],
+            'agreed_to_terms' => ['required'],
+            'agreed_to_privacy' => ['required'],
+            'line1' => ['required', 'string'],
         ];
     }
 

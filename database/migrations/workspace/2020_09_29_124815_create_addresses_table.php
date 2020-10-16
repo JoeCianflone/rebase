@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerAddressesTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('customer_addresses', function (Blueprint $table): void {
+        Schema::create('addresses', function (Blueprint $table): void {
             $table->id();
-            $table->uuid('customer_id');
+            $table->uuid('workspace_id');
             $table->boolean('is_primary')->default(false);
             $table->string('line1');
             $table->string('line2')->nullable();
@@ -22,11 +22,12 @@ class CreateCustomerAddressesTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('postal_code');
+            $table->string('country')->default('USA');
             $table->timestamps();
 
-            $table->foreign('customer_id')
+            $table->foreign('workspace_id')
                 ->references('id')
-                ->on('customers')
+                ->on('workspaces')
                 ->onDelete('cascade');
         });
     }
@@ -36,6 +37,6 @@ class CreateCustomerAddressesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer_addresses');
+        Schema::dropIfExists('addresses');
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Domain\Models\BannedSlug;
+use App\Domain\Models\Customer\BannedSlug;
 
 class EloquentBannedSlugRepository extends EloquentRepository
 {

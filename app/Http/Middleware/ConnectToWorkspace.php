@@ -6,7 +6,7 @@ use Closure;
 use App\Helpers\HostHelper;
 use Illuminate\Http\Request;
 use App\Helpers\WorkspaceDatabase;
-use App\Domain\Facades\WorkspaceRepository;
+use App\Domain\Repositories\Facades\LookupRepository;
 
 class ConnectToWorkspace extends BaseMiddleware
 {
@@ -35,10 +35,10 @@ class ConnectToWorkspace extends BaseMiddleware
         $host = new HostHelper($request->getHost());
 
         try {
-            $workspace = $host->isCustomDomain() ? WorkspaceRepository::getByDomain($host->getDomain()) : WorkspaceRepository::getBySlug($host->getSlug());
+            $lookup = $host->isCustomDomain() ? LookupRepository::whereByDomain($host->getDomain()) : LookupRepository::whereBySlug($host->getSlug());
 
             WorkspaceDatabase::disconnect();
-            WorkspaceDatabase::connect($workspace->id);
+            WorkspaceDatabase::connect($lookup->customer_id);
 
             if ($host->isCustomDomain()) {
                 config([
@@ -47,13 +47,12 @@ class ConnectToWorkspace extends BaseMiddleware
             }
 
             session([
-                'workspace_id' => $workspace->id,
-                'workspace_slug' => $workspace->slug,
-                'workspace_url' => $host->getURL(),
+                'workspace_id' => $lookup->workspace_id,
+                'customer_id' => $lookup->customer_id,
+                'slug' => $lookup->slug,
+                'url' => $host->getURL(),
             ]);
         } catch (\Exception $e) {
-            // Just redirect to the registration page, in app you should send a message or do something if this happens
-
             return redirect()->route('check-workspace.index');
         }
 

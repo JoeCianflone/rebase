@@ -17,6 +17,14 @@ class CreateCustomersTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->enum('status', Arr::flatten(CustomerStatus::toArray()))->default(CustomerStatus::PENDING());
+            $table->string('line1');
+            $table->string('line2')->nullable();
+            $table->string('line3')->nullable();
+            $table->string('unit_number')->nullable();
+            $table->string('city');
+            $table->string('state');
+            $table->string('postal_code');
+            $table->string('country')->default('USA');
             $table->boolean('agreed_to_terms')->default(true);
             $table->boolean('agreed_to_privacy')->default(true);
             $table->string('stripe_id')->nullable()->index();

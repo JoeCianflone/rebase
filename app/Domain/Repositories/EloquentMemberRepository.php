@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories;
 
-use App\Domain\Models\Member;
+use App\Domain\Models\Workspace\Member;
 
 class EloquentMemberRepository extends EloquentRepository
 {
