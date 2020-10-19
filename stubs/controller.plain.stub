@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace {{namespace}};
+namespace {{ namespace }};
 
 use Inertia\Response;
-use App\Actions\Action;
+use {{ rootNamespace }}Actions\Action;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use {{ rootNamespace }}Http\Controllers\Controller;
 
 class {{ class }} extends Controller
 {

@@ -11,7 +11,8 @@ class DBExplode extends Command
 {
     protected $signature = 'db:explode
                                 {slug? : optional name of the workspace you\' like to blow up}
-                                {--reset : just delete do not rerun the migrations}';
+                                {--reset : just delete do not rerun the migrations}
+                                {--seed : seed the DB after we clean it out}';
 
     protected $description = 'Blow out local shared and/or local workspace databases';
 
@@ -36,10 +37,9 @@ class DBExplode extends Command
             $this->info('Hold on to your butts');
 
             $this->dropAllWorkspaces();
-
             $this->dropShared();
 
-            $this->line('');
+            $this->newLine();
             $this->info('Data go :boom:');
         } else {
             $this->error('OH GOD WE DELETED EVERYTHING! ');
@@ -56,6 +56,7 @@ class DBExplode extends Command
         } else {
             $this->call('migrate:fresh', [
                 '--step' => true,
+                '--seed' => $this->option('seed'),
             ]);
         }
     }
@@ -65,7 +66,7 @@ class DBExplode extends Command
         $allSpaces = WorkspaceDatabase::allSpaces(config('app-paths.db.workspace.prefix'));
 
         if (!is_null($allSpaces) && $allSpaces->count() > 0) {
-            $this->line('');
+            $this->newLine();
             WorkspaceDatabase::allSpaces(config('app-paths.db.workspace.prefix'))->each(function ($id): void {
                 WorkspaceDatabase::drop($id);
 
@@ -82,9 +83,10 @@ class DBExplode extends Command
         try {
             $workspace = WorkspaceRepository::getBySlug($slug);
             $this->alert("Dropping workspace {$slug}");
+
             WorkspaceDatabase::drop($workspace->customer_id);
 
-            $this->line('');
+            $this->newLine();
             $this->info($this->argument('slug').' has gone :boom:');
         } catch (ModelNotFoundException $e) {
             $this->error("Unable to find workspace {$slug}");

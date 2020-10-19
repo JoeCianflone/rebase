@@ -61,22 +61,9 @@ class FileGenerator
         return $this;
     }
 
-    public function setPath(string $path, ?bool $useShared, ?string $folders = null): self
+    public function setPath(string $path = ''): self
     {
-        $this->path = $path.'/';
-
-        if (!is_null($useShared) && false === $useShared) {
-            $this->path .= config('app-paths.workspace').'/';
-            $this->path .= $this->userPath.'/';
-        }
-
-        if (!is_null($folders)) {
-            if ($this->isSingular) {
-                $this->path .= ucfirst(Str::singular($folders));
-            } else {
-                $this->path .= ucfirst(Str::plural($folders));
-            }
-        }
+        $this->path = $path.'/'.$this->userPath;
 
         return $this;
     }

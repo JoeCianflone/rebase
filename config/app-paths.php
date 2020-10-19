@@ -39,6 +39,8 @@ return [
 
     'models' => env('PATH_MODELS', 'app/Domain/Models'),
 
+    'facades' => env('PATH_FACADES', 'app/Domain/Facades'),
+
     'repositories' => env('PATH_REPOSITORIES', 'app/Domain/Repositories'),
 
     'nginx' => env('PATH_NGINX', '/etc/nginx'),

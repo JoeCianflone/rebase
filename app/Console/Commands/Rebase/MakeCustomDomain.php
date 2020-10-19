@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
-use App\Rebase\Helpers\FileGenerator;
+use App\Helpers\Rebase\FileGenerator;
 
 class MakeCustomDomain extends Command
 {
@@ -54,7 +54,7 @@ class MakeCustomDomain extends Command
             ->shouldBeSingular(true)
             ->setPath(config('app-paths.nginx'), null, 'sites-available');
 
-        $file->hydrate('Nginx', [
+        $file->hydrate('nginx', [
             '{{domain}}' => $this->argument('domain'),
             '{{app_root}}' => config('domain.root').'/'.$this->argument('domain').'/public',
             '{{app_domain}}' => config('domain.url'),

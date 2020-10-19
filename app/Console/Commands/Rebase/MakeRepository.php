@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands\Rebase;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use App\Rebase\Helpers\FileGenerator;
+use App\Helpers\Rebase\FileGenerator;
 
 class MakeRepository extends Command
 {
-    protected $signature = 'make:repository {name} {model?}';
+    protected $signature = 'make:repository {name} {model}';
 
     protected $description = 'Generate a repository/facade';
 
@@ -19,12 +18,13 @@ class MakeRepository extends Command
 
     public function handle(): void
     {
-        $modelName = $this->argument('model') ?? $this->argument('name');
+        $modelName = $this->argument('model');
 
         $repo = $this->stubOutRepository($modelName);
         $facade = $this->stubOutFacade($modelName);
 
         $this->line('<comment>Please make sure you input the following into your RepositoryServiceProvider:</comment>');
+        $this->newLine();
         $this->info('$this->app->singleton(\''.$facade->getName().'\', function(Application $app) {
                         return new '.$repo->getName().'(new '.$modelName.'());
                      });');
@@ -32,11 +32,9 @@ class MakeRepository extends Command
 
     private function stubOutFacade(string $modelName): FileGenerator
     {
-        $file = (new FileGenerator(Str::replaceFirst('Repository', '', $this->argument('name')), null, 'Repository'))
-            ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.repositories'), null, 'Facades');
+        $file = (new FileGenerator($this->argument('name'), null, 'Repository'))->setFileExtensionAs('php')->setPath(config('app-paths.facades'));
 
-        $file->hydrate('RepositoryFacade', [
+        $file->hydrate('repository.facade', [
             '{{classname}}' => $file->getName(),
             '{{model}}' => $modelName,
         ]);
@@ -53,11 +51,11 @@ class MakeRepository extends Command
 
     private function stubOutRepository(string $modelName): FileGenerator
     {
-        $file = (new FileGenerator(Str::replaceFirst('Repository', '', $this->argument('name')), 'Eloquent', 'Repository'))
+        $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
             ->setFileExtensionAs('php')
-            ->setPath(config('app-paths.repositories'), null);
+            ->setPath(config('app-paths.repositories'));
 
-        $file->hydrate('Repository', [
+        $file->hydrate('repository', [
             '{{classname}}' => $file->getName(),
             '{{model}}' => ucfirst($modelName),
             '{{cache}}' => strtolower($modelName),

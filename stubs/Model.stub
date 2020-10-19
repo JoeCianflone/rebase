@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models;
+namespace {{ namespace }};
 
 use Illuminate\Database\Eloquent\Model;
 
-class {{classname}} extends Model
+class {{ class }} extends Model
 {
 
     /**
@@ -17,15 +17,15 @@ class {{classname}} extends Model
     /**
      * @var string
      */
-    protected $connection = '{{type}}';
+    // protected $connection = 'workspace';
 
     /**
      * @var array
      */
     protected $fillable = [
         'id',
-        'created_at'
-        'updated_at'
+        'created_at',
+        'updated_at',
     ];
 
     /**
