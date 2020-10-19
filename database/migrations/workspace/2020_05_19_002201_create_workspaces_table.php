@@ -24,7 +24,7 @@ class CreateWorkspacesTable extends Migration
 
             $table->foreign('customer_id')
                 ->references('id')
-                ->on(config('app-paths.db.shared.name').'.customers')
+                ->on(config('rebase-paths.db.shared.name').'.customers')
                 ->onDelete('cascade');
         });
     }

@@ -37,7 +37,7 @@ class MigrateWorkspaces extends Command
         WorkspaceDatabase::disconnect();
         WorkspaceDatabase::connect($customerID);
 
-        $this->callMigration(config('app-paths.db.workspace.migration_path'));
+        $this->callMigration(config('rebase-paths.db.workspace.migration_path'));
     }
 
     private function migrateAllWorkspaces(): void
@@ -56,7 +56,7 @@ class MigrateWorkspaces extends Command
         ];
 
         if (!is_null($path)) {
-            $options['--database'] = config('app-paths.db.workspace.connection');
+            $options['--database'] = config('rebase-paths.db.workspace.connection');
             $options['--path'] = $path;
         }
 

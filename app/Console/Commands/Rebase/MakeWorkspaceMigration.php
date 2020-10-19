@@ -20,7 +20,7 @@ class MakeWorkspaceMigration extends Command
     {
         $this->call('make:migration', [
             'name' => $this->argument('name'),
-            '--path' => config('app-paths.db.workspace.migration_path'),
+            '--path' => config('rebase-paths.db.workspace.migration_path'),
         ]);
     }
 }

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Actions\Rebase;
 
 use ReflectionClass;
+use App\Contracts\Rebase\Actionable;
 
-class GetView
+class GetView implements Actionable
 {
-    public static function handle(object $class): string
+    public static function handle(...$payload): string
     {
-        return 'Pages'.str_replace(ucfirst(config('app-paths.controllers')), '', str_replace('\\', '/', (new ReflectionClass($class))->name));
+        [$class] = $payload;
+
+        return 'Pages'.str_replace(ucfirst(config('rebase-paths.controllers')), '', str_replace('\\', '/', (new ReflectionClass($class))->name));
     }
 }

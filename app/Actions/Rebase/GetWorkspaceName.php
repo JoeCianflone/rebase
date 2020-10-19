@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Actions\Rebase;
 
-class GetWorkspaceName
+use App\Contracts\Rebase\Actionable;
+
+class GetWorkspaceName implements Actionable
 {
-    public static function handle(string $id): string
+    public static function handle(...$payload): string
     {
-        return  config('app-paths.db.workspace.prefix').str_replace('-', '_', $id);
+        [$id] = $payload;
+
+        return  config('rebase-paths.db.workspace.prefix').str_replace('-', '_', $id);
     }
 }
