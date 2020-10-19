@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Arr;
-use App\Enums\WorkspaceStatus;
+use App\Enums\Rebase\WorkspaceStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

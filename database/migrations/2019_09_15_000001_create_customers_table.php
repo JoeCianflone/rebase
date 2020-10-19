@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Arr;
-use App\Enums\CustomerStatus;
+use App\Enums\Rebase\CustomerStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

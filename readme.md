@@ -1,289 +1,91 @@
 # Rebase
 
-Rebase is not a framework. It's a meta-framework and set of conventions for building large apps in Laravel. I try to codify how I name things and conventions I use below. I should also note that while this is open for anyone to use, it's really _my_ way of doing things, so I am probably not open to changes, but I'd be happy to talk about them with anyone who has a question. If you don't like this that's totally fine too, you don't need to use this, you don't need to like my standards either, I'm good with that.
+Rebase is not a framework. It's a meta-framework and set of conventions for building large apps in Laravel. I try to codify how I name things and conventions I use below. I should also note that while this is open for anyone to use, it's really _my_ way of doing things, so while I might be open to changes, I may also not be so don't be super-surprised.
 
-## Intended Usage and Project Goals
+# Intended Usage and Project Goals
 
-I have two main goals with this project: 
+## Project Goals
 
-1. Not reinvent the wheel every time I build something -- so many times I start a new project and I'm re-doing all this stuff. I don't want to do that any more I want to have a consistent structure, setup, and language between all projects. 
-2. Make it simple for downstream/upstream communication to occur -- Composer allows me to update my backend dependencies, Yarn allows me to update my front end...what about project specific things I write? Shouldn't there be an easy way to pass down updates from rebase to different projects? Shouldn't I be able to pass back a fix from a project to Rebase itself? So many times as developers working on multiple projects we don't think about how to share the code *we* write with all our own projects. This project will have a simple way to pass up/down new updates without blowing up user code via simple conventions that everyone can follow.
+1. Not reinvent the wheel every time I build something -- so many times I start a new project and I'm re-doing all this stuff. I don't want to do that any more I want to have a consistent structure, setup, and language between all projects.
+2. Make it simple for downstream/upstream communication to occur -- Composer allows me to update my backend dependencies, Yarn allows me to update my front end stuff, but there's this strange middle that doesn't have an easy way of updating and I'm trying to fix that for myself.
 
-### Step 1: Fork this repository
+The "strange middle" is what occurs if you have large projects built on top of frameworks and you want to use that project. For example, if you want to build your code _on top of_ another project there's no good way to update that code because chances are if you did a `git pull origin` you'd get a ton of conflicts. This means that sharing code between projects becomes more difficult, you'd either have to make everything a composer package...which may not be possible, or you're going to have to copy-and-paste...which sucks.
 
-When starting a new project, the first thing is to fork this repository. This repo needs to become your `upstream master` so that way you can pull in any changes we make in here.
+## Intended Usage
 
-### Step 2: Install these things
+This project will help you build large multi-tenant/multi-database Laravel applications that use the following things:
 
-A couple of things you're going to need globally installed on your machine:
+-  Laravel 8
+-  Horizon
+-  Cashier
+-  InertiaJS
+-  VueJS
+-  Sass
 
--  Yarn (not NPM, this uses yarn and even the underlying commands use yarn)
--  Composer (duh)
--  PHPStan
--  PHP CS Fixer
+Could you use Jetstream with this? Maybe? I have no idea because it's not somethig I've tried.
 
-You might think, "I don't want PHPStan on my machine," because you're cool and make your own rules. Well, ok, sure. But the codebase uses a tool called `husky` to add a bunch of pre-commit hooks to the code that will run tests and linters among other things. So, you do you...but you'll need to disable all that stuff the `package.json` file. No I'm not telling you how, I want you to run those, so if you break it tough :)
+# Installation
 
-### Step 3: Install
+Please note: I use Laravel Homestead. All these instructions work for homestead so if you use Docker or Valet or something else I can't help you, but in theory these instructions should be pretty agnostic.
 
-Run the following: `composer install && yarn`
+## Step 1: Fork this repository
 
-#### Step 3a: Where's the database?
+When starting a new project, the first thing is to fork this repository. This repo needs to become your `upstream primary` so that way you can pull in any changes we make in here.
 
-I use Homestead because it's stupid simple to set up and I think Docker is hot mess. I'm sure it's not actually that way, but well, I don't care. I use Homestead. I mention this because now it's going to be time to run the migration and seed the database, for me this means I need to ssh into Homestead...for you...idk...what do you do for Docker? I think it's kill a chicken in a cemetery at midnight and rub it's blood into your chair then pray to the old gods for access. You do lose 1 day of your life for every time they grant you access, but hey, that's Docker.
+## Step 2: ENV file Updates
 
-Anyway...once you're ready run `php artisan db:migrate`
+Please look at the `.env.example` file, there's a lot of stuff in there you're going to need in order for this project to work. If I were you, before you do anything I'd copy that over as your `.env` the file itself is commented so you'll have a good understanding of all the fields are and why they're needed.
 
-Yes, this is a different command from the standard Laravel one...that's because we've got multiple databases. This will seed your shared database.
+## Step 3: Install all the things
 
-## Please Remember: this is a WIP
+```
+$ composer install && yarn
+```
 
-If you're looking at this, cool, but there's a lot I've left out and I know it's not there at the moment. I've got a running list, please don't ask/tell me stuff, I know I've put together a road map.
+## Step 4: Database
 
-## First, PHP
+SSH into your homestead and run the following:
 
-This is using the latest version of PHP. While Laravel itself doesn't _need_ PHP 7.4, Rebase does make use of some 7.4 functionality so make sure you're on that locally, or you're gonna have a bad time. I'll update this to PHP 8 when it's stable, I usually wait about 2 to 4 weeks after release so if there are any gnarly bugs they're worked out.
+```
+$ php artisan migrate
+```
 
-## Folder Language
+This is for your `shared` database and won't work unless you've filled out your `.env` file.
 
-Language is important. Not just programming-wise, but the words we use in talking about our projects. Rebase *is* multi-tenant but I've found that calling things *tenant* and *landlord* seem to confuse people outside of the development world. To that end, I want to make sure that the language used *inside* the project is consistent so everyone working in it, with it, and around it knows what the hell we're talking about.
+## Step 5: Seed
 
-### Shared vs Workspace
+```
+$ php artisan db:seed
+```
 
-The first two big divisions in the folder structure are between `shared` things and `workspace` things. `shared` in here means "landlord" or code that runs on the TLD. `workspace` means "tenant" or code that runs on the sub-domain. These are important distinctions because sometimes developers think of "shared" as "global" or "code that's used in multiple places and that is **not** the case here. You see this division in lots of places, but if it's ever not clear, that's a problem that needs to be addressed. 
+This command is going to take a little bit to run because it generates `workspace` databases so that takes a second or two to run. Like step 4, this won't work if you didn't fill out your `.env` file
 
-### App vs Rebase
+# Architecture
 
-This one kinda annoys me, but I can't think of anything better so until I do we gotta live with it. In this context, I'm only talking about `App` and `Rebase` inside the `js` or `css` folders. You shouldn't see these words outside of there (with the exception being the `app` directory for Laravel). In this context, `App` refers to "downstream things built on top of Rebase" while `Rebase` means "things that the upstream project, Rebase, controls." You really need to think about these two folders as which project controls what happens. So if you're working on your own project you put all your own JS/CSS inside `App`. This allows you to easily override upstream stuff and allows for upstream to update stuff too. 
+```
+App
+  - http
+    - Controller
+      - Rebase
+        - Legal
+        - Registration
+        - Foo
+        - Workspace
+          - Auth
+          - Customer
+      - AppName
+        - Workspace
 
-
-## Directory Augmentation
-
-There are no directory changes from a base Laravel standpoint. All folders are additive but more about organization, I did not and will not be changing the `app` folder. I get why some people think that's a good idea, but I'm personally against it. Why? Because it's just _one more thing_ I need to teach another developer. I've build some rather large Laravel projects the base structure is fine! When you move things, you now gotta remember where you put it and why, that's overhead you don't need.
-
-### New Folders
-
-All that being said, I did **add** folders, because adding folders makes perfect sense! Folders keep your code organized. So here are some new folders:
-
--  app
-
-   -  Actions -- Actions are single action specific classes that do one thing See `GetView`
-   -  Domain -- I think this makes sense, but I consider my domain to be my `models` and `repositories` that act on those models
-      -  Models -- Eloquent models
-      -  Repositories
-         -  Facades -- Yes, I use facades for my `repositories` suck it, I love them.
-   -  Enums
-   -  Helpers -- A group of functions that help you in some way. See `WorkspaceDatabase` for more understanding
-
--  database
-
-   -  migrations
-      -  shared -- these migrations run on the `shared` DB
-      -  workspace -- these migrations run on the individual workspaces
-
--  stubs -- These are where I keep my stubs/overrides
-
-## A Note About Models
-
-One thing I've recently changed my mind on is `fillable` vs `guarded` in models. I've switched all my models to be fillable. On the worst end of things, it's not *that* hard to switch to `guarded` but here's my thinking on it. The concept of doing `$guarded = [];` helps the developer rapidly develop and iterate. You add a new attribute to a model and you go and test and everything will just work. When you're using `$fillable = [...];` you now need to remember that you also need to add that property to your list in your model. Ugh I know, 3 whole extra seconds of work!
-
-If you couldn't tell from that last line, I personally realized it's just not that big of a deal to have to remember to add a line to a model. Sure, it's an extra step, but we're not talking even 30 seconds of work! The upside of using fillable though means you don't have to hold all the attribute names in your head anymore. Maybe this is just my problem because I have ADHD...but I always run into this issue where I forget what's on a particular model. Like, is it `address_line1` or is it `address_line_1` or `address1`? Now you could say, "well just open up the database and look at the table," but fucking why? I'm in code, why do I need to open another program to figure out what fields are currently present? This is also great for *new* developers because now they can all just go to the models and *actually see* what's on it at that time. 
-
-So yea, it's a little bit of extra overhead, but I think this is worth it because it will enhance the DX (developer experience) down the road. 
-
-## What this should and should not do
-
-This isn't a full or complete application. This should do just the basics. It's your job to build the app on top of this code.
-
-
-## Controller/View Names
-
-While this does follow some basic RESTful conventions. This is not a RESTful API. These are URL's so we don't need to feel compelled to stick to a REST convention if/when it doesn't make sense, but generally these are the conventions that Laravel uses for Resource Controllers so these are the default names we start with, but I add non-RESTful matching names when it makes sense. Take a look at this fake `photos` section for a better understanding:
-
-| Method    | URI                    | Name/Key            | View and Controller Name |
-| --------- | ---------------------- | ------------------- | ------------------------ |
-| GET       | /photos                | index.photos        | Photos                   |
-| GET       | /photos/create         | create.photos       | CreatePhotos             |
-| POST      | /photos/store          | store.photos        | StorePhotos              |
-| POST      | /photos/process        | process.photos      | ProcessPhotos            |
-| GET       | /photos/{photo}        | show.photos         | ShowPhotos               |
-| GET       | /photos/{photo}/edit   | edit.photos         | EditPhotos               |
-| PATCH/PUT | /photos/{photo}/update | update.photos       | UpdatePhotos             |
-| DELETE    | /photos/{photo}/delete | delete.photos       | DeletePhotos             |
-| POST      | /photos/upload         | upload.photos       | UpdatePhotos             |
-| GET       | /photos/group/create   | group.photos.create | GroupPhotosCreate        |
-| GET       | /photos/group/edit     | group.photos.edit   | GroupPhotosEdit          |
-| PUT       | /photos/group/update   | group.photos.update | GroupPhotosUpdate        |
-| DELETE    | /photos/group/delete   | group.photos.delete | GroupPhotosDelete        |
-| POST      | /photos/group/upload   | group.photos.upload | GroupPhotosUpload        |
-| -         |
-
-### `process` Controllers
-
-There are some controllers that will never `store` or `update` the database in any way. They process data in some way, but that's about all they do. I think a great example of this is Login/Logout. You're not storing anything, you're just checking the data you're given. I guess you could name it something like `PostLogin` or `PostLogout` and `post.login` but why are we tying it to a method name? Just call-it-like-it-is: processing.
-
-In case you're thinking, "login and logout are the only examples where this would make sense," I could make an argument for payments. Some people could make the argument that you're "updating the account" and that may very well be the case. But sometimes a payment is one-off, maybe the account doesn't get updated, or maybe your app does something where you need to FIRST process a payment THEN hand off control to something else before you update. Bottom line, you could have 1000 different things going on before an account update should ever happen. In that case, maybe `process` is the right name. All I'm saying is, this document doesn't prescribe anything in particular
-
-### `group` Controllers
-
-The way I work, every controller works on a single object. Take the `photos` example above. If you were to upload a single photo and add some text to it or a title or whatever, you're working on a single photo. In that case, you'd call the route `store.photo`. In most applications, that's probably the only route you'd need. But, what if you're uploading 100 pictures and you have a bunch of bulk edits you'd like to make? Well, you could just call the `store.photo` route 100 times, that might make sense for what you're doing. Another thing you could do would be to allow the `store.photo` route to take either either a single object or an array. Depending on your team and your application those solutions could totally make sense. 
-
-However, something I find is that when I need to do bulk operations, there are other things I also need to do along the way. Maybe I need to validate a CSV file, or check some extra data exists somewhere...and maybe for whatever reason this logic doesn't need to exist when I'm storing a single photo. These situations don't come up every day, but when they do they're kinda annoying. I've seen single action controllers balloon up because of unique things that have to be done on bulk updates. 
-
-This is where the `Group` convention comes up. If the actions become "different enough" or your team doesn't like the idea of overloading a controller or you just like this better, then the idea is that you have two different controllers: one for a single action; one for an action that needs to occur over multiple objects. You name these with `group` in them to differentiate that these work on groups of items. Also, because I'm crazy, you should make sure your noun makes sense. You don't `UpdateGroupPhoto` you `UpdateGroupPhotos` (Update a Group of Photos...see?).
-
-## Actions vs Helpers
-
-Rebase distinguishes two different types of helper that you could have in an app: `actions` and `helpers`. Helpers are your common classes that have helpful functions in them. Usually the are a group of related things, like our `WorkspaceDatabase` helper which has all the functions needed to spin-up a new database for a workspace. Actions, on the other hand, are single method classes that do a specific task. A good example of this is our `GetView` action, which helps map our Controllers to View folders.
-
-### Actions are Macroable
-
-Actions are stored in the `app/Actions` folder and they're initialized in the `AppServiceProvider` under the `Action::init()` function. 
-
-Each action class must define a single `handle()` method and it must be static. Now this isn't controlled through an interface or abstract class because the `handle` method is allowed to take in whatever parameters you need. However, the `Action::init` method *expects* a handle method and it's *expected* to be static so, if you'd like this to work, you gotta have it. 
-
-
-
-When you want to use a particular action, you call it like so:
-
-```php
-
-Action::getView('foo');
+routes
+  - rebase
+  - rebase_workspace
+  - <your-app>
+  - <your-app>_workspace
 
 ```
 
+Controller/Rebase/Web/Legal/Privacy.php Controller/AppName/Web/Legal/Privacy
 
+js/Rebase/Web/Legal/Privacy
 
-## Query Names
-
-Call me crazy, but I hate not knowing what a function should be called. Is it `$this->getBy()` or is it `$this->findBy()`? This is one of those things that happens when you have more than one person working on a project, or, like me...you forget. Here's how you name different types of queries:
-
--  `getByX()`: When you would like to get one or more things
--  `hasX()`: When you are wondering if something exists
-
-## New Commands
-
-Some of these commands are overrides of standard Laravel commands and some of these are new.
-
-| Command                 | Description                                                                                 |
-| ----------------------- | ------------------------------------------------------------------------------------------- |
-| `make:domain`           | Generates the `nginx.conf` file for a custom domain and SSL certs                           |
-| `make:model`            | Generates a model                                                                           |
-| `make:controller`       | Generates a controller                                                                      |
-| `make:view`             | Generates an Inertia view file                                                              |
-| `make:inertia-resource` | Generates a resource file                                                                   |
-| `make:repository`       | Will generate a new repository and give you the code you need to add to the ServiceProvider |
-| `db:migration`          | Runs all the migrations either on shared, workspace or both                                 |
-| `db:explode`            | _WILL ONLY RUN LOCALLY_ drops all Workspace DB's and refreshes the Shared DB                |
-| `db:rollback`           | Rolls back the last migration either on shared, a single workspace, or all workspaces       |
-| `assets:compile`        | Packages and compiles all the code                                                          |
-| `assets:watch`          | Runs a watcher over JS and Sass                                                             |
-| `account:new`           | A CLI way of creating a new workspace, good for spinning up tests and such                  |
-
-
-## Routes
-
-Currently, we only have the `web.php` file for handling routes. You should break this apart when it becomes necessary to do so. This depends on the application itself, but the guidance here is to be simple. In rebase, we're able to just go into the `RouteServiceProvider` and add another file name.
-
-```php
-    protected function map()
-    {
-        // add your file name to the list...
-        $this->explicitRoute('workspace/web.php', 'web', 'admin', 'whatever');
-    }
-```
-
-```php
-    private function mapRoutes(?string ...$middleware): void
-    {
-        foreach (glob(base_path('routes/*.php')) as $file) {
-            Route::middleware($middleware)
-                 ->namespace($this->namespace)
-                 ->group($file);
-        }
-    }
-```
-
-Take a look at that `RouteServiceProvider` file to see how we handle the middleware. This will probably change a bit in the future, I'm not 100% happy with this, but it works for now.
-
-You don't _need_ folders, but logical/physical separation can help if you have a lot of routes...and I do mean _a lot_. Personally, if you have 20 routes files 5 lines of code in them I think you're doing it wrong. But that's me, I think looking at routes is a great way to get a sense of scope of an application so the more you can stuff into one file the better. Just be sensible.
-
-### Already Set Up Routes
-
-All the set-up routes are listed in the 2 main under `/routes`.
-
-## Sub Domain
-
-Sub-domain routing ready to go out-of-the-box. I'll put some more stuff here soon.
-
-## Custom Domains
-
-These will work out-of-the-box too now. You'll need to make sure `certbot` is set up on your server so that can handle the whole process of cert setup and renewal. I'll put more info up here soon, but this all works for `nginx` only. I only use that so I have no plans on supporting something else at this time.
-
-# Front End Resources
-
-Rebase uses Vue and InertiaJS for the front end, not Blade. Since Inertia does work with React and other front ends, it is possible to use something else, if necessary, but the baseline components will be built using VueJS. This uses Laravel Mix because this is really just Laravel with some conventions spelled out, Laravel uses Mix by default so, so does Rebase.
-
-## InertiaJS & VueJS
-
-We use Inertia because the mix of Vue/Blade files drives me crazy. I want everything in one place and I don't want to build a freaking SPA. Why? Too many hassles in my opinion, but inertia is sensible. It gives you the power of Laravel/PHP for the backend and Vue (or whatever) for the front.
-
-We still end up with a great separation of concerns because the controllers need to spit out data and the views handle it, so you don't end up doing anything stupid in the views.
-
-
-## JavaScript and Scss Setup
-
-
-
-
-## Rebase CSS
-
-All CSS is styled via Sass. Check `app/resources/css` to see the folder structure. Styles are pre-processed with Sass and the resulting CSS is processed with PostCSS. This allows us to use all the Sass-style goodness while also getting some interesting/useful plugins for optimizing our code via PostCSS. PostCSS is mostly used for optimization of code.
-
-### Structure
-
-The structure of the CSS has been optimized for sharing code between different applications while also allowing the app to make significant UI changes without affecting upstream systems (you still need to be careful when you pull in changes). Here's the structure:
-
-```
-   /css
-    - rebase
-        - abstracts
-            - functions
-            - mixins
-            - defaults
-        - baseline
-        - components
-    - app
-        - variables
-        - components
-```
-
-The `rebase` folder contains all the things that upstream may update at some point. Abstracts are filled with global `mixins` and `functions` to help make your sass life a little easier. `baseline` is an override of some things that happen in `normalize.css`. Nothing too serious, but just some general things that I like that would probably not be appropriate for `normalize`. The `shared/components` will be for global component mixins. These can be wholesale overridden by components in `app/components`. The idea is to just start with _something_ that looks decent enough.
-
-The `app` folder is where application specific CSS will go. In there you'll find a `_variables.scss` file where you can add and override current default variables. All our current default values are located in `shared/abstracts/_defaults.scss`. It is recommended you _do not edit this file_ it's the shared systems default values. These can be overridden via a `git pull` so make no changes there. All your application changes should happen in the `app` folder. Every variable _can_ be overridden.
-
-
-### Styles in `.vue` files or `.scss` files
-
-Put styles in the .scss files. 
-
-## Potential Baseline Components
-
-TBD -- I want rebase to be design agnostic as much as possible so I don't know how much of this I *can* and *should* do. I'll kinda play it by ear as I build out more stuff and see where it goes. 
-
-### How to grid
-
-Do not use flexbox for page-level layout. We use CSS Grids for the main aspects of all our pages. Flexbox should be used for things in **one** dimension--this means things like a navigation system, but not the container of the navigation system.
-
-## Packages we use, but are not included
-
-Running list of packages we don't include but have used and will use when the need comes up.
-
--  `yarn add @popperjs/core` -- popup helper/block
--  `yarn add fuse.js` -- fuzzy search
-
-# The rest is up to the project
-
-At this point, this feels like the most we can create on a global level. There may be other things as we go along, but we're not going to try and force out everything, we're going to grow the system organically. I know, that can sometimes lead to terrible things happening, but, I'm a gardener...no seriously...one rule I've learned about gardening is that weeds happen, you can put down all the barriers and mulch you want, they will find a way. If you assume your barriers will _always_ work your garden will be overrun within a year. You've gotta prune it.
-
-The same thing is true for a design system or meta-framework. Constant pruning is needed and it's never done. So that's my mentality here. We're not forcing conventions, but as they show up, we'll add them in.
+js/Pages/Rebase/Web/Legal/Privacy.vue js/Components

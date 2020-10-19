@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Repositories;
+namespace App\Domain\Repositories\Rebase;
 
 use App\Domain\Models\{{model}};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
-use App\Domain\Repositories\EloquentRepository;
+use App\Domain\Repositories\Rebase\EloquentRepository;
 
 class Eloquent{{model}}Repository extends EloquentRepository
 {

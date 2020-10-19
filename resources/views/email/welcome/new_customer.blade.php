@@ -1,14 +1,16 @@
 @component('mail::message')
 # Welcome to Rebase!
 
-Hi,
+Hi {{ $payload['member']->email }}
 
-Your new account is ready for use, but before, you need to go here and do the thing:
+Your new account is ready! Please sign in using this link first, so you can finish setting up your account.
 
-@component('mail::button', ['url' => '#'])
-Button Text
+@component('mail::button', ['url' => $link])
+Log In
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }} Team
+I Havwe {{ config('app.name') }} Team
+
+##### PS -- if that link doesn't work in your browser, you can just copy and paste this link: {{$link}}
 @endcomponent

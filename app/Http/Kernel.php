@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\ConnectToWorkspace;
+use App\Http\Middleware\Rebase\ConnectToWorkspace;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -55,7 +55,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'workspace.connection' => \App\Http\Middleware\ConnectToWorkspace::class,
+        'workspace.connection' => \App\Http\Middleware\Rebase\ConnectToWorkspace::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\MemberRoles;
 use Illuminate\Support\Arr;
+use App\Enums\Rebase\MemberRoles;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

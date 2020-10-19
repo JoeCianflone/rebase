@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Repositories\Facades;
+namespace App\Domain\Repositories\Rebase\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \App\Domain\Models\{{model}} refresh(\App\Domain\Models\{{model}} $model)
  * @method static void update(\Ramsey\Uuid\Uuid|int $id)
  * @method static void remove(\App\Domain\Models\{{model}} $model)
- * @method static \App\Domain\Repositories\Facades\{{classname}} with(array $data)
- * @method static \App\Domain\Repositories\Facades\{{classname}} purge()
+ * @method static \App\Domain\Repositories\Rebase\Facades\{{classname}} with(array $data)
+ * @method static \App\Domain\Repositories\Rebase\Facades\{{classname}} purge()
  */
 class {{classname}} extends Facade
 {

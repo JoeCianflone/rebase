@@ -3,14 +3,13 @@
 namespace App\Providers;
 
 use App\Actions\Action;
-use App\Actions\GetView;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Cashier;
-use App\Actions\GetSimpleView;
-use App\Actions\GetWorkspaceName;
+use App\Actions\Rebase\GetView;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\Actions\Rebase\GetWorkspaceName;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,7 +34,6 @@ class AppServiceProvider extends ServiceProvider
 
         Action::init([
             'getView' => GetView::class,
-            'getSimpleView' => GetSimpleView::class,
             'getWorkspaceName' => GetWorkspaceName::class,
         ]);
     }

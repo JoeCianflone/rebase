@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Domain\Models\Customer\Lookup;
 use Illuminate\Foundation\Application;
-use App\Domain\Models\Workspace\Member;
 use Illuminate\Support\ServiceProvider;
-use App\Domain\Models\Customer\Customer;
-use App\Domain\Models\Customer\BannedSlug;
-use App\Domain\Models\Workspace\Workspace;
-use App\Domain\Repositories\EloquentLookupRepository;
-use App\Domain\Repositories\EloquentMemberRepository;
-use App\Domain\Repositories\EloquentCustomerRepository;
-use App\Domain\Repositories\EloquentWorkspaceRepository;
-use App\Domain\Repositories\EloquentBannedSlugRepository;
+use App\Domain\Models\Rebase\Customer\Lookup;
+use App\Domain\Models\Rebase\Workspace\Member;
+use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Models\Rebase\Customer\BannedSlug;
+use App\Domain\Models\Rebase\Workspace\Workspace;
+use App\Domain\Repositories\Rebase\EloquentLookupRepository;
+use App\Domain\Repositories\Rebase\EloquentMemberRepository;
+use App\Domain\Repositories\Rebase\EloquentCustomerRepository;
+use App\Domain\Repositories\Rebase\EloquentWorkspaceRepository;
+use App\Domain\Repositories\Rebase\EloquentBannedSlugRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

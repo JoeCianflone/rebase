@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\Action;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -30,11 +30,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::macro('inertia', function (array $path, $data = [], $useSecondaryLocation = false) {
-            $fullPath = "{$path['namespace']}/{$path['url']}";
-
-            return $this->get($path['url'], function () use ($fullPath, $data, $useSecondaryLocation) {
-                return inertia(Action::getSimpleView($fullPath, $useSecondaryLocation), $data);
+        Route::macro('inertia', function (string $path, string $namespace, array $data = []) {
+            return Route::get($path, function () use ($namespace, $data) {
+                return inertia('Pages/'.str_replace('\\', '/', $namespace), $data);
             });
         });
     }

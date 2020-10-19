@@ -1,5 +1,5 @@
 <script>
-import Layout from "@/Rebase/Templates/WorkspaceMain"
+import Layout from "@/Templates/Rebase/WorkspaceMain"
 
 export default {
    layout: Layout,
