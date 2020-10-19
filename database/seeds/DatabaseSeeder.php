@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\Rebase\ExtraWorkspaces;
+use Database\Seeders\Rebase\BannedSlugSeeder;
+use Database\Seeders\Rebase\PersonalWorkspace;
 
 class DatabaseSeeder extends Seeder
 {

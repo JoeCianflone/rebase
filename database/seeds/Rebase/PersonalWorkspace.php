@@ -1,17 +1,17 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Rebase;
 
-use App\Enums\MemberRoles;
 use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
+use App\Enums\Rebase\MemberRoles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
-use App\Domain\Facades\MemberRepository;
-use App\Domain\Facades\CustomerRepository;
-use App\Domain\Facades\WorkspaceRepository;
+use App\Domain\Facades\Rebase\MemberRepository;
+use App\Domain\Facades\Rebase\CustomerRepository;
+use App\Domain\Facades\Rebase\WorkspaceRepository;
 
 class PersonalWorkspace extends Seeder
 {
@@ -47,7 +47,7 @@ class PersonalWorkspace extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
-        Artisan::call('db:migrate '.$customer->id);
+        Artisan::call('migrate:workspaces '.$customer->id);
 
         $workspace = WorkspaceRepository::create([
             'customer_id' => $customer->id,

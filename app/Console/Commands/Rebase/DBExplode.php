@@ -3,8 +3,8 @@
 namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
-use App\Rebase\Helpers\WorkspaceDatabase;
-use App\Domain\Facades\WorkspaceRepository;
+use App\Helpers\Rebase\WorkspaceDatabase;
+use App\Domain\Facades\Rebase\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DBExplode extends Command

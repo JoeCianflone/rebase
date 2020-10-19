@@ -3,14 +3,13 @@
 namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
-use App\Rebase\Helpers\FileGenerator;
+use App\Helpers\Rebase\FileGenerator;
 
 class MakeController extends Command
 {
     protected $signature = 'make:controller {name : name for the controller file itself}
                                             {folder? : What folder inside of Controllers should this go, will create if folder doesn\'t exist}
                                             {--view : will scaffold out a view file for you using the same information}
-                                            {--singular}
                                             {--shared}
                                             {--rebase}';
 
@@ -25,7 +24,7 @@ class MakeController extends Command
     {
         $file = (new FileGenerator($this->argument('name')))
             ->setFileExtensionAs('php')
-            ->shouldBeSingular($this->option('singular'))
+            ->shouldBeSingular(true)
             ->setPath(config('app-paths.controllers'), $this->option('shared'), $this->argument('folder'));
 
         $file->hydrate('Controller', [
@@ -45,7 +44,7 @@ class MakeController extends Command
                 'folder' => $this->argument('folder'),
                 'name' => $this->argument('name'),
                 '--shared' => $this->option('shared'),
-                '--singular' => $this->option('singular'),
+                '--singular' => true,
                 '--rebase' => $this->option('rebase'),
             ]);
         }

@@ -6,17 +6,11 @@ use Illuminate\Console\Command;
 use App\Helpers\Rebase\WorkspaceDatabase;
 use App\Domain\Facades\Rebase\CustomerRepository;
 
-class RunMigration extends Command
+class MigrateWorkspaces extends Command
 {
-    /**
-     * php artisan db:migrate
-     * php artisan db:migrate --shared
-     * php artisan db:migrate --workspaces
-     * php artisan db:migrate 12345.
-     */
-    protected $signature = 'db:migrate {customerID?} {--workspaces} {--shared} {--seed}';
+    protected $signature = 'migrate:workspaces {customerID?}';
 
-    protected $description = 'Runs all the migrations';
+    protected $description = 'Runs all the migrations for one or more workspaces';
 
     public function __construct()
     {
@@ -25,27 +19,13 @@ class RunMigration extends Command
 
     public function handle(): void
     {
-        if (!$this->option('shared') && !$this->option('workspaces') && !$this->argument('customerID')) {
-            $this->migrateShared();
-            $this->migrateAllWorkspaces();
-        }
-
-        if ($this->option('shared')) {
-            $this->migrateShared();
-        }
-
-        if ($this->option('workspaces')) {
+        if (!$this->argument('customerID')) {
             $this->migrateAllWorkspaces();
         }
 
         if ($this->argument('customerID')) {
             $this->migrateWorkspace($this->argument('customerID'));
         }
-    }
-
-    private function migrateShared(): void
-    {
-        $this->callMigration();
     }
 
     private function migrateWorkspace($customerID): void

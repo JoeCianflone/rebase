@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Rebase;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
