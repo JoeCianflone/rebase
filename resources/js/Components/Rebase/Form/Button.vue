@@ -17,7 +17,7 @@ export default {
       },
       size: {
          type: String,
-         default: '',
+         default: "",
       },
       type: {
          type: String,
@@ -30,15 +30,15 @@ export default {
    },
    computed: {
       buttonType() {
-         let type = `button--${this.as}`;
+         let type = `button--${this.as}`
 
-         if (this.size !== '') {
-            type = `${type} button--${this.size}`;
+         if (this.size !== "") {
+            type = `${type} button--${this.size}`
          }
 
-         return type;
-      }
-   }
+         return type
+      },
+   },
 }
 </script>
 
@@ -50,57 +50,57 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .button {
-   @include as('primary') {
+   @include as("primary") {
       @include form-button {
-         background: $color-gray-80;
-         border-color: $color-gray-80;
+         background: $color-gray-800;
+         border-color: $color-gray-800;
          border-width: 2px;
-         color: $color-gray-30;
+         color: $color-gray-300;
 
          &:disabled {
-            background: $color-gray-60;
-            border-color: $color-gray-60;
+            background: $color-gray-600;
+            border-color: $color-gray-600;
          }
       }
    }
 
-   @include as('secondary') {
+   @include as("secondary") {
       @include form-button {
          background: transparent;
-         border-color: $color-gray-80;
+         border-color: $color-gray-800;
          border-width: 2px;
-         color: $color-gray-80;
+         color: $color-gray-800;
 
          &:disabled {
-            border-color: $color-gray-60;
-            color: $color-gray-60;
+            border-color: $color-gray-600;
+            color: $color-gray-600;
          }
       }
    }
 
-   @include as('link') {
+   @include as("link") {
       @include form-button {
          background: transparent;
-         border-color: $color-gray-80;
+         border-color: $color-gray-800;
          border-width: 0;
-         color: $color-blue-50;
+         color: $color-blue-500;
          padding: 0;
 
          &:disabled {
-            border-color: $color-gray-60;
-            color: $color-gray-60;
+            border-color: $color-gray-600;
+            color: $color-gray-600;
          }
       }
    }
 
-   @include size('sm') {
+   @include size("sm") {
       @include form-small;
    }
 
-   @include size('lg') {
+   @include size("lg") {
       @include form-large;
    }
 

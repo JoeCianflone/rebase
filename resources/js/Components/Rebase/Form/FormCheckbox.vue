@@ -71,7 +71,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .form-item {
    &__checkbox {
@@ -79,6 +79,7 @@ export default {
          flex-grow: 0;
          margin-right: $px-4;
          width: auto;
+         margin-left: 3px;
       }
    }
 }

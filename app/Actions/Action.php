@@ -21,7 +21,7 @@ class Action
         $macro = static::$macros[$method];
 
         if ($macro instanceof Closure) {
-            return call_user_func_array(Closure::bind($macro, null, static::class), $parameters);
+            throw new BadMethodCallException(sprintf('Method %s cannot be a Closure.', $method));
         }
 
         return call_user_func_array($macro.'::'.static::$handler, $parameters);

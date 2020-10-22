@@ -22,10 +22,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 @mixin input-slot {
-   background-color: $color-gray-40;
+   background-color: $color-gray-400;
    border: $form-border;
    font-size: $form-font-size;
    line-height: $form-line-height;
@@ -66,6 +66,5 @@ export default {
          margin-left: -2px;
       }
    }
-
 }
 </style>

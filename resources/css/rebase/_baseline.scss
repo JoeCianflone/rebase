@@ -41,7 +41,7 @@ video {
 }
 
 ::selection {
-   background-color: $color-blue-20;
+   background-color: $color-blue-200;
    color: $color-true-black;
    text-shadow: none;
 }
@@ -58,7 +58,7 @@ html {
 
 body {
    color: $color-true-black;
-   font-family: $font-system;
+   font-family: $font-body;
    -moz-osx-font-smoothing: grayscale !important;
    -webkit-font-smoothing: antialiased !important;
    height: 100%;

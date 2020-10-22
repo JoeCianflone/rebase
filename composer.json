@@ -37,8 +37,7 @@
       "nunomaduro/collision": "^5.0",
       "pestphp/pest": "^0.3.8",
       "phpunit/phpunit": "^9.0",
-      "psalm/plugin-laravel": "^1.4",
-      "vimeo/psalm": "^3.16"
+      "vimeo/psalm": "^3.18"
    },
    "config": {
       "optimize-autoloader": true,

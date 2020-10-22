@@ -18,8 +18,8 @@
    }
 
    &__secondary {
-      background: $color-gray-80;
-      color: $color-gray-40;
+      background: $color-gray-800;
+      color: $color-gray-400;
       grid-area: secondary;
       padding: $px-16;
 
@@ -32,14 +32,14 @@
 }
 
 .step-counter {
-   color: $color-gray-40;
+   color: $color-gray-400;
    font-size: $px-20;
 
    &__item {
       padding: $px-8 0;
 
       &--current {
-         color: $color-blue-40;
+         color: $color-blue-400;
          font-size: $px-24;
          padding: $px-8 0;
       }

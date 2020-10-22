@@ -1,7 +1,7 @@
-$form-text-color: $color-gray-80;
+$form-text-color: $color-gray-800;
 $form-border-radius: $radius-2;
-$form-border: 1px solid $color-gray-40;
-$form-border-selected: 1px solid $color-gray-50;
+$form-border: 1px solid $color-gray-400;
+$form-border-selected: 1px solid $color-gray-500;
 $form-font-size: $px-16;
 $form-line-height: normal;
 $form-height: $px-40;
@@ -9,7 +9,7 @@ $form-height: $px-40;
 
 @mixin form-element-focus {
    border: $form-border-selected;
-   box-shadow: 0 1px 3px 0 $color-indigo-20;
+   box-shadow: 0 1px 3px 0 $color-indigo-800;
    transition: all 250ms ease-in-out;
 }
 
