@@ -1,0 +1,50 @@
+.design-page {
+   margin: 0 auto;
+   width: 90vw;
+}
+.col {
+   background: rgba(#f00, 0.2);
+   border: 1px solid rgba(#f00, 0.5);
+   justify-content: center;
+}
+
+.block {
+   background: $color-red-200;
+   width: 100%;
+}
+
+.swatch {
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   list-style-type: none;
+
+   li {
+      width: 100%;
+      display: block;
+      height: 50px;
+   }
+}
+$sizes: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+$names: rose, pink, fuchsia, purple, violet, indigo, blue, lightBlue, cyan, teal, emerald, green, lime, yellow, amber, orange, red, warmGray, trueGray, gray, coolGray, blueGray;
+
+@each $name in $names {
+   @each $size in $sizes {
+      .color-#{$name}-#{$size} {
+         $s: "color-#{$name}-#{$size}";
+         background: map-get($colors, $s);
+      }
+   }
+}
+
+$spacing: 0, 4, 8, 12, 14, 16, 18, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 128, 160, 192, 224, 256;
+
+@each $space in $spacing {
+   .height-#{$space} {
+      height: rem($space * 1px);
+   }
+
+   .font-#{$space} {
+      font-size: rem($space * 1px);
+   }
+}
