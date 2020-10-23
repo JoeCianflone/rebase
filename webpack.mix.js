@@ -1,12 +1,14 @@
 const mix = require("laravel-mix")
 const path = require("path")
-const LiveReloadPlugin = require("webpack-livereload-plugin")
 
 mix
    .sass(`${process.env.MIX_INPUT_STYLE}/app.scss`, process.env.MIX_OUTPUT_STYLE)
    .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
-   .options({
+   .vue({
       extractVueStyles: true,
+      globalVueStyles: false
+   })
+   .options({
       cssNano: {
          calc: false,
          discardComments: { removeAll: true },
@@ -27,13 +29,12 @@ mix
             "@@": path.resolve(process.env.MIX_INPUT_STYLE),
          },
       },
-      plugins: [new LiveReloadPlugin()],
    })
-   .copy(process.env.MIX_INPUT_FILES, process.env.MIX_OUTPUT_FILES)
-   .copy(process.env.MIX_INPUT_IMAGES, process.env.MIX_OUTPUT_IMAGES)
-   .copy(process.env.MIX_INPUT_FONTS, process.env.MIX_OUTPUT_FONTS)
+   .copyDirectory(process.env.MIX_INPUT_FILES, process.env.MIX_OUTPUT_FILES)
+   .copyDirectory(process.env.MIX_INPUT_IMAGES, process.env.MIX_OUTPUT_IMAGES)
+   .copyDirectory(process.env.MIX_INPUT_FONTS, process.env.MIX_OUTPUT_FONTS)
    .babelConfig({
       plugins: ["@babel/plugin-syntax-dynamic-import"],
    })
    .version()
-   .sourceMaps(true, "source-maps")
+   .sourceMaps()

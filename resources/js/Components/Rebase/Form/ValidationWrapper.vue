@@ -2,8 +2,8 @@
 export default {
    props: {
       errors: {
-         type: Object | Array,
-         default: () => [],
+         type: String,
+         default: null,
       },
       position: String,
    },
@@ -11,10 +11,10 @@ export default {
 </script>
 
 <template>
-   <div :class="{ error: errors.length }">
+   <div class="validate" :class="{ error: errors }">
       <slot />
-      <p v-if="errors.length" class="error-message" :class="{ right: position === 'right' }">
-         <small>{{ errors[0] }}</small>
+      <p v-if="errors" class="error-message" :class="{ right: position === 'right' }">
+         <small>{{ errors }}</small>
       </p>
    </div>
 </template>

@@ -89,7 +89,7 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
             <p v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news&nbsp;<strong>{{ slug }}.{{ $page.app.domain }}</strong
+               Great news&nbsp;<strong>{{ slug }}.{{ $page.props.app.domain }}</strong
                >&nbsp;is available!
             </p>
 
@@ -147,7 +147,7 @@ export default {
             <FormField class="col-10--centered md::col-8--centered" validation="plan">
                <FieldLabel>Please Select From One of the Following:</FieldLabel>
                <FormSelect v-model="form.plan" defaultText="Select an Option">
-                  <option v-for="product in $page.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
+                  <option v-for="product in $page.props.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
                </FormSelect>
             </FormField>
 

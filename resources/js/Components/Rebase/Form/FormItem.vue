@@ -1,22 +1,23 @@
 <script>
 export default {
    props: {
+      errors: Object,
       position: {
          type: String,
-         default: "top"
+         default: "top",
       },
    },
 }
 </script>
 
 <template>
-   <label :class="`form-item--${position}`">
+   <label :class="`form-item--${position}`" :errors="errors">
       <slot />
    </label>
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .form-item {
    &--left,

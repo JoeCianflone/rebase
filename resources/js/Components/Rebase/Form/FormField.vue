@@ -13,15 +13,15 @@ export default {
       inline: {
          type: Boolean,
          default: false,
-      }
+      },
    },
 }
 </script>
 
 <template>
-      <FormItem position="top" :inline="inline">
-         <ValidationWrapper :errors="$page.errors[validate]" position="right">
-            <slot />
-         </ValidationWrapper>
-      </FormItem>
+   <FormItem position="top" :inline="inline">
+      <ValidationWrapper position="right" :errors="$page.props.errors[validate]">
+         <slot />
+      </ValidationWrapper>
+   </FormItem>
 </template>

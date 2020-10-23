@@ -1,4 +1,5 @@
-import { InertiaApp } from "@inertiajs/inertia-vue"
+
+import { App, plugin } from '@inertiajs/inertia-vue'
 import PortalVue from "portal-vue"
 import VueMeta from "vue-meta"
 import Vue from "vue"
@@ -23,6 +24,7 @@ import FormInput from "@/Components/Rebase/Form/FormInput"
 import FieldLabel from "@/Components/Rebase/Form/FieldLabel"
 import Button from "@/Components/Rebase/Form/Button"
 
+Vue.use(plugin)
 Vue.component("FormFieldInline", FormFieldInline)
 Vue.component("FormCheckbox", FormCheckbox)
 Vue.component("FormTextArea", FormTextArea)
@@ -36,22 +38,20 @@ Vue.component("Button", Button)
 
 Vue.config.productionTip = false
 
-Vue.use(InertiaApp)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
 
-let app = document.getElementById("app")
+let el = document.getElementById("app")
 
 new Vue({
    metaInfo: {
       title: "Loading...",
       titleTemplate: "%s | Rebase App",
    },
-   render: (h) =>
-      h(InertiaApp, {
-         props: {
-            initialPage: JSON.parse(app.dataset.page),
-            resolveComponent: (name) => import(`@/${name}`).then((module) => module.default),
-         },
-      }),
-}).$mount(app)
+   render: h => h(App, {
+     props: {
+       initialPage: JSON.parse(el.dataset.page),
+       resolveComponent: name => require(`./${name}`).default,
+     },
+   }),
+ }).$mount(el)

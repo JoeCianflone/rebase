@@ -44,7 +44,7 @@ export default {
                <FieldLabel>What's your workspace name:</FieldLabel>
                <FormGroup>
                   <FormInput v-model="form.slug" :slugify="true" />
-                  <template #post> .{{ $page.app.domain }} </template>
+                  <template #post> .{{ $page.props.app.domain }} </template>
                </FormGroup>
             </FormField>
             <Button class="col-10--centered md::col-4--centered" type="submit" :disable="sending">Check</Button>

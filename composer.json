@@ -13,7 +13,7 @@
       "fideloper/proxy": "^4.2",
       "fruitcake/laravel-cors": "^1.0",
       "guzzlehttp/guzzle": "^7.0.1",
-      "inertiajs/inertia-laravel": "^0.2.4",
+      "inertiajs/inertia-laravel": "^0.3.2",
       "joe-cianflone/inertia-resource": "@dev",
       "laravel/cashier": "^12.0",
       "laravel/framework": "^8.0",
