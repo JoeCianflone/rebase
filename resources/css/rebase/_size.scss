@@ -1,25 +1,41 @@
-@use 'sass:list';
+@mixin at-size($size) {
+   &\:#{$size} {
+       @content;
+    }
+ }
 
-@mixin as($name) {
-   $valid-sizes: primary, secondary, link, good, bad, warning, general;
+ @mixin with-queries ($parent: &) {
+     $first: true;
 
-   @if not list.index($valid-sizes, $name) {
-      @error '#{$name} is not a valid. Expected one of #{$valid-sizes}.';
-   }
+     @if ($first == true) {
+         @content;
+         $first: false;
+     }
 
-   &--#{$name} {
-      @content;
-   }
+     @each $key, $value in $mq {
+         $name: str-slice(#{$parent}, 2);
+
+         @media ($value) {
+             @at-root {
+                 .#{$key}\:\:#{$name} { @content; }
+             }
+         }
+     }
+ }
+
+
+@mixin xsmall($parent: &) {
+  @include at-size('xsmall') { @content; }
 }
 
-@mixin size($size) {
-   $valid-sizes: xs, sm, md, lg, xl;
+@mixin small($parent: &) {
+  @include at-size('small') { @content; }
+}
 
-   @if not list.index($valid-sizes, $size) {
-      @error '#{$size} is not a valid. Expected one of #{$valid-sizes}.';
-   }
+@mixin large($parent: &) {
+  @include at-size('large') { @content; }
+}
 
-   &--#{$size} {
-      @content;
-   }
+@mixin xlarge($parent: &) {
+  @include at-size('xlarge') { @content; }
 }

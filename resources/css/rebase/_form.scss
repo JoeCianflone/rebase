@@ -1,26 +1,25 @@
-$form-text-color: $color-gray-800;
-$form-border-radius: $radius-2;
-$form-border: 1px solid $color-gray-400;
-$form-border-selected: 1px solid $color-gray-500;
-$form-font-size: $px-16;
+$form-text-color: var(--color-coolGray-800);
+$form-border-radius: var(--radius-2);
+$form-border: 1px solid var(--color-coolGray-400);
+$form-border-selected: 1px solid var(--color-coolGray-500);
+$form-font-size: var(--px-16);
 $form-line-height: normal;
-$form-height: $px-40;
-
+$form-height: var(--px-40);
 
 @mixin form-element-focus {
    border: $form-border-selected;
-   box-shadow: 0 1px 3px 0 $color-indigo-800;
+   box-shadow: 0 1px 2px 0 var(--color-coolGray-500);
    transition: all 250ms ease-in-out;
 }
 
 @mixin form-element-unfocus {
-   border: 0;
-   box-shadow: none;
+   border: $form-border;
+   box-shadow: 0;
 }
 
 
 @mixin form-element {
-   background: $color-true-white;
+   background: var(--color-true-white);
    border: $form-border;
    border-radius: $form-border-radius;
    color: $form-text-color;
@@ -28,7 +27,7 @@ $form-height: $px-40;
    line-height: $form-line-height;
    margin: 0;
    min-height: $form-height;
-   padding: $px-8;
+   padding: var(--px-8);
    position: relative;
    width: 100%;
 
@@ -41,7 +40,7 @@ $form-height: $px-40;
 
 @mixin form-button {
    align-content: center;
-   background: $color-true-white;
+   background: var(--color-true-white);
    border: $form-border;
    border-radius: $form-border-radius;
    color: $form-text-color;
@@ -50,7 +49,7 @@ $form-height: $px-40;
    line-height: $form-line-height;
    margin: 0;
    min-height: $form-height;
-   padding: $px-8 $px-16;
+   padding: var(--px-8) var(--px-16);
    position: relative;
    text-align: center;
    text-decoration: none;
@@ -64,29 +63,29 @@ $form-height: $px-40;
 @mixin form-medium {
    font-size: $form-font-size;
    min-height: $form-height;
-   padding: $px-8;
+   padding: var(--px-8);
 }
 
 @mixin form-xsmall {
-   font-size: $px-10;
+   font-size: var(--px-10);
    min-height: 25px;
-   padding: $px-4;
+   padding: var(--px-4);
 }
 
 @mixin form-small {
-   font-size: $px-12;
+   font-size: var(--px-12);
    min-height: 30px;
-   padding: $px-4 $px-8;
+   padding: var(--px-4) var(--px-8);
 }
 
 @mixin form-large {
-   font-size: $px-20;
+   font-size: var(--px-20);
    line-height: 50px;
-   padding: $px-8 $px-20;
+   padding: var(--px-8) var(--px-20);
 }
 
 @mixin form-xlarge {
-   font-size: $px-20;
+   font-size: var(--px-20);
    line-height: 50px;
-   padding: $px-8 $px-20;
+   padding: var(--px-8) var(--px-20);
 }

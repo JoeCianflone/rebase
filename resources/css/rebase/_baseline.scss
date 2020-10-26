@@ -41,31 +41,32 @@ video {
 }
 
 ::selection {
-   background-color: $color-blue-200;
-   color: $color-true-black;
+   background-color: var(--color-blue-200);
+   color: var(--color-true-black);
    text-shadow: none;
 }
 
 html {
-   background-color: $color-true-white;
+   background-color: var(--color-true-white);
    box-sizing: border-box;
    display: flex;
    height: 100%;
    -ms-overflow-style: scrollbar;
-   -webkit-tap-highlight-color: rgba($color-true-black, 0);
+   -webkit-tap-highlight-color: rgba(var(--color-true-black), 0);
    -ms-text-size-adjust: 100%;
 }
 
 body {
-   color: $color-true-black;
+   color: var(--color-true-black);
    font-family: $font-body;
    -moz-osx-font-smoothing: grayscale !important;
    -webkit-font-smoothing: antialiased !important;
    height: 100%;
-   line-height: $leading-normal;
-   margin: $px-0;
+   line-height: var(--leading-normal);
+   margin: var(--px-0);
    min-width: $browser-min-size;
-   padding: $px-0;
+   overflow: hidden;
+   padding: var(--px-0);
    text-align: left;
    width: 100vw;
 }
@@ -76,9 +77,9 @@ body {
 img {
    border-style: none;
    font-style: italic;
-   margin: $px-0;
+   margin: var(--px-0);
    max-width: 100%;
-   padding: $px-0;
+   padding: var(--px-0);
    vertical-align: middle;
 
    &[width],
@@ -109,8 +110,8 @@ blockquote,
 dl,
 dd,
 dt li {
-   margin: $px-0;
-   padding: $px-0;
+   margin: var(--px-0);
+   padding: var(--px-0);
 }
 
 p,
@@ -123,15 +124,15 @@ ol ol,
 ul ul,
 ol ul,
 ul ol {
-   margin-bottom: $px-0;
+   margin-bottom: var(--px-0);
 }
 
 nav {
    ol,
    ul {
       list-style-type: none;
-      margin: $px-0;
-      padding: $px-0;
+      margin: var(--px-0);
+      padding: var(--px-0);
    }
 }
 
@@ -142,8 +143,8 @@ dfn {
 address {
    font-style: normal;
    line-height: inherit;
-   margin: $px-0;
-   padding: $px-0;
+   margin: var(--px-0);
+   padding: var(--px-0);
 }
 
 //
@@ -155,8 +156,8 @@ table {
 
 caption {
    caption-side: bottom;
-   margin: $px-0;
-   padding: $px-0;
+   margin: var(--px-0);
+   padding: var(--px-0);
    text-align: left;
 }
 
@@ -199,8 +200,8 @@ label {
 }
 
 button {
-   border-radius: $radius-0;
-   padding: $px-0;
+   border-radius: var(--radius-0);
+   padding: var(--px-0);
 
    &:focus {
       outline: 1px dotted;
@@ -242,18 +243,18 @@ label {
 
 fieldset {
    border: 0;
-   margin: $px-0;
+   margin: var(--px-0);
    min-width: 0;
-   padding: $px-0;
+   padding: var(--px-0);
 }
 
 legend {
    color: inherit;
    display: block;
    line-height: inherit;
-   margin: $px-0;
+   margin: var(--px-0);
    max-width: 100%;
-   padding: $px-0;
+   padding: var(--px-0);
    width: 100%;
 }
 
@@ -307,4 +308,35 @@ output {
 
 summary {
    cursor: pointer;
+}
+
+.is-block {
+   @include with-queries {
+      display: block;
+   }
+}
+.is-hidden {
+   @include with-queries {
+      display: none;
+   }
+}
+.is-flex {
+   @include with-queries {
+      display: flex;
+   }
+}
+.is-grid {
+   @include with-queries {
+      display: grid;
+   }
+}
+.is-inline {
+   @include with-queries {
+      display: inline;
+   }
+}
+.is-inline-flex {
+   @include with-queries {
+      display: inline-flexbox;
+   }
 }

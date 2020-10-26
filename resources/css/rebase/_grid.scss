@@ -1,47 +1,52 @@
 .grid {
    align-items: baseline;
    display: grid;
-   gap: $px-16 $px-16;
+   gap: var(--px-16) var(--px-16);
    grid-template-columns: repeat($grid-cols, 1fr);
    width: 100%;
 
    + .grid {
-      margin: $px-16 0;
+      margin: var(--px-16) 0;
    }
 
    &:last-of-type {
-      margin: $px-16 0 0 0;
+      margin: var(--px-16) 0 0 0;
    }
 }
+
+@mixin base-column {
+   display: flex;
+   flex-direction: column;
+   padding: var(--px-4);
+   overflow: hidden;
+   width: 100%;
+
+   @content;
+}
+
 
 @mixin grid-maker {
    @for $count from $grid-cols through 1 {
       &-#{$count} {
-         display: flex;
-         flex-direction: column;
-         grid-column-end: span #{$count};
-         grid-column-start: auto;
-         overflow: hidden;
-         width: 100%;
+         @include base-column {
+            grid-column-end: span #{$count};
+            grid-column-start: auto;
+         }
 
          @if ($count % 2 == 0 and $count < $grid-cols) {
             &--centered {
-               flex-direction: column;
-               display: flex;
-               grid-column-end: span #{$count};
-               grid-column-start: (($grid-cols - $count) / 2) + 1;
-               overflow: hidden;
-               width: 100%;
+               @include base-column {
+                  grid-column-end: span #{$count};
+                  grid-column-start: (($grid-cols - $count) / 2) + 1;
+               }
             }
          }
       }
       @if ($count > 1) {
          &-at-#{$count} {
-            display: flex;
-            flex-direction: column;
-            grid-column-start: $count;
-            overflow: hidden;
-            width: 100%;
+            @include base-column {
+               grid-column-start: $count;
+            }
          }
       }
    }

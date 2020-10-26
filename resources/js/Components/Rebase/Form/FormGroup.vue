@@ -25,12 +25,12 @@ export default {
 @import "@@/abstract";
 
 @mixin input-slot {
-   background-color: $color-gray-400;
+   background-color: var(--color-gray-400);
    border: $form-border;
    font-size: $form-font-size;
    line-height: $form-line-height;
    min-height: $form-height;
-   padding: $px-8 $px-16;
+   padding: var(--px-8) var(--px-16);
 
    @content;
 }
@@ -38,9 +38,10 @@ export default {
 .form-item {
    &--grouped {
       align-items: center;
-      border-radius: 0;
+      border-radius: $form-border-radius;
       display: flex;
       justify-content: flex-start;
+      border: $form-border;
 
       &:focus-within {
          @include form-element-focus;

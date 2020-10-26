@@ -10,7 +10,7 @@
     <link href="//fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ mix('/assets/css/app.css') }}" rel="stylesheet">
 
-    <script src="//js.stripe.com/v3/" defer></script>
+
     <script src="{{ mix('/assets/js/app.js') }}" defer></script>
 </head>
 

@@ -39,13 +39,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .form-item {
    &__radio {
       @include form-element {
          flex-grow: 0;
-         margin-right: $px-4;
+         margin-right: var(--px-4);
          width: auto;
       }
    }

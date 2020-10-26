@@ -31,12 +31,12 @@ export default {
    &--top {
       display: flex;
       flex-direction: column;
-      // padding-bottom: $px-8;
+      // padding-bottom: var(--px-8);
       width: 100%;
    }
 
    &--left {
-      padding-right: $px-8;
+      padding-right: var(--px-8);
    }
 
    &--right {

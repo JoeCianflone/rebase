@@ -1,6 +1,6 @@
 .layout {
    display: grid;
-   grid-gap: $px-16;
+   grid-gap: var(--px-16);
    grid-template-areas: 'secondary' 'main';
    grid-template-columns: 1fr;
    grid-template-rows: 1fr 2fr;
@@ -18,10 +18,10 @@
    }
 
    &__secondary {
-      background: $color-gray-800;
-      color: $color-gray-400;
+      background: var(--color-gray-800);
+      color: var(--color-gray-400);
       grid-area: secondary;
-      padding: $px-16;
+      padding: var(--px-16);
 
       @include at('md') {
          align-items: center;
@@ -32,16 +32,16 @@
 }
 
 .step-counter {
-   color: $color-gray-400;
-   font-size: $px-20;
+   color: var(--color-gray-400);
+   font-size: var(--px-20);
 
    &__item {
-      padding: $px-8 0;
+      padding: var(--px-8) 0;
 
       &--current {
-         color: $color-blue-400;
-         font-size: $px-24;
-         padding: $px-8 0;
+         color: var(--color-blue-400);
+         font-size: var(--px-24);
+         padding: var(--px-8) 0;
       }
    }
 }

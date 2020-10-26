@@ -49,63 +49,32 @@ export default {
    </button>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@@/abstract";
 
+@mixin button {
+   align-content: center;
+   background: var(--color-true-white);
+   border: 1px solid var(--color-coolGray-400);
+   border-radius: var(--radius-2);
+   color: var(--color-coolGray-800);
+   cursor: pointer;
+   font-size: var(--px-16);
+   justify-content: center;
+   line-height: var(--leading-normal);
+   margin: 0;
+   min-height: var(--px-40);
+   padding: var(--px-8) var(--px-16);
+   position: relative;
+   text-align: center;
+   text-decoration: none;
+   white-space: nowrap;
+   width: auto;
+}
+
 .button {
-   @include as("primary") {
-      @include form-button {
-         background: $color-gray-800;
-         border-color: $color-gray-800;
-         border-width: 2px;
-         color: $color-gray-300;
-
-         &:disabled {
-            background: $color-gray-600;
-            border-color: $color-gray-600;
-         }
-      }
-   }
-
-   @include as("secondary") {
-      @include form-button {
-         background: transparent;
-         border-color: $color-gray-800;
-         border-width: 2px;
-         color: $color-gray-800;
-
-         &:disabled {
-            border-color: $color-gray-600;
-            color: $color-gray-600;
-         }
-      }
-   }
-
-   @include as("link") {
-      @include form-button {
-         background: transparent;
-         border-color: $color-gray-800;
-         border-width: 0;
-         color: $color-blue-500;
-         padding: 0;
-
-         &:disabled {
-            border-color: $color-gray-600;
-            color: $color-gray-600;
-         }
-      }
-   }
-
-   @include size("sm") {
-      @include form-small;
-   }
-
-   @include size("lg") {
-      @include form-large;
-   }
-
-   &--is-block {
-      width: 100%;
+   @include with-queries {
+      @include button;
    }
 }
 </style>

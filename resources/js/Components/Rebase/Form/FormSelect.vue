@@ -29,7 +29,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .form-item {
    &__select {
@@ -40,10 +40,10 @@ export default {
          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
          background-position: calc(100% - 10px) center;
          background-repeat: no-repeat, repeat;
-         background-size: $px-16 auto;
+         background-size: var(--px-16) auto;
          cursor: pointer;
          max-width: 100%;
-         padding-right: $px-24;
+         padding-right: var(--px-24);
 
          > option {
             padding: 0;
@@ -54,8 +54,7 @@ export default {
 
 @-moz-document url-prefix() {
    .form-item__select {
-      padding-left: $px-4; // This is needed for Firefox which does something shitty with padding
+      padding-left: var(--px-4); // This is needed for Firefox which does something shitty with padding
    }
 }
-
 </style>

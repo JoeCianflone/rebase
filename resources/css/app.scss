@@ -2,11 +2,9 @@
 
 @import 'abstract';
 
-/// These things generate CSS therefor they are not ABSTRACT
 @import url('normalize.css/normalize.css');
 
 @import 'rebase/grid';
 @import 'rebase/baseline';
 
 @import 'rebase/pages/register';
-@import 'rebase/pages/design';

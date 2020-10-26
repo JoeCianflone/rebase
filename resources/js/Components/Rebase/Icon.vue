@@ -34,13 +34,13 @@ export default {
    @include icon;
    &--left {
       @include icon {
-         margin-right: $px-8;
+         margin-right: var(--px-8);
       }
    }
 
    &--right {
       @include icon {
-         margin-left: $px-8;
+         margin-left: var(--px-8);
       }
    }
 }
