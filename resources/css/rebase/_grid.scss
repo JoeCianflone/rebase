@@ -12,6 +12,11 @@
    &:last-of-type {
       margin: var(--px-16) 0 0 0;
    }
+
+   &--center {
+      @extend .grid;
+      align-items: center;
+   }
 }
 
 @mixin base-column {

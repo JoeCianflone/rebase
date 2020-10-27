@@ -64,6 +64,10 @@ export default {
    &--content {
       overflow: scroll;
       height: 100vh;
+
+      > section {
+         margin-right: 1.2em;
+      }
    }
 }
 
