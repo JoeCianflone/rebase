@@ -1,4 +1,9 @@
 <script>
+import VuePrism from "vue-prism"
+import "prismjs/plugins/autolinker/prism-autolinker.min"
+import "prismjs/plugins/unescaped-markup/prism-unescaped-markup.min"
+import "prismjs/themes/prism.css"
+
 export default {
    components: {},
    data: () => ({}),
@@ -29,7 +34,7 @@ export default {
             </ul>
             <h1>Components</h1>
             <ul>
-               <li><a href="#">Buttons</a></li>
+               <li><inertia-link href="/design/components/button">Buttons</inertia-link></li>
                <li><a href="#">Errors</a></li>
                <li><a href="#">Form Elements</a></li>
                <li><a href="#">Overlays</a></li>

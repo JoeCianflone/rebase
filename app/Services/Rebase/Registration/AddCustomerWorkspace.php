@@ -9,7 +9,10 @@ class AddCustomerWorkspace
 {
     public function __invoke($payload)
     {
-        $exitCode = Artisan::call("migrate:workspaces {$payload->get('customer')->id}");
+        $exitCode = Artisan::call('migrate:workspaces', [
+            'customerID' => $payload->get('customer')->id,
+            '--rebase' => true,
+        ]);
 
         if (0 === $exitCode) {
             $workspace = WorkspaceRepository::create([
