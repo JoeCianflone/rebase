@@ -77,9 +77,9 @@ export default {
    &__checkbox {
       @include form-element {
          flex-grow: 0;
+         margin-left: 3px;
          margin-right: var(--px-4);
          width: auto;
-         margin-left: 3px;
       }
    }
 }

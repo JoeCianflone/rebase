@@ -47,35 +47,40 @@ class PersonalWorkspace extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
-        Artisan::call('migrate:workspaces '.$customer->id);
-
-        $workspace = WorkspaceRepository::create([
-            'customer_id' => $customer->id,
-            'name' => 'Personal Test Workspace',
-            'slug' => self::PERSONAL_SLUG,
+        $code = Artisan::call('migrate:workspaces', [
+            'customerID' => $customer->id,
+            '--rebase' => true,
         ]);
 
-        $member = MemberRepository::create([
-            'name' => self::PERSONAL_NAME,
-            'email' => self::PERSONAL_EMAIL,
-            'password' => Hash::make(self::PERSONAL_PASSWORD),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        if ($code === 0) {
+            $workspace = WorkspaceRepository::create([
+                'customer_id' => $customer->id,
+                'name' => 'Personal Test Workspace',
+                'slug' => self::PERSONAL_SLUG,
+            ]);
 
-        MemberRepository::for($member)->attach('workspaces', $workspace->id, ['role' => MemberRoles::OWNER()]);
-
-        for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
             $member = MemberRepository::create([
-                'name' => $faker->name,
-                'email' => $faker->safeEmail,
+                'name' => self::PERSONAL_NAME,
+                'email' => self::PERSONAL_EMAIL,
                 'password' => Hash::make(self::PERSONAL_PASSWORD),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
 
-            MemberRepository::for($member)
-                ->attach('workspaces', $workspace->id, ['role' => $this->generateRandomRole()]);
+            MemberRepository::for($member)->attach('workspaces', $workspace->id, ['role' => MemberRoles::OWNER()]);
+
+            for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
+                $member = MemberRepository::create([
+                    'name' => $faker->name,
+                    'email' => $faker->safeEmail,
+                    'password' => Hash::make(self::PERSONAL_PASSWORD),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+
+                MemberRepository::for($member)
+                    ->attach('workspaces', $workspace->id, ['role' => $this->generateRandomRole()]);
+            }
         }
     }
 

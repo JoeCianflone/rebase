@@ -10,7 +10,9 @@
     <link href="//fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ mix('/assets/css/app.css') }}" rel="stylesheet">
 
-
+    @if (isset($withStripe) && $withStripe === true)
+    <script src="//js.stripe.com/v3/"></script>
+    @endif
     <script src="{{ mix('/assets/js/app.js') }}" defer></script>
 </head>
 

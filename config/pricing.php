@@ -7,17 +7,17 @@ return [
     'product' => [
         'test' => [
             'low' => [
-                'name' => 'Awesome Product 1',
+                'name' => env('STRIPE_PRODUCT_TEST_LOW_NAME'),
                 'id' => env('STRIPE_PRODUCT_TEST_LOW_ID'),
                 'price' => env('STRIPE_PRODUCT_TEST_LOW_COST'),
             ],
             'medium' => [
-                'name' => 'Awesome Product 2',
+                'name' => env('STRIPE_PRODUCT_TEST_MEDIUM_NAME'),
                 'id' => env('STRIPE_PRODUCT_TEST_MEDIUM_ID'),
                 'price' => env('STRIPE_PRODUCT_TEST_MEDIUM_COST'),
             ],
             'high' => [
-                'name' => 'Awesome Product 3',
+                'name' => env('STRIPE_PRODUCT_TEST_HIGH_NAME'),
                 'id' => env('STRIPE_PRODUCT_TEST_HIGH_ID'),
                 'price' => env('STRIPE_PRODUCT_TEST_HIGH_COST'),
             ],

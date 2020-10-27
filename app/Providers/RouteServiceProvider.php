@@ -30,9 +30,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::macro('inertia', function (string $path, string $namespace, array $data = []) {
-            return Route::get($path, function () use ($namespace, $data) {
-                return inertia('Pages/'.str_replace('\\', '/', $namespace), $data);
+        Route::macro('inertia', function (string $uri, string $namespace, array $data = []) {
+            $viewData = $data['withViewData'] ?? null;
+            unset($data['withViewData']);
+
+            return Route::get($uri, function () use ($namespace, $data, $viewData) {
+                return inertia('Pages/'.str_replace('\\', '/', $namespace), $data)->withViewData($viewData);
             });
         });
     }

@@ -47,7 +47,10 @@ class ExtraWorkspaces extends Seeder
             ]);
 
             for ($j = 0; $j < self::WORKSPACES_PER_CUSTOMER; ++$j) {
-                Artisan::call('migrate:workspaces '.$customer->id);
+                $code = Artisan::call('migrate:workspaces', [
+                    'customerID' => $customer->id,
+                    '--rebase' => true,
+                ]);
 
                 $workspace = WorkspaceRepository::create([
                     'customer_id' => $customer->id,

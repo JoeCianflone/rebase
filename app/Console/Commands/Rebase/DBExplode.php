@@ -11,7 +11,6 @@ class DBExplode extends Command
 {
     protected $signature = 'db:explode
                                 {slug? : optional name of the workspace you\' like to blow up}
-                                {--reset : just delete do not rerun the migrations}
                                 {--seed : seed the DB after we clean it out}';
 
     protected $description = 'Blow out local shared and/or local workspace databases';
@@ -51,13 +50,13 @@ class DBExplode extends Command
     {
         $this->alert('Refreshing Shared Database');
 
-        if ($this->option('reset')) {
-            $this->call('migrate:reset');
-        } else {
-            $this->call('migrate:fresh', [
-                '--step' => true,
-                '--seed' => $this->option('seed'),
-            ]);
+        $this->call('migrate:fresh');
+        $this->call('migrate:shared', [
+            '--rebase' => true,
+        ]);
+
+        if ($this->option('seed')) {
+            $this->call('db:seed');
         }
     }
 

@@ -20,6 +20,6 @@ class CustomerInfo extends Controller
             'slug' => $request->input('slug'),
             'stripe_key' => config('services.stripe.key'),
             'intent' => $intent->createSetupIntent(),
-        ])->withViewData('stripe', true);
+        ])->withViewData('withStripe', true);
     }
 }
