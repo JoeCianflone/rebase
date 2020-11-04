@@ -10,7 +10,7 @@ class SubscribeCustomer
     public function __invoke($payload)
     {
         try {
-            CustomerRepository::for($payload->get('customer'))->subscribe([
+            $subscribedCustomer = CustomerRepository::factory($payload->get('customer'))->subscribe([
                 'plan' => $payload->get('plan'),
                 'method' => $payload->get('payment_method'),
                 'options' => [
@@ -27,8 +27,12 @@ class SubscribeCustomer
             ]);
         } catch (PaymentFailure $e) {
             // event('Payment Failure...');
+            // CustomerRepository::factory($subscribedCustomer)->markAsInactive();
+
             return false;
         }
+
+        CustomerRepository::factory($subscribedCustomer)->markAsActive();
 
         return $payload;
     }

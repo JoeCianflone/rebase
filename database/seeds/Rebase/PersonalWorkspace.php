@@ -34,7 +34,7 @@ class PersonalWorkspace extends Seeder
         $faker->addProvider(new \Faker\Provider\Lorem($faker));
         $faker->addProvider(new \Faker\Provider\Internet($faker));
 
-        $customer = CustomerRepository::create([
+        $customer = CustomerRepository::factory()->create([
             'name' => 'Personal Test Company',
             'line1' => $faker->streetAddress,
             'city' => $faker->city,
@@ -53,13 +53,13 @@ class PersonalWorkspace extends Seeder
         ]);
 
         if ($code === 0) {
-            $workspace = WorkspaceRepository::create([
+            $workspace = WorkspaceRepository::factory()->create([
                 'customer_id' => $customer->id,
                 'name' => 'Personal Test Workspace',
                 'slug' => self::PERSONAL_SLUG,
             ]);
 
-            $member = MemberRepository::create([
+            $member = MemberRepository::factory()->create([
                 'name' => self::PERSONAL_NAME,
                 'email' => self::PERSONAL_EMAIL,
                 'password' => Hash::make(self::PERSONAL_PASSWORD),
@@ -67,10 +67,10 @@ class PersonalWorkspace extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
 
-            MemberRepository::for($member)->attach('workspaces', $workspace->id, ['role' => MemberRoles::OWNER()]);
+            MemberRepository::factory($member)->attachAsOwner($workspace->id);
 
             for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
-                $member = MemberRepository::create([
+                $member = MemberRepository::factory()->create([
                     'name' => $faker->name,
                     'email' => $faker->safeEmail,
                     'password' => Hash::make(self::PERSONAL_PASSWORD),
@@ -78,8 +78,7 @@ class PersonalWorkspace extends Seeder
                     'updated_at' => Carbon::now(),
                 ]);
 
-                MemberRepository::for($member)
-                    ->attach('workspaces', $workspace->id, ['role' => $this->generateRandomRole()]);
+                MemberRepository::factory($member)->attachToWorkspaceAs($workspace->id, $this->generateRandomRole());
             }
         }
     }

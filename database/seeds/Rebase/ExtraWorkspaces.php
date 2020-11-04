@@ -33,7 +33,7 @@ class ExtraWorkspaces extends Seeder
         $faker->addProvider(new \Faker\Provider\Internet($faker));
 
         for ($i = 0; $i < self::CUSTOMERS; ++$i) {
-            $customer = CustomerRepository::create([
+            $customer = CustomerRepository::factory()->create([
                 'name' => $faker->company,
                 'line1' => $faker->streetAddress,
                 'city' => $faker->city,
@@ -52,22 +52,21 @@ class ExtraWorkspaces extends Seeder
                     '--rebase' => true,
                 ]);
 
-                $workspace = WorkspaceRepository::create([
+                $workspace = WorkspaceRepository::factory()->create([
                     'customer_id' => $customer->id,
                     'name' => $faker->company,
                     'slug' => $faker->slug(2),
                 ]);
 
                 for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
-                    $member = MemberRepository::create([
+                    $member = MemberRepository::factory()->create([
                         'name' => $faker->name,
                         'email' => $faker->safeEmail,
                         'password' => Hash::make('password'),
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);
-
-                    MemberRepository::for($member)->attach('workspaces', $workspace->id, ['role' => $this->generateRandomRole()]);
+                    MemberRepository::factory($member)->attachToWorkspaceAs($workspace->id, $this->generateRandomRole());
                 }
             }
         }

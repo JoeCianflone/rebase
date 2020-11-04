@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Events\Rebase\StartCustomerSignup;
 use App\Http\Requests\Rebase\RegisterNewCustomerRequest;
 
-class ProcessCustomer extends Controller
+class RegisterStore extends Controller
 {
     /**
      * @return mixed

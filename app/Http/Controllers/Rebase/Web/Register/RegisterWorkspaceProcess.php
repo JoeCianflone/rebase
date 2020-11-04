@@ -8,10 +8,10 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rebase\CheckWorkspaceRequest;
 
-class ProcessCheckWorkspace extends Controller
+class RegisterWorkspaceProcess extends Controller
 {
     public function __invoke(CheckWorkspaceRequest $request)
     {
-        return Inertia::location(route('register.index', ['slug' => $request->input('slug')]));
+        return Inertia::location(route('register.customer', ['slug' => $request->input('slug')]));
     }
 }

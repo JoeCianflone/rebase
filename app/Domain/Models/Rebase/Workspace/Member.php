@@ -50,6 +50,7 @@ class Member extends Authenticatable
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
         'profile' => 'array',
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
@@ -68,6 +69,6 @@ class Member extends Authenticatable
 
     public function workspaces()
     {
-        return $this->belongsToMany(Workspace::class);
+        return $this->belongsToMany(Workspace::class)->withTimestamps();
     }
 }

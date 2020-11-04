@@ -3,11 +3,11 @@
   "scripts": {
     "static-check": "./vendor/bin/psalm",
     "php-cs": "php-cs-fixer fix",
-    "development": "mix",
-    "watch": "mix watch",
+    "development": "php artisan ziggy:generate && mix",
+    "watch": "php artisan ziggy:generate resources/js/ziggy.js && mix watch",
     "watch-poll": "mix watch -- --watch-options-poll=1000",
     "hot": "mix watch --hot",
-    "production": "mix --production"
+    "production": "php artisan ziggy:generate && mix --production"
   },
   "browserslist": [
     "last 6 version",

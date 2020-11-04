@@ -74,7 +74,7 @@ export default {
 
             vm.form.payment_method = result.setupIntent.payment_method
 
-            vm.$inertia.post("/register/customer", vm.form, {
+            vm.$inertia.post(route("register.store"), vm.form, {
                onStart: () => (vm.sending = true),
                onFinish: () => (vm.sending = false),
             })

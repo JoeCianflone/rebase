@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('design/', 'Rebase\Design\Home')->name('design.home');
-Route::inertia('design/colors', 'Rebase\Design\Colors')->name('design.colors');
-Route::inertia('design/layout', 'Rebase\Design\Layout')->name('design.layout');
-Route::inertia('design/spacing', 'Rebase\Design\Spacing')->name('design.spacing');
-
-Route::inertia('design/components/button', 'Rebase\Design\Components\Button')->name('design.components.button');
+Route::inertia('design', 'rebase.design.home')->name('design.index');
+Route::inertia('design/colors', 'rebase.design.colors')->name('design.colors');
+Route::inertia('design/layout', 'rebase.design.layout')->name('design.layout');
+Route::inertia('design/spacing', 'rebase.design.spacing')->name('design.spacing');
+Route::inertia('design/components/button', 'rebase.design.components.button')->name('design.button');

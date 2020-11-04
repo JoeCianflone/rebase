@@ -14,6 +14,7 @@
     <script src="//js.stripe.com/v3/"></script>
     @endif
     <script src="{{ mix('/assets/js/app.js') }}" defer></script>
+    @routes
 </head>
 
 <body>

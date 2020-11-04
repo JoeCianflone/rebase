@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Repositories\Rebase;
 
+use App\Enums\Rebase\MemberRoles;
+use App\Exceptions\InvalidActivationToken;
+use App\Domain\Filters\Rebase\WorkspaceFilters;
 use App\Domain\Models\Rebase\Workspace\Workspace;
+use App\Domain\Factories\Rebase\WorkspaceModelFactory;
 
 class EloquentWorkspaceRepository extends EloquentRepository
 {
@@ -14,23 +18,46 @@ class EloquentWorkspaceRepository extends EloquentRepository
         $this->cacheKey = 'workspace';
     }
 
+    public function factory($model = null)
+    {
+        return new WorkspaceModelFactory($model ?? $this->model);
+    }
+
+    public function filter($model)
+    {
+        return new WorkspaceFilters($model);
+    }
+
+    public function getOwnerWithEmail(string $email)
+    {
+        return $found = $this->model->members()
+            ->wherePivot('role', MemberRoles::OWNER())
+            ->where('email', $email)
+            ->first();
+    }
+
     public function hasSlug(string $slug): bool
     {
         return $this->model->where('slug', '=', $slug)->count() > 0;
     }
 
-    public function whereBySlug(string $slug): Workspace
+    public function getBySlug(string $slug): Workspace
     {
-        return $this->cache('whereBySlug', fn () => $this->model->where('slug', '=', $slug)->firstOrFail());
+        return $this->cache('getBySlug', fn () => $this->model->where('slug', '=', $slug)->firstOrFail());
     }
 
-    public function whereByDomain(string $domain): Workspace
+    public function getByDomain(string $domain): Workspace
     {
-        return $this->cache('whereByDomain', fn () => $this->model->where('domain', '=', $domain)->firstOrFail());
+        return $this->cache('getByDomain', fn () => $this->model->where('domain', '=', $domain)->firstOrFail());
     }
 
-    public function whereByCustomerID(string $id): Workspace
+    public function matchSlugAndToken(string $token, string $slug)
     {
-        return $this->cache('whereByCustomerID', fn () => $this->model->where('customer_id', '=', $id)->firstOrFail());
+        return $this->model
+            ->where('activation_token', $token)
+            ->where('slug', $slug)
+            ->firstOr(function (): void {
+                throw new InvalidActivationToken('Unable to match a token to slug');
+            });
     }
 }

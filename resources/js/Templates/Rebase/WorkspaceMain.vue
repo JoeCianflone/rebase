@@ -14,6 +14,7 @@ export default {
    <section>
       <portal-target name="dropdown" slim />
       <portal-target name="overlay" slim />
-      <slot />
+
+      <slot></slot>
    </section>
 </template>

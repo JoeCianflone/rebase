@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Domain\Models\Rebase\Customer\Customer;
 
-class CustomerInfo extends Controller
+class RegisterCustomer extends Controller
 {
     /**
      * @return mixed

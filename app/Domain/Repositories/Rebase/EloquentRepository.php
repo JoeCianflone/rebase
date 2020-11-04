@@ -7,98 +7,47 @@ namespace App\Domain\Repositories\Rebase;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\Filters\Rebase\ModelFilters;
 use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Factories\Rebase\ModelFactory;
 
 abstract class EloquentRepository
 {
-    protected array $data = [];
-
     protected Model $model;
-
-    protected ?Model $row = null;
 
     protected int $cacheTime = 300;
 
     protected string $cacheKey = '';
 
-    /**
-     * Generic all.
-     */
-    public function whereAll(): ?Collection
+    public function factory($model = null)
     {
-        return $this->model->all();
+        return new ModelFactory($model ?? $this->model);
     }
 
-    /**
-     * Genric read and get by ID.
-     *
-     * @param string|uuid $id
-     */
-    public function whereID($id): ?Model
+    public function filter($model)
     {
-        return $this->cache('whereID'.$id, fn () => $this->model->where('id', '=', $id)->firstOrFail());
+        return new ModelFilters($model);
     }
 
-    public function for(Model $model): self
+    public function query($model)
     {
-        $this->row = $model;
+        $this->model = $model;
 
         return $this;
     }
 
-    public function create(array $request): Model
+    public function getAll(): ?Collection
     {
-        return $this->model->create($request);
+        return $this->model->all();
     }
 
-    public function update(array $data): Model
+    public function getByID($id): ?Model
     {
-        $this->row->update($data);
-
-        return $this->clearRowModel();
-    }
-
-    public function updateWhere(array $ids, array $data): void
-    {
-        collect($ids)->each(function ($key, $value) use ($data): void {
-            $this->model->where($key, '=', $value)->update($data);
-        });
-
-        $this->clearRowModel();
-    }
-
-    public function remove(): Model
-    {
-        $this->row->delete();
-
-        return $this->clearRowModel();
-    }
-
-    public function removeWhere(array $ids): void
-    {
-        collect($ids)->each(function ($key, $value): void {
-            $this->model->where($key, '=', $value)->delete();
-        });
-
-        $this->clearRowModel();
-    }
-
-    public function attach(string $method, $id, array $extra = []): void
-    {
-        $this->row->{$method}()->attach($id, $extra);
-        $this->clearRowModel();
+        return $this->cache('getByID'.$id, fn () => $this->model->where('id', '=', $id)->firstOrFail());
     }
 
     protected function cache(string $name, Closure $fn)
     {
         return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $fn);
-    }
-
-    protected function clearRowModel(): Model
-    {
-        $temp = $this->row;
-        $this->row = null;
-
-        return $temp;
     }
 }

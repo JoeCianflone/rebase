@@ -4,6 +4,8 @@ import PortalVue from "portal-vue"
 import VueMeta from "vue-meta"
 import Vue from "vue"
 import { InertiaProgress } from "@inertiajs/progress"
+import route from '../../vendor/tightenco/ziggy/src/js/route.js';
+import { Ziggy } from './ziggy';
 
 InertiaProgress.init({
    delay: 250,
@@ -38,10 +40,18 @@ Vue.component("Button", Button)
 
 Vue.config.productionTip = false
 
+
 Vue.use(PortalVue)
 Vue.use(VueMeta)
 
 let el = document.getElementById("app")
+
+Vue.mixin({
+   methods: {
+       route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+   },
+});
+
 
 new Vue({
    metaInfo: {
@@ -51,7 +61,7 @@ new Vue({
    render: h => h(App, {
      props: {
        initialPage: JSON.parse(el.dataset.page),
-       resolveComponent: name => require(`./${name}`).default,
+       resolveComponent: name => require(`.${name}`).default,
      },
    }),
  }).$mount(el)

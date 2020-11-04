@@ -14,17 +14,17 @@ class EloquentLookupRepository extends EloquentRepository
         $this->cacheKey = 'lookup';
     }
 
-    public function whereBySlug(string $slug)
+    public function getBySlug(string $slug)
     {
         return $this->model->where('slug', '=', $slug)->firstOrFail();
     }
 
-    public function whereByDomain(string $domain)
+    public function getByDomain(string $domain)
     {
         return $this->model->where('domain', '=', $domain)->firstOrFail();
     }
 
-    public function whereWorkspaceID(string $id)
+    public function getByWorkspaceID(string $id)
     {
         return $this->model->where('workspace_id', '=', $id)->firstOrFail();
     }

@@ -7,7 +7,6 @@ namespace App\Domain\Models\Rebase\Customer;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Facades\Rebase\LookupRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
@@ -35,6 +34,7 @@ class Customer extends Model
         'agreed_to_terms',      // required
         'agreed_to_privacy',    // required
         'stripe_id',
+        'status',
         'card_brand',
         'card_last_four',
         'trial_ends_at',
@@ -59,16 +59,6 @@ class Customer extends Model
         static::creating(function ($customer): void {
             $customer->id = (string) Str::uuid();
         });
-
-        // static::created(function ($customer): void {        });
-
-        // static::updated(function ($workspace): void {
-        //     LookupRepository::updateWhere(['workspace_id' => $workspace->id], $workspace->toArray());
-        // });
-
-        // static::deleted(function ($workspace): void {
-        //     LookupRepository::removeWhere(['workspace_id' => $workspace->id]);
-        // });
     }
 
     public function lookup(): HasMany

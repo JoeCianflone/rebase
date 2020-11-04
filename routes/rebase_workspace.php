@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Route;
  * space.rebase.test
  */
 Route::middleware(['workspace.connection'])->group(function (): void {
-    Route::namespace('Rebase\Workspace\Auth')->group(function (): void {
-        Route::get('/login', Login::class)->name('login');
-        Route::get('/verify/{token}', VerifyCustomer::class)->name('verify');
-    });
+    Route::inertia('/validate/workspace/{token}', 'rebase.workspace.validate.validateWorkspaceToken')->name('validate.workspace');
+    Route::inertia('/validate/complete', 'rebase.workspace.validate.validateComplete')->name('validate.workspace.complete');
+
+    Route::post('/validate/workspace/{token}', Rebase\Workspace\Validate\ProcessValidateWorkspace::class)->name('validate.workspace.process');
 
     /*
          * GET /forgot/password

@@ -15,7 +15,7 @@ class AddCustomerWorkspace
         ]);
 
         if (0 === $exitCode) {
-            $workspace = WorkspaceRepository::create([
+            $workspace = WorkspaceRepository::factory()->create([
                 'customer_id' => $payload->get('customer')->id,
                 'name' => $payload->get('customer')->name.' Workspace',
                 'slug' => $payload->get('slug'),

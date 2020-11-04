@@ -9,7 +9,7 @@ class AddCustomer
 {
     public function __invoke($payload)
     {
-        $customer = CustomerRepository::create([
+        $customer = CustomerRepository::factory()->create([
             'name' => $payload->get('name'),
             'line1' => $payload->get('line1'),
             'line2' => $payload->get('line2'),

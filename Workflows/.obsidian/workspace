@@ -8,8 +8,11 @@
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Customer Activation.md",
+            "mode": "source"
+          }
         }
       }
     ],
@@ -60,19 +63,22 @@
             "type": "leaf",
             "state": {
               "type": "backlink",
-              "state": {}
+              "state": {
+                "file": "Customer Activation.md"
+              }
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "lastOpenFiles": [
-    "First Login.md",
     "Customer Activation.md",
-    "Untitled.md"
+    "Customer Signup.md",
+    "Naming Conventions.md",
+    "Untitled.md",
+    "First Login.md"
   ]
 }

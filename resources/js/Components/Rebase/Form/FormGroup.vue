@@ -11,6 +11,9 @@ export default {
 
 <template>
    <div class="form-item--grouped">
+      <button class="form-item__pre-input" v-if="!!(this.$slots.preButton || [])[0]">
+         <slot name="preButton"></slot>
+      </button>
       <div class="form-item__pre-input" v-if="!!(this.$slots.pre || [])[0]">
          <slot name="pre"></slot>
       </div>
@@ -18,6 +21,9 @@ export default {
       <div class="form-item__post-input" v-if="!!(this.$slots.post || [])[0]">
          <slot name="post"></slot>
       </div>
+      <button class="form-item__post-input" v-if="!!(this.$slots.postButton || [])[0]" type="button">
+         <slot name="postButton"></slot>
+      </button>
    </div>
 </template>
 

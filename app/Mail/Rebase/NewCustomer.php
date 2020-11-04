@@ -25,7 +25,7 @@ class NewCustomer extends Mailable implements ShouldQueue
         $this->payload = collect($payload);
         $this->link = "https://{$payload['workspace']->slug}.".
             config('app.domain').
-            route('verify', ['token' => $payload['member']->email_token], false);
+            route('validate.workspace', ['token' => $payload['workspace']->activation_token], false);
     }
 
     /**

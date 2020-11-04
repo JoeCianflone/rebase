@@ -41,7 +41,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
 .form-item {
    &__textbox {

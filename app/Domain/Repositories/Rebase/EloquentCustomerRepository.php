@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repositories\Rebase;
 
 use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Factories\Rebase\CustomerModelFactory;
 
 class EloquentCustomerRepository extends EloquentRepository
 {
@@ -14,16 +15,8 @@ class EloquentCustomerRepository extends EloquentRepository
         $this->cacheKey = 'customer';
     }
 
-    public function subscribe(array $subscription): void
+    public function factory($model = null)
     {
-        $subscription = collect($subscription);
-
-        $this->row->newSubscription(config('pricing.plan.test'), $subscription->get('plan'))
-            ->create(
-                $subscription->get('method'),
-                $subscription->get('options')
-            );
-
-        $this->clearRowModel();
+        return new CustomerModelFactory($model ?? $this->model);
     }
 }

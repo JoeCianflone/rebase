@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\Facades\Rebase\LookupRepository;
 
@@ -26,7 +27,9 @@ class Workspace extends Model
         'name',             // required
         'slug',             // required
         'domain',
-        'is_active',        // required
+        'status',           // required
+        'activation_token',
+        'activation_at',
         'created_at',
         'updated_at',
     ];
@@ -35,7 +38,7 @@ class Workspace extends Model
      * @var array
      */
     protected $casts = [
-        'is_active' => 'boolean',
+        'activation_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -46,10 +49,12 @@ class Workspace extends Model
 
         static::creating(function ($workspace): void {
             $workspace->id = (string) Str::uuid();
+            $workspace->activation_token = (string) Str::uuid();
+            $workspace->activation_at = Carbon::now();
         });
 
         static::created(function ($workspace): void {
-            LookupRepository::create([
+            LookupRepository::factory()->create([
                 'workspace_id' => $workspace->id,
                 'customer_id' => $workspace->customer_id,
                 'slug' => $workspace->slug,
@@ -58,21 +63,21 @@ class Workspace extends Model
         });
 
         static::updated(function ($workspace): void {
-            LookupRepository::updateWhere(['workspace_id' => $workspace->id], [
-                'workspace_id' => $workspace->id,
-                'customer_id' => $workspace->customer_id,
-                'slug' => $workspace->slug,
-                'domain' => $workspace->domain,
-            ]);
+            if ($workspace->isDirty('domain', 'slug')) {
+                LookupRepository::factory()->update('workspace_id', $workspace->id, [
+                    'slug' => $workspace->slug,
+                    'domain' => $workspace->domain,
+                ]);
+            }
         });
 
         static::deleted(function ($workspace): void {
-            LookupRepository::removeWhere(['workspace_id' => $workspace->id]);
+            LookupRepository::factory()->remove('workspace_id', '=', $workspace->id);
         });
     }
 
     public function members()
     {
-        return $this->hasMany(Member::class);
+        return $this->belongsToMany(Member::class)->withPivot('role');
     }
 }
