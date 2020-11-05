@@ -17,6 +17,6 @@ class RegisterStore extends Controller
     {
         event(new StartCustomerSignup($request->input()));
 
-        dd('done?');
+        return redirect()->route('register.complete');
     }
 }

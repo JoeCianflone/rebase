@@ -4,6 +4,16 @@
     }
  }
 
+@mixin for-variant($parent) {
+    &\:#{$parent} {
+        @content;
+
+        @include size-lists {
+            @content;
+        }
+    }
+ }
+
  @mixin with-queries ($parent: &) {
      $first: true;
 
@@ -24,18 +34,26 @@
  }
 
 
+@mixin sizes-and-variants {
+    @content;
+
+    @include size-lists { @content; }
+    @include variant-lists { @content; }
+}
+
 @mixin xsmall($parent: &) {
-  @include at-size('xsmall') { @content; }
+   @include at-size('xsmall') { @content; }
 }
 
 @mixin small($parent: &) {
-  @include at-size('small') { @content; }
+   @include at-size('small') { @content; }
 }
 
 @mixin large($parent: &) {
-  @include at-size('large') { @content; }
+   @include at-size('large') { @content; }
 }
 
 @mixin xlarge($parent: &) {
-  @include at-size('xlarge') { @content; }
+   @include at-size('xlarge') { @content; }
 }
+

@@ -60,76 +60,67 @@ export default {
    white-space: nowrap;
 }
 
-@mixin button--secondary {
-   @include button;
-   background: transparent;
-   border: 2px solid var(--color-coolGray-800);
-   color: var(--color-coolGray-800);
+@mixin size-lists {
+   @include xsmall {
+      @content;
+      font-size: var(--px-12);
+      min-height: var(--px-18);
+      padding: var(--px-4) var(--px-12);
+   }
+   @include small {
+      @content;
+      font-size: var(--px-14);
+      min-height: var(--px-20);
+      padding: var(--px-4) var(--px-16);
+   }
+   @include large {
+      @content;
+      font-size: var(--px-18);
+      min-height: var(--px-20);
+      padding: var(--px-8) var(--px-16);
+   }
+   @include xlarge {
+      @content;
+      font-size: var(--px-24);
+      min-height: var(--px-40);
+      padding: var(--px-4) var(--px-24);
+   }
 }
 
-@mixin button--success {
-   @include button;
-   background: var(--color-emerald-500);
-   border: 2px solid var(--color-emerald-500);
-   color: var(--color-coolGray-100);
-}
-
-@mixin button--danger {
-   @include button;
-   background: var(--color-red-500);
-   border: 2px solid var(--color-red-500);
-   color: var(--color-coolGray-100);
+@mixin variant-lists {
+   @include for-variant("block") {
+      @content;
+      display: block;
+   }
 }
 
 .button {
-   @include with-queries {
+   @include sizes-and-variants {
       @include button;
-
-      @include xsmall {
-         @include button;
-         font-size: var(--px-12);
-         min-height: var(--px-18);
-         padding: var(--px-4) var(--px-12);
-      }
-
-      @include small {
-         @include button;
-         font-size: var(--px-14);
-         min-height: var(--px-20);
-         padding: var(--px-4) var(--px-16);
-      }
-
-      @include large {
-         @include button;
-         font-size: var(--px-18);
-         min-height: var(--px-20);
-         padding: var(--px-8) var(--px-16);
-      }
-
-      @include xlarge {
-         @include button;
-         font-size: var(--px-24);
-         min-height: var(--px-40);
-         padding: var(--px-4) var(--px-24);
-      }
    }
-
-   &--secondary {
-      @include with-queries {
-         @include button--secondary;
-      }
+}
+.button--secondary {
+   @include sizes-and-variants {
+      @include button;
+      background: transparent;
+      border: 2px solid var(--color-coolGray-800);
+      color: var(--color-coolGray-800);
    }
-
-   &--success {
-      @include with-queries {
-         @include button--success;
-      }
+}
+.button--success {
+   @include sizes-and-variants {
+      @include button;
+      background: var(--color-emerald-500);
+      border: 2px solid var(--color-emerald-500);
+      color: var(--color-coolGray-100);
    }
-
-   &--danger {
-      @include with-queries {
-         @include button--danger;
-      }
+}
+.button--danger {
+   @include sizes-and-variants {
+      @include button;
+      background: var(--color-red-500);
+      border: 2px solid var(--color-red-500);
+      color: var(--color-coolGray-100);
    }
 }
 </style>

@@ -10,9 +10,7 @@ export default {
    data() {
       return {
          sending: false,
-         form: {
-            slug: null,
-         },
+         form: {},
       }
    },
 
@@ -38,23 +36,17 @@ export default {
 
 <template>
    <section class="layout">
-      <form class="layout__main" action="post" @submit.prevent="test">
+      <div class="layout__main">
          <section class="grid">
-            <FormField class="col-10--centered md::col-8--centered" validate="slug">
-               <FieldLabel>What's your workspace name:</FieldLabel>
-               <FormGroup>
-                  <FormInput v-model="form.slug" :slugify="true" />
-                  <template #post> .{{ $page.props.app.domain }} </template>
-               </FormGroup>
-            </FormField>
-            <Button class="col-10--centered md::col-4--centered button:block" type="submit" :disable="sending">Check</Button>
+            <h1>All Done, Check your email</h1>
          </section>
-      </form>
+      </div>
       <aside class="layout__secondary">
          <ol class="step-counter">
             <li class="step-counter__item--current">Check your workspace</li>
             <li class="step-counter__item">Add your information</li>
             <li class="step-counter__item">Pay</li>
+            <li class="step-counter__item">Finished</li>
          </ol>
       </aside>
    </section>

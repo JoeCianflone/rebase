@@ -89,8 +89,7 @@ export default {
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
             <p v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news&nbsp;<strong>{{ slug }}.{{ $page.props.app.domain }}</strong
-               >&nbsp;is available!
+               Great news <strong>{{ slug }}.{{ $page.props.app.domain }}</strong> is available!
             </p>
 
             <FormField validate="name" class="col-10--centered md::col-8--centered">
@@ -126,7 +125,7 @@ export default {
             </template>
 
             <div class="col-10--centered md::col-8--centered">
-               <Button as="secondary" size="sm" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button><br /><br />
+               <Button class="button--secondary:xsmall" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button>
             </div>
 
             <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">
@@ -173,7 +172,7 @@ export default {
             <FormField validate="agreed_to_privacy" class="col-10--centered md::col-8--centered">
                <FormCheckbox v-model="form.agreed_to_privacy">I agree with the Privacy Policy</FormCheckbox>
             </FormField>
-            <Button class="col-10--centered md::col-4--centered" type="submit" :disable="sending">Go Pay</Button>
+            <Button class="col-10--centered md::col-4--centered button" type="submit" :disable="sending">Go Pay</Button>
          </section>
       </form>
       <aside class="layout__secondary">
