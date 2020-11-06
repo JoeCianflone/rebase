@@ -37,19 +37,13 @@ export default {
 </script>
 
 <template>
-   <input class="form-item__textbox" ref="input" v-bind="$attrs" :value="value" @input="handleInput" />
+   <input class="form-item--textbox" ref="input" v-bind="$attrs" :value="value" @input="handleInput" />
 </template>
 
 <style lang="scss" scoped>
 @import "@@/abstract";
 
-.form-item {
-   &__textbox {
-      @include form-element;
-
-      &--right {
-         @include form-element;
-      }
-   }
+.form-item--textbox {
+   @include form-element;
 }
 </style>

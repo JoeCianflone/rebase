@@ -15,6 +15,10 @@ export default {
          type: [String, Boolean],
          default: false,
       },
+      type: {
+         type: String,
+         default: "button",
+      },
    },
    computed: {
       buttonType() {
@@ -31,7 +35,7 @@ export default {
 </script>
 
 <template>
-   <button v-on="$listeners" v-bind="$attrs" :disabled="disable">
+   <button :type="type" v-on="$listeners" v-bind="$attrs" :disabled="disable">
       <slot />
       <Icon v-if="icon" :name="icon" class="icon--right" :size="18" />
    </button>
@@ -90,37 +94,46 @@ export default {
 @mixin variant-lists {
    @include for-variant("block") {
       @content;
+      margin: 0;
       display: block;
    }
 }
 
 .button {
-   @include sizes-and-variants {
-      @include button;
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+      }
    }
 }
 .button--secondary {
-   @include sizes-and-variants {
-      @include button;
-      background: transparent;
-      border: 2px solid var(--color-coolGray-800);
-      color: var(--color-coolGray-800);
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+         background: transparent;
+         border: 2px solid var(--color-coolGray-800);
+         color: var(--color-coolGray-800);
+      }
    }
 }
 .button--success {
-   @include sizes-and-variants {
-      @include button;
-      background: var(--color-emerald-500);
-      border: 2px solid var(--color-emerald-500);
-      color: var(--color-coolGray-100);
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+         background: var(--color-emerald-500);
+         border: 2px solid var(--color-emerald-500);
+         color: var(--color-coolGray-100);
+      }
    }
 }
 .button--danger {
-   @include sizes-and-variants {
-      @include button;
-      background: var(--color-red-500);
-      border: 2px solid var(--color-red-500);
-      color: var(--color-coolGray-100);
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+         background: var(--color-red-500);
+         border: 2px solid var(--color-red-500);
+         color: var(--color-coolGray-100);
+      }
    }
 }
 </style>

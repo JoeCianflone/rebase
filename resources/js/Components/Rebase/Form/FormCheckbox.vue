@@ -65,7 +65,7 @@ export default {
 
 <template>
    <FormItem position="right">
-      <input class="form-item__checkbox" :disabled="shouldBeDisabled" ref="input" type="checkbox" v-bind="$attrs" :checked="shouldBeChecked" :value="value" @change="updateInput" />
+      <input class="form-item--checkbox" :disabled="shouldBeDisabled" ref="input" type="checkbox" v-bind="$attrs" :checked="shouldBeChecked" :value="value" @change="updateInput" />
       <slot />
    </FormItem>
 </template>
@@ -73,14 +73,11 @@ export default {
 <style lang="scss" scoped>
 @import "@@/abstract";
 
-.form-item {
-   &__checkbox {
-      @include form-element {
-         flex-grow: 0;
-         margin-left: 3px;
-         margin-right: var(--px-4);
-         width: auto;
-      }
+.form-item--checkbox {
+   @include form-element {
+      flex-grow: 0;
+      margin-right: var(--px-4);
+      width: auto;
    }
 }
 </style>

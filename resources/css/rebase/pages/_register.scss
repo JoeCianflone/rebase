@@ -6,7 +6,7 @@
    grid-template-rows: 1fr 2fr;
    height: 100vh;
 
-   @include at('md') {
+   @media(map-get($mq, 'md')) {
       align-items: center;
       grid-template-areas: 'main secondary';
       grid-template-columns: 2fr 1fr;
@@ -23,7 +23,7 @@
       grid-area: secondary;
       padding: var(--px-16);
 
-      @include at('md') {
+      @media(map-get($mq, 'md')) {
          align-items: center;
          display: flex;
          height: 100vh;

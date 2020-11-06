@@ -14,24 +14,24 @@
     }
  }
 
- @mixin with-queries ($parent: &) {
-     $first: true;
+@mixin with-queries ($parent: &) {
+   $first: true;
 
-     @if ($first == true) {
-         @content;
-         $first: false;
-     }
+   @if ($first == true) {
+      @content;
+      $first: false;
+   }
 
-     @each $key, $value in $mq {
-         $name: str-slice(#{$parent}, 2);
+   @each $key, $value in $mq {
+      $name: str-slice(#{$parent}, 2);
 
-         @media ($value) {
-             @at-root {
-                 .#{$key}\:\:#{$name} { @content; }
-             }
-         }
-     }
- }
+      @media ($value) {
+            @at-root {
+               .#{$key}\:\:#{$name} { @content; }
+            }
+      }
+   }
+}
 
 
 @mixin sizes-and-variants {
@@ -40,6 +40,9 @@
     @include size-lists { @content; }
     @include variant-lists { @content; }
 }
+
+@mixin size-lists { @content; }
+@mixin variant-lists { @content; }
 
 @mixin xsmall($parent: &) {
    @include at-size('xsmall') { @content; }

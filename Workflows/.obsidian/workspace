@@ -4,15 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "0b1ab01ba366ac1b",
+        "id": "c6afa2ad3f5f9d5e",
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "Customer Activation.md",
-            "mode": "source"
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -63,9 +60,7 @@
             "type": "leaf",
             "state": {
               "type": "backlink",
-              "state": {
-                "file": "Customer Activation.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -75,10 +70,10 @@
     "width": 300
   },
   "lastOpenFiles": [
+    "Untitled.md",
     "Customer Activation.md",
     "Customer Signup.md",
     "Naming Conventions.md",
-    "Untitled.md",
     "First Login.md"
   ]
 }

@@ -125,7 +125,7 @@ export default {
             </template>
 
             <div class="col-10--centered md::col-8--centered">
-               <Button class="button--secondary:xsmall" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button>
+               <Button class="button--secondary:block:xsmall" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button>
             </div>
 
             <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">

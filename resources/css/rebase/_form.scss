@@ -1,32 +1,12 @@
-$form-text-color: var(--color-coolGray-800);
-$form-border-radius: var(--radius-2);
-$form-border: 1px solid var(--color-coolGray-400);
-$form-border-selected: 1px solid var(--color-coolGray-300);
-$form-font-size: var(--px-16);
-$form-line-height: normal;
-$form-height: var(--px-40);
-
-@mixin form-element-focus {
-   border: $form-border-selected;
-   box-shadow: 0 1px 2px 0 var(--color-coolGray-300);
-   transition: all 250ms ease-in-out;
-}
-
-@mixin form-element-unfocus {
-   border: $form-border;
-   box-shadow: 0;
-}
-
-
 @mixin form-element {
    background: var(--color-true-white);
-   border: $form-border;
-   border-radius: $form-border-radius;
-   color: $form-text-color;
-   font-size: $form-font-size;
-   line-height: $form-line-height;
+   border: 1px solid var(--color-coolGray-400);
+   border-radius: var(--radius-2);
+   color: var(--color-coolGray-800);
+   font-size: var(--px-16);
+   line-height: normal;
    margin: 0;
-   min-height: $form-height;
+   min-height: var(--px-40);
    padding: var(--px-8);
    position: relative;
    width: 100%;
@@ -38,31 +18,15 @@ $form-height: var(--px-40);
    }
 }
 
-@mixin form-button {
-   align-content: center;
-   background: var(--color-true-white);
-   border: $form-border;
-   border-radius: $form-border-radius;
-   color: $form-text-color;
-   font-size: $form-font-size;
-   justify-content: center;
-   line-height: $form-line-height;
-   margin: 0;
-   min-height: $form-height;
-   padding: var(--px-8) var(--px-16);
-   position: relative;
-   text-align: center;
-   text-decoration: none;
-   white-space: nowrap;
-   width: auto;
-
-   @content;
+@mixin form-element-focus {
+   box-shadow: 0 1px 2px 0 var(--color-coolGray-300);
+   transition: all 250ms ease-in-out;
 }
 
 
 @mixin form-medium {
    font-size: $form-font-size;
-   min-height: $form-height;
+   min-height: var(--px-40);
    padding: var(--px-8);
 }
 

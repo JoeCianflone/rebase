@@ -309,34 +309,3 @@ output {
 summary {
    cursor: pointer;
 }
-
-.is-block {
-   @include with-queries {
-      display: block;
-   }
-}
-.is-hidden {
-   @include with-queries {
-      display: none;
-   }
-}
-.is-flex {
-   @include with-queries {
-      display: flex;
-   }
-}
-.is-grid {
-   @include with-queries {
-      display: grid;
-   }
-}
-.is-inline {
-   @include with-queries {
-      display: inline;
-   }
-}
-.is-inline-flex {
-   @include with-queries {
-      display: inline-flexbox;
-   }
-}

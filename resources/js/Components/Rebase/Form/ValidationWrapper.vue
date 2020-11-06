@@ -22,18 +22,18 @@ export default {
 <style lang="scss">
 .error {
    label {
-      color: #f00;
+      color: var(--color-red-500);
    }
 
    input,
    select,
    .form-item__post-input,
    .form-item__pre-input {
-      border-bottom: 2px solid #f00 !important;
+      border-bottom: 2px solid var(--color-red-500) !important;
    }
 
    .error-message {
-      color: #f00;
+      color: var(--color-red-500);
       line-height: 1;
    }
 

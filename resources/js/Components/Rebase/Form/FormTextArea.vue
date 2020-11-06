@@ -18,11 +18,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '@@/abstract';
+@import "@@/abstract";
 
-.form-item {
-   &__textarea {
-      @include form-element;
-   }
+.form-item--textarea {
+   @include form-element;
 }
 </style>

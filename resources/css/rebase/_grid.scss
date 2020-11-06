@@ -22,8 +22,6 @@
 @mixin base-column {
    display: flex;
    flex-direction: column;
-   padding: var(--px-4);
-   overflow: hidden;
    width: 100%;
 
    @content;
@@ -58,13 +56,7 @@
 }
 
 .col {
-   @include grid-maker;
-}
-
-@each $query, $val in $mq {
-   .col {
-      @include query($query) {
-         @include grid-maker;
-      }
+   @include with-queries {
+      @include grid-maker;
    }
 }

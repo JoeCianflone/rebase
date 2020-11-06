@@ -38,15 +38,15 @@ export default {
    <section class="layout">
       <div class="layout__main">
          <section class="grid">
-            <h1>All Done, Check your email</h1>
+            <h1 class="col-10--centered">All Done, Check your email</h1>
          </section>
       </div>
       <aside class="layout__secondary">
          <ol class="step-counter">
-            <li class="step-counter__item--current">Check your workspace</li>
+            <li class="step-counter__item">Check your workspace</li>
             <li class="step-counter__item">Add your information</li>
             <li class="step-counter__item">Pay</li>
-            <li class="step-counter__item">Finished</li>
+            <li class="step-counter__item--current">Finished</li>
          </ol>
       </aside>
    </section>

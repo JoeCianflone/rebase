@@ -6,7 +6,7 @@ mix
    .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
    .vue({
       extractVueStyles: true,
-      globalVueStyles: false
+      globalVueStyles: true
    })
    .options({
       cssNano: {

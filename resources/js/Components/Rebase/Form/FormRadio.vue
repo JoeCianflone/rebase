@@ -33,7 +33,7 @@ export default {
 
 <template>
    <FormItem position="right">
-      <input class="form-item__radio" ref="input" type="radio" v-bind="$attrs" :checked="shouldBeChecked" :value="value" @change="updateInput" />
+      <input class="form-item--radio" ref="input" type="radio" v-bind="$attrs" :checked="shouldBeChecked" :value="value" @change="updateInput" />
       <slot />
    </FormItem>
 </template>
@@ -41,13 +41,11 @@ export default {
 <style lang="scss" scoped>
 @import "@@/abstract";
 
-.form-item {
-   &__radio {
-      @include form-element {
-         flex-grow: 0;
-         margin-right: var(--px-4);
-         width: auto;
-      }
+.form-item--radio {
+   @include form-element {
+      flex-grow: 0;
+      margin-right: var(--px-4);
+      width: auto;
    }
 }
 </style>
