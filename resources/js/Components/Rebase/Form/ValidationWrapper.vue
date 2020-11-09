@@ -19,7 +19,7 @@ export default {
    </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .error {
    label {
       color: var(--color-red-500);

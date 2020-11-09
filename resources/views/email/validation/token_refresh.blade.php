@@ -1,9 +1,9 @@
 @component('mail::message')
-# Welcome to Rebase!
+# Needed to update your token
 
-Hi {{ $payload['member']->email }}
+Hi {{ $member }}
 
-Your new account is ready! Please sign in using this link first, so you can finish setting up your account.
+Something happened, we updated your link...please click below
 
 @component('mail::button', ['url' => $link])
 Log In

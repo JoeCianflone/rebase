@@ -41,7 +41,7 @@ export default {
    </button>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@@/abstract";
 
 @mixin button {
@@ -106,6 +106,7 @@ export default {
       }
    }
 }
+
 .button--secondary {
    @include with-queries {
       @include sizes-and-variants {
@@ -116,6 +117,7 @@ export default {
       }
    }
 }
+
 .button--success {
    @include with-queries {
       @include sizes-and-variants {
@@ -126,6 +128,7 @@ export default {
       }
    }
 }
+
 .button--danger {
    @include with-queries {
       @include sizes-and-variants {

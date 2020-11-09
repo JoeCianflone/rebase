@@ -25,8 +25,7 @@ export default {
 @import "@@/abstract";
 
 @mixin input-slot {
-   background-color: var(--color-gray-400);
-   border: 1px solid var(--color-coolGray-400);
+   border: none;
    font-size: var(--px-16);
    line-height: normal;
    min-height: var(--px-40);
@@ -44,11 +43,15 @@ export default {
 
    &:focus-within {
       @include form-element-focus;
-
       input:focus {
-         border: 1px solid var(--color-coolGray-400);
+         border: none;
          box-shadow: none;
       }
+   }
+
+   input {
+      border: 0;
+      margin-right: var(--px-4);
    }
 }
 .form-item--pre-input {

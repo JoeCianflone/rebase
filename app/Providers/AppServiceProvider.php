@@ -6,6 +6,7 @@ use App\Actions\Action;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Cashier;
 use App\Actions\Rebase\GetView;
+use App\Actions\Rebase\ActiveRole;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Action::init([
             'getView' => GetView::class,
             'getWorkspaceName' => GetWorkspaceName::class,
+            'activeRole' => ActiveRole::class,
         ]);
     }
 }

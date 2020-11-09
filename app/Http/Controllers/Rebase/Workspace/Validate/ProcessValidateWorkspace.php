@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Rebase\Workspace\Validate;
 
-use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Exceptions\NotAnOwnerException;
-use App\Exceptions\InvalidActivationToken;
+use App\Exceptions\UnknownOwnerException;
 use App\Domain\Facades\Rebase\MemberRepository;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
 use App\Http\Requests\Rebase\ValidateWorkspaceRequest;
@@ -19,22 +17,18 @@ class ProcessValidateWorkspace extends Controller
     {
         try {
             $matchingWorkspace = WorkspaceRepository::matchSlugAndToken($token, $request->get('slug'));
-            if (!WorkspaceRepository::filter($matchingWorkspace)->activationIsOnTime(Carbon::now())) {
-                throw new InvalidActivationToken('Your token has expired');
-            }
-
             $owner = WorkspaceRepository::query($matchingWorkspace)->getOwnerWithEmail($request->get('email'));
 
             MemberRepository::factory($owner)->update([
                 'password' => Hash::make($request->get('password')),
                 'email_token' => null,
             ]);
+
             WorkspaceRepository::factory($matchingWorkspace)->markAsVerified();
-        } catch (InvalidActivationToken | NotAnOwnerException $e) {
-            return redirect()->route('validate.workspace.complete');
-            dd($e);
+        } catch (UnknownOwnerException $e) {
+            return redirect()->route('login')->withMessage('You are not allowed to do that');
         }
 
-        return redirect()->route('validate.workspace.complete');
+        return redirect()->route('login')->withMessage('Ready to go');
     }
 }

@@ -18,6 +18,7 @@ mix
       postCss: [
          require("postcss-import")(),
          require("postcss-sort-media-queries")(),
+         // require('postcss-purgecss-laravel')({}),
       ],
    })
    .webpackConfig({

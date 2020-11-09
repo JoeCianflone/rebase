@@ -309,3 +309,30 @@ output {
 summary {
    cursor: pointer;
 }
+
+
+
+@mixin variant-lists {
+   @include for-variant("start") {
+      @content;
+      text-align: left;
+      align-items: start;
+   }
+   @include for-variant("end") {
+      @content;
+      text-align: right;
+      align-items: end;
+   }
+
+   @include for-variant("center") {
+      @content;
+      text-align: center;
+      align-items: center;
+   }
+}
+
+.text--column {
+   @include with-queries {
+      @include sizes-and-variants;
+   }
+}

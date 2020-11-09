@@ -69,5 +69,7 @@ class Kernel extends HttpKernel
         'only.local' => \App\Http\Middleware\OnlyLocal::class,
         'only.staging' => \App\Http\Middleware\OnlyStaging::class,
         'not.production' => \App\Http\Middleware\OnlyStaging::class,
+        'onboarded' => \App\Http\Middleware\NeedsOnboarding::class,
+        'workspace.access' => \App\Http\Middleware\HasWorkspaceAccess::class,
     ];
 }

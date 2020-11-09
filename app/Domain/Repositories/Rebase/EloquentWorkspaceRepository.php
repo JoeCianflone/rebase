@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Repositories\Rebase;
 
 use App\Enums\Rebase\MemberRoles;
-use App\Exceptions\InvalidActivationToken;
+use App\Enums\Rebase\WorkspaceStatus;
+use App\Exceptions\UnknownOwnerException;
+use App\Exceptions\SlugTokenMismatchException;
 use App\Domain\Filters\Rebase\WorkspaceFilters;
 use App\Domain\Models\Rebase\Workspace\Workspace;
 use App\Domain\Factories\Rebase\WorkspaceModelFactory;
@@ -30,10 +32,23 @@ class EloquentWorkspaceRepository extends EloquentRepository
 
     public function getOwnerWithEmail(string $email)
     {
-        return $found = $this->model->members()
+        $found = $this->model->members()
             ->wherePivot('role', MemberRoles::OWNER())
             ->where('email', $email)
             ->first();
+
+        if (is_null($found)) {
+            throw new UnknownOwnerException('Member sus');
+        }
+
+        return $found;
+    }
+
+    public function getAllOwners()
+    {
+        return $this->model->members()
+            ->wherePivot('role', MemberRoles::OWNER())
+            ->get();
     }
 
     public function hasSlug(string $slug): bool
@@ -53,11 +68,27 @@ class EloquentWorkspaceRepository extends EloquentRepository
 
     public function matchSlugAndToken(string $token, string $slug)
     {
-        return $this->model
+        $found = $this->model
             ->where('activation_token', $token)
             ->where('slug', $slug)
-            ->firstOr(function (): void {
-                throw new InvalidActivationToken('Unable to match a token to slug');
-            });
+            ->first();
+
+        if (is_null($found)) {
+            throw new SlugTokenMismatchException('Slug and Token Mismatch');
+        }
+
+        return $found;
+    }
+
+    public function isPending(string $slug)
+    {
+        return $this->model->where('slug', $slug)->where('status', WorkspaceStatus::PENDING())->count() > 0;
+    }
+
+    public function hasBeenOnboarded(string $slug)
+    {
+        $active = $this->cache('onboarded', fn () => $this->model->where('slug', $slug)->where('status', WorkspaceStatus::ACTIVE())->count());
+
+        return $active > 0;
     }
 }

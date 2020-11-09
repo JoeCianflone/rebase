@@ -33,6 +33,7 @@
     "postcss": "^8.1.2",
     "postcss-cli": "^8.1.0",
     "postcss-import": "^13.0.0",
+    "postcss-purgecss-laravel": "^2.0.0",
     "postcss-sort-media-queries": "^2.1.10",
     "sass": "^1.26.10",
     "sass-loader": "^10.0.1",

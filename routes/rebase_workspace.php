@@ -2,74 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-/**
- *  * workspace
- * -----------------------------
- * These routes require a member to be authorized to view.
- *
- * space.rebase.test/login
- * space.rebase.test/logout
- * space.rebase.test/dashboard
- * space.rebase.test/onboarding
- * space.rebase.test/onboarding/{i}
- * space.rebase.test/onboarding/complete
- * space.rebase.test/customers
- * space.rebase.test/members
- * space.rebase.test/members/{id}
- * space.rebase.test
- */
-Route::middleware(['workspace.connection'])->group(function (): void {
-    Route::inertia('/validate/workspace/{token}', 'rebase.workspace.validate.validateWorkspaceToken')->name('validate.workspace');
-    Route::inertia('/validate/complete', 'rebase.workspace.validate.validateComplete')->name('validate.workspace.complete');
+Route::namespace('Rebase\Workspace')->middleware(['workspace.connection'])->group(function (): void {
+    Route::namespace('Validate')->group(function (): void {
+        Route::get('/validate/workspace/{token}', ValidateWorkspaceToken::class)->name('validate.workspace');
+        Route::inertia('/validate/complete', 'rebase.workspace.validate.validateComplete')->name('validate.workspace.complete');
+        Route::inertia('/validate/token-expired', 'rebase.workspace.validate.validateTokenExpired')->name('validate.workspace.token-expired');
+        Route::post('/validate/workspace/{token}', ProcessValidateWorkspace::class)->name('validate.workspace.process');
+    });
 
-    Route::post('/validate/workspace/{token}', Rebase\Workspace\Validate\ProcessValidateWorkspace::class)->name('validate.workspace.process');
+    Route::namespace('Auth')->group(function (): void {
+        Route::get('/login', Login::class)->name('login');
+        Route::post('/login', ProcessLogin::class)->name('login.process');
+        Route::get('/logout', ProcessLogout::class)->name('logout');
+    });
 
-    /*
-         * GET /forgot/password
-         * POST /forgot/password
-         *
-         * GET  /forgot/reset/{token}
-         * POST /forgot/reset/{token}
-         *
-         * GET  /password/confirm
-         * POST /password/confirm
-         *
-         * GET  /login
-         * POST /login
-         *
-         * GET /logout
-         *
-         * GET /welcome/{slide}?
-         * POST /welcome/complete
-         *
-         * GET /dashboard
-         *
-         * GET /account
-         * GET /account/edit
-         * PUT /account
-         *
-         * GET  /account/credit-card
-         * POST /account/credit-card
-         *
-         * GET /account/invoices
-         *
-         * GET /account/plan
-         * PUT /account/plan
-         */
+    Route::middleware(['auth', 'onboarded', 'workspace.access'])->group(function (): void {
+        Route::get('/dashboard', Dashboard\Dashboard::class)->name('dashboard');
+        Route::get('/dashboard/choice', Dashboard\ChooseWorkspace::class)->name('choose.workspace');
+    });
 
-    /*
-         * GET /reports
-         * GET /reports/accounts/closed
-         * GET /reports/accounts/new
-         * GET /reports/accounts/breakdown
-         * GET /reports/accounts/unpaid
-         * GET /reports/accounts/declined-payment
-         *
-         * GET /customers/accounts
-         * GET /customers/workspaces
-         * GET /customers/accounts/{accountID}
-         *
-         * GET /customers/notification
-         *
-         */
+    Route::middleware(['auth'])->group(function (): void {
+        Route::get('/onboarding/start', Onboarding\OnboardingStart::class)->name('onboarding.start');
+        Route::get('/onboarding/complete', Onboarding\OnboardingComplete::class)->name('onboarding.complete');
+    });
 });

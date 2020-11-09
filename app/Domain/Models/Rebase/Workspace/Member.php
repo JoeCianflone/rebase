@@ -69,6 +69,6 @@ class Member extends Authenticatable
 
     public function workspaces()
     {
-        return $this->belongsToMany(Workspace::class)->withTimestamps();
+        return $this->belongsToMany(Workspace::class)->withPivot('role');
     }
 }

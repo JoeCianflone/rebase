@@ -7,7 +7,6 @@
 @mixin for-variant($parent) {
     &\:#{$parent} {
         @content;
-
         @include size-lists {
             @content;
         }
@@ -33,10 +32,8 @@
    }
 }
 
-
 @mixin sizes-and-variants {
     @content;
-
     @include size-lists { @content; }
     @include variant-lists { @content; }
 }

@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Rebase\Workspace\Auth;
 
-use Inertia\Response;
-use App\Actions\Action;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Rebase\LoginRequest;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class ProcessLogin extends Controller
 {
-    public function __invoke(Request $request): Response
+    use ThrottlesLogins;
+
+    public function __invoke(LoginRequest $request)
     {
-        return inertia(Action::getView($this));
+        if (!Auth::attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->back()->withErrors('We cannot find your username/password');
+        }
+
+        return redirect()->route('dashboard');
     }
 }
