@@ -26,5 +26,6 @@ export default {
 <template>
    <form class="grid" action="post" @submit.prevent="submit">
       <h1 class="col-10--centered">Welcome to the dashboard</h1>
+      <inertia-link :href="route('logout')">Logout</inertia-link>
    </form>
 </template>

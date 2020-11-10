@@ -3,9 +3,7 @@ import { App, plugin } from '@inertiajs/inertia-vue'
 import PortalVue from "portal-vue"
 import VueMeta from "vue-meta"
 import Vue from "vue"
-import { InertiaProgress } from "@inertiajs/progress"
-import route from '../../vendor/tightenco/ziggy/src/js/route.js';
-import { Ziggy } from './ziggy';
+import { InertiaProgress } from '@inertiajs/progress/src'
 
 InertiaProgress.init({
    delay: 250,
@@ -46,12 +44,7 @@ Vue.use(VueMeta)
 
 let el = document.getElementById("app")
 
-Vue.mixin({
-   methods: {
-       route: (name, params, absolute) => route(name, params, absolute, Ziggy),
-   },
-});
-
+Vue.mixin({ methods: { route: window.route } })
 
 new Vue({
    metaInfo: {

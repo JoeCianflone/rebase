@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\Rebase;
 
 use Closure;
 use App\Actions\Action;

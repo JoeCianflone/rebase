@@ -51,6 +51,13 @@ class EloquentWorkspaceRepository extends EloquentRepository
             ->get();
     }
 
+    public function getAllOwnersFor(string $workspaceID)
+    {
+        return $this->model->where('id', $workspaceID)->first()->members()
+            ->wherePivot('role', MemberRoles::OWNER())
+            ->get();
+    }
+
     public function hasSlug(string $slug): bool
     {
         return $this->model->where('slug', '=', $slug)->count() > 0;

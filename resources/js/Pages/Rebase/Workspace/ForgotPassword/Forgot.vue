@@ -11,14 +11,12 @@ export default {
       sending: false,
       form: {
          email: "",
-         password: "",
-         remember: false,
       },
    }),
 
    methods: {
       submit() {
-         this.$inertia.post(route("login.process"), this.form, {
+         this.$inertia.post(route("password.email"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -33,16 +31,9 @@ export default {
          <FieldLabel>What's your email address:</FieldLabel>
          <FormInput v-model="form.email" type="email" />
       </FormField>
-      <FormField validate="password" class="col-10--centered md::col-8--centered">
-         <FieldLabel>What's your password:</FieldLabel>
-         <FormInput v-model="form.password" type="password" />
-      </FormField>
-      <FormField class="col-10--centered md::col-8--centered text--column:end">
-         <FormCheckbox v-model="form.remember">Remember Me</FormCheckbox>
-      </FormField>
-      <Button type="submit" :disable="sending" class="button col-10--centered md::col-2--centered">Log In</Button>
+      <Button type="submit" :disable="sending" class="button col-10--centered md::col-2--centered">Reset Password</Button>
       <div class="col-10--centered md::col-8--centered text--column:center">
-         <inertia-link :href="route('password.request')">Forgot Password?</inertia-link>
+         <inertia-link :href="route('login')">Go Back</inertia-link>
       </div>
    </form>
 </template>

@@ -3,7 +3,7 @@ import Layout from "@/Templates/Rebase/WorkspaceMain"
 
 export default {
    layout: Layout,
-   metaInfo: { title: "Complete Onboarding" },
+   metaInfo: { title: "HOOLLLD" },
 
    components: {},
 
@@ -14,7 +14,7 @@ export default {
 
    methods: {
       submit() {
-         this.$inertia.post(route("login.process"), this.form, {
+         this.$inertia.post(route("onboarding.complete"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -25,6 +25,7 @@ export default {
 
 <template>
    <form class="grid" action="post" @submit.prevent="submit">
-      <h1 class="col-10--centered">Onboarding Complete</h1>
+      <h1 class="col-10--centered">Whoops!</h1>
+      <div class="col-10--centered">Sorry the owner must finish the onboarding process before we can let you in.</div>
    </form>
 </template>

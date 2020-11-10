@@ -45,6 +45,13 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'workspace' => [
+            \App\Http\Middleware\Authenticate::class,
+            \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
+            \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
+            \App\Http\Middleware\RedirectIfAuthenticated::class,
+        ],
     ];
 
     /**
@@ -69,7 +76,6 @@ class Kernel extends HttpKernel
         'only.local' => \App\Http\Middleware\OnlyLocal::class,
         'only.staging' => \App\Http\Middleware\OnlyStaging::class,
         'not.production' => \App\Http\Middleware\OnlyStaging::class,
-        'onboarded' => \App\Http\Middleware\NeedsOnboarding::class,
-        'workspace.access' => \App\Http\Middleware\HasWorkspaceAccess::class,
+        'workspace.access' => \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
     ];
 }

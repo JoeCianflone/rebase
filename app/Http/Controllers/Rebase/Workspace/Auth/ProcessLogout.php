@@ -16,6 +16,6 @@ class ProcessLogout extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->withMessage('Have a nice day');
+        return redirect()->route('login')->withSuccess('Thank you and have a nice day');
     }
 }

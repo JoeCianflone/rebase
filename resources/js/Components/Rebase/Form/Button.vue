@@ -103,6 +103,11 @@ export default {
    @include with-queries {
       @include sizes-and-variants {
          @include button;
+
+         &:disabled {
+            opacity: 0.6;
+            cursor: default;
+         }
       }
    }
 }

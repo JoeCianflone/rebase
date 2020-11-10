@@ -14,7 +14,7 @@ export default {
 
    methods: {
       submit() {
-         this.$inertia.post(route("login.process"), this.form, {
+         this.$inertia.post(route("onboarding.complete"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -26,5 +26,8 @@ export default {
 <template>
    <form class="grid" action="post" @submit.prevent="submit">
       <h1 class="col-10--centered">Onboarding Start</h1>
+      <div class="col-10--centered">
+         <p><Button class="button:xsmall" type="submit" :disable="sending">Complete Onboarding</Button></p>
+      </div>
    </form>
 </template>

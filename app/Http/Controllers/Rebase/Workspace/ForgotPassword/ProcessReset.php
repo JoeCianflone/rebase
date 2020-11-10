@@ -4,15 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Rebase\Workspace\ForgotPassword;
 
-use Inertia\Response;
-use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ProcessReset extends Controller
 {
-    public function __invoke(Request $request): Response
+    use ResetsPasswords;
+
+    public function __invoke(Request $request): void
     {
-        return inertia(Action::getView($this));
+        $this->reset($request);
+    }
+
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:12',
+        ];
     }
 }

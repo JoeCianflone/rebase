@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::pattern('domain', '[a-z0-9.\-]+');
         parent::boot();
 
         Route::macro('inertia', function ($uri = '/', $path, array $data = []) {

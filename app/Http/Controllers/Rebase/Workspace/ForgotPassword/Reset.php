@@ -11,8 +11,11 @@ use App\Http\Controllers\Controller;
 
 class Reset extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(string $token, Request $request): Response
     {
-        return inertia(Action::getView($this));
+        return inertia(Action::getView($this), [
+            'token' => $token,
+            'tokenEmail' => $request->get('email'),
+        ]);
     }
 }
