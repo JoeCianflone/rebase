@@ -1,5 +1,5 @@
 <script>
-import Layout from "@/Templates/Rebase/WorkspaceMain"
+import Layout from "@/Templates/Rebase/WorkspaceGuest"
 import Editor from "@/Components/Rebase/Form/Editor"
 
 export default {

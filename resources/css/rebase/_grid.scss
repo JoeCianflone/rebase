@@ -13,6 +13,10 @@
       margin: var(--px-16) 0 0 0;
    }
 
+   &:only-child {
+      margin: 0;
+   }
+
    &--center {
       @extend .grid;
       align-items: center;
@@ -34,6 +38,19 @@
          @include base-column {
             grid-column-end: span #{$count};
             grid-column-start: auto;
+
+            @if ($count > 1 and $count < $grid-cols) {
+               @for $col-count from $grid-cols through 1 {
+                  @include for-variant('at-#{$col-count}') {
+                     @include base-column {
+                        grid-column-end: span #{$count};
+                        grid-column-start: $col-count;
+                     }
+                  }
+               }
+
+            }
+
          }
 
          @if ($count % 2 == 0 and $count < $grid-cols) {
@@ -45,15 +62,10 @@
             }
          }
       }
-      @if ($count > 1) {
-         &-at-#{$count} {
-            @include base-column {
-               grid-column-start: $count;
-            }
-         }
-      }
+
    }
 }
+
 
 .col {
    @include with-queries {

@@ -1,31 +1,31 @@
 <script>
-import Layout from "@/Templates/Rebase/WorkspaceMain"
+import Layout from "@/Templates/Rebase/Workspace"
+import AdminPage from "@/Templates/Rebase/AdminPage"
 
 export default {
    layout: Layout,
    metaInfo: { title: "Dashboard" },
 
-   components: {},
+   components: {
+      AdminPage,
+   },
 
    data: () => ({
       sending: false,
       form: {},
    }),
 
-   methods: {
-      submit() {
-         this.$inertia.post(route("login.process"), this.form, {
-            onStart: () => (this.sending = true),
-            onFinish: () => (this.sending = false),
-         })
-      },
-   },
+   methods: {},
 }
 </script>
 
 <template>
-   <form class="grid" action="post" @submit.prevent="submit">
-      <h1 class="col-10--centered">Welcome to the dashboard</h1>
-      <inertia-link :href="route('logout')">Logout</inertia-link>
-   </form>
+   <AdminPage nav="dashboard">
+      <template v-slot:header>Dashboard</template>
+      <template v-slot:body>
+         <div class="grid">
+            <h1 class="col-10">Welcome to the dashboard</h1>
+         </div>
+      </template>
+   </AdminPage>
 </template>

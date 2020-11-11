@@ -12,8 +12,10 @@ class ProcessForgot extends Controller
 {
     use SendsPasswordResetEmails;
 
-    public function __invoke(Request $request): void
+    public function __invoke(Request $request)
     {
         $this->sendResetLinkEmail($request);
+
+        return redirect()->back()->withSuccess('Check your email');
     }
 }

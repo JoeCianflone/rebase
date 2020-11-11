@@ -8,6 +8,14 @@ $mq: (
    'xl': #{'min-width: 1366px'},
 );
 
+$xs-and-up: map-get($mq , 'xs');
+$sm-and-up: map-get($mq , 'sm');
+$md-and-up: map-get($mq , 'md');
+$wd-and-up: map-get($mq , 'wd');
+$xw-and-up: map-get($mq , 'xw');
+$lg-and-up: map-get($mq , 'lg');
+$xl-and-up: map-get($mq , 'xl');
+
 $browser-min-size: 350px !default;
 $browser-max-size: 1440px !default;
 $font-base: 16px !default;

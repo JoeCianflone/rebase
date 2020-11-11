@@ -12,9 +12,11 @@ class ProcessReset extends Controller
 {
     use ResetsPasswords;
 
-    public function __invoke(Request $request): void
+    public function __invoke(Request $request)
     {
         $this->reset($request);
+
+        return redirect()->route('login')->withSuccess('You have changed your password');
     }
 
     protected function rules()

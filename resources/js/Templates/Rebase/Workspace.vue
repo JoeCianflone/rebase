@@ -1,7 +1,11 @@
 <script>
+import Toast from "@/Components/Rebase/Toast/Toast"
+
 export default {
-   components: {},
-   data: () => ({}),
+   components: {
+      Toast,
+   },
+
    methods: {
       url() {
          return location.pathname.substr(1)
@@ -14,7 +18,7 @@ export default {
    <section>
       <portal-target name="dropdown" slim />
       <portal-target name="overlay" slim />
-
+      <Toast :flash="$page.props.flash" />
       <slot></slot>
    </section>
 </template>

@@ -123,6 +123,20 @@ export default {
    }
 }
 
+.button--icon {
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+         background: transparent;
+         border: none;
+         color: inherit;
+         text-align: right;
+         margin: 0;
+         padding: 0 !important;
+      }
+   }
+}
+
 .button--success {
    @include with-queries {
       @include sizes-and-variants {
