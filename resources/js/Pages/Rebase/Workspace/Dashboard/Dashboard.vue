@@ -23,9 +23,7 @@ export default {
    <AdminPage nav="dashboard">
       <template v-slot:header>Dashboard</template>
       <template v-slot:body>
-         <div class="grid">
-            <h1 class="col-10">Welcome to the dashboard</h1>
-         </div>
+         <div class="grid"></div>
       </template>
    </AdminPage>
 </template>

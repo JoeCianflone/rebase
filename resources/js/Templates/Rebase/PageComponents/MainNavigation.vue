@@ -49,6 +49,7 @@ export default {
 @import "@@/abstract";
 
 .nav-button {
+   color: var(--color-blueGray-400);
    @media ($sm-and-up) {
       display: none;
    }
@@ -56,22 +57,19 @@ export default {
 
 .navigation--main {
    display: none;
-   font-size: var(--px-18);
+   font-size: var(--px-16);
    letter-spacing: var(--kerning-tighter);
-   color: var(--color-trueGray-500);
+   color: var(--color-blueGray-400);
 
    a {
       text-decoration: none;
       transition: 350ms all ease-in;
-      border-bottom: 4px solid transparent;
       display: block;
-      line-height: 0.85;
-      padding: var(--px-24) 0 0 0;
+      line-height: 3;
 
       &:hover,
       &.selected {
-         color: var(--color-trueGray-700);
-         border-bottom: 4px solid var(--color-trueGray-400);
+         color: var(--color-blueGray-100);
       }
    }
 

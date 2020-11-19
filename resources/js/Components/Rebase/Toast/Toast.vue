@@ -10,6 +10,7 @@ export default {
 
    props: {
       flash: Object,
+      errors: Array | Object,
    },
 
    data: function () {
@@ -18,11 +19,25 @@ export default {
       }
    },
 
+   watch: {
+      isClosed: function (isClosed) {
+         console.log(isClosed)
+         if (!isClosed) {
+            let vm = this
+            setTimeout(function () {
+               console.log("Hi")
+               vm.isClosed = true
+            }, 4000)
+         }
+      },
+   },
+
    computed: {
       toastType: function () {
          if (this.flash.success || this.flash.message || this.flash.alerts || this.flash.errors) {
             this.isClosed = false
          }
+
          return {
             "toast--success": this.flash.success,
             "toast--message": this.flash.message,

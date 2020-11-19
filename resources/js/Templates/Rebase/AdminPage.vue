@@ -1,6 +1,8 @@
 <script>
 import Sidebar from "./PageComponents/Sidebar"
-import SecondaryNavigation from "./PageComponents/SecondaryNavigation"
+import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
+import ActionLink from "@/Components/Rebase/Actions/ActionLink"
+import ActionButton from "@/Components/Rebase/Actions/ActionButton"
 
 export default {
    props: {
@@ -9,7 +11,9 @@ export default {
 
    components: {
       Sidebar,
-      SecondaryNavigation,
+      ActionMenu,
+      ActionLink,
+      ActionButton,
    },
 }
 </script>
@@ -23,7 +27,12 @@ export default {
                <slot name="header"></slot>
             </div>
             <div class="section-identity">
-               <SecondaryNavigation />
+               <ActionMenu>
+                  <template v-slot:buttonText> <span class="material-icons">account_circle</span> {{ $page.props.auth.user.email }} <span class="material-icons">expand_more</span> </template>
+                  <ActionLink :link="route('logout')">Profile</ActionLink>
+                  <ActionLink :link="route('logout')">Switch Workspace</ActionLink>
+                  <ActionLink :link="route('logout')">Logout</ActionLink>
+               </ActionMenu>
             </div>
          </header>
          <main>
@@ -41,9 +50,9 @@ export default {
 <style lang="scss" scoped>
 @import "@@/abstract";
 
-$base-gap: var(--px-12);
+$base-gap: var(--px-16);
 $sidebar-width: 240px;
-$headerbar-height: 50px;
+$headerbar-height: 40px;
 
 .layout--main {
    column-gap: $base-gap;
@@ -53,7 +62,7 @@ $headerbar-height: 50px;
       "header"
       "main";
    grid-template-columns: 1fr;
-   grid-template-rows: $headerbar-height $headerbar-height 1fr;
+   grid-template-rows: min($headerbar-height) min($headerbar-height) 1fr;
    height: 100vh;
 
    @media ($sm-and-up) {
@@ -61,15 +70,16 @@ $headerbar-height: 50px;
          "header header"
          "sidebar main";
       grid-template-columns: $sidebar-width 1fr;
-      grid-template-rows: $headerbar-height 1fr;
+      grid-template-rows: min($headerbar-height) 1fr;
    }
 
    header {
       align-items: center;
-      background: var(--color-coolGray-100);
-      border-bottom: 1px solid #979797;
-      box-shadow: 0 1px 3px 0 rgba(#000, 0.5);
+      align-content: center;
+      background: var(--color-true-white);
+      border-bottom: 3px solid var(--color-blueGray-300);
       column-gap: $base-gap;
+      padding: 0 var(--px-16);
       display: grid;
       grid-area: header;
       grid-template-columns: 1fr 1fr;
@@ -82,14 +92,12 @@ $headerbar-height: 50px;
       .site-logo {
          color: var(--color-coolGray-600);
          font-size: var(--px-24);
-         padding: 0 var(--px-12);
       }
 
       .section-title {
          color: var(--color-coolGray-600);
          display: none;
          font-size: var(--px-18);
-         padding: 0 var(--px-12);
 
          @media ($sm-and-up) {
             display: block;
@@ -98,26 +106,33 @@ $headerbar-height: 50px;
 
       .section-identity {
          text-align: right;
-         padding: 0 var(--px-12);
       }
    }
 
    main {
+      padding: var(--px-12);
       -ms-overflow-style: none;
       grid-area: main;
       overflow: scroll;
-      padding: var(--px-12);
       scrollbar-width: none;
 
       &::-webkit-scrollbar {
          display: none;
       }
+
+      @media ($sm-and-up) {
+         padding-top: var(--px-60);
+      }
    }
 
    aside {
-      background: var(--color-coolGray-300);
+      padding: 0 var(--px-16);
+      background: var(--color-blueGray-800);
       grid-area: sidebar;
-      padding: var(--px-12);
+
+      @media ($sm-and-up) {
+         padding-top: var(--px-60);
+      }
    }
 }
 </style>

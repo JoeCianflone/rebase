@@ -20,6 +20,8 @@ class CreateWorkspacesTable extends Migration
             $table->string('slug')->unique()->index();
             $table->string('domain')->unique()->index()->nullable();
             $table->enum('status', Arr::flatten(WorkspaceStatus::toArray()))->default(WorkspaceStatus::PENDING());
+            $table->integer('active_users')->default(0);
+            $table->integer('total_users')->default(0);
             $table->uuid('activation_token')->nullable();
             $table->dateTime('activation_at')->nullable();
             $table->timestamps();

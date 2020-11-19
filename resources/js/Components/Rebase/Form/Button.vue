@@ -45,7 +45,7 @@ export default {
 @import "@@/abstract";
 
 @mixin button {
-   align-content: center;
+   align-items: center;
    background: var(--color-coolGray-800);
    border: 1px solid var(--color-coolGray-800);
    border-radius: var(--radius-2);
@@ -55,7 +55,7 @@ export default {
    font-size: var(--px-16);
    justify-content: center;
    line-height: var(--leading-normal);
-   margin: auto;
+   margin: 0;
    min-height: var(--px-40);
    padding: var(--px-8) var(--px-16);
    position: relative;
@@ -67,15 +67,16 @@ export default {
 @mixin size-lists {
    @include xsmall {
       @content;
-      font-size: var(--px-12);
-      min-height: var(--px-18);
-      padding: var(--px-4) var(--px-12);
+      font-size: var(--px-14);
+      min-height: 0;
+      height: var(--px-30);
+      padding: 0 var(--px-20);
    }
    @include small {
       @content;
       font-size: var(--px-14);
-      min-height: var(--px-20);
-      padding: var(--px-4) var(--px-16);
+      min-height: var(--px-18);
+      padding: 0 var(--px-20);
    }
    @include large {
       @content;

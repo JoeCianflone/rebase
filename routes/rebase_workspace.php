@@ -31,5 +31,12 @@ Route::namespace('Rebase\Workspace')->middleware(['workspace.connection'])->grou
         Route::get('/onboarding/start', Onboarding\OnboardingStart::class)->name('onboarding.start');
         Route::get('/onboarding/hold', Onboarding\OnboardingHold::class)->name('onboarding.hold');
         Route::post('/onboarding/complete', Onboarding\OnboardingComplete::class)->name('onboarding.complete');
+
+        Route::get('/customer/settings', Customer\Settings::class)->name('customer.settings');
+        Route::post('/customer/settings/update/{type}', Customer\CustomerUpdate::class)->name('customer.update');
+
+        Route::get('/customer/settings/invoice/{invoiceID}', Customer\ShowInvoice::class)->name('customer.show.invoice');
+        // Route::get('/customer/settings/workspace/{id}/edit', Customer\WorkspaceSettings::class)->name('customer.edit.workspace');
+        // Route::delete('/customer/settings/workspace/{id}', Customer\WorkspaceDelete::class)->name('customer.delete.workspace');
     });
 });

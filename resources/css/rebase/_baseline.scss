@@ -57,12 +57,13 @@ html {
 }
 
 body {
-   color: var(--color-true-black);
+   background: var(--color-coolGray-100);
+   color: var(--color-blueGray-800);
    font-family: $font-body;
    -moz-osx-font-smoothing: grayscale !important;
    -webkit-font-smoothing: antialiased !important;
    height: 100%;
-   line-height: var(--leading-normal);
+   line-height: 1;
    margin: var(--px-0);
    min-width: $browser-min-size;
    padding: var(--px-0);

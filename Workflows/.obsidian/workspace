@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "c6afa2ad3f5f9d5e",
+        "id": "c88353163ebe80c2",
         "type": "leaf",
         "active": true,
         "state": {
@@ -71,9 +71,9 @@
   },
   "lastOpenFiles": [
     "Untitled.md",
-    "Customer Activation.md",
+    "First Login.md",
     "Customer Signup.md",
-    "Naming Conventions.md",
-    "First Login.md"
+    "Customer Activation.md",
+    "Naming Conventions.md"
   ]
 }
