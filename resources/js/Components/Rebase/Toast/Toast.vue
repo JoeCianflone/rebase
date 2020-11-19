@@ -21,11 +21,9 @@ export default {
 
    watch: {
       isClosed: function (isClosed) {
-         console.log(isClosed)
          if (!isClosed) {
             let vm = this
             setTimeout(function () {
-               console.log("Hi")
                vm.isClosed = true
             }, 4000)
          }
@@ -46,38 +44,40 @@ export default {
          }
       },
    },
-
-   methods: {
-      close() {
-         this.isClosed = !this.isClosed
-      },
-   },
 }
 </script>
 
 <template>
-   <div class="toast" :class="[{ closed: isClosed }, toastType]">
-      <div class="grid--center">
-         <div class="col-8:at-2">
-            <SimpleMessage v-if="flash.success">{{ flash.success }}</SimpleMessage>
-            <SimpleMessage v-if="flash.errors">{{ flash.errors }}</SimpleMessage>
-            <SimpleMessage v-if="flash.alert">{{ flash.alert }}</SimpleMessage>
-            <SimpleMessage v-if="flash.message">{{ flash.message }}</SimpleMessage>
+   <transition name="slide" appear>
+      <div class="toast" v-show="!isClosed" :class="toastType">
+         <div class="grid--center">
+            <div class="col-8:at-2">
+               <SimpleMessage v-if="flash.success">{{ flash.success }}</SimpleMessage>
+               <SimpleMessage v-if="flash.errors">{{ flash.errors }}</SimpleMessage>
+               <SimpleMessage v-if="flash.alert">{{ flash.alert }}</SimpleMessage>
+               <SimpleMessage v-if="flash.message">{{ flash.message }}</SimpleMessage>
+            </div>
+            <Button @click="isClosed = !isClosed" class="button--icon:xsmall col-2"><span class="material-icons">close</span></Button>
          </div>
-         <Button @click="close()" class="button--icon:xsmall col-2"><span class="material-icons">close</span></Button>
       </div>
-   </div>
+   </transition>
 </template>
 
 <style lang="scss" scoped>
+.slide-enter,
+.slide-leave-to {
+   transform: translateY(-50px);
+}
 .toast {
    background: var(--color-gray-800);
    color: var(--color-gray-100);
    padding: var(--px-8) 0;
-
-   &.closed {
-      display: none;
-   }
+   position: absolute;
+   width: 100%;
+   z-index: 12;
+   transition: all 300ms ease-in-out;
+   height: 50px;
+   overflow: hidden;
 
    &.toast--success {
       background-color: var(--color-green-600);
