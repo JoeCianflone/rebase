@@ -61,6 +61,7 @@ body {
    background: var(--color-coolGray-100);
    color: var(--color-blueGray-800);
    font-family: $font-body;
+   font-weight: 300;
    -moz-osx-font-smoothing: grayscale !important;
    -webkit-font-smoothing: antialiased !important;
    height: 100%;
@@ -118,6 +119,8 @@ dt li {
 
 h1, h2, h3, h4, h5, h6 {
    letter-spacing: var(--kerning-tighter);
+   font-family: $font-display;
+   font-weight: 900;
 }
 
 

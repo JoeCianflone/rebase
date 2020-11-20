@@ -32,6 +32,7 @@ class Member extends Authenticatable
         'name',                 // required
         'avatar',
         'profile',
+        'roles',
         'remember_token',
         'email_token',
         'email_verified_at',
@@ -52,6 +53,7 @@ class Member extends Authenticatable
     protected $casts = [
         'id' => 'string',
         'profile' => 'array',
+        'roles' => 'array',
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -67,8 +69,13 @@ class Member extends Authenticatable
         });
     }
 
+    public function role(string $key): string
+    {
+        return $this->roles[$key];
+    }
+
     public function workspaces()
     {
-        return $this->belongsToMany(Workspace::class)->withPivot('role');
+        return $this->belongsToMany(Workspace::class);
     }
 }

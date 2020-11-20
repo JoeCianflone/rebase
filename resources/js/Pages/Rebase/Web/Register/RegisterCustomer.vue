@@ -88,9 +88,9 @@ export default {
    <section class="layout">
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
-            <p v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news <strong>{{ slug }}.{{ $page.props.app.domain }}</strong> is available!
-            </p>
+            <h1 v-if="slug" class="col-10--centered md::col-8--centered">
+               Great news <i>{{ slug }}.{{ $page.props.app.domain }}</i> is available!
+            </h1>
 
             <FormField validate="name" class="col-10--centered md::col-8--centered">
                <FieldLabel>Company/Personal Name:</FieldLabel>
@@ -102,7 +102,7 @@ export default {
                <FormInput v-model="form.email" type="email" />
             </FormField>
 
-            <FormField validate="line1" class="col-10--centered md::col-6 md::col-at-3">
+            <FormField validate="line1" class="col-10--centered md::col-6:at-3">
                <FieldLabel>Address Line 1:</FieldLabel>
                <FormInput v-model="form.line1" />
             </FormField>
@@ -128,7 +128,7 @@ export default {
                <Button class="button--secondary:block:xsmall" @click="showAddress = showAddress ? false : true">{{ showAddress ? `Hide` : `Show Extra` }} Address Lines</Button>
             </div>
 
-            <FormField validate="city" class="col-10--centered md::col-4 md::col-at-3">
+            <FormField validate="city" class="col-10--centered md::col-4:at-3">
                <FieldLabel>City:</FieldLabel>
                <FormInput v-model="form.city" />
             </FormField>
@@ -155,7 +155,7 @@ export default {
                <card-number ref="cardNumber" :stripe="stripe_key" />
             </FormField>
 
-            <FormField class="col-8 col-at-2 md::col-6 md::col-at-3">
+            <FormField class="col-8 col-at-2 md::col-6:at-3">
                <FieldLabel>Expires:</FieldLabel>
                <card-expiry ref="cardExpiry" :stripe="stripe_key" />
             </FormField>

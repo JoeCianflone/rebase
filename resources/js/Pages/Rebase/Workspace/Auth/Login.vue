@@ -29,6 +29,7 @@ export default {
 
 <template>
    <form class="grid" action="post" @submit.prevent="submit">
+      <h1 class="col-10--centered md::col-8--centered">Please Log In</h1>
       <FormField validate="email" class="col-10--centered md::col-8--centered">
          <FieldLabel>What's your email address:</FieldLabel>
          <FormInput v-model="form.email" type="email" />

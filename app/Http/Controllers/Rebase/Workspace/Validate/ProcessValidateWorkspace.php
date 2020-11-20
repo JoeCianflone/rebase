@@ -16,7 +16,7 @@ class ProcessValidateWorkspace extends Controller
     public function __invoke(ValidateWorkspaceRequest $request, string $token)
     {
         try {
-            $matchingWorkspace = WorkspaceRepository::matchSlugAndToken($token, $request->get('slug'));
+            $matchingWorkspace = WorkspaceRepository::query()->matchSlugAndToken($token, $request->get('slug'));
             $owner = WorkspaceRepository::query($matchingWorkspace)->getOwnerWithEmail($request->get('email'));
 
             MemberRepository::factory($owner)->update([
@@ -26,9 +26,9 @@ class ProcessValidateWorkspace extends Controller
 
             WorkspaceRepository::factory($matchingWorkspace)->markAsVerified();
         } catch (UnknownOwnerException $e) {
-            return redirect()->route('login')->withMessage('You are not allowed to do that');
+            return redirect()->route('login')->withError('You are not allowed to do that');
         }
 
-        return redirect()->route('login')->withMessage('Ready to go');
+        return redirect()->route('login')->withSuccess('All set! You can now log in');
     }
 }

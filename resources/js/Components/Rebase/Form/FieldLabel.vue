@@ -17,5 +17,6 @@ export default {
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
+   line-height: var(--leading-normal);
 }
 </style>

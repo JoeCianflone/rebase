@@ -18,6 +18,7 @@ class CreateMembersTable extends Migration
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
             $table->json('profile')->nullable();
+            $table->json('roles')->nullable();
             $table->string('remember_token')->nullable();
             $table->uuid('email_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();

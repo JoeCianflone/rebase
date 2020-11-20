@@ -25,11 +25,4 @@ class EloquentMemberRepository extends EloquentRepository
     {
         return new MemberModelFactory($model ?? $this->model);
     }
-
-    public function getWorkspaceRole(string $workspaceID)
-    {
-        $workspace = $this->cache('role.'.$workspaceID, fn () => $this->model->load('workspaces')->workspaces->firstWhere('id', $workspaceID));
-
-        return  $workspace->pivot->role ?? null;
-    }
 }

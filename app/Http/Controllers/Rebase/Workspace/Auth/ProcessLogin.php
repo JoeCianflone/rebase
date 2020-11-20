@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Rebase\Workspace\Auth;
 
-use App\Actions\Action;
 use App\Enums\Rebase\MemberRoles;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +21,8 @@ class ProcessLogin extends Controller
             return redirect()->back()->withErrors('We cannot find your username/password');
         }
 
-        if (!WorkspaceRepository::hasBeenOnboarded($request->get('slug'))) {
-            if (Action::activeRole($request->get('slug') === MemberRoles::OWNER())) {
+        if (!WorkspaceRepository::query()->hasBeenOnboarded($request->get('slug'))) {
+            if (Auth::user()->role($request->get('workspace_id')) === (string) MemberRoles::OWNER()) {
                 return redirect()->route('onboarding.start');
             }
 

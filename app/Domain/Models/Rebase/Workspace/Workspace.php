@@ -78,6 +78,6 @@ class Workspace extends Model
 
     public function members()
     {
-        return $this->belongsToMany(Member::class)->withPivot('role');
+        return $this->belongsToMany(Member::class);
     }
 }

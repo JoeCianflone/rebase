@@ -3,10 +3,8 @@
 namespace App\Http\Middleware\Rebase;
 
 use Closure;
-use App\Actions\Action;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Domain\Facades\Rebase\MemberRepository;
 
 class HasWorkspaceAccess
 {
@@ -17,13 +15,9 @@ class HasWorkspaceAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        $workspaceRole = MemberRepository::query(Auth::user())->getWorkspaceRole($request->get('workspace_id'));
-
-        if (is_null($workspaceRole)) {
+        if (is_null(Auth::user()->role($request->get('workspace_id')))) {
             return redirect()->route('workspace.choice')->withMessage('You do not have access to that Workspace, please contact your administrator');
         }
-
-        Action::activeRole([$request->get('slug') => $workspaceRole]);
 
         return $next($request);
     }

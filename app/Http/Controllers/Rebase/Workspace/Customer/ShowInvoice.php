@@ -12,7 +12,7 @@ class ShowInvoice extends Controller
 {
     public function __invoke(string $invoiceID, Request $request)
     {
-        $customer = CustomerRepository::getCustomerWithSubscriptions($request->get('customer_id'));
+        $customer = CustomerRepository::query()->getCustomerWithSubscriptions($request->get('customer_id'));
 
         return $customer->downloadInvoice($invoiceID, [
             'vendor' => 'Your Company',

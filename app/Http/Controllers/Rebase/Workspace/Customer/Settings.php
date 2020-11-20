@@ -14,9 +14,9 @@ class Settings extends Controller
 {
     public function __invoke(Request $request)
     {
-        $customer = CustomerRepository::getCustomerWithSubscriptions($request->get('customer_id'));
+        $customer = CustomerRepository::query()->getCustomerWithSubscriptions($request->get('customer_id'));
         $invoices = CustomerRepository::filter($customer)->mapInvoiceData();
-        $workspaces = WorkspaceRepository::getAll();
+        $workspaces = WorkspaceRepository::query()->getAll();
 
         return inertia(Action::getView($this), [
             'customer' => $customer,

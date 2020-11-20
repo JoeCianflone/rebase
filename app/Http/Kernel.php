@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Rebase\ConnectToWorkspace;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -21,7 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        ConnectToWorkspace::class,
+        \App\Http\Middleware\Rebase\ConnectToWorkspace::class,
     ];
 
     /**
@@ -48,7 +47,6 @@ class Kernel extends HttpKernel
 
         'workspace' => [
             \App\Http\Middleware\Authenticate::class,
-            \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
             \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
             \App\Http\Middleware\RedirectIfAuthenticated::class,
         ],

@@ -16,6 +16,7 @@ use App\Domain\Facades\Rebase\WorkspaceRepository;
 class PersonalWorkspace extends Seeder
 {
     const MEMBERS_PER_WORKSPACE = 10;
+    const WORKSPACES = 2;
     const PERSONAL_NAME = 'Joe Cianflone';
     const PERSONAL_EMAIL = 'joe@cianflone.co';
     const PERSONAL_PASSWORD = 'password123';
@@ -53,12 +54,6 @@ class PersonalWorkspace extends Seeder
         ]);
 
         if ($code === 0) {
-            $workspace = WorkspaceRepository::factory()->create([
-                'customer_id' => $customer->id,
-                'name' => 'Personal Test Workspace',
-                'slug' => self::PERSONAL_SLUG,
-            ]);
-
             $member = MemberRepository::factory()->create([
                 'name' => self::PERSONAL_NAME,
                 'email' => self::PERSONAL_EMAIL,
@@ -67,18 +62,34 @@ class PersonalWorkspace extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
 
-            MemberRepository::factory($member)->attachAsOwner($workspace->id);
-
-            for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
-                $member = MemberRepository::factory()->create([
-                    'name' => $faker->name,
-                    'email' => $faker->safeEmail,
-                    'password' => Hash::make(self::PERSONAL_PASSWORD),
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
+            for ($i = 0; $i <= self::WORKSPACES; ++$i) {
+                $slug = self::PERSONAL_SLUG.'-'.$i;
+                if ($i == 0) {
+                    $slug = self::PERSONAL_SLUG;
+                }
+                $workspace = WorkspaceRepository::factory()->create([
+                    'customer_id' => $customer->id,
+                    'name' => 'Personal Test Workspace '.$i,
+                    'slug' => $slug,
                 ]);
 
-                MemberRepository::factory($member)->attachToWorkspaceAs($workspace->id, $this->generateRandomRole());
+                MemberRepository::factory($member)->update([
+                    'roles->'.$workspace->id => MemberRoles::OWNER(),
+                ]);
+                MemberRepository::factory($member)->attachToWorkspace($workspace->id);
+
+                for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
+                    $otherMembers = MemberRepository::factory()->create([
+                        'name' => $faker->name,
+                        'email' => $faker->safeEmail,
+                        'password' => Hash::make(self::PERSONAL_PASSWORD),
+                        'roles->'.$workspace->id => $this->generateRandomRole(),
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]);
+
+                    MemberRepository::factory($otherMembers)->attachToWorkspace($workspace->id);
+                }
             }
         }
     }

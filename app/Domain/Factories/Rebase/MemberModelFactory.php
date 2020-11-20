@@ -2,7 +2,6 @@
 
 namespace App\Domain\Factories\Rebase;
 
-use App\Enums\Rebase\MemberRoles;
 use App\Domain\Models\Rebase\Workspace\Member;
 
 class MemberModelFactory extends ModelFactory
@@ -13,18 +12,8 @@ class MemberModelFactory extends ModelFactory
         $this->model = $model;
     }
 
-    public function attachToWorkspaceAs($workspaceID, $role): void
+    public function attachToWorkspace($workspaceID): void
     {
-        $this->model->workspaces()->attach($workspaceID, ['role' => $role]);
-    }
-
-    public function attachAsOwner($workspaceID): void
-    {
-        $this->attachToWorkspaceAs($workspaceID, MemberRoles::OWNER());
-    }
-
-    public function attachAsMember($workspaceID): void
-    {
-        $this->attachToWorkspaceAs($workspaceID, MemberRoles::MEMBER());
+        $this->model->workspaces()->attach($workspaceID);
     }
 }

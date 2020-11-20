@@ -18,9 +18,9 @@ class ValidateWorkspaceToken extends Controller
 {
     public function __invoke(Request $request, string $token)
     {
-        if (WorkspaceRepository::isPending($request->get('slug'))) {
+        if (WorkspaceRepository::query()->isPending($request->get('slug'))) {
             try {
-                $matchingWorkspace = WorkspaceRepository::matchSlugAndToken($token, $request->get('slug'));
+                $matchingWorkspace = WorkspaceRepository::query()->matchSlugAndToken($token, $request->get('slug'));
 
                 if (!WorkspaceRepository::filter($matchingWorkspace)->activationIsOnTime(Carbon::now())) {
                     throw new InvalidActivationToken('Your token has expired');

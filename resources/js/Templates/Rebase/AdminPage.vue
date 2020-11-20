@@ -110,7 +110,7 @@ $headerbar-height: 40px;
    }
 
    main {
-      padding: var(--px-12);
+      padding: 0;
       -ms-overflow-style: none;
       grid-area: main;
       overflow: scroll;
@@ -122,6 +122,7 @@ $headerbar-height: 40px;
 
       @media ($sm-and-up) {
          padding-top: var(--px-60);
+         padding-right: var(--px-16);
       }
    }
 

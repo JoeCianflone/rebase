@@ -26,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Rebase\SendCustomerWelcomeEmail',
             'App\Listeners\Rebase\SendSuperAdminEmail',
         ],
+
+        'App\Events\Rebase\Alert' => [
+            'App\Listeners\Rebase\SendEmail',
+        ],
     ];
 
     /**

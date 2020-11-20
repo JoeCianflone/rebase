@@ -2,13 +2,11 @@
 
 namespace App\Domain\Filters\Rebase;
 
-use App\Domain\Models\Rebase\Workspace\Member;
-
 class MemberFilters extends ModelFilters
 {
-    private Member $model;
+    private $model;
 
-    public function __construct(Member $model)
+    public function __construct($model)
     {
         $this->model = $model;
     }
@@ -16,5 +14,12 @@ class MemberFilters extends ModelFilters
     public function hasLoggedIn()
     {
         return (bool) $this->model->password === null;
+    }
+
+    public function mapCurrentWorkspaceRole(string $workspaceID)
+    {
+        return $this->model->each(function ($item) use ($workspaceID): void {
+            $item->currentWorkspaceRole = $item->roles[$workspaceID];
+        });
     }
 }

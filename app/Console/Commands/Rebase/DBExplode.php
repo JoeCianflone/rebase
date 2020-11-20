@@ -80,7 +80,7 @@ class DBExplode extends Command
     private function dropWorkspace($slug): void
     {
         try {
-            $workspace = WorkspaceRepository::getBySlug($slug);
+            $workspace = WorkspaceRepository::query()->getBySlug($slug);
             $this->alert("Dropping workspace {$slug}");
 
             WorkspaceDatabase::drop($workspace->customer_id);

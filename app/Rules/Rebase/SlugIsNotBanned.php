@@ -24,7 +24,7 @@ class SlugIsNotBanned implements Rule
      */
     public function passes($attribute, $value)
     {
-        return is_string($value) && BannedSlugRepository::doesNotHaveSlug($value);
+        return is_string($value) && !BannedSlugRepository::query()->hasSlug($value);
     }
 
     /**
