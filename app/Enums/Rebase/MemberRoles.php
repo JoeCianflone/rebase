@@ -24,8 +24,8 @@ class MemberRoles extends Enum
     private const ADMIN = 'admin';
     private const EDITOR = 'editor';
     private const DESIGNER = 'designer';
-    private const ELEVATED = 'elevated_member';
+    private const ELEVATED = 'elevated member';
     private const MEMBER = 'member';
-    private const LIMITED_MEMBER = 'limited_member';
+    private const LIMITED_MEMBER = 'limited member';
     private const ACCESS_ONLY = 'access';
 }

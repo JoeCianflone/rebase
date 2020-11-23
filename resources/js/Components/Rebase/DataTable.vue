@@ -1,27 +1,36 @@
 <script>
+import Paginator from "@/Components/Rebase/Paginator"
+
 export default {
-   props: {},
+   components: {
+      Paginator,
+   },
+   props: {
+      links: Array,
+   },
 }
 </script>
 
 <template>
-   <table class="table--data">
-      <thead>
-         <tr>
-            <slot name="dataHeader" />
-         </tr>
-      </thead>
-      <tbody>
-         <slot name="dataBody" />
-      </tbody>
-   </table>
+   <section>
+      <table class="table--data">
+         <thead>
+            <tr>
+               <slot name="dataHeader" />
+            </tr>
+         </thead>
+         <tbody>
+            <slot name="dataBody" />
+         </tbody>
+      </table>
+      <Paginator :links="links" />
+   </section>
 </template>
 
 <style lang="scss">
 @import "@@/abstract";
 
 .table--data {
-   background: var(--color-true-white);
    border: 1px solid var(--color-gray-200);
    width: 100%;
 
@@ -35,6 +44,7 @@ export default {
       display: none;
 
       @media ($sm-and-up) {
+         background: var(--color-true-white);
          display: table-header-group;
       }
    }
@@ -45,15 +55,20 @@ export default {
       padding: var(--px-12);
    }
 
-   tr:nth-of-type(2n + 1) td {
-      background: var(--color-blueGray-100);
-   }
-
    tbody {
       tr {
+         background: var(--color-true-white);
          display: flex;
          flex-wrap: wrap;
          justify-content: space-between;
+
+         &:nth-of-type(2n + 1) {
+            background: var(--color-blueGray-50);
+         }
+
+         &:hover {
+            background: var(--color-yellow-50);
+         }
 
          @media ($sm-and-up) {
             display: table-row;

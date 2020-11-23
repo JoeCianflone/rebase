@@ -15,7 +15,7 @@ use App\Domain\Facades\Rebase\WorkspaceRepository;
 
 class PersonalWorkspace extends Seeder
 {
-    const MEMBERS_PER_WORKSPACE = 10;
+    const MEMBERS_PER_WORKSPACE = 100;
     const WORKSPACES = 2;
     const PERSONAL_NAME = 'Joe Cianflone';
     const PERSONAL_EMAIL = 'joe@cianflone.co';

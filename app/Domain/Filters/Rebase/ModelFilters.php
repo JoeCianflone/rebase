@@ -2,14 +2,17 @@
 
 namespace App\Domain\Filters\Rebase;
 
-use Illuminate\Database\Eloquent\Model;
-
 class ModelFilters
 {
-    private ?Model $model = null;
+    protected $model;
 
     public function __construct($model)
     {
         $this->model = $model;
+    }
+
+    public function getPaginatorLinks()
+    {
+        return $this->model->toArray()['links'];
     }
 }

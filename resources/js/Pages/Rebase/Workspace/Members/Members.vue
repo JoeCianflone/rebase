@@ -20,6 +20,7 @@ export default {
 
    props: {
       members: Array,
+      links: Object,
    },
 
    data: () => ({
@@ -35,7 +36,7 @@ export default {
    <AdminPage nav="members">
       <template v-slot:header>Members</template>
       <template v-slot:body>
-         <DataTable>
+         <DataTable :links="links">
             <template v-slot:dataHeader>
                <th>&nbsp;</th>
                <th>Name</th>

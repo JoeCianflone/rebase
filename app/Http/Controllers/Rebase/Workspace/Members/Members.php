@@ -14,12 +14,12 @@ class Members extends Controller
 {
     public function __invoke(Request $request)
     {
-        $members = MemberRepository::filter(
-            WorkspaceRepository::query()->getAllMembers($request->get('workspace_id'))
-        )->mapCurrentWorkspaceRole($request->get('workspace_id'));
+        $paginatedMembers = WorkspaceRepository::query()->getMembers($request->get('workspace_id'));
+        $members = MemberRepository::filter($paginatedMembers)->mapCurrentWorkspaceRole($request->get('workspace_id'));
 
         return inertia(Action::getView($this), [
             'members' => $members->toArray(),
+            'links' => MemberRepository::filter($paginatedMembers)->getPaginatorLinks(),
         ]);
     }
 }

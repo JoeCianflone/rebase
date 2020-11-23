@@ -30,9 +30,26 @@ class WorkspaceQueries extends ModelQueries
         return $found;
     }
 
-    public function getAllMembers(string $workspaceID)
+    public function getMembers(string $workspaceID, string $orderBy = 'name', int $paginate = 10)
     {
-        return $this->model->with('members')->where('id', $workspaceID)->first()->members;
+        return $this->model
+            ->with('members')
+            ->where('id', $workspaceID)
+            ->first()
+            ->members()
+            ->orderBy($orderBy)
+            ->paginate($paginate);
+    }
+
+    public function getAllMembers(string $workspaceID, string $orderBy = 'name')
+    {
+        return $this->model
+            ->with('members')
+            ->where('id', $workspaceID)
+            ->first()
+            ->members()
+            ->orderBy($orderBy)
+            ->get();
     }
 
     public function getAllOwners()
