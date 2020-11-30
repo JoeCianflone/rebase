@@ -1,7 +1,31 @@
 <script>
 import Paginator from "@/Components/Rebase/Paginator"
+import mapValues from "lodash/mapValues"
+import pickBy from "lodash/pickBy"
+import throttle from "lodash/throttle"
 
 export default {
+   data: function () {
+      return {
+         form: {
+            s: null,
+         },
+      }
+   },
+   watch: {
+      form: {
+         handler: throttle(function () {
+            let query = pickBy(this.form)
+            this.$inertia.replace(this.route("members", Object.keys(query).length ? query : {}))
+         }, 150),
+         deep: true,
+      },
+   },
+   methods: {
+      reset() {
+         this.form = mapValues(this.form, () => null)
+      },
+   },
    components: {
       Paginator,
    },
@@ -13,6 +37,15 @@ export default {
 
 <template>
    <section>
+      <form class="grid search-bar" action="get">
+         <FormFieldInline class="col-6">
+            <FieldLabel>Search:</FieldLabel>
+            <FormInput v-model="form.s" />
+         </FormFieldInline>
+         <div class="col-6 text--column:start">
+            <Button class="button--link:inline" @click="reset">Reset</Button>
+         </div>
+      </form>
       <table class="table--data">
          <thead>
             <tr>
@@ -83,5 +116,9 @@ export default {
          }
       }
    }
+}
+
+.search-bar {
+   padding-bottom: var(--px-20);
 }
 </style>

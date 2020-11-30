@@ -1,5 +1,5 @@
 <script>
-import WorkspaceSidebar from "./PageComponents/WorkspaceSidebar"
+import CustomerAdminSidebar from "./PageComponents/CustomerAdminSidebar"
 import IdentityNavigation from "./PageComponents/IdentityNavigation"
 
 export default {
@@ -8,7 +8,7 @@ export default {
    },
 
    components: {
-      WorkspaceSidebar,
+      CustomerAdminSidebar,
       IdentityNavigation,
    },
 }
@@ -32,7 +32,7 @@ export default {
             </div>
          </main>
          <aside class="js-sidebar">
-            <WorkspaceSidebar :nav="nav" />
+            <CustomerAdminSidebar :nav="nav" />
          </aside>
       </div>
    </section>

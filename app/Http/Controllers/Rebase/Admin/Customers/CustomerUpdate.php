@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Rebase\Workspace\Customer;
+namespace App\Http\Controllers\Rebase\Admin\Customers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ use App\Domain\Facades\Rebase\CustomerRepository;
 
 class CustomerUpdate extends Controller
 {
-    public function __invoke(?string $type = null, Request $request)
+    public function __invoke(string $customerID, ?string $type = null, Request $request)
     {
         if ($type === 'address') {
             $validatedData = $request->validate([
@@ -24,7 +24,7 @@ class CustomerUpdate extends Controller
             ])['billingAddress'];
         }
 
-        CustomerRepository::factory()->update('id', $request->get('customer_id'), $validatedData);
+        CustomerRepository::factory()->update('id', $customerID, $validatedData);
 
         return redirect()->back()->withSuccess('Updated '.ucfirst($type));
     }

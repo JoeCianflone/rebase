@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Rebase\Web\Register;
+namespace App\Http\Controllers\Rebase\Guest\Registers;
 
 use App\Http\Controllers\Controller;
 use App\Events\Rebase\StartCustomerSignup;

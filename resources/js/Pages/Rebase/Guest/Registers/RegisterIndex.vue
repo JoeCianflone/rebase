@@ -27,7 +27,7 @@ export default {
       test() {
          this.sending = true
 
-         this.$inertia.post(route("register.workspace.process"), this.form, {
+         this.$inertia.post(route("register.validate-slug"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })

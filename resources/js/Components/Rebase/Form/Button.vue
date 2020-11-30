@@ -98,6 +98,12 @@ export default {
       margin: 0;
       display: block;
    }
+
+   @include for-variant("inline") {
+      @content;
+      margin: 0;
+      display: inline-flex;
+   }
 }
 
 .button {
@@ -156,6 +162,16 @@ export default {
          background: var(--color-red-500);
          border: 2px solid var(--color-red-500);
          color: var(--color-coolGray-100);
+      }
+   }
+}
+.button--link {
+   @include with-queries {
+      @include sizes-and-variants {
+         @include button;
+         background: transparent;
+         border: none;
+         color: var(--color-coolGray-800);
       }
    }
 }

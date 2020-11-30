@@ -15,8 +15,8 @@ export default {
 </script>
 
 <template>
-   <FormItem position="left">
-      <ValidationWrapper :errors="$page.errors[validate]" position="left">
+   <FormItem position="left" :inline="true">
+      <ValidationWrapper position="left" :errors="$page.props.errors[validate]">
          <slot />
       </ValidationWrapper>
    </FormItem>

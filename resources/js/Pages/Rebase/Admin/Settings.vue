@@ -1,6 +1,6 @@
 <script>
 import Layout from "@/Templates/Rebase/Workspace"
-import AdminPage from "@/Templates/Rebase/AdminPage"
+import CustomerPage from "@/Templates/Rebase/CustomerPage"
 import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionLink from "@/Components/Rebase/Actions/ActionLink"
 import ActionButton from "@/Components/Rebase/Actions/ActionButton"
@@ -13,7 +13,7 @@ export default {
    metaInfo: { title: "Customer Billing Information" },
 
    components: {
-      AdminPage,
+      CustomerPage,
       ActionMenu,
       ActionLink,
       ActionButton,
@@ -25,12 +25,14 @@ export default {
       customer: Object,
       invoices: Object | Array,
       workspaces: Array,
+      owners: Array,
    },
 
    data: function () {
       return {
          states: states,
          sending: false,
+         workspaceStatus: null,
          billingAddressForm: {
             line1: this.customer.line1,
             line2: this.customer.line2,
@@ -46,7 +48,7 @@ export default {
    methods: {
       editBillingAddress() {
          this.$inertia.post(
-            route("customer.update", "address"),
+            route("customer.update", [this.$page.props.auth.user.customerId, "address"]),
             {
                billingAddress: this.billingAddressForm,
             },
@@ -56,16 +58,35 @@ export default {
             }
          )
       },
+      dangerArchive(id, name) {
+         if (confirm("Are you sure you want to archive " + name)) {
+            this.$inertia.post(
+               route("customer.workspaces.archive", [this.$page.props.auth.user.customerId, id]),
+               {},
+               {
+                  onStart: () => (this.sending = true),
+                  onFinish: () => (this.sending = false),
+               }
+            )
+         }
+      },
    },
 }
 </script>
 
 <template>
-   <AdminPage nav="settings">
+   <CustomerPage nav="settings">
       <template v-slot:header>Customer Settings</template>
       <template v-slot:body>
          <div class="grid">
             <div class="col-10--centered sm::col-6">
+               <ContentGroup>
+                  <template v-slot:contentTitle>Account Owner Details</template>
+                  <ul>
+                     <li v-for="owner in owners" :key="owner.id">{{ owner.name }}</li>
+                  </ul>
+               </ContentGroup>
+
                <ContentGroup :userCanEdit="true">
                   <template v-slot:contentTitle>Billing Address</template>
                   <address>
@@ -121,6 +142,13 @@ export default {
                   {{ customer.card_brand }}<br />
                   **** **** **** {{ customer.card_last_four }}<br />
                </ContentGroup>
+
+               <ContentGroup>
+                  <template v-slot:contentTitle>Your Invoices</template>
+                  <ul>
+                     <li v-for="invoice in invoices" :key="invoice.id">Paid: {{ invoice.total }} on {{ invoice.invoice_date }} <a :href="invoice.link">Download Invoice</a></li>
+                  </ul>
+               </ContentGroup>
             </div>
             <ContentGroup class="col-10--centered sm::col-5:at-8">
                <template v-slot:contentTitle>Product Name</template>
@@ -150,7 +178,7 @@ export default {
                         <td>
                            <ActionMenu>
                               <ActionLink link="#">Update</ActionLink>
-                              <ActionButton @click="dangerDelete(workspace.id, workspace.name)">Close Account</ActionButton>
+                              <ActionButton @click="dangerArchive(workspace.id, workspace.name)">Archive</ActionButton>
                            </ActionMenu>
                         </td>
                      </tr>
@@ -159,5 +187,5 @@ export default {
             </div>
          </div>
       </template>
-   </AdminPage>
+   </CustomerPage>
 </template>

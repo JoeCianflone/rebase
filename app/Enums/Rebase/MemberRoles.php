@@ -21,11 +21,11 @@ class MemberRoles extends Enum
 {
     private const SUPER = 'super';
     private const OWNER = 'owner';
-    private const ADMIN = 'admin';
+    private const ADMIN = 'admikn';
     private const EDITOR = 'editor';
     private const DESIGNER = 'designer';
-    private const ELEVATED = 'elevated member';
+    private const ELEVATED = 'elevated_member';
     private const MEMBER = 'member';
-    private const LIMITED_MEMBER = 'limited member';
+    private const LIMITED_MEMBER = 'limited_member';
     private const ACCESS_ONLY = 'access';
 }

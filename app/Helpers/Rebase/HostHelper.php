@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\Helpers\Rebase;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class HostHelper
 {
     private string $host;
     private array $hostParts;
+    private string $path;
 
-    public function __construct(string $host)
+    public function __construct(Request $request)
     {
-        $this->host = $host;
-        $this->hostParts = explode('.', $host);
+        $this->host = $request->getHost();
+        $this->hostParts = explode('.', $this->host);
+        $this->path = ltrim($request->getPathInfo(), '/');
     }
 
     public function isOnOurDomain(): bool
@@ -39,6 +42,11 @@ class HostHelper
     public function getSlug(): string
     {
         return $this->hostParts[0];
+    }
+
+    public function getPath(): array
+    {
+        return explode('/', $this->path);
     }
 
     public function getDomain(): string

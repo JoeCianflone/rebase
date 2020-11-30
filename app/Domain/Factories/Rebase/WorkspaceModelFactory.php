@@ -35,4 +35,11 @@ class WorkspaceModelFactory extends ModelFactory
 
         return $this->model;
     }
+
+    public function archive(string $workspaceID)
+    {
+        $this->update('id', $workspaceID, ['status' => (string) WorkspaceStatus::ARCHIVED()]);
+
+        return $this->model;
+    }
 }

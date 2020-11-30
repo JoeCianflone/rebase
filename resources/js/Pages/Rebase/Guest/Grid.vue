@@ -5,9 +5,7 @@ import Editor from "@/Components/Rebase/Form/Editor"
 export default {
    layout: Layout,
    metaInfo: { title: "Grid Test" },
-   components: {
-      Editor,
-   },
+   components: {},
    data: () => ({
       reorder: false,
       dragging: {
@@ -27,6 +25,10 @@ export default {
       form: {},
    }),
    methods: {
+      saveTemplate() {
+         console.log(document.querySelector(".template-page"))
+      },
+
       addRow(colSize) {
          this.gridRows.push({
             name: "grid",
@@ -98,13 +100,24 @@ export default {
 
 <template>
    <div>
+      <button @click="toggleReorder">
+         <span v-if="!reorder">Reorder</span>
+         <span v-else>Lock</span> Rows
+      </button>
+      <button @click="saveTemplate">
+         <span v-if="!reorder">Save Template</span>
+      </button>
+      <button class="button" @click="addRow([12])">Add 1x12 Row</button>
+      <button class="button" @click="addRow([6, 6])">Add 6x6 Row</button>
+      <button class="button" @click="addRow([4, 8])">Add 4x8 Row</button>
+      <button class="button" @click="addRow([8, 4])">Add 8x4 Row</button>
+      <button class="button" @click="addRow([3, 3, 3, 3])">Add 3x3x3x3 Row</button>
+      <button class="button" @click="addRow([4, 4, 4])">Add 4x4x4 Row</button>
       <div class="browser-mockup with-url">
          <section class="template-page">
             <div class="area" v-for="(row, key) in gridRows" :key="key">
                <div class="grid" :class="{ 'grid-locked': row.locked }" :data-row="key" :draggable="reorder" @dragstart="start($event, key)" @dragend="end($event, key)" @dragover="over($event, key)" @drop="dropAt($event, key)">
-                  <div class="col-12" v-for="(colWidth, colKey) in row.cols" :class="`md::col-${colWidth}`" :key="`row-${key}-col-${colKey}`">
-                     <Editor />
-                  </div>
+                  <div class="col-12" v-for="(colWidth, colKey) in row.cols" :class="`md::col-${colWidth}`" :key="`row-${key}-col-${colKey}`"></div>
                </div>
                <div class="button-overlay">
                   <button class="button" @click="lock(key)">
@@ -117,16 +130,6 @@ export default {
             </div>
          </section>
       </div>
-      <button @click="toggleReorder">
-         <span v-if="!reorder">Reorder</span>
-         <span v-else>Lock</span> Rows
-      </button>
-      <button class="button" @click="addRow([12])">Add 1x12 Row</button>
-      <button class="button" @click="addRow([6, 6])">Add 6x6 Row</button>
-      <button class="button" @click="addRow([4, 8])">Add 4x8 Row</button>
-      <button class="button" @click="addRow([8, 4])">Add 8x4 Row</button>
-      <button class="button" @click="addRow([3, 3, 3, 3])">Add 3x3x3x3 Row</button>
-      <button class="button" @click="addRow([4, 4, 4])">Add 4x4x4 Row</button>
    </div>
 </template>
 

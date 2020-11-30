@@ -65,7 +65,7 @@ body {
    -moz-osx-font-smoothing: grayscale !important;
    -webkit-font-smoothing: antialiased !important;
    height: 100%;
-   line-height: 1;
+   line-height: var(--leading-normal);
    margin: var(--px-0);
    min-width: $browser-min-size;
    padding: var(--px-0);

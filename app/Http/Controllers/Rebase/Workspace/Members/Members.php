@@ -14,7 +14,11 @@ class Members extends Controller
 {
     public function __invoke(Request $request)
     {
-        $paginatedMembers = WorkspaceRepository::query()->getMembers($request->get('workspace_id'));
+        $paginatedMembers = WorkspaceRepository::query()
+            ->getMembers($request->get('workspace_id'))
+            ->filterBy($request->input('s'), ['name', 'email'])
+            ->paginate(10);
+
         $members = MemberRepository::filter($paginatedMembers)->mapCurrentWorkspaceRole($request->get('workspace_id'));
 
         return inertia(Action::getView($this), [

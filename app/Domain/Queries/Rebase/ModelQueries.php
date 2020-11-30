@@ -12,12 +12,23 @@ class ModelQueries
     protected int $cacheTime;
     protected string $cacheKey;
     protected ?Model $model = null;
+    protected $query;
 
     public function __construct(Model $model, string $cacheKey = '', int $cacheTime = 300)
     {
         $this->model = $model;
         $this->cacheTime = $cacheTime;
         $this->cacheKey = $cacheKey;
+    }
+
+    public function get()
+    {
+        return $this->query->get();
+    }
+
+    public function paginate(int $size)
+    {
+        return $this->query->paginate($size);
     }
 
     public function getAll(): ?Collection

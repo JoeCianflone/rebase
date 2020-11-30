@@ -26,4 +26,9 @@ class LookupQueries extends ModelQueries
     {
         return $this->model->where('workspace_id', '=', $id)->firstOrFail();
     }
+
+    public function getByCustomerID(string $id)
+    {
+        return $this->model->where('customer_id', '=', $id)->firstOrFail();
+    }
 }

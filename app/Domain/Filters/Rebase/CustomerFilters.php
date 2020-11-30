@@ -13,10 +13,12 @@ class CustomerFilters extends ModelFilters
 
     public function mapInvoiceData()
     {
-        return $this->model->invoices()->map(function ($inv, $key) {
+        $customerID = $this->model->id;
+
+        return $this->model->invoices()->map(function ($inv, $key) use ($customerID) {
             return [
                 'id' => $inv->id,
-                'link' => route('customer.show.invoice', $inv->id),
+                'link' => route('customer.show.invoice', ['customerID' => $customerID, 'invoiceID' => $inv->id]),
                 'total' => $inv->total(),
                 'invoice_date' => $inv->date()->toFormattedDateString(),
             ];

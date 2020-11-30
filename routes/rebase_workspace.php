@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Rebase\Workspace')->middleware(['workspace.connection'])->group(function (): void {
+Route::namespace('Rebase\Workspace')->middleware(['workspace.connection', 'workspace.status'])->group(function (): void {
     Route::namespace('Validate')->group(function (): void {
         Route::inertia('/validate/complete', 'rebase.workspace.validate.validateComplete')->name('validate.workspace.complete');
         Route::inertia('/validate/token-expired', 'rebase.workspace.validate.validateTokenExpired')->name('validate.workspace.token-expired');
@@ -32,9 +32,7 @@ Route::namespace('Rebase\Workspace')->middleware(['workspace.connection'])->grou
         Route::get('/onboarding/hold', Onboarding\OnboardingHold::class)->name('onboarding.hold');
         Route::post('/onboarding/complete', Onboarding\OnboardingComplete::class)->name('onboarding.complete');
 
-        Route::get('/customer/settings', Customer\Settings::class)->name('customer.settings');
-        Route::post('/customer/settings/update/{type}', Customer\CustomerUpdate::class)->name('customer.update');
-        Route::get('/customer/settings/invoice/{invoiceID}', Customer\ShowInvoice::class)->name('customer.show.invoice');
+        // Route::get('/customer/settings', Customer\Settings::class)->name('customer.settings');
 
         Route::get('/members', Members\Members::class)->name('members');
         // Route::get('/members', Members\Members::class)->name('members');

@@ -16,6 +16,14 @@ class WorkspaceQueries extends ModelQueries
         $this->cacheKey = 'workspace';
     }
 
+    public function allActiveOrPending()
+    {
+        return $this->model
+            ->where('status', WorkspaceStatus::ACTIVE())
+            ->orWhere('status', WorkspaceStatus::PENDING())
+            ->get();
+    }
+
     public function getOwnerWithEmail(string $email)
     {
         $found = $this->model->members()
@@ -30,15 +38,30 @@ class WorkspaceQueries extends ModelQueries
         return $found;
     }
 
-    public function getMembers(string $workspaceID, string $orderBy = 'name', int $paginate = 10)
+    public function getMembers(string $workspaceID)
     {
-        return $this->model
+        $this->query = $this->model
             ->with('members')
             ->where('id', $workspaceID)
             ->first()
-            ->members()
-            ->orderBy($orderBy)
-            ->paginate($paginate);
+            ->members();
+
+        return $this;
+    }
+
+    public function filterBy($q, $fields)
+    {
+        if ($q) {
+            $this->query->where(function ($query) use ($q, $fields): void {
+                $count = 0;
+                $query->where($fields[$count], 'LIKE', '%'.$q.'%');
+                while (++$count < count($fields)) {
+                    $query->orWhere($fields[$count], 'LIKE', '%'.$q.'%');
+                }
+            });
+        }
+
+        return $this;
     }
 
     public function getAllMembers(string $workspaceID, string $orderBy = 'name')
@@ -52,11 +75,12 @@ class WorkspaceQueries extends ModelQueries
             ->get();
     }
 
-    public function getAllOwners()
+    public function getAllOwners(): void
     {
-        return $this->model->members()
-            ->whereJsonContains('roles->'.$this->model->id, MemberRoles::OWNER())
-            ->get();
+        // return $this->model->all();
+        // return $this->model->members()
+        //     ->whereJsonContains('roles->'.$this->model->id, MemberRoles::OWNER())
+        //     ->get();
     }
 
     public function getAllOwnersFor(string $workspaceID)
@@ -95,9 +119,29 @@ class WorkspaceQueries extends ModelQueries
         return $found;
     }
 
-    public function isPending(string $slug)
+    public function isPending(string $slug): bool
     {
-        return $this->model->where('slug', $slug)->where('status', WorkspaceStatus::PENDING())->count() > 0;
+        return $this->statusCheck($slug, WorkspaceStatus::PENDING());
+    }
+
+    public function isActive(string $slug): bool
+    {
+        return $this->statusCheck($slug, WorkspaceStatus::ACTIVE());
+    }
+
+    public function isLocked(string $slug): bool
+    {
+        return $this->statusCheck($slug, WorkspaceStatus::LOCKED());
+    }
+
+    public function isArchived(string $slug): bool
+    {
+        return $this->statusCheck($slug, WorkspaceStatus::ARCHIVED());
+    }
+
+    public function isRemoved(string $slug): bool
+    {
+        return $this->statusCheck($slug, WorkspaceStatus::REMOVED());
     }
 
     public function hasBeenOnboarded(string $slug)
@@ -105,5 +149,10 @@ class WorkspaceQueries extends ModelQueries
         $active = $this->cache('onboarded', fn () => $this->model->where('slug', $slug)->where('status', WorkspaceStatus::ACTIVE())->count());
 
         return $active > 0;
+    }
+
+    private function statusCheck(string $slug, string $status): bool
+    {
+        return $this->model->where('slug', $slug)->where('status', $status)->exists();
     }
 }

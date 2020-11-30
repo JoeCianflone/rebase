@@ -16,7 +16,7 @@ use App\Domain\Facades\Rebase\WorkspaceRepository;
 class PersonalWorkspace extends Seeder
 {
     const MEMBERS_PER_WORKSPACE = 100;
-    const WORKSPACES = 2;
+    const WORKSPACES = 3;
     const PERSONAL_NAME = 'Joe Cianflone';
     const PERSONAL_EMAIL = 'joe@cianflone.co';
     const PERSONAL_PASSWORD = 'password123';
@@ -73,9 +73,13 @@ class PersonalWorkspace extends Seeder
                     'slug' => $slug,
                 ]);
 
-                MemberRepository::factory($member)->update([
-                    'roles->'.$workspace->id => MemberRoles::OWNER(),
-                ]);
+                $roles = $member->roles ?? [];
+                $roles[] = [
+                    'workspace_id' => $workspace->id,
+                    'type' => MemberRoles::OWNER(),
+                ];
+
+                MemberRepository::factory($member)->update(['roles' => $roles]);
                 MemberRepository::factory($member)->attachToWorkspace($workspace->id);
 
                 for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
@@ -83,7 +87,10 @@ class PersonalWorkspace extends Seeder
                         'name' => $faker->name,
                         'email' => $faker->safeEmail,
                         'password' => Hash::make(self::PERSONAL_PASSWORD),
-                        'roles->'.$workspace->id => $this->generateRandomRole(),
+                        'roles' => [
+                            'workspace_id' => $workspace->id,
+                            'type' => $this->generateRandomRole(),
+                        ],
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);

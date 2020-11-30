@@ -16,7 +16,10 @@ class AddFirstMemberToWorkspace
             'name' => $payload->get('name'),
             'email' => $payload->get('email'),
             'roles' => [
-                $payload->get('workspace')->id => MemberRoles::OWNER(),
+                [
+                    'workspace_id' => $payload->get('workspace')->id,
+                    'type' => MemberRoles::OWNER(),
+                ],
             ],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

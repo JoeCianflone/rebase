@@ -1,5 +1,8 @@
 <script>
 import SimpleMessage from "./SimpleMessage"
+import isEmpty from "lodash/isEmpty"
+import isUndefined from "lodash/isUndefined"
+import isNull from "lodash/isNull"
 
 export default {
    name: "Toast",
@@ -10,7 +13,7 @@ export default {
 
    props: {
       flash: Object,
-      errors: Array | Object,
+      errors: Object | Array,
    },
 
    data: function () {
@@ -31,8 +34,18 @@ export default {
    },
 
    computed: {
+      message: function () {
+         if (!isEmpty(this.errors)) {
+            if (isUndefined(this.errors[0])) {
+               return "Please see the errors below"
+            }
+            return this.errors[0]
+         }
+
+         return this.flash.success || this.flash.message || this.flash.alerts || this.flash.errors
+      },
       toastType: function () {
-         if (this.flash.success || this.flash.message || this.flash.alerts || this.flash.errors) {
+         if (!isNull(this.message)) {
             this.isClosed = false
          }
 
@@ -40,7 +53,7 @@ export default {
             "toast--success": this.flash.success,
             "toast--message": this.flash.message,
             "toast--alerts": this.flash.alerts,
-            "toast--errors": this.flash.errors,
+            "toast--errors": this.flash.errors || !isEmpty(this.errors),
          }
       },
    },
@@ -51,22 +64,21 @@ export default {
    <transition name="slide" appear>
       <div class="toast" v-show="!isClosed" :class="toastType">
          <div class="grid--center">
-            <div class="col-8:at-2">
-               <SimpleMessage v-if="flash.success">{{ flash.success }}</SimpleMessage>
-               <SimpleMessage v-if="flash.errors">{{ flash.errors }}</SimpleMessage>
-               <SimpleMessage v-if="flash.alert">{{ flash.alert }}</SimpleMessage>
-               <SimpleMessage v-if="flash.message">{{ flash.message }}</SimpleMessage>
+            <div class="col-8:at-2" v-if="message">
+               <SimpleMessage>{{ message }}</SimpleMessage>
             </div>
-            <Button @click="isClosed = !isClosed" class="button--icon:xsmall col-2"><span class="material-icons">close</span></Button>
+            <Button @click="isClosed = !isClosed" class="button--icon:xsmall col-2:end"><span class="material-icons">close</span></Button>
          </div>
       </div>
    </transition>
 </template>
 
 <style lang="scss" scoped>
+$height: var(--px-48);
+$inverse: calc(-1 * #{$height});
 .slide-enter,
 .slide-leave-to {
-   transform: translateY(-50px);
+   transform: translateY($inverse);
 }
 .toast {
    background: var(--color-gray-800);
@@ -76,7 +88,7 @@ export default {
    width: 100%;
    z-index: 12;
    transition: all 300ms ease-in-out;
-   height: 50px;
+   height: $height;
    overflow: hidden;
 
    &.toast--success {

@@ -16,6 +16,14 @@ class ProcessForgot extends Controller
     {
         $this->sendResetLinkEmail($request);
 
-        return redirect()->back()->withSuccess('Check your email');
+        return redirect()->back()->withMessage('Thank you, we will send you an email if we can find your email address');
+    }
+
+    protected function sendResetLinkFailedResponse(Request $request, $response): void
+    {
+        // I'm overriding this because I do not want to send an alert if
+        // we cannot find your email address. This silent fail is
+        // important so that way people can't search emails
+        // via the forgot password link...
     }
 }

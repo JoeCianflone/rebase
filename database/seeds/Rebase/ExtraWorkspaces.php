@@ -63,9 +63,10 @@ class ExtraWorkspaces extends Seeder
                         'name' => $faker->name,
                         'email' => $faker->safeEmail,
                         'password' => Hash::make('password'),
-                        'roles' => [
-                            $workspace->id => $this->generateRandomRole(),
-                        ],
+                        'roles' => [[
+                            'workspace_id' => $workspace->id,
+                            'type' => $this->generateRandomRole(),
+                        ]],
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);

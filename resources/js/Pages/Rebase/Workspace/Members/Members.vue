@@ -20,7 +20,7 @@ export default {
 
    props: {
       members: Array,
-      links: Object,
+      links: Array,
    },
 
    data: () => ({

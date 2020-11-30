@@ -18,7 +18,7 @@ export default {
    <section>
       <portal-target name="dropdown" slim />
       <portal-target name="overlay" slim />
-      <Toast :flash="$page.props.flash" />
+      <Toast :flash="$page.props.flash" :errors="$page.props.errors" />
       <slot></slot>
    </section>
 </template>

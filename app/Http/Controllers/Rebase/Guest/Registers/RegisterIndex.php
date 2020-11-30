@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Rebase\Web\Legal;
+namespace App\Http\Controllers\Rebase\Guest\Registers;
 
-use Inertia\Response;
 use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class Terms extends Controller
+class RegisterIndex extends Controller
 {
-    public function __invoke(Request $request): Response
+    /**
+     * @return mixed
+     */
+    public function __invoke(Request $request)
     {
         return inertia(Action::getView($this));
     }

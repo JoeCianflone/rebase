@@ -35,10 +35,14 @@ class ConnectToWorkspace extends BaseMiddleware
             return $next($request);
         }
 
-        $host = new HostHelper($request->getHost());
+        $host = new HostHelper($request);
 
         try {
-            $lookup = $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain()) : LookupRepository::query()->getBySlug($host->getSlug());
+            if ($host->getSlug() === 'my') {
+                $lookup = LookupRepository::query()->getByCustomerID($host->getPath()[0]);
+            } else {
+                $lookup = $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain()) : LookupRepository::query()->getBySlug($host->getSlug());
+            }
 
             WorkspaceDatabase::disconnect();
             WorkspaceDatabase::connect($lookup->customer_id);

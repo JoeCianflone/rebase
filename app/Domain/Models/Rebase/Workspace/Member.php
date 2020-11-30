@@ -71,7 +71,7 @@ class Member extends Authenticatable
 
     public function role(string $key): string
     {
-        return $this->roles[$key];
+        return collect($this->roles)->firstWhere('workspace_id', $key)['type'];
     }
 
     public function workspaces()

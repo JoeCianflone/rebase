@@ -75,5 +75,6 @@ class Kernel extends HttpKernel
         'only.staging' => \App\Http\Middleware\OnlyStaging::class,
         'not.production' => \App\Http\Middleware\OnlyStaging::class,
         'workspace.access' => \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
+        'workspace.status' => \App\Http\Middleware\Rebase\CheckWorkspaceStatus::class,
     ];
 }
