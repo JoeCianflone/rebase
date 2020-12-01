@@ -1,5 +1,5 @@
 <script>
-import Layout from "@/Templates/Rebase/WorkspaceGuest"
+import Layout from "@/Templates/Rebase/Layout"
 
 export default {
    layout: Layout,
@@ -18,7 +18,7 @@ export default {
 
    methods: {
       submit() {
-         this.$inertia.post(route("login.process"), this.form, {
+         this.$inertia.post("/login", this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })

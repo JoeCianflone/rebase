@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Rebase\Workspace')->middleware(['workspace.connection', 'workspace.status'])->group(function (): void {
+Route::middleware(['workspace.connection', 'workspace.status'])->namespace('Rebase\Workspace')->group(function (): void {
     Route::namespace('Validate')->group(function (): void {
         Route::inertia('/validate/complete', 'rebase.workspace.validate.validateComplete')->name('validate.workspace.complete');
         Route::inertia('/validate/token-expired', 'rebase.workspace.validate.validateTokenExpired')->name('validate.workspace.token-expired');
@@ -12,9 +12,9 @@ Route::namespace('Rebase\Workspace')->middleware(['workspace.connection', 'works
     });
 
     Route::namespace('Auth')->group(function (): void {
-        Route::get('/login', Login::class)->name('login');
-        Route::post('/login', ProcessLogin::class)->name('login.process');
-        Route::get('/logout', ProcessLogout::class)->name('logout');
+        Route::get('login', Login::class)->name('login');
+        Route::post('login', ProcessLogin::class)->name('login.process');
+        Route::get('logout', ProcessLogout::class)->name('logout');
     });
 
     Route::namespace('ForgotPassword')->group(function (): void {

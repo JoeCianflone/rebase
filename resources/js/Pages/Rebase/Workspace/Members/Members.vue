@@ -1,6 +1,6 @@
 <script>
-import Layout from "@/Templates/Rebase/Workspace"
-import AdminPage from "@/Templates/Rebase/AdminPage"
+import Layout from "@/Templates/Rebase/Layout"
+import Workspace from "@/Templates/Rebase/Page/Workspace"
 import DataTable from "@/Components/Rebase/DataTable"
 import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionLink from "@/Components/Rebase/Actions/ActionLink"
@@ -11,7 +11,7 @@ export default {
    metaInfo: { title: "Members" },
 
    components: {
-      AdminPage,
+      Workspace,
       ActionMenu,
       ActionLink,
       ActionButton,
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-   <AdminPage nav="members">
+   <Workspace nav="members">
       <template v-slot:header>Members</template>
       <template v-slot:body>
          <DataTable :links="links">
@@ -62,5 +62,5 @@ export default {
             </template>
          </DataTable>
       </template>
-   </AdminPage>
+   </Workspace>
 </template>

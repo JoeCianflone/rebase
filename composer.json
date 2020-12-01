@@ -23,7 +23,7 @@
       "laravel/ui": "^3.1.1",
       "league/pipeline": "^1.0",
       "myclabs/php-enum": "^1.7",
-      "tightenco/ziggy": "^1.0.3"
+      "tightenco/ziggy": "0.9.4"
    },
    "repositories": [
       {

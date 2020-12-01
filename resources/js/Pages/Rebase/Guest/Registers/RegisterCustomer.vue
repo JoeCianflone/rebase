@@ -1,5 +1,5 @@
 <script>
-import Layout from "@/Templates/Rebase/Web"
+import Layout from "@/Templates/Rebase/Layout"
 import { CardNumber, CardExpiry, CardCvc, handleCardSetup } from "vue-stripe-elements-plus"
 import { states } from "@/Data/Rebase/consts"
 

@@ -1,6 +1,7 @@
 <script>
-import CustomerAdminSidebar from "./PageComponents/CustomerAdminSidebar"
-import IdentityNavigation from "./PageComponents/IdentityNavigation"
+import WorkspaceSidebar from "./Components/WorkspaceSidebar"
+import IdentityNavigation from "./Components/IdentityNavigation"
+import Logo from "./Components/Logo"
 
 export default {
    props: {
@@ -8,7 +9,8 @@ export default {
    },
 
    components: {
-      CustomerAdminSidebar,
+      WorkspaceSidebar,
+      Logo,
       IdentityNavigation,
    },
 }
@@ -18,7 +20,7 @@ export default {
    <section>
       <div class="layout--main">
          <header>
-            <h1 class="site-logo">REBASE</h1>
+            <Logo />
             <div class="section-title">
                <slot name="header"></slot>
             </div>
@@ -32,7 +34,7 @@ export default {
             </div>
          </main>
          <aside class="js-sidebar">
-            <CustomerAdminSidebar :nav="nav" />
+            <WorkspaceSidebar :nav="nav" />
          </aside>
       </div>
    </section>
@@ -79,12 +81,6 @@ $headerbar-height: 40px;
       @media ($sm-and-up) {
          grid-template-columns: $sidebar-width 2fr 1fr;
       }
-
-      .site-logo {
-         color: var(--color-coolGray-600);
-         font-size: var(--px-24);
-      }
-
       .section-title {
          color: var(--color-coolGray-600);
          display: none;

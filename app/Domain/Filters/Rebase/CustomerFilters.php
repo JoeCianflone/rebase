@@ -18,7 +18,7 @@ class CustomerFilters extends ModelFilters
         return $this->model->invoices()->map(function ($inv, $key) use ($customerID) {
             return [
                 'id' => $inv->id,
-                'link' => route('customer.show.invoice', ['customerID' => $customerID, 'invoiceID' => $inv->id]),
+                'link' => route('customer.invoice.show', ['customerID' => $customerID, 'invoiceID' => $inv->id]),
                 'total' => $inv->total(),
                 'invoice_date' => $inv->date()->toFormattedDateString(),
             ];

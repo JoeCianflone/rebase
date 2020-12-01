@@ -11,7 +11,7 @@ use App\Domain\Facades\Rebase\MemberRepository;
 use App\Domain\Facades\Rebase\CustomerRepository;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
 
-class Settings extends Controller
+class CustomerIndex extends Controller
 {
     public function __invoke(string $customerID, Request $request)
     {

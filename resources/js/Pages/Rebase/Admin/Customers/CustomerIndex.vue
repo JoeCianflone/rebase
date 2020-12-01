@@ -1,6 +1,6 @@
 <script>
-import Layout from "@/Templates/Rebase/Workspace"
-import CustomerPage from "@/Templates/Rebase/CustomerPage"
+import Layout from "@/Templates/Rebase/Layout"
+import Admin from "@/Templates/Rebase/Page/Admin"
 import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionLink from "@/Components/Rebase/Actions/ActionLink"
 import ActionButton from "@/Components/Rebase/Actions/ActionButton"
@@ -13,7 +13,7 @@ export default {
    metaInfo: { title: "Customer Billing Information" },
 
    components: {
-      CustomerPage,
+      Admin,
       ActionMenu,
       ActionLink,
       ActionButton,
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <template>
-   <CustomerPage nav="settings">
+   <Admin nav="customer">
       <template v-slot:header>Customer Settings</template>
       <template v-slot:body>
          <div class="grid">
@@ -187,5 +187,5 @@ export default {
             </div>
          </div>
       </template>
-   </CustomerPage>
+   </Admin>
 </template>

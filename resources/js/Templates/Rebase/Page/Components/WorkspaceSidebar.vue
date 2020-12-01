@@ -16,8 +16,6 @@ export default {
       <MainNavigation>
          <li><inertia-link :href="route('dashboard')" :class="{ selected: this.nav === 'dashboard' }">Dashboard</inertia-link></li>
          <li><inertia-link :href="route('members')" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
-         <li><inertia-link href="#">Reporting</inertia-link></li>
-         <li><inertia-link href="#">Customer Service</inertia-link></li>
       </MainNavigation>
    </section>
 </template>

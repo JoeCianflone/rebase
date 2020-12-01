@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'admin_subdomain' => env('ADMIN_SUBDOMAIN', 'my'),
     'views' => [
         'pages' => env('PATH_VIEW_PAGES', '/Pages'),
         'components' => env('PATH_VIEW_COMPONENTS', '/Components'),

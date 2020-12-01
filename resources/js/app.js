@@ -5,6 +5,7 @@ import VueMeta from "vue-meta"
 import Vue from "vue"
 import { InertiaProgress } from '@inertiajs/progress/src'
 
+
 InertiaProgress.init({
    delay: 250,
    color: "#29d",

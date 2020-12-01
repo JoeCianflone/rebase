@@ -26,9 +26,13 @@
    -  CustomerIndex::class
    -  CustomerSubscription::class
    -  CustomerInvoices::class
+- Subscriptions
+  - SubscriptionIndex::class
+  - SubscriptionUpdate::class
 -  Workspaces
    -  WorkspaceIndex::class
    -  WorkspaceShow::class
+   -  WorkspaceCreate::class
 -  Members
    -  MemberIndex::class
    -  MembersShow::class

@@ -1,0 +1,26 @@
+<script>
+import MainNavigation from "./MainNavigation"
+
+export default {
+   components: {
+      MainNavigation,
+   },
+   props: {
+      nav: String,
+   },
+}
+</script>
+
+<template>
+   <section>
+      <MainNavigation>
+         <li><inertia-link :href="route('customer.index', $page.props.auth.user.customerId)" :class="{ selected: this.nav === 'customer' }">Customer Settings</inertia-link></li>
+         <li><inertia-link href="#" :class="{ selected: this.nav === 'workspaces' }">Workspaces</inertia-link></li>
+         <li><inertia-link href="#" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
+      </MainNavigation>
+   </section>
+</template>
+
+<style lang="scss" scoped>
+@import "@@/abstract";
+</style>

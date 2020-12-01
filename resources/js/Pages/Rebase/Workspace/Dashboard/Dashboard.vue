@@ -1,13 +1,13 @@
 <script>
-import Layout from "@/Templates/Rebase/Workspace"
-import AdminPage from "@/Templates/Rebase/AdminPage"
+import Layout from "@/Templates/Rebase/Layout"
+import Workspace from "@/Templates/Rebase/Page/Workspace"
 
 export default {
    layout: Layout,
    metaInfo: { title: "Dashboard" },
 
    components: {
-      AdminPage,
+      Workspace,
    },
 
    data: () => ({
@@ -20,10 +20,10 @@ export default {
 </script>
 
 <template>
-   <AdminPage nav="dashboard">
+   <Workspace nav="dashboard">
       <template v-slot:header>Dashboard</template>
       <template v-slot:body>
          <div class="grid"></div>
       </template>
-   </AdminPage>
+   </Workspace>
 </template>

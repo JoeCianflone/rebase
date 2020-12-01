@@ -18,9 +18,9 @@ export default {
 <template>
    <ActionMenu>
       <template v-slot:buttonText> <span class="material-icons">account_circle</span> {{ $page.props.auth.user.email }} <span class="material-icons">expand_more</span> </template>
-      <ActionLink :inertia="false" :link="route('customer.settings', $page.props.auth.user.customerId)">Customer Settings</ActionLink>
-      <ActionLink :link="route('logout')">Profile</ActionLink>
-      <ActionLink :inertia="false" :link="route('switch', $page.props.auth.user.customerId)">Switch Workspace</ActionLink>
+      <ActionLink :inertia="false" :link="route('pick', $page.props.auth.user.customerId)">Switch</ActionLink>
+      <ActionLink :inertia="false" :link="route('customer.index', $page.props.auth.user.customerId)">Settings</ActionLink>
+      <ActionLink link="#">Your Profile</ActionLink>
       <ActionLink :link="route('logout')">Logout</ActionLink>
    </ActionMenu>
 </template>

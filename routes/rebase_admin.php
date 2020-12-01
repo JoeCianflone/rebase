@@ -2,12 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->domain('my.rebase.test')->namespace('Rebase\Admin')->group(function (): void {
-    Route::get('{customerId}/settings', Customers\Settings::class)->name('customer.settings');
-    Route::post('{customerId}/settings/update/{type}', Customers\CustomerUpdate::class)->name('customer.update');
-    Route::get('{customerID}/settings/invoice/{invoiceID}', Customers\ShowInvoice::class)->name('customer.show.invoice');
+$domain = config('rebase-paths.admin_subdomain').'.'.config('app.domain');
 
-    Route::get('{customerID}/switch', Pick::class)->name('switch');
-    // Route::get('{customerID}/workspaces/{workspaceID}/edit', '')->name('customer.workspaces.edit');
-    Route::post('{customerID}/workspaces/{workspaceID}/archive', Workspaces\WorkspaceArchive::class)->name('customer.workspaces.archive');
+Route::middleware(['auth'])->domain($domain)->prefix('{customerID}')->namespace('Rebase\Admin')->group(function (): void {
+    // Pick a Sub-Domain
+    Route::get('pick', Pick::class)->name('pick');
+
+    // Customer
+    Route::get('customer', Customers\CustomerIndex::class)->name('customer.index');
+    // Route::post('customer/update/{type}', Customers\CustomerUpdate::class)->name('customer.update');
+    // Route::get('customer/invoices/{invoiceID}', Customers\ShowInvoice::class)->name('customer.invoice.show');
+
+    // Workspaces
+    // Route::get('workspaces/{workspaceID}/edit', '')->name('customer.workspaces.edit');
+    // Route::post('workspaces/{workspaceID}/archive', Workspaces\WorkspaceArchive::class)->name('customer.workspaces.archive');
+
+    // Members
 });
