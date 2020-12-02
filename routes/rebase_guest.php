@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/registration', fn () => redirect()->route('register.index'));
 Route::get('/signup', fn () => redirect()->route('register.index'));
 Route::get('/sign-up', fn () => redirect()->route('register.index'));
-Route::get('/login', fn () => redirect()->route('search.index'));
 
 Route::namespace('Rebase\Guest')->group(function (): void {
     Route::get('legal/privacy', Legal\Privacy::class)->name('privacy');
@@ -13,7 +12,9 @@ Route::namespace('Rebase\Guest')->group(function (): void {
 
     // Registration
     Route::get('register', Registers\RegisterIndex::class)->name('register.index');
-    Route::post('register', Registers\RegisterValidateSlug::class)->name('register.validate-slug');
+    Route::post('register', Registers\RegisterCheckSlug::class)->name('register.check.slug');
+    Route::get('register/email', Registers\RegisterEmail::class)->name('register.email');
+    Route::post('register/email', Registers\RegisterCheckEmail::class)->name('register.check.email');
     Route::get('register/customer', Registers\RegisterCustomer::class)->name('register.customer');
     Route::post('register/customer', Registers\RegisterStore::class)->name('register.store');
     Route::get('register/complete', Registers\RegisterComplete::class)->name('register.complete');

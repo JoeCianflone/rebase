@@ -62,14 +62,14 @@ class DBExplode extends Command
 
     private function dropAllWorkspaces(): void
     {
-        $allSpaces = WorkspaceDatabase::allSpaces(config('rebase-paths.db.workspace.prefix'));
+        $allSpaces = WorkspaceDatabase::allSpaces(config('rebase.paths.db.workspace.prefix'));
 
         if (!is_null($allSpaces) && $allSpaces->count() > 0) {
             $this->newLine();
-            WorkspaceDatabase::allSpaces(config('rebase-paths.db.workspace.prefix'))->each(function ($id): void {
+            WorkspaceDatabase::allSpaces(config('rebase.paths.db.workspace.prefix'))->each(function ($id): void {
                 WorkspaceDatabase::drop($id);
 
-                $this->line('<comment>Dropped: '.config('rebase-paths.db.workspace.prefix')."{$id}</comment>");
+                $this->line('<comment>Dropped: '.config('rebase.paths.db.workspace.prefix')."{$id}</comment>");
             });
         }
     }

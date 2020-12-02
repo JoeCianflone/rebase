@@ -42,6 +42,6 @@ class MigrationHelper
         $type = $isWorkspaceMigration ? 'workspace' : 'shared';
         $rebase = $this->isRebaseMigration ? 'rebase_' : '';
 
-        return "rebase-paths.db.{$type}.{$rebase}migration_path";
+        return "rebase.paths.db.{$type}.{$rebase}migration_path";
     }
 }

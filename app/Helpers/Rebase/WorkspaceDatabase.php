@@ -38,7 +38,7 @@ class WorkspaceDatabase
     {
         return collect(DB::select("SHOW DATABASES LIKE '{$prefix}%'"))
             ->flatMap(fn ($item) => collect($item)->flatten())
-            ->reject(fn ($item) => $item == config('rebase-paths.db.shared.name'))
+            ->reject(fn ($item) => $item == config('rebase.paths.db.shared.name'))
             ->map(fn ($item) => str_replace($prefix, '', $item));
     }
 
@@ -68,7 +68,7 @@ class WorkspaceDatabase
             'database.connections.workspace.database' => $name,
             'database.redis.default.database' => $name,
             'database.redis.cache.database' => $name.'_cache',
-            'rebase-paths.db.workspace.name' => $name,
+            'rebase.paths.db.workspace.name' => $name,
             'session.files' => storage_path('framework/sessions/'.$name),
             'cache.prefix' => $name,
             'filesystem.disks.local.root' => storage_path('app/'.$name),

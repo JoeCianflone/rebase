@@ -17,7 +17,9 @@ class RegisterCustomer extends Controller
     public function __invoke(Request $request, Customer $intent)
     {
         return inertia(Action::getView($this), [
-            'slug' => $request->input('slug'),
+            'slug' => $request->get('slug'),
+            'email' => $request->get('email'),
+            'name' => $request->get('name'),
             'stripe_key' => config('services.stripe.key'),
             'intent' => $intent->createSetupIntent(),
         ])->withViewData('withStripe', true);

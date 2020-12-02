@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Rebase\Workspace\ForgotPassword;
+namespace App\Http\Controllers\Rebase\Auth\ForgotPassword;
 
 use Inertia\Response;
 use App\Actions\Action;

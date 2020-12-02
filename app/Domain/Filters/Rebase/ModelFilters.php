@@ -15,4 +15,13 @@ class ModelFilters
     {
         return $this->model->toArray()['links'];
     }
+
+    public function matches(array $items)
+    {
+        collect($items)->each(function ($item, $key): void {
+            $this->model = $this->model->where($key, $item);
+        });
+
+        return $this->model;
+    }
 }

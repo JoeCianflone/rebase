@@ -2,20 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
-$domain = config('rebase-paths.admin_subdomain').'.'.config('app.domain');
+$domain = config('rebase.subdomains.admin').'.'.config('app.domain');
 
-Route::middleware(['auth'])->domain($domain)->prefix('{customerID}')->namespace('Rebase\Admin')->group(function (): void {
-    // Pick a Sub-Domain
-    Route::get('pick', Pick::class)->name('pick');
+Route::domain($domain)->prefix('{customerID}')->namespace('Rebase\Admin')->group(function (): void {
+    // Validate member email address
+    Route::get('member/{memberID}/validate/{token}', Members\MemberValidate::class)->name('member.validate');
+    Route::post('member/{memberID}/validate/{token}', Members\MemberVerify::class)->name('member.verify');
 
-    // Customer
-    Route::get('customer', Customers\CustomerIndex::class)->name('customer.index');
-    // Route::post('customer/update/{type}', Customers\CustomerUpdate::class)->name('customer.update');
-    // Route::get('customer/invoices/{invoiceID}', Customers\ShowInvoice::class)->name('customer.invoice.show');
+    Route::middleware(['auth'])->group(function (): void {
+        // Pick a Sub-Domain
+        Route::get('pick', Pick::class)->name('pick');
 
-    // Workspaces
-    // Route::get('workspaces/{workspaceID}/edit', '')->name('customer.workspaces.edit');
-    // Route::post('workspaces/{workspaceID}/archive', Workspaces\WorkspaceArchive::class)->name('customer.workspaces.archive');
+        // Customer
+        Route::get('customer', Customers\CustomerIndex::class)->name('customer.index');
 
-    // Members
+        // Workspace
+
+        // Member
+    });
 });

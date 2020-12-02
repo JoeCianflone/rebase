@@ -33,7 +33,7 @@ export default {
       </FormField>
       <Button type="submit" :disable="sending" class="button col-10--centered md::col-2--centered">Reset Password</Button>
       <div class="col-10--centered md::col-8--centered text--column:center">
-         <inertia-link :href="route('login')">Go Back</inertia-link>
+         <inertia-link :href="route('signin')">Go Back</inertia-link>
       </div>
    </form>
 </template>

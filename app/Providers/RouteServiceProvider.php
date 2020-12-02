@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
             unset($data['withViewData']);
 
             return Route::get($uri, function () use ($filePath, $data, $viewData) {
-                $base = config('rebase-paths.views.pages').'/';
+                $base = config('rebase.paths.views.pages').'/';
 
                 return inertia($base.$filePath, $data)->withViewData($viewData);
             });

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Rebase\Workspace\ForgotPassword;
+namespace App\Http\Controllers\Rebase\Auth\ForgotPassword;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,7 @@ class ProcessReset extends Controller
     {
         $this->reset($request);
 
-        return redirect()->route('login')->withSuccess('You have changed your password');
+        return redirect()->route('signin')->withSuccess('You have changed your password');
     }
 
     protected function rules()

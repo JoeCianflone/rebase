@@ -71,7 +71,6 @@ $headerbar-height: 40px;
       align-content: center;
       background: var(--color-true-white);
       border-bottom: 3px solid var(--color-blueGray-300);
-      column-gap: $base-gap;
       padding: 0 var(--px-16);
       display: grid;
       grid-area: header;

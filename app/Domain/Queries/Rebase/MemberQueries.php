@@ -22,4 +22,9 @@ class MemberQueries extends ModelQueries
     {
         return $this->model->with('workspaces')->where('id', $memberID)->first()->workspaces;
     }
+
+    public function findMember(string $email)
+    {
+        return $this->model->where('email', $email);
+    }
 }

@@ -32,7 +32,7 @@ class MakeRepository extends Command
 
     private function stubOutFacade(string $modelName): FileGenerator
     {
-        $file = (new FileGenerator($this->argument('name'), null, 'Repository'))->setFileExtensionAs('php')->setPath(config('rebase-paths.facades'));
+        $file = (new FileGenerator($this->argument('name'), null, 'Repository'))->setFileExtensionAs('php')->setPath(config('rebase.paths.facades'));
 
         $file->hydrate('repository.facade', [
             '{{classname}}' => $file->getName(),
@@ -53,7 +53,7 @@ class MakeRepository extends Command
     {
         $file = (new FileGenerator($this->argument('name'), 'Eloquent', 'Repository'))
             ->setFileExtensionAs('php')
-            ->setPath(config('rebase-paths.repositories'));
+            ->setPath(config('rebase.paths.repositories'));
 
         $file->hydrate('repository', [
             '{{classname}}' => $file->getName(),

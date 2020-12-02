@@ -52,6 +52,7 @@ class Member extends Authenticatable
      */
     protected $casts = [
         'id' => 'string',
+        'email_token' => 'string',
         'profile' => 'array',
         'roles' => 'array',
         'email_verified_at' => 'datetime',

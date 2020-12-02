@@ -53,4 +53,21 @@ export default {
    flex-grow: 0;
    justify-content: flex-start;
 }
+
+.StripeElement {
+   @include form-element;
+}
+
+input:focus,
+.StripeElement--focus {
+   box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+   border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+   background-color: #fefde5 !important;
+}
 </style>

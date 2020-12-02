@@ -137,6 +137,10 @@ ul ol {
    margin-bottom: var(--px-0);
 }
 
+ul, ol {
+   list-style-position: inside;
+   padding-left: var(--px-0);
+}
 nav {
    ol,
    ul {

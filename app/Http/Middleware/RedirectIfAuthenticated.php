@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (!Auth::guard($guard)->check()) {
-            return redirect()->route('login')->withMessage('Please log in');
+            return redirect()->route('signin')->withMessage('Please log in');
         }
 
         return $next($request);

@@ -35,7 +35,7 @@
    -  WorkspaceCreate::class
 -  Members
    -  MemberIndex::class
-   -  MembersShow::class
+   -  MemberShow::class
 
 ## Workspace
 

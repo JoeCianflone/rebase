@@ -40,7 +40,7 @@ class MigrateWorkspaces extends Command
 
         $migrationHelper = (new MigrationHelper($this->option('rebase')))->addOptions([
             '--no-interaction' => true,
-            '--database' => config('rebase-paths.db.workspace.connection'),
+            '--database' => config('rebase.paths.db.workspace.connection'),
         ])->configurePath(true);
 
         $this->call('migrate', $migrationHelper->getOptions());

@@ -7852,6 +7852,11 @@ vue-prism@^1.0.5:
   dependencies:
     prismjs "^1.6.0"
 
+vue-simple-password-meter@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/vue-simple-password-meter/-/vue-simple-password-meter-0.0.22.tgz#03d02d2aafe0c50d71f95db79e27285745b9b09b"
+  integrity sha512-QXBUMtcIV9ir3hoUfmV9jC0yKh3KgLYqVZlllL8DY600FBjYTwJZLLIjpQ9hZxsDYvntr7VFCi/oiNkXclnmlA==
+
 vue-stripe-elements-plus@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/vue-stripe-elements-plus/-/vue-stripe-elements-plus-0.3.2.tgz#9b3835e1c61048a1405798ded66abe09f9d38084"
@@ -8238,3 +8243,8 @@ zwitch@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/zwitch/-/zwitch-1.0.5.tgz#d11d7381ffed16b742f6af7b3f223d5cd9fe9920"
   integrity sha512-V50KMwwzqJV0NpZIZFwfOD5/lyny3WlSzRiXgA0G7VUnRlqttta1L6UQIHzd6EuBY/cHGfwTIck7w1yH6Q5zUw==
+
+zxcvbn@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"
+  integrity sha1-KOwXzwl0PtyrBW3dixsGJizHPDA=

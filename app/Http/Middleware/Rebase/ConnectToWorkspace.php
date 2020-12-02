@@ -38,11 +38,7 @@ class ConnectToWorkspace extends BaseMiddleware
         $host = new HostHelper($request);
 
         try {
-            if ($host->getSlug() === 'my') {
-                $lookup = LookupRepository::query()->getByCustomerID($host->getPath()[0]);
-            } else {
-                $lookup = $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain()) : LookupRepository::query()->getBySlug($host->getSlug());
-            }
+            $lookup = $this->getLookupInfo($host, $request);
 
             WorkspaceDatabase::disconnect();
             WorkspaceDatabase::connect($lookup->customer_id);
@@ -64,5 +60,35 @@ class ConnectToWorkspace extends BaseMiddleware
         }
 
         return $next($request);
+    }
+
+    private function lookupAuth(Request $request)
+    {
+        if ($request->query('to') === 'null' || is_null($request->query('to'))) {
+            return LookupRepository::query()->getByCustomerID($request->query('customer_id'));
+        }
+
+        return LookupRepository::query()->getBySlug($request->query('to'));
+    }
+
+    private function lookupAdmin(string $path)
+    {
+        return LookupRepository::query()->getByCustomerID($path);
+    }
+
+    private function getLookupInfo(HostHelper $host, Request $request)
+    {
+        $lookup = null;
+        if ($host->getSlug() === config('rebase.subdomains.auth')) {
+            $lookup = $this->lookupAuth($request);
+        } elseif ($host->getSlug() === config('rebase.subdomains.admin') && is_null($lookup)) {
+            $lookup = $this->lookupAdmin($host->getPath()[0]);
+        }
+
+        if (is_null($lookup)) {
+            $lookup = $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain()) : LookupRepository::query()->getBySlug($host->getSlug());
+        }
+
+        return $lookup;
     }
 }

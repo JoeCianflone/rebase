@@ -1,5 +1,6 @@
 <script>
 import Layout from "@/Templates/Rebase/Layout"
+import Register from "@/Templates/Rebase/Page/Register"
 import { CardNumber, CardExpiry, CardCvc, handleCardSetup } from "vue-stripe-elements-plus"
 import { states } from "@/Data/Rebase/consts"
 
@@ -8,6 +9,7 @@ export default {
    metaInfo: { title: "Register" },
 
    components: {
+      Register,
       CardNumber,
       CardExpiry,
       CardCvc,
@@ -22,8 +24,8 @@ export default {
          form: {
             payment_method: null,
             plan: null,
-            name: null,
-            email: null,
+            name: this.name,
+            email: this.email,
             slug: this.slug,
             line1: null,
             line2: null,
@@ -40,6 +42,8 @@ export default {
 
    props: {
       slug: String,
+      name: String,
+      email: String,
       stripe: String,
       options: Array | Object,
       stripe_key: String,
@@ -85,23 +89,19 @@ export default {
 </script>
 
 <template>
-   <section class="layout">
+   <Register :step="3">
       <form class="layout__main" action="post" @submit.prevent="pay">
          <section class="grid">
-            <h1 v-if="slug" class="col-10--centered md::col-8--centered">
-               Great news <i>{{ slug }}.{{ $page.props.app.domain }}</i> is available!
-            </h1>
+            <h1 class="col-10--centered md::col-8--centered">Please Pick a Plan</h1>
 
-            <FormField validate="name" class="col-10--centered md::col-8--centered">
-               <FieldLabel>Company/Personal Name:</FieldLabel>
-               <FormInput v-model="form.name" />
+            <FormField class="col-10--centered md::col-8--centered" validation="plan">
+               <FieldLabel>Please Select From One of the Following:</FieldLabel>
+               <FormSelect v-model="form.plan" defaultText="Select an Option">
+                  <option v-for="product in $page.props.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
+               </FormSelect>
             </FormField>
 
-            <FormField validate="email" class="col-10--centered md::col-8--centered">
-               <FieldLabel>What's your email address:</FieldLabel>
-               <FormInput v-model="form.email" type="email" />
-            </FormField>
-
+            <h1 class="col-10--centered md::col-8--centered">Billing Address</h1>
             <FormField validate="line1" class="col-10--centered md::col-6:at-3">
                <FieldLabel>Address Line 1:</FieldLabel>
                <FormInput v-model="form.line1" />
@@ -143,13 +143,7 @@ export default {
                <FormInput v-model="form.postal_code" maxlength="5" />
             </FormField>
 
-            <FormField class="col-10--centered md::col-8--centered" validation="plan">
-               <FieldLabel>Please Select From One of the Following:</FieldLabel>
-               <FormSelect v-model="form.plan" defaultText="Select an Option">
-                  <option v-for="product in $page.props.app.pricing" :key="product.id" :value="product.id">{{ product.name }} ${{ product.price / 100 }}.00</option>
-               </FormSelect>
-            </FormField>
-
+            <h1 class="col-10--centered md::col-8--centered">Credit Card Information</h1>
             <FormField class="col-10--centered md::col-8--centered">
                <FieldLabel>Card Number:</FieldLabel>
                <card-number ref="cardNumber" :stripe="stripe_key" />
@@ -172,15 +166,8 @@ export default {
             <FormField validate="agreed_to_privacy" class="col-10--centered md::col-8--centered">
                <FormCheckbox v-model="form.agreed_to_privacy">I agree with the Privacy Policy</FormCheckbox>
             </FormField>
-            <Button class="col-10--centered md::col-4--centered button" type="submit" :disable="sending">Go Pay</Button>
+            <Button class="col-10--centered md::col-4--centered button" type="submit" :disable="sending">Pay</Button>
          </section>
       </form>
-      <aside class="layout__secondary">
-         <ol class="step-counter">
-            <li class="step-counter__item">Check your workspace</li>
-            <li class="step-counter__item--current">Add your information</li>
-            <li class="step-counter__item">Pay</li>
-         </ol>
-      </aside>
-   </section>
+   </Register>
 </template>

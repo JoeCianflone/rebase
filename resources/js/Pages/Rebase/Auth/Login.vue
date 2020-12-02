@@ -7,6 +7,17 @@ export default {
 
    components: {},
 
+   props: {
+      to: {
+         type: String,
+         default: null,
+      },
+      customer_id: {
+         type: String,
+         default: null,
+      },
+   },
+
    data: () => ({
       sending: false,
       form: {
@@ -18,7 +29,12 @@ export default {
 
    methods: {
       submit() {
-         this.$inertia.post("/login", this.form, {
+         let params = new URLSearchParams({
+            to: this.to,
+            customer_id: this.customer_id,
+         }).toString()
+
+         this.$inertia.post(`login?${params}`, this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })

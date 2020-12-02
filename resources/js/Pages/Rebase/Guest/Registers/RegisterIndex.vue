@@ -1,11 +1,14 @@
 <script>
 import Layout from "@/Templates/Rebase/Layout"
+import Register from "@/Templates/Rebase/Page/Register"
 
 export default {
    layout: Layout,
    metaInfo: { title: "Register your Workspace" },
 
-   components: {},
+   components: {
+      Register,
+   },
 
    data() {
       return {
@@ -24,10 +27,10 @@ export default {
    },
 
    methods: {
-      test() {
+      check() {
          this.sending = true
 
-         this.$inertia.post(route("register.validate-slug"), this.form, {
+         this.$inertia.post(route("register.check.slug"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -37,25 +40,18 @@ export default {
 </script>
 
 <template>
-   <section class="layout">
-      <form class="layout__main" action="post" @submit.prevent="test">
+   <Register :step="1">
+      <form class="layout__main" action="post" @submit.prevent="check">
          <section class="grid">
-            <FormField class="col-10--centered md::col-8--centered" validate="slug">
+            <FormField class="col-10--centered md::col-6--centered" validate="slug">
                <FieldLabel>What's your workspace name:</FieldLabel>
                <FormGroup>
                   <FormInput v-model="form.slug" :slugify="true" />
                   <template #post> .{{ $page.props.app.domain }} </template>
                </FormGroup>
             </FormField>
-            <Button class="col-10--centered md::col-4--centered button:block" type="submit" :disable="sending">Check</Button>
+            <Button class="col-10--centered md::col-6--centered button:block" type="submit" :disable="sending">Check</Button>
          </section>
       </form>
-      <aside class="layout__secondary">
-         <ol class="step-counter">
-            <li class="step-counter__item--current">Check your workspace</li>
-            <li class="step-counter__item">Add your information</li>
-            <li class="step-counter__item">Pay</li>
-         </ol>
-      </aside>
-   </section>
+   </Register>
 </template>

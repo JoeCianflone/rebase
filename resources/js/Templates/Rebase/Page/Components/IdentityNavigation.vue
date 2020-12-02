@@ -21,7 +21,7 @@ export default {
       <ActionLink :inertia="false" :link="route('pick', $page.props.auth.user.customerId)">Switch</ActionLink>
       <ActionLink :inertia="false" :link="route('customer.index', $page.props.auth.user.customerId)">Settings</ActionLink>
       <ActionLink link="#">Your Profile</ActionLink>
-      <ActionLink :link="route('logout')">Logout</ActionLink>
+      <ActionLink :inertia="false" :link="route('logout', { customer_id: $page.props.auth.user.customerId })">Logout</ActionLink>
    </ActionMenu>
 </template>
 
