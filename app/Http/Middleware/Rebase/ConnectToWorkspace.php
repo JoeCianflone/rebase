@@ -3,7 +3,6 @@
 namespace App\Http\Middleware\Rebase;
 
 use Closure;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Helpers\Rebase\HostHelper;
 use App\Http\Middleware\BaseMiddleware;
@@ -32,7 +31,7 @@ class ConnectToWorkspace extends BaseMiddleware
     {
         $host = new HostHelper($request);
 
-        if ($this->shouldIgnore($request->path()) || is_null($request->get('customer_id'))) {
+        if ($this->shouldIgnore($request->path()) || !is_null($request->get('customer_id'))) {
             return $next($request);
         }
 
@@ -55,7 +54,7 @@ class ConnectToWorkspace extends BaseMiddleware
                 'url' => $host->getURL(),
             ]);
         } catch (\Exception $e) {
-            return Inertia::location(route('register.index'));
+            return redirect()->route('register.index')->withMessage('We cannot find that site, maybe you should register it?');
         }
 
         return $next($request);

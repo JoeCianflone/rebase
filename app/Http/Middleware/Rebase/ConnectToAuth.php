@@ -30,6 +30,7 @@ class ConnectToAuth extends BaseMiddleware
     public function handle(Request $request, Closure $next)
     {
         $host = new HostHelper($request);
+
         if ($this->shouldIgnore($request->path()) || $host->getSlug() !== config('rebase.subdomains.auth')) {
             return $next($request);
         }
@@ -50,7 +51,9 @@ class ConnectToAuth extends BaseMiddleware
                 'customer_id' => $lookup->customer_id,
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('search.index')->withMessage('Please find your website sign in');
+            dd('did I get here?');
+
+            return redirect()->route('search.index')->withMessage('Please find your website to sign in ');
         }
 
         return $next($request);
