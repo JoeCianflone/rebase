@@ -39,15 +39,15 @@ export default {
    <Register :step="2">
       <form class="layout__main" action="post" @submit.prevent="submit">
          <section class="grid">
-            <FormField class="col-10--centered md::col-6--centered" validate="name">
+            <FormField class="col-10--centered md::col-8--centered xw::col-6--centered" validate="name">
                <FieldLabel>What's your name?</FieldLabel>
                <FormInput v-model="form.name" />
             </FormField>
-            <FormField class="col-10--centered md::col-6--centered" validate="email">
+            <FormField class="col-10--centered md::col-8--centered xw::col-6--centered" validate="email">
                <FieldLabel>What's your email address?</FieldLabel>
                <FormInput v-model="form.email" />
             </FormField>
-            <Button class="col-10--centered md::col-6--centered button:block" type="submit" :disable="sending">Next</Button>
+            <Button class="col-10--centered md::col-8--centered xw::col-6--centered button:block" type="submit" :disable="sending">Next</Button>
          </section>
       </form>
    </Register>

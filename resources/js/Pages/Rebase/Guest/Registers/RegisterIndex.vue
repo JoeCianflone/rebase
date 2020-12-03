@@ -43,14 +43,14 @@ export default {
    <Register :step="1">
       <form class="layout__main" action="post" @submit.prevent="check">
          <section class="grid">
-            <FormField class="col-10--centered md::col-6--centered" validate="slug">
+            <FormField class="col-10--centered md::col-8--centered xw::col-6--centered" validate="slug">
                <FieldLabel>What's your workspace name:</FieldLabel>
                <FormGroup>
                   <FormInput v-model="form.slug" :slugify="true" />
                   <template #post> .{{ $page.props.app.domain }} </template>
                </FormGroup>
             </FormField>
-            <Button class="col-10--centered md::col-6--centered button:block" type="submit" :disable="sending">Check</Button>
+            <Button class="col-10--centered md::col-8--centered xw::col-6--centered button:block" type="submit" :disable="sending">Check</Button>
          </section>
       </form>
    </Register>

@@ -14,24 +14,26 @@ export default {
          <slot></slot>
       </main>
       <aside>
-         <ol class="step-counter">
-            <li class="step-counter--item" :class="{ selected: this.step === 1 }">
-               Register Your Workspace
-               <div class="helper-text">Your website needs a URL, what do you want to call your workspace? Don't worry you can change this later!</div>
-            </li>
-            <li class="step-counter--item" :class="{ selected: this.step === 2 }">
-               Create Your Email Address
-               <div class="helper-text">Well, how else are you going to log in? You'll set up a password later</div>
-            </li>
-            <li class="step-counter--item" :class="{ selected: this.step === 3 }">
-               Register Your Account and Pay
-               <div class="helper-text">Give us a few more details about your account and pick your plan. Once you pay, we'll create your app and send you an email when it's done</div>
-            </li>
-            <li class="step-counter--item" :class="{ selected: this.step === 4 }">
-               All Done, Check Your Email
-               <div class="helper-text">Last step! Before you can sign in, we're going to send you an email with a link to verify your email address AND set your pasword.</div>
-            </li>
-         </ol>
+         <slot name="sidebar">
+            <ol class="step-counter">
+               <li class="step-counter--item" :class="{ selected: this.step === 1 }">
+                  Register Your Workspace
+                  <div class="helper-text">Your website needs a URL, what do you want to call your workspace? Don't worry you can change this later!</div>
+               </li>
+               <li class="step-counter--item" :class="{ selected: this.step === 2 }">
+                  Create Your Email Address
+                  <div class="helper-text">Well, how else are you going to log in? You'll set up a password later</div>
+               </li>
+               <li class="step-counter--item" :class="{ selected: this.step === 3 }">
+                  Register Your Account and Pay
+                  <div class="helper-text">Give us a few more details about your account and pick your plan. Once you pay, we'll create your app and send you an email when it's done</div>
+               </li>
+               <li class="step-counter--item" :class="{ selected: this.step === 4 }">
+                  All Done, Check Your Email
+                  <div class="helper-text">Last step! Before you can sign in, we're going to send you an email with a link to verify your email address AND set your pasword.</div>
+               </li>
+            </ol>
+         </slot>
       </aside>
    </div>
 </template>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&Noto+Sans:wght@300;400;500&family=Overpass:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&Rubik:wght@300;400;500&family=Overpass:wght@700;800;900&display=swap" rel="stylesheet">
 
     <link href="{{ mix('/assets/css/app.css') }}" rel="stylesheet">
 

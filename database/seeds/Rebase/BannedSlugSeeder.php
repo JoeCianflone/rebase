@@ -15,6 +15,7 @@ class BannedSlugSeeder extends Seeder
     {
         DB::table('banned_slugs')->insert($this->slug([
             'admin',
+            'my',
             'super',
             'superadmin',
             'super-admin',

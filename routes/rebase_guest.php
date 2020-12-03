@@ -6,7 +6,7 @@ Route::get('/registration', fn () => redirect()->route('register.index'));
 Route::get('/signup', fn () => redirect()->route('register.index'));
 Route::get('/sign-up', fn () => redirect()->route('register.index'));
 
-Route::namespace('Rebase\Guest')->group(function (): void {
+Route::namespace('Rebase\Guest')->domain('rebase.test')->group(function (): void {
     Route::get('legal/privacy', Legal\Privacy::class)->name('privacy');
     Route::get('legal/terms', Legal\Terms::class)->name('terms');
 
@@ -20,7 +20,7 @@ Route::namespace('Rebase\Guest')->group(function (): void {
     Route::get('register/complete', Registers\RegisterComplete::class)->name('register.complete');
 
     // Search
-    Route::get('/search', CustomerSearch\SearchIndex::class)->name('search.index');
-    Route::post('/search', CustomerSearch\SearchProcess::class)->name('search.process');
-    Route::get('/search/results', CustomerSearch\SearchResults::class)->name('search.show');
+    Route::get('search', CustomerSearch\SearchIndex::class)->name('search.index');
+    Route::post('search', CustomerSearch\SearchProcess::class)->name('search.process');
+    Route::get('search/results', CustomerSearch\SearchResults::class)->name('search.show');
 });
