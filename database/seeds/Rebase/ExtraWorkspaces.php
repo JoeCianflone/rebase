@@ -61,7 +61,7 @@ class ExtraWorkspaces extends Seeder
                 for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
                     $member = MemberRepository::factory()->create([
                         'name' => $faker->name,
-                        'email' => $faker->safeEmail,
+                        'email' => $faker->unique()->safeEmail,
                         'password' => Hash::make('password'),
                         'roles' => [[
                             'workspace_id' => $workspace->id,

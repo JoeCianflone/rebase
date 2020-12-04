@@ -48,7 +48,7 @@ export default {
    methods: {
       editBillingAddress() {
          this.$inertia.post(
-            route("customer.update", [this.$page.props.auth.user.customerId, "address"]),
+            route("customer.update", [this.$page.props.customer_id, "address"]),
             {
                billingAddress: this.billingAddressForm,
             },
@@ -61,7 +61,7 @@ export default {
       dangerArchive(id, name) {
          if (confirm("Are you sure you want to archive " + name)) {
             this.$inertia.post(
-               route("customer.workspaces.archive", [this.$page.props.auth.user.customerId, id]),
+               route("customer.workspaces.archive", [this.$page.props.customer_id, id]),
                {},
                {
                   onStart: () => (this.sending = true),

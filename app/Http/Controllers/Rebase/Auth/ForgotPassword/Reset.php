@@ -15,7 +15,7 @@ class Reset extends Controller
     {
         return inertia(Action::getView($this), [
             'token' => $token,
-            'tokenEmail' => $request->get('email'),
+            'customer_id' => $request->query('customer_id'),
         ]);
     }
 }

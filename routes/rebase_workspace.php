@@ -3,11 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['workspace.connection', 'workspace.status'])->namespace('Rebase\Workspace')->group(function (): void {
+Route::middleware(['workspace.status'])->namespace('Rebase\Workspace')->group(function (): void {
     // Login redirects to global signin page...see rebase_auth for routes...
     Route::get('login', fn (Request $request) => redirect()->route('signin', ['to' => $request->get('slug')]));
 
-    Route::middleware(['auth', 'workspace.access', 'guest'])->group(function (): void {
+    Route::middleware(['auth'])->group(function (): void {
         Route::get('/dashboard', Dashboard\Dashboard::class)->name('dashboard');
 
         Route::get('/onboarding/start', Onboarding\OnboardingStart::class)->name('onboarding.start');

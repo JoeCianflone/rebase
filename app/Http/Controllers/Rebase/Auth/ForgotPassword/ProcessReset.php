@@ -6,17 +6,24 @@ namespace App\Http\Controllers\Rebase\Auth\ForgotPassword;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ResetsPasswords;
+use App\Domain\Facades\Rebase\MemberRepository;
 
 class ProcessReset extends Controller
 {
-    use ResetsPasswords;
-
     public function __invoke(Request $request)
     {
-        $this->reset($request);
+        $request->validate($this->rules());
 
-        return redirect()->route('signin')->withSuccess('You have changed your password');
+        if (MemberRepository::query()->canResetPassword($request->input('email'), $request->input('token'))) {
+            MemberRepository::factory()->resetPassword($request->input('email'), $request->input('password'));
+            $request->session()->flash('success', 'Your password has been reset');
+        } else {
+            $request->session()->flash('alert', 'Token expired or Email invalid');
+        }
+
+        MemberRepository::factory()->removeResetToken($request->input('email'));
+
+        return redirect()->route('signin', ['customer_id' => $request->query('customer_id')]);
     }
 
     protected function rules()
@@ -24,7 +31,16 @@ class ProcessReset extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:12',
+            'password' => [
+                'required',
+                'confirmed',
+                'min:12',
+                'max:250',
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[\S]/',       // must contain a special character,
+            ],
         ];
     }
 }

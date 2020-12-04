@@ -32,25 +32,12 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \App\Http\Middleware\Rebase\ParseSecondaryConnection::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
-            \App\Http\Middleware\Rebase\ConnectToAuth::class,
-            \App\Http\Middleware\Rebase\ConnectToAdmin::class,
-            \App\Http\Middleware\Rebase\ConnectToWorkspace::class,
-        ],
-
-        'api' => [
-            'throttle:60,1',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-
-        'workspace' => [
-            \App\Http\Middleware\Authenticate::class,
-            \App\Http\Middleware\Rebase\HasWorkspaceAccess::class,
-            \App\Http\Middleware\RedirectIfAuthenticated::class,
         ],
     ];
 
@@ -63,7 +50,6 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'workspace.connection' => \App\Http\Middleware\Rebase\ConnectToWorkspace::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

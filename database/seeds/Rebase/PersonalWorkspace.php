@@ -85,7 +85,7 @@ class PersonalWorkspace extends Seeder
                 for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
                     $otherMembers = MemberRepository::factory()->create([
                         'name' => $faker->name,
-                        'email' => $faker->safeEmail,
+                        'email' => $faker->unique()->safeEmail,
                         'password' => Hash::make(self::PERSONAL_PASSWORD),
                         'roles' => [
                             'workspace_id' => $workspace->id,

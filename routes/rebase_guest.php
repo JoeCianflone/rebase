@@ -6,7 +6,8 @@ Route::get('/registration', fn () => redirect()->route('register.index'));
 Route::get('/signup', fn () => redirect()->route('register.index'));
 Route::get('/sign-up', fn () => redirect()->route('register.index'));
 
-Route::namespace('Rebase\Guest')->domain('rebase.test')->group(function (): void {
+Route::namespace('Rebase\Guest')->domain(config('app.domain'))->group(function (): void {
+    // Legal
     Route::get('legal/privacy', Legal\Privacy::class)->name('privacy');
     Route::get('legal/terms', Legal\Terms::class)->name('terms');
 

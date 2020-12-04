@@ -26,6 +26,11 @@ class ModelQueries
         return $this->query->get();
     }
 
+    public function first()
+    {
+        return $this->query->first();
+    }
+
     public function paginate(int $size)
     {
         return $this->query->paginate($size);

@@ -7,16 +7,30 @@ export default {
 
    components: {},
 
-   data: () => ({
-      sending: false,
-      form: {
-         email: "",
-      },
-   }),
+   props: {
+      to: String,
+      customer_id: String,
+   },
+
+   data() {
+      return {
+         sending: false,
+         form: {
+            email: "",
+            to: this.to,
+            customer_id: this.customer_id,
+         },
+      }
+   },
 
    methods: {
       submit() {
-         this.$inertia.post(route("password.email"), this.form, {
+         let params = new URLSearchParams({
+            to: this.to,
+            customer_id: this.customer_id,
+         }).toString()
+
+         this.$inertia.post(`forgot-password?${params}`, this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -33,7 +47,7 @@ export default {
       </FormField>
       <Button type="submit" :disable="sending" class="button col-10--centered md::col-2--centered">Reset Password</Button>
       <div class="col-10--centered md::col-8--centered text--column:center">
-         <inertia-link :href="route('signin')">Go Back</inertia-link>
+         <inertia-link :href="route('signin', { customer_id: $page.props.customer_id })">Go Back Now</inertia-link>
       </div>
    </form>
 </template>

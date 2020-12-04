@@ -14,21 +14,21 @@ class LookupQueries extends ModelQueries
 
     public function getBySlug(string $slug)
     {
-        return $this->model->where('slug', '=', $slug)->firstOrFail();
+        return $this->model->where('slug', '=', $slug);
     }
 
     public function getByDomain(string $domain)
     {
-        return $this->model->where('domain', '=', $domain)->firstOrFail();
+        return $this->model->where('domain', '=', $domain);
     }
 
     public function getByWorkspaceID(string $id)
     {
-        return $this->model->where('workspace_id', '=', $id)->firstOrFail();
+        return $this->model->where('workspace_id', '=', $id);
     }
 
     public function getByCustomerID(string $id)
     {
-        return $this->model->where('customer_id', '=', $id)->firstOrFail();
+        return $this->model->where('customer_id', '=', $id);
     }
 }

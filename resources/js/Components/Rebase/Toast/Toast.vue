@@ -42,7 +42,7 @@ export default {
             return this.errors[0]
          }
 
-         return this.flash.success || this.flash.message || this.flash.alerts || this.flash.errors
+         return this.flash.success || this.flash.message || this.flash.alert || this.flash.errors
       },
       toastType: function () {
          if (!isNull(this.message)) {
@@ -52,7 +52,7 @@ export default {
          return {
             "toast--success": this.flash.success,
             "toast--message": this.flash.message,
-            "toast--alerts": this.flash.alerts,
+            "toast--alerts": this.flash.alert,
             "toast--errors": this.flash.errors || !isEmpty(this.errors),
          }
       },
