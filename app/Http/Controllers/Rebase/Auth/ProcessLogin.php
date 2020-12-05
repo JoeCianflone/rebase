@@ -8,12 +8,9 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class ProcessLogin extends Controller
 {
-    use ThrottlesLogins;
-
     public function __invoke(Request $request)
     {
         $request->validate($this->rules());

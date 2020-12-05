@@ -30,21 +30,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::pattern('domain', '[a-z0-9.\-]+');
         parent::boot();
-
-        Route::macro('inertia', function ($uri = '/', $path, array $data = []) {
-            $filePath = collect(explode('.', $path))->map(function ($value) {
-                return ucwords($value);
-            })->implode('/');
-
-            $viewData = $data['withViewData'] ?? null;
-            unset($data['withViewData']);
-
-            return Route::get($uri, function () use ($filePath, $data, $viewData) {
-                $base = config('rebase.paths.views.pages').'/';
-
-                return inertia($base.$filePath, $data)->withViewData($viewData);
-            });
-        });
     }
 
     /**

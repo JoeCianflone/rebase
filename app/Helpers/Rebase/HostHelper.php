@@ -9,15 +9,10 @@ use Illuminate\Http\Request;
 
 class HostHelper
 {
-    private string $host;
-    private array $hostParts;
-    private string $path;
 
-    public function __construct(Request $request)
+    public function __construct(private string $host, private array $hostParts, private string $path)
     {
-        $this->host = $request->getHost();
-        $this->hostParts = explode('.', $this->host);
-        $this->path = ltrim($request->getPathInfo(), '/');
+
     }
 
     public function isOnOurDomain(): bool
@@ -33,10 +28,10 @@ class HostHelper
     public function getURL(): string
     {
         if ($this->isCustomDomain()) {
-            return 'https://'.$this->getDomain();
+            return 'https://' . $this->getDomain();
         }
 
-        return 'https://'.$this->getSlug().'.'.config('app.domain');
+        return 'https://' . $this->getSlug() . '.' . config('app.domain');
     }
 
     public function getSlug(): string

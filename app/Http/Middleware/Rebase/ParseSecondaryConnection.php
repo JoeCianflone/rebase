@@ -31,7 +31,13 @@ class ParseSecondaryConnection extends BaseMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $host = new HostHelper($request);
+
+
+        $host = new HostHelper(
+            host: $request->getHost(),
+            hostParts: explode('.', $request->getHost()),
+            path: ltrim($request->getPathInfo(), '/'),
+        );
         if ($this->shouldIgnore($request->path())) {
             return $next($request);
         }
