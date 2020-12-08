@@ -9,14 +9,16 @@ use Illuminate\Database\Seeder;
 use App\Enums\Rebase\MemberRoles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
+use App\Domain\Facades\Rebase\RoleRepository;
 use App\Domain\Facades\Rebase\MemberRepository;
 use App\Domain\Facades\Rebase\CustomerRepository;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
+use Illuminate\Support\Str;
 
 class PersonalWorkspace extends Seeder
 {
     const MEMBERS_PER_WORKSPACE = 100;
-    const WORKSPACES = 3;
+    const WORKSPACES = 2;
     const PERSONAL_NAME = 'Joe Cianflone';
     const PERSONAL_EMAIL = 'joe@cianflone.co';
     const PERSONAL_PASSWORD = 'password123';
@@ -61,40 +63,29 @@ class PersonalWorkspace extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            RoleRepository::factory()->addAccountOwner($member->id);
 
-            for ($i = 0; $i <= self::WORKSPACES; ++$i) {
-                $slug = self::PERSONAL_SLUG.'-'.$i;
-                if ($i == 0) {
-                    $slug = self::PERSONAL_SLUG;
-                }
+            for ($i = 1; $i <= self::WORKSPACES; $i++) {
+                $slug = $i === 1 ? self::PERSONAL_SLUG : self::PERSONAL_SLUG.'-'.$i;
+
                 $workspace = WorkspaceRepository::factory()->create([
                     'customer_id' => $customer->id,
                     'name' => 'Personal Test Workspace '.$i,
                     'slug' => $slug,
                 ]);
 
-                $roles = $member->roles ?? [];
-                $roles[] = [
-                    'workspace_id' => $workspace->id,
-                    'type' => MemberRoles::OWNER(),
-                ];
-
-                MemberRepository::factory($member)->update(['roles' => $roles]);
                 MemberRepository::factory($member)->attachToWorkspace($workspace->id);
 
-                for ($k = 0; $k < self::MEMBERS_PER_WORKSPACE; ++$k) {
+                for ($k = 1; $k <= self::MEMBERS_PER_WORKSPACE; $k++) {
                     $otherMembers = MemberRepository::factory()->create([
                         'name' => $faker->name,
                         'email' => $faker->unique()->safeEmail,
                         'password' => Hash::make(self::PERSONAL_PASSWORD),
-                        'roles' => [
-                            'workspace_id' => $workspace->id,
-                            'type' => $this->generateRandomRole(),
-                        ],
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);
 
+                    RoleRepository::factory()->addWorkspaceRole($this->generateRandomRole(), $workspace->id,  $otherMembers->id);
                     MemberRepository::factory($otherMembers)->attachToWorkspace($workspace->id);
                 }
             }
@@ -103,7 +94,7 @@ class PersonalWorkspace extends Seeder
 
     private function generateRandomRole()
     {
-        $key = Arr::flatten(MemberRoles::keys())[rand(1, 8)];
+        $key = Arr::flatten(MemberRoles::keys())[rand(3, 9)];
 
         return MemberRoles::$key();
     }

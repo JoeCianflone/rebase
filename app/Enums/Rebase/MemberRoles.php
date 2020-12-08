@@ -5,27 +5,29 @@ namespace App\Enums\Rebase;
 use MyCLabs\Enum\Enum;
 
 /**
- * @method static UserRole SUPER()
- * @method static UserRole OWNER()
- * @method static UserRole ADMIN()
- * @method static UserRole EDITOR()
- * @method static UserRole DESIGNER()
- * @method static UserRole ELEVATED()
- * @method static UserRole MEMBER()
- * @method static UserRole LIMITED_MEMBER()
- * @method static UserRole ACCESS_ONLY()
+ * @method static MemberRoles SUPER()
+ * @method static MemberRoles ACCOUNT_OWNER()
+ * @method static MemberRoles ACCOUNT_ADMIN()
+ * @method static MemberRoles WORKSPACE_OWNER()
+ * @method static MemberRoles WORKSPACE_ADMIN()
+ * @method static MemberRoles EDITOR()
+ * @method static MemberRoles ELEVATED()
+ * @method static MemberRoles MEMBER()
+ * @method static MemberRoles LIMITED()
+ * @method static MemberRoles ACCESS_ONLY()
  *
  * @psalm-immutable
  */
 class MemberRoles extends Enum
 {
     private const SUPER = 'super';
-    private const OWNER = 'owner';
-    private const ADMIN = 'admikn';
+    private const ACCOUNT_OWNER = 'account_owner';
+    private const ACCOUNT_ADMIN = 'account_admin';
+    private const WORKSPACE_OWNER = 'workspace_owner';
+    private const WORKSPACE_ADMIN = 'workspace_admin';
     private const EDITOR = 'editor';
-    private const DESIGNER = 'designer';
-    private const ELEVATED = 'elevated_member';
+    private const ELEVATED = 'elevated';
     private const MEMBER = 'member';
-    private const LIMITED_MEMBER = 'limited_member';
+    private const LIMITED = 'limited';
     private const ACCESS_ONLY = 'access';
 }

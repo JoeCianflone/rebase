@@ -2,7 +2,7 @@
 
 namespace App\Domain\Queries\Rebase;
 
-use App\Domain\Models\Rebase\Customer\BannedSlug;
+use App\Domain\Models\Rebase\Admin\BannedSlug;
 
 class BannedSlugQueries extends ModelQueries
 {

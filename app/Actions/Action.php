@@ -6,6 +6,7 @@ use Closure;
 use BadMethodCallException;
 use Illuminate\Support\Traits\Macroable;
 
+
 class Action
 {
     use Macroable;

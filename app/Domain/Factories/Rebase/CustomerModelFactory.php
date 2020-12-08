@@ -3,7 +3,7 @@
 namespace App\Domain\Factories\Rebase;
 
 use App\Enums\Rebase\CustomerStatus;
-use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Models\Rebase\Admin\Customer;
 
 class CustomerModelFactory extends ModelFactory
 {

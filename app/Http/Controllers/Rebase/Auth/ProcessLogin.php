@@ -1,17 +1,18 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers\Rebase\Auth;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ProcessLogin extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response|RedirectResponse
     {
         $request->validate($this->rules());
 
@@ -26,7 +27,7 @@ class ProcessLogin extends Controller
         return Inertia::location(str_replace(config('rebase.subdomains.auth'), $request->query('to'), route('dashboard')));
     }
 
-    private function rules()
+    private function rules(): array
     {
         return [
             'email' => ['required', 'email'],

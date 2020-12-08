@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Models\Rebase\Workspace;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,6 +61,7 @@ class Member extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
+    protected $appends = ['role'];
     public static function boot(): void
     {
         parent::boot();
@@ -70,12 +72,14 @@ class Member extends Authenticatable
         });
     }
 
-    public function role(string $key): string
-    {
-        return collect($this->roles)->firstWhere('workspace_id', $key)['type'];
-    }
 
-    public function workspaces()
+//    public function getRoleAttribute() {
+//        return collect($this->roles)->firstWhere('workspace_id', '=', $this->pivot->workspace_id);
+//
+//    }
+
+
+    public function workspaces(): BelongsToMany
     {
         return $this->belongsToMany(Workspace::class);
     }

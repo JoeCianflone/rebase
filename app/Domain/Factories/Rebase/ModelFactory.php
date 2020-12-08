@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModelFactory
 {
-    private ?Model $model = null;
 
-    public function __construct($model)
+    public function __construct(protected ?Model $model = null)
     {
-        $this->model = $model;
     }
 
     public function create(array $request): Model

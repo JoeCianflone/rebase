@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(BannedSlugSeeder::class);
         $this->call(PersonalWorkspace::class);
-        $this->call(ExtraWorkspaces::class);
     }
 }

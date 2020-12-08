@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Helpers\Rebase;
 
@@ -10,10 +8,10 @@ use Illuminate\Http\Request;
 class HostHelper
 {
 
-    public function __construct(private string $host, private array $hostParts, private string $path)
-    {
-
-    }
+    public function __construct(
+        private string $host,
+        private array $hostParts,
+        private string $path) { }
 
     public function isOnOurDomain(): bool
     {

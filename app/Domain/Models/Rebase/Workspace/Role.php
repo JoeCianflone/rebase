@@ -1,25 +1,26 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace App\Domain\Models\Rebase\Customer;
+namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BannedSlug extends Model
+
+/**
+ * @property array|mixed data
+ */
+class Role extends Model
 {
     /**
      * @var string
      */
-    protected $connection = 'shared';
+    protected $connection = 'workspace';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id',               // required
-        'slug',             // required
-        'reason',
+        'id',                   // required
+        'data',                // required
         'created_at',
         'updated_at',
     ];
@@ -28,6 +29,8 @@ class BannedSlug extends Model
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
+        'data' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

@@ -6,7 +6,7 @@ namespace App\Domain\Repositories\Rebase;
 
 use App\Domain\Filters\Rebase\CustomerFilters;
 use App\Domain\Queries\Rebase\CustomerQueries;
-use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Models\Rebase\Admin\Customer;
 use App\Domain\Factories\Rebase\CustomerModelFactory;
 
 class EloquentCustomerRepository extends EloquentRepository

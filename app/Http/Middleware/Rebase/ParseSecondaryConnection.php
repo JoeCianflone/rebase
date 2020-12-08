@@ -12,9 +12,7 @@ use App\Exceptions\SubdomainConnectionException;
 
 class ParseSecondaryConnection extends BaseMiddleware
 {
-    /**
-     * @var array<string>
-     */
+
     protected array $except = [
         'storage',
         'horizon',
@@ -26,18 +24,14 @@ class ParseSecondaryConnection extends BaseMiddleware
         'search',
     ];
 
-    /**
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
-
-
         $host = new HostHelper(
             host: $request->getHost(),
             hostParts: explode('.', $request->getHost()),
             path: ltrim($request->getPathInfo(), '/'),
         );
+
         if ($this->shouldIgnore($request->path())) {
             return $next($request);
         }
@@ -45,32 +39,31 @@ class ParseSecondaryConnection extends BaseMiddleware
         try {
             WorkspaceDatabase::disconnect();
 
-            if ($host->getSlug() === config('rebase.subdomains.auth')) {
-                $lookup = $this->connectFromAuthSubdomain($request);
-            } elseif ($host->getSlug() === config('rebase.subdomains.admin')) {
-                $lookup = $this->connectFromAdminSubdomain($host->getPath()[0]);
-            } else {
-                $lookup = $this->connectFromWorkspace($host);
-                if ($host->isCustomDomain()) {
-                    $request->merge([
-                        'domain' => $host->getDomain(),
-                    ]);
-                }
+            $lookup = match ($host->getSlug()) {
+                config('rebase.subdomains.auth') => $this->connectFromAuthSubdomain($request),
+                config('rebase.subdomains.admin') => $this->connectFromAdminSubdomain($host->getPath()[0]),
+                default => $this->connectFromWorkspace($host)
+            };
 
+            if (is_null($lookup)) {
+                throw new SubdomainConnectionException('Unable to find the site you are trying to connect to, please try searching for it instead');
+            }
+
+            if ($host->isCustomDomain()) {
                 $request->merge([
-                    'workspace_id' => $lookup->workspace_id,
-                    'slug' => $lookup->slug,
-                    'url' => $host->getURL(),
+                    'domain' => $host->getDomain(),
                 ]);
             }
 
             $request->merge([
                 'customer_id' => $lookup->customer_id,
+                'workspace_id' => $lookup->workspace_id,
+                'slug' => $lookup->slug,
             ]);
 
             WorkspaceDatabase::connect($lookup->customer_id);
         } catch (SubdomainConnectionException $e) {
-            return redirect()->route('search.index')->withMessage('We can\'t find the page you\'re looking for, try searching for your website and logging in first');
+            return redirect()->route('search.index')->with('message', $e->getMessage());
         }
 
         return $next($request);
@@ -88,35 +81,16 @@ class ParseSecondaryConnection extends BaseMiddleware
             $lookup = LookupRepository::query()->getBySlug($request->query('to'))->first();
         }
 
-        if (is_null($lookup)) {
-            throw new SubdomainConnectionException('Connect from Auth Failed');
-        }
-
         return $lookup;
     }
 
     private function connectFromAdminSubdomain(?string $path = null)
     {
-        if (is_null($path) || $path === '') {
-            throw new SubdomainConnectionException('Connect from Admin Failed');
-        }
-
-        $lookup = LookupRepository::query()->getByCustomerID($path)->first();
-        if (is_null($lookup)) {
-            throw new SubdomainConnectionException('Connect from Admin Failed');
-        }
-
-        return $lookup;
+        return LookupRepository::query()->getByCustomerID($path)->first();
     }
 
     private function connectFromWorkspace($host)
     {
-        $lookup = $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain())->first() : LookupRepository::query()->getBySlug($host->getSlug())->first();
-
-        if (is_null($lookup)) {
-            throw new SubdomainConnectionException('Connect from Auth Failed');
-        }
-
-        return $lookup;
+        return $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain())->first() : LookupRepository::query()->getBySlug($host->getSlug())->first();
     }
 }

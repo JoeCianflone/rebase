@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Queries\Rebase;
 
@@ -43,6 +43,6 @@ class MemberQueries extends ModelQueries
 
         $maxTokenTime = Carbon::parse($resetter->created_at)->addHours(1);
 
-        return $maxTokenTime->gte(Carbon::now()) ? true : false;
+        return $maxTokenTime->gte(Carbon::now());
     }
 }

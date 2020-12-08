@@ -35,17 +35,18 @@ class CheckWorkspaceStatus extends BaseMiddleware
             return $next($request);
         }
 
-        if (WorkspaceRepository::query()->isPending($request->get('slug'))) {
-            if (Auth::user()->role($request->get('workspace_id')) === (string) MemberRoles::OWNER()) {
-                return redirect()->route('onboarding.start');
-            }
-
-            return redirect()->route('onboarding.hold');
-        }
-
-        if (WorkspaceRepository::query()->isArchived($request->get('slug'))) {
-            return redirect()->route('onboarding.hold');
-        }
+//        dd (Auth::user());
+//        if (WorkspaceRepository::query()->isPending($request->get('slug'))) {
+//            if (Auth::user()->role($request->get('workspace_id')) === (string) MemberRoles::OWNER()) {
+//                return redirect()->route('onboarding.start');
+//            }
+//
+//            return redirect()->route('onboarding.hold');
+//        }
+//
+//        if (WorkspaceRepository::query()->isArchived($request->get('slug'))) {
+//            return redirect()->route('onboarding.hold');
+//        }
 
         return $next($request);
     }

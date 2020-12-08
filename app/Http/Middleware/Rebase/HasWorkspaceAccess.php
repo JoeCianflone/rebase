@@ -15,9 +15,9 @@ class HasWorkspaceAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if (is_null(Auth::user()->role($request->get('workspace_id')))) {
-            return redirect()->route('workspace.choice')->withMessage('You do not have access to that Workspace, please contact your administrator');
-        }
+//        if (is_null(Auth::user()->role($request->get('workspace_id')))) {
+//            return redirect()->route('workspace.choice')->withMessage('You do not have access to that Workspace, please contact your administrator');
+//        }
 
         return $next($request);
     }

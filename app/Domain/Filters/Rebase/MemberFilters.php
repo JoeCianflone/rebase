@@ -17,6 +17,7 @@ class MemberFilters extends ModelFilters
     public function mapCurrentWorkspaceRole(string $workspaceID)
     {
         return $this->model->each(function ($item) use ($workspaceID): void {
+            dd ($item);
             $item->currentWorkspaceRole = $item->roles[$workspaceID];
         });
     }

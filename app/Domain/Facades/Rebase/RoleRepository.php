@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Facade;
  * @method static factory()
  * @method static filter()
  */
-class LookupRepository extends Facade
+class RoleRepository extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'LookupRepository';
+        return 'RoleRepository';
     }
 }

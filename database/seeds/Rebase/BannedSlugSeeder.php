@@ -17,6 +17,7 @@ class BannedSlugSeeder extends Seeder
             'admin',
             'my',
             'super',
+            'auth',
             'superadmin',
             'super-admin',
             'administrators',

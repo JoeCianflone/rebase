@@ -8,7 +8,7 @@
    ],
    "license": "MIT",
    "require": {
-      "php": "^7.4.0|8.0",
+      "php": "^8.0",
       "doctrine/dbal": "^3.0.0",
       "fakerphp/faker": "^1.12",
       "fideloper/proxy": "^4.2",
@@ -21,14 +21,8 @@
       "laravel/tinker": "^2.0",
       "league/pipeline": "^1.0",
       "myclabs/php-enum": "^1.7",
-      "tightenco/ziggy": "0.9.4"
+      "tightenco/ziggy": "1.0.4"
    },
-   "repositories": [
-      {
-         "type": "git",
-         "url": "git@github.com:JoeCianflone/InertiaResource.git"
-      }
-   ],
    "require-dev": {
       "barryvdh/laravel-debugbar": "^3.5",
       "facade/ignition": "^2.3.6",

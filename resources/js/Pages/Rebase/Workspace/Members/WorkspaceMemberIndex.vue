@@ -51,7 +51,7 @@ export default {
                   <td title="Name">{{ member.name }}</td>
                   <td title="Slug">{{ member.email }}</td>
                   <td>{{ member.email_activation == null ? "Active" : "Not Active" }}</td>
-                  <td>{{ member.currentWorkspaceRole }}</td>
+                  <td>x</td>
                   <td>
                      <ActionMenu>
                         <ActionLink link="#">Edit</ActionLink>

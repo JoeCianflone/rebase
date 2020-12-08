@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace App\Domain\Models\Rebase\Customer;
+namespace App\Domain\Models\Rebase\Admin;
 
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
@@ -13,9 +11,6 @@ class Customer extends Model
 {
     use Billable;
 
-    /**
-     * @var bool
-     */
     public $incrementing = false;
 
     /**

@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Models\Rebase\Customer;
+namespace App\Domain\Models\Rebase\Admin;
 
+use Illuminate\Database\Eloquent\Model;
+use App\Domain\Models\Workspace\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Laravel\Cashier\Subscription as CashierSubscription;
 
-class Subscription extends CashierSubscription
+class Lookup extends Model
 {
+    protected $table = 'lookup';
     /**
      * @var array
      */
     protected $fillable = [
         'id',               // required
-        'customer_id',       // required
-        'name',
-        'stripe_id',
-        'stripe_status',
-        'stripe_plan',
-        'quantity',
-        'trial_ends_at',
-        'ends_at',
+        'customer_id',      // required
+        'workspace_id',     // required
+        'slug',             // required
+        'domain',
         'created_at',
         'updated_at',
     ];
@@ -30,9 +28,6 @@ class Subscription extends CashierSubscription
      * @var array
      */
     protected $casts = [
-        'quantity' => 'integer',
-        'trial_ends_at' => 'datetime',
-        'ends_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -40,5 +35,10 @@ class Subscription extends CashierSubscription
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class);
     }
 }

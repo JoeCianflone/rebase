@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a119f2fa724436ae372d6df622c62c0",
+    "content-hash": "99bab4f8e687ce09929e0b83caaf335c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5871,23 +5871,24 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "0.9.4",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "82ea6ec6cb6ab3545b0245310b2a424316fe48d8"
+                "reference": "4777dafd683873978ccc529085187d03b750d39f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/82ea6ec6cb6ab3545b0245310b2a424316fe48d8",
-                "reference": "82ea6ec6cb6ab3545b0245310b2a424316fe48d8",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/4777dafd683873978ccc529085187d03b750d39f",
+                "reference": "4777dafd683873978ccc529085187d03b750d39f",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": ">=5.4@dev"
             },
             "require-dev": {
-                "orchestra/testbench": "^5.0"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.2"
             },
             "type": "library",
             "extra": {
@@ -5914,10 +5915,14 @@
                 {
                     "name": "Jake Bathman",
                     "email": "jake@tighten.co"
+                },
+                {
+                    "name": "Jacob Baker-Kretzmar",
+                    "email": "jacob@tighten.co"
                 }
             ],
             "description": "Generates a Blade directive exporting all of your named Laravel routes. Also provides a nice route() helper function in JavaScript.",
-            "homepage": "https://github.com/tightenco/ziggy",
+            "homepage": "https://github.com/tighten/ziggy",
             "keywords": [
                 "Ziggy",
                 "javascript",
@@ -5926,9 +5931,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/0.9.4"
+                "source": "https://github.com/tighten/ziggy/tree/v1.0.4"
             },
-            "time": "2020-06-05T14:42:41+00:00"
+            "time": "2020-12-06T22:07:45+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -7059,16 +7064,16 @@
         },
         {
             "name": "maximebf/debugbar",
-            "version": "dev-master",
+            "version": "v1.16.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "230f4ad6d8c33f8c5484aa92c436e3c6de05ae99"
+                "reference": "c86c717e4bf3c6d98422da5c38bfa7b0f494b04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/230f4ad6d8c33f8c5484aa92c436e3c6de05ae99",
-                "reference": "230f4ad6d8c33f8c5484aa92c436e3c6de05ae99",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/c86c717e4bf3c6d98422da5c38bfa7b0f494b04c",
+                "reference": "c86c717e4bf3c6d98422da5c38bfa7b0f494b04c",
                 "shasum": ""
             },
             "require": {
@@ -7077,14 +7082,13 @@
                 "symfony/var-dumper": "^2.6|^3|^4|^5"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5"
+                "phpunit/phpunit": "^7.5.20 || ^9.4.2"
             },
             "suggest": {
                 "kriswallsmith/assetic": "The best way to manage assets",
                 "monolog/monolog": "Log using Monolog",
                 "predis/predis": "Redis storage"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -7119,9 +7123,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maximebf/php-debugbar/issues",
-                "source": "https://github.com/maximebf/php-debugbar/tree/master"
+                "source": "https://github.com/maximebf/php-debugbar/tree/v1.16.4"
             },
-            "time": "2020-11-01T11:33:27+00:00"
+            "time": "2020-12-07T10:48:48+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -9766,7 +9770,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4.0|8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

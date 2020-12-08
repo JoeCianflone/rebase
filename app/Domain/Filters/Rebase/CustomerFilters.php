@@ -2,16 +2,19 @@
 
 namespace App\Domain\Filters\Rebase;
 
-use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Models\Rebase\Admin\Customer;
+use Illuminate\Support\Collection;
+use JetBrains\PhpStorm\Pure;
 
 class CustomerFilters extends ModelFilters
 {
+    #[Pure]
     public function __construct(Customer $model)
     {
         parent::__construct($model);
     }
 
-    public function mapInvoiceData()
+    public function mapInvoiceData(): Collection
     {
         $customerID = $this->model->id;
 

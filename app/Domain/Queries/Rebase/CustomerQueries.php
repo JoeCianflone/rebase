@@ -2,7 +2,7 @@
 
 namespace App\Domain\Queries\Rebase;
 
-use App\Domain\Models\Rebase\Customer\Customer;
+use App\Domain\Models\Rebase\Admin\Customer;
 
 class CustomerQueries extends ModelQueries
 {

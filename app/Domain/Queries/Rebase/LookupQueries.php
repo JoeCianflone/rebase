@@ -2,10 +2,12 @@
 
 namespace App\Domain\Queries\Rebase;
 
-use App\Domain\Models\Rebase\Customer\Lookup;
+use App\Domain\Models\Rebase\Admin\Lookup;
+use JetBrains\PhpStorm\Pure;
 
 class LookupQueries extends ModelQueries
 {
+    #[Pure]
     public function __construct(Lookup $model)
     {
         parent::__construct($model);

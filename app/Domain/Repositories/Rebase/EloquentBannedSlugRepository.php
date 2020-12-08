@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Repositories\Rebase;
 
 use App\Domain\Queries\Rebase\BannedSlugQueries;
-use App\Domain\Models\Rebase\Customer\BannedSlug;
+use App\Domain\Models\Rebase\Admin\BannedSlug;
 
 class EloquentBannedSlugRepository extends EloquentRepository
 {

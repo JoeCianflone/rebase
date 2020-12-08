@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Domain\Models\Rebase\Workspace\Role;
+use App\Domain\Repositories\Rebase\EloquentRoleRepository;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use App\Domain\Models\Rebase\Customer\Lookup;
+use App\Domain\Models\Rebase\Admin\Lookup;
 use App\Domain\Models\Rebase\Workspace\Member;
-use App\Domain\Models\Rebase\Customer\Customer;
-use App\Domain\Models\Rebase\Customer\BannedSlug;
+use App\Domain\Models\Rebase\Admin\Customer;
+use App\Domain\Models\Rebase\Admin\BannedSlug;
 use App\Domain\Models\Rebase\Workspace\Workspace;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use App\Domain\Repositories\Rebase\EloquentLookupRepository;
@@ -42,10 +44,14 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
         $this->app->bind('LookupRepository', function (Application $app) {
             return new EloquentLookupRepository(new Lookup());
         });
+
+        $this->app->bind('RoleRepository', function (Application $app) {
+            return new EloquentRoleRepository(new Role());
+        });
     }
 
-    public function provides()
+    public function provides(): array
     {
-        return ['LookupRepository', 'BannedSlugRepository', 'MemberRepository', 'WorkspaceRepository', 'CustomerRepository'];
+        return ['LookupRepository', 'BannedSlugRepository', 'MemberRepository', 'WorkspaceRepository', 'CustomerRepository', 'RoleRepository'];
     }
 }

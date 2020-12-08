@@ -48,7 +48,7 @@ class MigrateWorkspaces extends Command
 
     private function migrateAllWorkspaces(): void
     {
-        CustomerRepository::query()->getAll()->each(function ($customer): void {
+        CustomerRepository::query()->get()->each(function ($customer): void {
             $this->migrateWorkspace($customer->id);
         });
     }
