@@ -46,8 +46,8 @@ class Workspace extends Model
         parent::boot();
 
         static::creating(function ($workspace): void {
-            $workspace->id = (string) Str::uuid();
-            $workspace->activation_token = (string) Str::uuid();
+            $workspace->id = (string)Str::uuid();
+            $workspace->activation_token = (string)Str::uuid();
             $workspace->activation_at = Carbon::now();
         });
 

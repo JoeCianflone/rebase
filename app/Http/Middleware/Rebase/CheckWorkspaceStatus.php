@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Rebase;
 
+use App\Domain\Facades\Rebase\RoleRepository;
 use Closure;
 use Illuminate\Http\Request;
 use App\Enums\Rebase\MemberRoles;
@@ -35,18 +36,16 @@ class CheckWorkspaceStatus extends BaseMiddleware
             return $next($request);
         }
 
-//        dd (Auth::user());
-//        if (WorkspaceRepository::query()->isPending($request->get('slug'))) {
-//            if (Auth::user()->role($request->get('workspace_id')) === (string) MemberRoles::OWNER()) {
-//                return redirect()->route('onboarding.start');
-//            }
-//
-//            return redirect()->route('onboarding.hold');
-//        }
-//
-//        if (WorkspaceRepository::query()->isArchived($request->get('slug'))) {
-//            return redirect()->route('onboarding.hold');
-//        }
+        if (WorkspaceRepository::query()->isPending($request->get('slug'))) {
+
+           if(RoleRepository::query()->isWorkspaceAdminOrUp(Auth::user()->id)) {
+               return redirect()->route('onboarding.start');
+           }
+
+            return redirect()->route('onboarding.hold');
+        } elseif (WorkspaceRepository::query()->isArchived($request->get('slug'))) {
+            return redirect()->route('onboarding.hold');
+        }
 
         return $next($request);
     }

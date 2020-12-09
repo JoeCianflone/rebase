@@ -16,4 +16,4 @@
         <function name="dump"/>
         <function name="var_dump"/>
     </forbiddenFunctions>
-<plugins><pluginClass class="Psalm\LaravelPlugin\Plugin"/></plugins></psalm>
+</psalm>

@@ -2,6 +2,13 @@
 
 namespace Database\Seeders\Rebase;
 
+use Exception;
+use Faker\Provider\en_US\Address;
+use Faker\Provider\en_US\Company;
+use Faker\Provider\en_US\Person;
+use Faker\Provider\en_US\PhoneNumber;
+use Faker\Provider\Internet;
+use Faker\Provider\Lorem;
 use Illuminate\Support\Arr;
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
@@ -17,12 +24,12 @@ use Illuminate\Support\Str;
 
 class PersonalWorkspace extends Seeder
 {
-    const MEMBERS_PER_WORKSPACE = 100;
-    const WORKSPACES = 2;
-    const PERSONAL_NAME = 'Joe Cianflone';
-    const PERSONAL_EMAIL = 'joe@cianflone.co';
-    const PERSONAL_PASSWORD = 'password123';
-    const PERSONAL_SLUG = 'joecianflone';
+    public const MEMBERS_PER_WORKSPACE = 100;
+    public const WORKSPACES = 2;
+    public const PERSONAL_NAME = 'Joe Cianflone';
+    public const PERSONAL_EMAIL = 'joe@cianflone.co';
+    public const PERSONAL_PASSWORD = 'password123';
+    public const PERSONAL_SLUG = 'joecianflone';
 
     /**
      * Run the database seeds.
@@ -30,12 +37,12 @@ class PersonalWorkspace extends Seeder
     public function run(): void
     {
         $faker = new Faker();
-        $faker->addProvider(new \Faker\Provider\en_US\Person($faker));
-        $faker->addProvider(new \Faker\Provider\en_US\Address($faker));
-        $faker->addProvider(new \Faker\Provider\en_US\PhoneNumber($faker));
-        $faker->addProvider(new \Faker\Provider\en_US\Company($faker));
-        $faker->addProvider(new \Faker\Provider\Lorem($faker));
-        $faker->addProvider(new \Faker\Provider\Internet($faker));
+        $faker->addProvider(new Person($faker));
+        $faker->addProvider(new Address($faker));
+        $faker->addProvider(new PhoneNumber($faker));
+        $faker->addProvider(new Company($faker));
+        $faker->addProvider(new Lorem($faker));
+        $faker->addProvider(new Internet($faker));
 
         $customer = CustomerRepository::factory()->create([
             'name' => 'Personal Test Company',
@@ -92,9 +99,16 @@ class PersonalWorkspace extends Seeder
         }
     }
 
-    private function generateRandomRole()
+    private function generateRandomRole(): string
     {
-        $key = Arr::flatten(MemberRoles::keys())[rand(3, 9)];
+        try {
+            $key = Arr::flatten(MemberRoles::keys())[random_int(3, 9)];
+        } catch (Exception $e) {
+            echo $e->getMessage();
+
+            die();
+        }
+
 
         return MemberRoles::$key();
     }

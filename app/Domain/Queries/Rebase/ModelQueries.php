@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Queries\Rebase;
 
@@ -15,7 +15,9 @@ class ModelQueries
 
     public function __construct(protected ?Model $model = null,
                                 protected string $cacheKey = '',
-                                protected int $cacheTime = 300) { }
+                                protected int $cacheTime = 300)
+    {
+    }
 
     public function get()
     {
@@ -34,7 +36,7 @@ class ModelQueries
 
     public function getByID(string|Uuid $id): ?Model
     {
-        return $this->cache('getByID'.$id, fn () => $this->model->where('id', '=', $id)->firstOrFail());
+        return $this->cache('getByID' . $id, fn() => $this->model->where('id', '=', $id)->firstOrFail());
     }
 
     protected function cache(string $name, Closure $fn)

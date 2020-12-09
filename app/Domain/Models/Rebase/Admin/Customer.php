@@ -52,7 +52,7 @@ class Customer extends Model
         parent::boot();
 
         static::creating(function ($customer): void {
-            $customer->id = (string) Str::uuid();
+            $customer->id = (string)Str::uuid();
         });
     }
 

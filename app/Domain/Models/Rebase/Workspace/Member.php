@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Domain\Models\Rebase\Workspace;
 
@@ -62,13 +60,14 @@ class Member extends Authenticatable
     ];
 
     protected $appends = ['role'];
+
     public static function boot(): void
     {
         parent::boot();
 
         static::creating(function ($member): void {
-            $member->id = (string) Str::uuid();
-            $member->email_token = (string) Str::uuid();
+            $member->id = (string)Str::uuid();
+            $member->email_token = (string)Str::uuid();
         });
     }
 

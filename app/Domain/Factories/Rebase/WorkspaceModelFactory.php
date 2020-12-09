@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Factories\Rebase;
 
@@ -15,7 +15,7 @@ class WorkspaceModelFactory extends ModelFactory
         $this->model = $model;
     }
 
-    public function markAsVerified()
+    public function markAsVerified(): ?Workspace
     {
         $this->update($this->model, [
             'status' => WorkspaceStatus::VERIFIED(),
@@ -26,19 +26,19 @@ class WorkspaceModelFactory extends ModelFactory
         return $this->model;
     }
 
-    public function resetActivationToken(string $slug)
+    public function resetActivationToken(string $slug): ?Workspace
     {
         $this->update('slug', $slug, [
-            'activation_token' => (string) Str::uuid(),
+            'activation_token' => (string)Str::uuid(),
             'activation_at' => Carbon::now(),
         ]);
 
         return $this->model;
     }
 
-    public function archive(string $workspaceID)
+    public function archive(string $workspaceID): ?Workspace
     {
-        $this->update('id', $workspaceID, ['status' => (string) WorkspaceStatus::ARCHIVED()]);
+        $this->update('id', $workspaceID, ['status' => (string)WorkspaceStatus::ARCHIVED()]);
 
         return $this->model;
     }

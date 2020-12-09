@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Filters\Rebase;
 
@@ -11,13 +11,13 @@ class MemberFilters extends ModelFilters
 
     public function hasLoggedIn()
     {
-        return (bool) $this->model->password === null;
+        return (bool)$this->model->password === null;
     }
 
     public function mapCurrentWorkspaceRole(string $workspaceID)
     {
         return $this->model->each(function ($item) use ($workspaceID): void {
-            dd ($item);
+            dd($item);
             $item->currentWorkspaceRole = $item->roles[$workspaceID];
         });
     }

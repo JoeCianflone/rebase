@@ -1,15 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Factories\Rebase;
 
-
-use App\Domain\Models\Rebase\Workspace\Role;
+use Exception;
 use App\Enums\Rebase\MemberRoles;
-use JetBrains\PhpStorm\Pure;
+use App\Domain\Models\Rebase\Workspace\Role;
 
 class RoleModelFactory extends ModelFactory
 {
-    #[Pure]
     public function __construct(Role $model)
     {
         parent::__construct($model);
@@ -17,12 +15,12 @@ class RoleModelFactory extends ModelFactory
     }
 
 
-    public function removeMemberRole(string $role, string $memberID, ?string $workspaceID = null):void
+    public function removeMemberRole(string $role, string $memberID, ?string $workspaceID = null): void
     {
         $this->model->where('type', $role)
-                    ->where('member_id', $memberID)
-                    ->where('workspace_id', $workspaceID)
-                    ->remove();
+            ->where('member_id', $memberID)
+            ->where('workspace_id', $workspaceID)
+            ->remove();
     }
 
     public function addAccountOwner(string $memberID): void
@@ -38,14 +36,14 @@ class RoleModelFactory extends ModelFactory
         $currentRoles = $this->model->where('member_id', $memberID)->get();
 
         if ($currentRoles->contains('type', MemberRoles::ACCOUNT_OWNER())) {
-            throw new \Exception('Cannot downgrade account owner without first setting a new account owner');
+            throw new Exception('Cannot downgrade account owner without first setting a new account owner');
         }
 
         $this->remove($currentRoles->toArray());
         $this->model->create(['type' => MemberRoles::ACCOUNT_ADMIN(), 'member_id' => $memberID]);
     }
 
-    public function addWorkspaceRole(string $role, string $workspaceID, string $memberID)
+    public function addWorkspaceRole(string $role, string $workspaceID, string $memberID): void
     {
         $this->model->updateOrCreate(
             ['member_id' => $memberID, 'workspace_id' => $workspaceID],

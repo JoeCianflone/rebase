@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Queries\Rebase;
 
@@ -12,7 +12,7 @@ class CustomerQueries extends ModelQueries
         $this->cacheKey = 'customer';
     }
 
-    public function getCustomerWithSubscriptions(string $customerID)
+    public function getCustomerWithSubscriptions(string $customerID): Customer
     {
         return $this->model->where('id', $customerID)->with('subscriptions')->first();
     }

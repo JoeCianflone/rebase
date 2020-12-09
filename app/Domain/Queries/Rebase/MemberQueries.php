@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 use App\Enums\Rebase\MemberRoles;
 use Illuminate\Support\Facades\DB;
 use App\Domain\Models\Rebase\Workspace\Member;
+use JetBrains\PhpStorm\Pure;
 
 class MemberQueries extends ModelQueries
 {

@@ -1,11 +1,10 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Domain\Repositories\Rebase;
 
 use App\Domain\Queries\Rebase\LookupQueries;
 use App\Domain\Models\Rebase\Admin\Lookup;
+use App\Domain\Queries\Rebase\ModelQueries;
 
 class EloquentLookupRepository extends EloquentRepository
 {
@@ -14,7 +13,7 @@ class EloquentLookupRepository extends EloquentRepository
         $this->model = $model;
     }
 
-    public function query($model = null)
+    public function query($model = null): ModelQueries
     {
         return new LookupQueries($model ?? $this->model);
     }

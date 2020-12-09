@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Filters\Rebase;
 
@@ -11,7 +11,7 @@ class WorkspaceFilters extends ModelFilters
         parent::__construct($model);
     }
 
-    public function activationIsOnTime($time)
+    public function activationIsOnTime(string $time): bool
     {
         return $this->model->activation_at->diffInHours($time) <= env('ACTIVATION_HOURS');
     }

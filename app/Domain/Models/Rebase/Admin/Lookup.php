@@ -1,11 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Domain\Models\Rebase\Admin;
 
+use App\Domain\Models\Rebase\Workspace\Workspace;
 use Illuminate\Database\Eloquent\Model;
-use App\Domain\Models\Workspace\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lookup extends Model

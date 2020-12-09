@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Domain\Queries\Rebase;
 
@@ -19,8 +19,7 @@ class WorkspaceQueries extends ModelQueries
     public function allActiveOrPending()
     {
         return $this->model
-            ->where('status', WorkspaceStatus::ACTIVE())
-            ->orWhere('status', WorkspaceStatus::PENDING())
+            ->whereIn('status', [WorkspaceStatus::PENDING(), WorkspaceStatus::ACTIVE()])
             ->get();
     }
 
@@ -28,7 +27,7 @@ class WorkspaceQueries extends ModelQueries
     {
         $found = $this->model->members()
             ->where('email', $email)
-            ->whereJsonContains('roles->'.$this->model->id, MemberRoles::OWNER())
+            ->whereJsonContains('roles->' . $this->model->id, MemberRoles::OWNER())
             ->first();
 
         if (is_null($found)) {
@@ -40,8 +39,7 @@ class WorkspaceQueries extends ModelQueries
 
     public function getMembers(string $workspaceID)
     {
-        $this->query = $this->model
-            ->with('members')
+        $this->query = $this->model::with('members')
             ->where('id', $workspaceID)
             ->first()
             ->members();
@@ -54,9 +52,9 @@ class WorkspaceQueries extends ModelQueries
         if ($q) {
             $this->query->where(function ($query) use ($q, $fields): void {
                 $count = 0;
-                $query->where($fields[$count], 'LIKE', '%'.$q.'%');
+                $query->where($fields[$count], 'LIKE', '%' . $q . '%');
                 while (++$count < count($fields)) {
-                    $query->orWhere($fields[$count], 'LIKE', '%'.$q.'%');
+                    $query->orWhere($fields[$count], 'LIKE', '%' . $q . '%');
                 }
             });
         }
@@ -75,21 +73,6 @@ class WorkspaceQueries extends ModelQueries
             ->get();
     }
 
-    public function getAllOwners(): void
-    {
-        // return $this->model->all();
-        // return $this->model->members()
-        //     ->whereJsonContains('roles->'.$this->model->id, MemberRoles::OWNER())
-        //     ->get();
-    }
-
-    public function getAllOwnersFor(string $workspaceID)
-    {
-        return $this->model->where('id', $workspaceID)->first()->members()
-            ->whereJsonContains('roles->'.$workspaceID, MemberRoles::OWNER())
-            ->get();
-    }
-
     public function hasSlug(string $slug): bool
     {
         return $this->model->where('slug', '=', $slug)->count() > 0;
@@ -97,12 +80,12 @@ class WorkspaceQueries extends ModelQueries
 
     public function getBySlug(string $slug): Workspace
     {
-        return $this->cache('getBySlug', fn () => $this->model->where('slug', '=', $slug)->firstOrFail());
+        return $this->cache('getBySlug', fn() => $this->model->where('slug', '=', $slug)->firstOrFail());
     }
 
     public function getByDomain(string $domain): Workspace
     {
-        return $this->cache('getByDomain', fn () => $this->model->where('domain', '=', $domain)->firstOrFail());
+        return $this->cache('getByDomain', fn() => $this->model->where('domain', '=', $domain)->firstOrFail());
     }
 
     public function matchSlugAndToken(string $token, string $slug)
@@ -121,34 +104,33 @@ class WorkspaceQueries extends ModelQueries
 
     public function isPending(string $slug): bool
     {
-        return $this->statusCheck($slug, WorkspaceStatus::PENDING());
+        return $this->statusCheck($slug, WorkspaceStatus::PENDING()->getValue());
     }
 
     public function isActive(string $slug): bool
     {
-        return $this->statusCheck($slug, WorkspaceStatus::ACTIVE());
+        return $this->statusCheck($slug, WorkspaceStatus::ACTIVE()->getValue());
     }
 
     public function isLocked(string $slug): bool
     {
-        return $this->statusCheck($slug, WorkspaceStatus::LOCKED());
+        return $this->statusCheck($slug, WorkspaceStatus::LOCKED()->getValue());
     }
 
     public function isArchived(string $slug): bool
     {
-        return $this->statusCheck($slug, WorkspaceStatus::ARCHIVED());
+        return $this->statusCheck($slug, WorkspaceStatus::ARCHIVED()->getValue());
     }
 
     public function isRemoved(string $slug): bool
     {
-        return $this->statusCheck($slug, WorkspaceStatus::REMOVED());
+        return $this->statusCheck($slug, WorkspaceStatus::REMOVED()->getValue());
     }
 
-    public function hasBeenOnboarded(string $slug)
-    {
-        $active = $this->cache('onboarded', fn () => $this->model->where('slug', $slug)->where('status', WorkspaceStatus::ACTIVE())->count());
 
-        return $active > 0;
+    public function hasBeenOnboarded(string $slug): bool
+    {
+        return $this->cache('onboarded', fn() => $this->model->where('slug', $slug)->where('status', WorkspaceStatus::ACTIVE())->exists());
     }
 
     private function statusCheck(string $slug, string $status): bool

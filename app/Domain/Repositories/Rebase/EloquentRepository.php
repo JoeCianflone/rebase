@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Domain\Repositories\Rebase;
 
@@ -8,22 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Domain\Filters\Rebase\ModelFilters;
 use App\Domain\Queries\Rebase\ModelQueries;
 use App\Domain\Factories\Rebase\ModelFactory;
+use JetBrains\PhpStorm\Pure;
 
 abstract class EloquentRepository
 {
     protected Model $model;
 
-    public function factory($model = null)
+    public function factory($model = null): ModelFactory
     {
         return new ModelFactory($model ?? $this->model);
     }
 
-    public function filter($model)
+    public function filter($model): ModelFilters
     {
         return new ModelFilters($model);
     }
 
-    public function query($model = null)
+    public function query($model = null): ModelQueries
     {
         return new ModelQueries($model ?? $this->model);
     }

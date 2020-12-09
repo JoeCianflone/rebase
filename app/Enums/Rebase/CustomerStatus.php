@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Enums\Rebase;
 
@@ -12,8 +12,6 @@ use MyCLabs\Enum\Enum;
  * @method static CustomerStatus PENDING()
  * @method static CustomerStatus REVIEW_REQUIRED()
  * @method static CustomerStatus BANNED()
- *
- * @psalm-immutable
  */
 class CustomerStatus extends Enum
 {
