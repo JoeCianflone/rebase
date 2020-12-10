@@ -47,21 +47,6 @@ class WorkspaceQueries extends ModelQueries
         return $this;
     }
 
-    public function filterBy($q, $fields)
-    {
-        if ($q) {
-            $this->query->where(function ($query) use ($q, $fields): void {
-                $count = 0;
-                $query->where($fields[$count], 'LIKE', '%' . $q . '%');
-                while (++$count < count($fields)) {
-                    $query->orWhere($fields[$count], 'LIKE', '%' . $q . '%');
-                }
-            });
-        }
-
-        return $this;
-    }
-
     public function getAllMembers(string $workspaceID, string $orderBy = 'name')
     {
         return $this->model

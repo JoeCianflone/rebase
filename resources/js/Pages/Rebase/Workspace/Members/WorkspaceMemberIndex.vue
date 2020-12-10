@@ -34,10 +34,10 @@ export default {
 
 <template>
    <Workspace nav="members">
-      <template v-slot:header>Members</template>
+      <template #header>Members</template>
       <template v-slot:body>
          <DataTable :links="links">
-            <template v-slot:dataHeader>
+            <template #header>
                <th>&nbsp;</th>
                <th>Name</th>
                <th>Email</th>
@@ -45,7 +45,7 @@ export default {
                <th>Role</th>
                <th>&nbsp;</th>
             </template>
-            <template v-slot:dataBody>
+            <template #contents>
                <tr v-for="member in members" :key="member.id">
                   <td><input type="checkbox" /></td>
                   <td title="Name">{{ member.name }}</td>

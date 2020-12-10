@@ -104,6 +104,11 @@ export default {
       margin: 0;
       display: inline-flex;
    }
+
+   @include for-variant("link") {
+      @content;
+      border: none;
+   }
 }
 
 .button {
@@ -165,13 +170,21 @@ export default {
       }
    }
 }
+
 .button--link {
    @include with-queries {
       @include sizes-and-variants {
          @include button;
          background: transparent;
          border: none;
-         color: var(--color-coolGray-800);
+         padding: 0;
+         margin: 0;
+         font-weight: 300;
+         text-decoration: underline;
+         color: var(--color-blue-500);
+         &:hover {
+            text-decoration: none;
+         }
       }
    }
 }

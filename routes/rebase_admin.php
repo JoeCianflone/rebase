@@ -19,5 +19,6 @@ Route::domain($domain)->prefix('{customerID}')->namespace('Rebase\Admin')->group
         // Workspace
 
         // Member
+        Route::get('member', Members\MemberIndex::class)->name('member.index');
     });
 });

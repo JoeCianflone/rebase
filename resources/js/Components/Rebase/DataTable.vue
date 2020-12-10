@@ -3,6 +3,7 @@ import Paginator from "@/Components/Rebase/Paginator"
 import mapValues from "lodash/mapValues"
 import pickBy from "lodash/pickBy"
 import throttle from "lodash/throttle"
+import merge from "lodash/merge"
 
 export default {
    data: function () {
@@ -16,7 +17,7 @@ export default {
       form: {
          handler: throttle(function () {
             let query = pickBy(this.form)
-            this.$inertia.replace(this.route("members", Object.keys(query).length ? query : {}))
+            this.$inertia.replace(this.route(this.routeName, merge(query, this.routeParams)))
          }, 150),
          deep: true,
       },
@@ -30,6 +31,8 @@ export default {
       Paginator,
    },
    props: {
+      routeName: String,
+      routeParams: Object,
       links: Array,
    },
 }
@@ -37,7 +40,7 @@ export default {
 
 <template>
    <section>
-      <form class="grid search-bar" action="get">
+      <form class="grid search-bar" action="get" v-if="routeName">
          <FormFieldInline class="col-6">
             <FieldLabel>Search:</FieldLabel>
             <FormInput v-model="form.s" />
@@ -49,11 +52,11 @@ export default {
       <table class="table--data">
          <thead>
             <tr>
-               <slot name="dataHeader" />
+               <slot name="header" />
             </tr>
          </thead>
          <tbody>
-            <slot name="dataBody" />
+            <slot name="contents" />
          </tbody>
       </table>
       <Paginator :links="links" />
@@ -95,8 +98,22 @@ export default {
          flex-wrap: wrap;
          justify-content: space-between;
 
-         &:nth-of-type(2n + 1) {
+         &:nth-of-type(4n + 1) {
             background: var(--color-blueGray-50);
+         }
+
+         &.drawer {
+            border-bottom: 1px solid var(--color-gray-300);
+            box-shadow: inset 0px 5px 8px -7px var(--color-gray-600);
+            display: none;
+
+            &:hover {
+               background: var(--color-true-white);
+            }
+
+            td {
+               padding: var(--px-40) var(--px-12);
+            }
          }
 
          &:hover {

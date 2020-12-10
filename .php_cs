@@ -8,6 +8,7 @@
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
+        'declare_strict_types' => true,
         // There MUST be one blank line after the namespace declaration.
         'blank_line_after_namespace' => true,
         // The body of each structure MUST be enclosed by braces. Braces should be properly placed. Body of braces should be properly indented.

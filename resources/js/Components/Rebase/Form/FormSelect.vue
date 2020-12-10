@@ -9,7 +9,7 @@ export default {
          default: "Select",
       },
       value: [String, Number, Boolean],
-      options: Array,
+      options: Array | Object,
    },
 
    methods: {

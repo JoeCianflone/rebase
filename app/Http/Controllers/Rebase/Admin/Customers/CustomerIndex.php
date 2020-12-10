@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Rebase\Admin\Customers;
 
 use App\Actions\Action;
+use App\Domain\Facades\Rebase\RoleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Domain\Facades\Rebase\MemberRepository;
@@ -18,7 +19,7 @@ class CustomerIndex extends Controller
         $invoices = CustomerRepository::filter($customer)->mapInvoiceData();
         $workspaces = WorkspaceRepository::query()->allActiveOrPending();
 
-        $owners = MemberRepository::query()->getOwners();
+        $owners = MemberRepository::query()->findByID(RoleRepository::query()->findAccountOwner()->first()->member_id)->get();
 
         return inertia(Action::getView($this), [
             'customer' => $customer,

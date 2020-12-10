@@ -23,6 +23,13 @@ class RoleQueries extends ModelQueries
         return $this->model->where('member_id', $memberID)->where('type', MemberRoles::ACCOUNT_OWNER())->exists();
     }
 
+    public function findAccountOwner(): self
+    {
+        $this->query = $this->model->where('type', MemberRoles::ACCOUNT_OWNER());
+
+        return $this;
+    }
+
     public function isAccountAdmin(string $memberID): bool
     {
         return $this->model->where('member_id', $memberID)->where('type', MemberRoles::ACCOUNT_ADMIN())->exists();

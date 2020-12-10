@@ -23,6 +23,16 @@ class CreateRolesTable extends Migration
             $table->timestamps();
 
             $table->unique(['member_id', 'workspace_id']);
+
+            $table->foreign('member_id')
+                ->references('id')
+                ->on('members')
+                ->onDelete('cascade');
+
+            $table->foreign('workspace_id')
+                ->references('id')
+                ->on('workspaces')
+                ->onDelete('cascade');
         });
     }
 

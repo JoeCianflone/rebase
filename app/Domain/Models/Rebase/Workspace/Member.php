@@ -2,10 +2,12 @@
 
 namespace App\Domain\Models\Rebase\Workspace;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
+use App\Domain\Models\Rebase\Workspace\Role;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Member extends Authenticatable
 {
@@ -31,7 +33,6 @@ class Member extends Authenticatable
         'name',                 // required
         'avatar',
         'profile',
-        'roles',
         'remember_token',
         'email_token',
         'email_verified_at',
@@ -53,13 +54,10 @@ class Member extends Authenticatable
         'id' => 'string',
         'email_token' => 'string',
         'profile' => 'array',
-        'roles' => 'array',
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    protected $appends = ['role'];
 
     public static function boot(): void
     {
@@ -71,12 +69,10 @@ class Member extends Authenticatable
         });
     }
 
-
-//    public function getRoleAttribute() {
-//        return collect($this->roles)->firstWhere('workspace_id', '=', $this->pivot->workspace_id);
-//
-//    }
-
+    public function roles(): HasMany
+    {
+        return $this->hasMany(Role::class);
+    }
 
     public function workspaces(): BelongsToMany
     {

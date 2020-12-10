@@ -5,7 +5,9 @@ namespace App\Domain\Models\Rebase\Workspace;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Facades\Rebase\LookupRepository;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Workspace extends Model
 {

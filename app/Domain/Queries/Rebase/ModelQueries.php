@@ -19,19 +19,42 @@ class ModelQueries
     {
     }
 
-    public function get()
+    public function get(?string $order = null): ?Collection
     {
-        return $this->query->get();
+
+        return $order ? $this->query->orderBy($order)->get() : $this->query->get();
     }
 
-    public function first()
+    public function first(): ?Model
     {
         return $this->query->first();
     }
 
-    public function paginate(int $size)
+    public function filterBy($q, $fields)
     {
-        return $this->query->paginate($size);
+        if ($q) {
+            $this->query->where(function ($query) use ($q, $fields): void {
+                $count = 0;
+                $query->where($fields[$count], 'LIKE', '%' . $q . '%');
+                while (++$count < count($fields)) {
+                    $query->orWhere($fields[$count], 'LIKE', '%' . $q . '%');
+                }
+            });
+        }
+
+        return $this;
+    }
+
+    public function paginate(int $count = 10, ?array $order = null)
+    {
+        return $order ? $this->query->orderBy($order['col'], $order['direction'])->paginate($count): $this->query->paginate($count);
+    }
+
+    public function findByID(string|Uuid $id): self
+    {
+        $this->query = $this->model->where('id', $id);
+
+        return $this;
     }
 
     public function getByID(string|Uuid $id): ?Model

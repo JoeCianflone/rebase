@@ -6,7 +6,6 @@ use Illuminate\Support\Carbon;
 use App\Enums\Rebase\MemberRoles;
 use Illuminate\Support\Facades\DB;
 use App\Domain\Models\Rebase\Workspace\Member;
-use JetBrains\PhpStorm\Pure;
 
 class MemberQueries extends ModelQueries
 {
@@ -16,14 +15,16 @@ class MemberQueries extends ModelQueries
         $this->cacheKey = 'member';
     }
 
-    public function getOwners()
-    {
-        return $this->model->whereJsonContains('roles', ['type' => MemberRoles::OWNER()])->get();
-    }
-
     public function getWorkspaces(string $memberID)
     {
         return $this->model->with('workspaces')->where('id', $memberID)->first()->workspaces;
+    }
+
+    public function allCustomerMembers(bool $withRoles = false): self
+    {
+        $this->query = $withRoles ? $this->model::with(['roles']) : $this->model;
+
+        return $this;
     }
 
     public function findMember(string $email)

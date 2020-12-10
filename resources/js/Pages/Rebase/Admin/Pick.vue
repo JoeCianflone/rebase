@@ -32,7 +32,7 @@ export default {
 
 <template>
    <Admin nav="settings">
-      <template v-slot:header>Switch Workspaces</template>
+      <template #header>Switch Workspaces</template>
       <template v-slot:body>
          <div class="grid">
             <div class="col-10--centered">

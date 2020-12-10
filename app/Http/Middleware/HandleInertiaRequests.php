@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Inertia\Middleware;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Enums\Rebase\MemberRoles;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -53,6 +55,7 @@ class HandleInertiaRequests extends Middleware
                     'name' => config('app.name'),
                     'domain' => config('app.domain'),
                     'pricing' => config('pricing.product.test'),
+                    'roles' => Arr::except(MemberRoles::toArray(), ['SUPER']),
                 ];
             },
             'flash' => function (): array {

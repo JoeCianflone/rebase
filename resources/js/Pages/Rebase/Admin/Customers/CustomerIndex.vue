@@ -76,7 +76,7 @@ export default {
 
 <template>
    <Admin nav="customer">
-      <template v-slot:header>Customer Settings</template>
+      <template #header>Customer Settings</template>
       <template v-slot:body>
          <div class="grid">
             <div class="col-10--centered sm::col-6">
@@ -160,7 +160,7 @@ export default {
             <div class="col-10--centered sm::col-12">
                <h2>Workspaces</h2>
                <DataTable>
-                  <template v-slot:dataHeader>
+                  <template #header>
                      <th>&nbsp;</th>
                      <th>Name</th>
                      <th>URL</th>
@@ -168,7 +168,7 @@ export default {
                      <th>Total Users</th>
                      <th>&nbsp;</th>
                   </template>
-                  <template v-slot:dataBody>
+                  <template #contents>
                      <tr v-for="workspace in workspaces" :key="workspace.id">
                         <td><input type="checkbox" /></td>
                         <td title="Name">{{ workspace.name }}</td>

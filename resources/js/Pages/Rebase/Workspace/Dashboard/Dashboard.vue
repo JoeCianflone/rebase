@@ -21,7 +21,7 @@ export default {
 
 <template>
    <Workspace nav="dashboard">
-      <template v-slot:header>Dashboard</template>
+      <template #header>Dashboard</template>
       <template v-slot:body>
          <div class="grid"></div>
       </template>
