@@ -1,6 +1,6 @@
 <script>
 import Layout from "@/Templates/Rebase/Layout"
-import Admin from "@/Templates/Rebase/Page/Admin"
+import Simple from "@/Templates/Rebase/Page/Simple"
 import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionLink from "@/Components/Rebase/Actions/ActionLink"
 import ActionButton from "@/Components/Rebase/Actions/ActionButton"
@@ -10,7 +10,7 @@ export default {
    metaInfo: { title: "Pick a Workspace" },
 
    components: {
-      Admin,
+      Simple,
       ActionMenu,
       ActionLink,
       ActionButton,
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-   <Admin nav="settings">
+   <Simple>
       <template #header>Switch Workspaces</template>
       <template v-slot:body>
          <div class="grid">
@@ -44,5 +44,5 @@ export default {
             </div>
          </div>
       </template>
-   </Admin>
+   </Simple>
 </template>

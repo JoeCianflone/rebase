@@ -45,11 +45,10 @@ export default {
    grid-gap: var(--px-16);
    grid-template-areas: "secondary" "main";
    grid-template-columns: 1fr;
-   grid-template-rows: 1fr 2fr;
-   height: 100vh;
+   grid-template-rows: 0.5fr 3fr;
 
-   @media (map-get($mq, "md")) {
-      align-items: center;
+   @media ($md-and-up) {
+      align-items: stretch;
       grid-template-areas: "main secondary";
       grid-template-columns: 2fr 1fr;
       grid-template-rows: 1fr;
@@ -57,6 +56,7 @@ export default {
 
    main {
       grid-area: main;
+      padding-bottom: var(--px-20);
    }
 
    aside {
@@ -68,7 +68,7 @@ export default {
       @media (map-get($mq, "md")) {
          align-items: center;
          display: flex;
-         height: 100vh;
+         min-height: 100vh;
       }
    }
 }

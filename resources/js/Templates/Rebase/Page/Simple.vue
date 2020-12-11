@@ -1,15 +1,11 @@
 <script>
-import AdminSidebar from "./Components/AdminSidebar"
 import IdentityNavigation from "./Components/IdentityNavigation"
 import Logo from "./Components/Logo"
 
 export default {
-   props: {
-      nav: String,
-   },
+   props: {},
 
    components: {
-      AdminSidebar,
       Logo,
       IdentityNavigation,
    },
@@ -33,9 +29,6 @@ export default {
                <slot name="body"></slot>
             </div>
          </main>
-         <aside class="js-sidebar">
-            <AdminSidebar :nav="nav" />
-         </aside>
       </div>
    </section>
 </template>
@@ -50,17 +43,16 @@ $headerbar-height: 40px;
    column-gap: var(--px-16);
    display: grid;
    grid-template-areas:
-      "sidebar"
       "header"
       "main";
    grid-template-columns: 1fr;
-   grid-template-rows: min($headerbar-height) min($headerbar-height) 1fr;
+   grid-template-rows: min($headerbar-height) 1fr;
    height: 100vh;
 
    @media ($md-and-up) {
       grid-template-areas:
          "header header"
-         "sidebar main";
+         "main main";
       grid-template-columns: $sidebar-width 1fr;
       grid-template-rows: min($headerbar-height) 1fr;
    }
@@ -106,7 +98,7 @@ $headerbar-height: 40px;
          display: none;
       }
 
-      @media ($md-and-up) {
+      @media ($sm-and-up) {
          padding-top: var(--px-60);
          padding-right: var(--px-16);
       }
@@ -117,7 +109,7 @@ $headerbar-height: 40px;
       background: var(--color-blueGray-800);
       grid-area: sidebar;
 
-      @media ($md-and-up) {
+      @media ($sm-and-up) {
          padding-top: var(--px-60);
       }
    }

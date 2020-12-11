@@ -50,7 +50,7 @@ export default {
 
 .nav-button {
    color: var(--color-blueGray-400);
-   @media ($sm-and-up) {
+   @media ($md-and-up) {
       display: none;
    }
 }
@@ -73,7 +73,7 @@ export default {
       }
    }
 
-   @media ($sm-and-up) {
+   @media ($md-and-up) {
       display: block;
    }
 }

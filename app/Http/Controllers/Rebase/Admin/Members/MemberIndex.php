@@ -14,7 +14,7 @@ class MemberIndex extends Controller
     {
         $members = MemberRepository::query()->allCustomerMembers(withRoles: true)
                                             ->filterBy($request->input('s'), ['name', 'email'])
-                                            ->paginate(count: (int) $request->input('count') ?? 20, order: ['col' => 'name', 'direction' => 'asc']);
+                                            ->paginate(count: (int) $request->input('count') ?? 25, order: ['col' => 'name', 'direction' => 'asc']);
 
         return inertia(Action::getView($this), [
             'members' => MemberRepository::filter($members)->getPaginatorItems(),

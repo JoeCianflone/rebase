@@ -17,7 +17,9 @@ export default {
 
 <template>
    <ActionMenu>
-      <template v-slot:buttonText> <span class="material-icons">account_circle</span> {{ $page.props.auth.user.email }} <span class="material-icons">expand_more</span> </template>
+      <template v-slot:buttonText>
+         <span class="material-icons">account_circle</span> <span class="identity-name">{{ $page.props.auth.user.email }}</span> <span class="material-icons">expand_more</span>
+      </template>
       <ActionLink :inertia="false" :link="route('pick', $page.props.customer_id)">Switch</ActionLink>
       <ActionLink :inertia="false" :link="route('customer.index', $page.props.customer_id)">Settings</ActionLink>
       <ActionLink link="#">Your Profile</ActionLink>
@@ -27,4 +29,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "@@/abstract";
+
+.identity-name {
+   display: none;
+
+   @media ($sm-and-up) {
+      display: inline;
+   }
+}
 </style>

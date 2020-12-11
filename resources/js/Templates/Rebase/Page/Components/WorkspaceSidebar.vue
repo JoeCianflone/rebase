@@ -12,14 +12,8 @@ export default {
 </script>
 
 <template>
-   <section>
-      <MainNavigation>
-         <li><inertia-link :href="route('dashboard')" :class="{ selected: this.nav === 'dashboard' }">Dashboard</inertia-link></li>
-         <li><inertia-link :href="route('members')" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
-      </MainNavigation>
-   </section>
+   <MainNavigation>
+      <li><inertia-link :href="route('dashboard')" :class="{ selected: this.nav === 'dashboard' }">Dashboard</inertia-link></li>
+      <li><inertia-link :href="route('members')" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
+   </MainNavigation>
 </template>
-
-<style lang="scss" scoped>
-@import "@@/abstract";
-</style>

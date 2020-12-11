@@ -149,12 +149,12 @@ export default {
                <card-number ref="cardNumber" :stripe="stripe_key" />
             </FormField>
 
-            <FormField class="col-8 col-at-2 md::col-6:at-3">
+            <FormField class="col-5:at-2 md::col-6:at-3">
                <FieldLabel>Expires:</FieldLabel>
                <card-expiry ref="cardExpiry" :stripe="stripe_key" />
             </FormField>
 
-            <FormField class="col-2">
+            <FormField class="col-5 md::col-2">
                <FieldLabel>CVC:</FieldLabel>
                <card-cvc ref="cardCvc" :stripe="stripe_key" />
             </FormField>

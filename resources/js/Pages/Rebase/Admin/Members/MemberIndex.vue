@@ -97,7 +97,3 @@ export default {
       </template>
    </Admin>
 </template>
-
-<style lang="scss" scoped>
-@import "@@/abstract";
-</style>

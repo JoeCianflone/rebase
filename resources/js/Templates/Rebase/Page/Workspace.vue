@@ -43,12 +43,11 @@ export default {
 <style lang="scss" scoped>
 @import "@@/abstract";
 
-$base-gap: var(--px-16);
 $sidebar-width: 240px;
 $headerbar-height: 40px;
 
 .layout--main {
-   column-gap: $base-gap;
+   column-gap: var(--px-16);
    display: grid;
    grid-template-areas:
       "sidebar"
@@ -58,7 +57,7 @@ $headerbar-height: 40px;
    grid-template-rows: min($headerbar-height) min($headerbar-height) 1fr;
    height: 100vh;
 
-   @media ($sm-and-up) {
+   @media ($md-and-up) {
       grid-template-areas:
          "header header"
          "sidebar main";
@@ -71,14 +70,14 @@ $headerbar-height: 40px;
       align-content: center;
       background: var(--color-true-white);
       border-bottom: 3px solid var(--color-blueGray-300);
-      column-gap: $base-gap;
+      column-gap: var(--px-16);
       padding: 0 var(--px-16);
       display: grid;
       grid-area: header;
       grid-template-columns: 1fr 1fr;
       z-index: 10;
 
-      @media ($sm-and-up) {
+      @media ($md-and-up) {
          grid-template-columns: $sidebar-width 2fr 1fr;
       }
       .section-title {
@@ -86,7 +85,7 @@ $headerbar-height: 40px;
          display: none;
          font-size: var(--px-18);
 
-         @media ($sm-and-up) {
+         @media ($md-and-up) {
             display: block;
          }
       }
@@ -107,7 +106,7 @@ $headerbar-height: 40px;
          display: none;
       }
 
-      @media ($sm-and-up) {
+      @media ($md-and-up) {
          padding-top: var(--px-60);
          padding-right: var(--px-16);
       }
@@ -118,7 +117,7 @@ $headerbar-height: 40px;
       background: var(--color-blueGray-800);
       grid-area: sidebar;
 
-      @media ($sm-and-up) {
+      @media ($md-and-up) {
          padding-top: var(--px-60);
       }
    }

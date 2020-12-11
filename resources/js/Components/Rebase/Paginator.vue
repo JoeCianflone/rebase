@@ -1,5 +1,7 @@
 <script>
 export default {
+   name: "Paginator",
+
    props: {
       links: Array,
    },
@@ -29,8 +31,7 @@ export default {
    </div>
 </template>
 
-<style lang="scss">
-@import "@@/abstract";
+<style lang="scss" scoped>
 .paginator {
    list-style-type: none;
    margin-top: var(--px-20);
@@ -69,7 +70,7 @@ export default {
    align-content: space-between;
    align-items: center;
    display: inline-flex;
-   justify-content: end;
+   justify-content: flex-end;
 }
 .paginator--page-list {
    list-style-type: none;

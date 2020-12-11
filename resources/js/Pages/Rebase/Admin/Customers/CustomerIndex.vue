@@ -79,7 +79,7 @@ export default {
       <template #header>Customer Settings</template>
       <template v-slot:body>
          <div class="grid">
-            <div class="col-10--centered sm::col-6">
+            <div class="col-10--centered md::col-6">
                <ContentGroup>
                   <template v-slot:contentTitle>Account Owner Details</template>
                   <ul>
@@ -150,14 +150,14 @@ export default {
                   </ul>
                </ContentGroup>
             </div>
-            <ContentGroup class="col-10--centered sm::col-5:at-8">
+            <ContentGroup class="col-10--centered md::col-5:at-8">
                <template v-slot:contentTitle>Product Name</template>
                <p>This is my generic product details.</p>
                <p>Hey, this would be awesome if there was a products_table that showed some stuff.</p>
             </ContentGroup>
          </div>
          <div class="grid">
-            <div class="col-10--centered sm::col-12">
+            <div class="col-10--centered md::col-12">
                <h2>Workspaces</h2>
                <DataTable>
                   <template #header>
