@@ -69,7 +69,7 @@ $headerbar-height: 40px;
       z-index: 10;
 
       @media ($md-and-up) {
-         grid-template-columns: $sidebar-width 2fr 1fr;
+         grid-template-columns: $sidebar-width 2fr $sidebar-width;
       }
 
       .section-title {
@@ -79,6 +79,7 @@ $headerbar-height: 40px;
 
          @media ($md-and-up) {
             display: block;
+            text-align: center;
          }
       }
 

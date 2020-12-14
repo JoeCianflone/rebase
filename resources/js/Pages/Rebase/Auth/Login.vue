@@ -29,12 +29,12 @@ export default {
 
    methods: {
       submit() {
-         let params = new URLSearchParams({
+         let params = {
             to: this.to,
             customer_id: this.customer_id,
-         }).toString()
+         }
 
-         this.$inertia.post(`login?${params}`, this.form, {
+         this.$inertia.post(route("login.process", params), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })

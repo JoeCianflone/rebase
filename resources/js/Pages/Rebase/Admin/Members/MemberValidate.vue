@@ -1,7 +1,7 @@
 <script>
 import Layout from "@/Templates/Rebase/Layout"
-import Register from "@/Templates/Rebase/Page/Register"
 import passwordMeter from "vue-simple-password-meter"
+import Register from "@/Templates/Rebase/Page/Register"
 
 export default {
    layout: Layout,

@@ -1,11 +1,11 @@
 <script>
+import Badge from "@/Components/Rebase/Badge"
 import Layout from "@/Templates/Rebase/Layout"
 import Admin from "@/Templates/Rebase/Page/Admin"
 import DataTable from "@/Components/Rebase/DataTable"
-import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionLink from "@/Components/Rebase/Actions/ActionLink"
+import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
 import ActionButton from "@/Components/Rebase/Actions/ActionButton"
-import Badge from "@/Components/Rebase/Badge"
 
 export default {
    layout: Layout,

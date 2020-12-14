@@ -1,12 +1,12 @@
 <script>
+import { states } from "@/Data/Rebase/consts"
 import Layout from "@/Templates/Rebase/Layout"
 import Admin from "@/Templates/Rebase/Page/Admin"
-import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
-import ActionLink from "@/Components/Rebase/Actions/ActionLink"
-import ActionButton from "@/Components/Rebase/Actions/ActionButton"
 import DataTable from "@/Components/Rebase/DataTable"
 import ContentGroup from "@/Components/Rebase/ContentGroup"
-import { states } from "@/Data/Rebase/consts"
+import ActionLink from "@/Components/Rebase/Actions/ActionLink"
+import ActionMenu from "@/Components/Rebase/Actions/ActionMenu"
+import ActionButton from "@/Components/Rebase/Actions/ActionButton"
 
 export default {
    layout: Layout,
