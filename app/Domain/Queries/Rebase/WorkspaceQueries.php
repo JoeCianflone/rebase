@@ -16,6 +16,19 @@ class WorkspaceQueries extends ModelQueries
         $this->cacheKey = 'workspace';
     }
 
+    public function getWorkspacesAndMembers(?int $paginate = null, ?string $searchTerms = null, array $searchFields = [], ?string $order = null, string $direction = 'asc')
+    {
+        $builder = $this->buildSearch(
+            builder: $this->model::with('members'),
+            searchTerms: $searchTerm,
+            searchFields: $searchField
+        );
+
+        $builder = $this->buildOrder($builder, $order, $direction);
+
+        return $this->getOrPaginate($builder, $paginate);
+    }
+
     public function allActiveOrPending()
     {
         return $this->model

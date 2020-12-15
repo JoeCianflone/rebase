@@ -15,17 +15,13 @@ class CustomerIndex extends Controller
     public function __invoke(string $customerID, Request $request)
     {
         $customer = CustomerRepository::query()->getCustomerWithSubscriptions($request->get('customer_id'));
-
         $invoices = CustomerRepository::filter($customer)->mapInvoiceData();
-        $workspaces = WorkspaceRepository::query()->allActiveOrPending();
-
-        $owners = MemberRepository::query()->findByID(RoleRepository::query()->findAccountOwner()->first()->member_id)->get();
+        $owner = RoleRepository::query()->getFirstAccountOwner();
 
         return inertia(Action::getView($this), [
             'customer' => $customer,
             'invoices' => $invoices->toArray(),
-            'workspaces' => $workspaces->toArray(),
-            'owners' => $owners->toArray(),
+            'owner' => $owner,
         ]);
     }
 }

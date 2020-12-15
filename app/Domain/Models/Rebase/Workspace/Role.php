@@ -48,7 +48,7 @@ class Role extends Model
     }
 
     public function members() {
-        return $this->hasMany(Member::class);
+        return $this->hasMany(Member::class, 'id', 'member_id');
     }
 
 }

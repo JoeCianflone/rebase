@@ -14,6 +14,6 @@ class CustomerQueries extends ModelQueries
 
     public function getCustomerWithSubscriptions(string $customerID): Customer
     {
-        return $this->model->where('id', $customerID)->with('subscriptions')->first();
+        return $this->model::with('subscriptions')->where('id', $customerID)->first();
     }
 }

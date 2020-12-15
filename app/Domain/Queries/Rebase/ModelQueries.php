@@ -3,51 +3,43 @@
 namespace App\Domain\Queries\Rebase;
 
 use Closure;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Ramsey\Uuid\Uuid;
 
 class ModelQueries
 {
-
     protected $query;
 
     public function __construct(protected ?Model $model = null,
                                 protected string $cacheKey = '',
-                                protected int $cacheTime = 300)
+                                protected int $cacheTime = 300) { }
+
+    public function getOrPaginate(Builder $builder, ?int $pagination = null)
     {
+        return is_null($pagination) ? $builder->get() : $builder->paginate($pagination);
     }
 
-    public function get(?string $order = null): ?Collection
+    public function buildOrder(Builder $builder, ?string $order = null, string $direction = 'asc')
     {
-
-        return $order ? $this->query->orderBy($order)->get() : $this->query->get();
+        return is_null($order) ? $builder : $builder->orderBy($order, $direction);
     }
 
-    public function first(): ?Model
+    public function buildSearch(Builder $builder, string $term = null, array $searchFields = [])
     {
-        return $this->query->first();
-    }
-
-    public function filterBy($q, $fields)
-    {
-        if ($q) {
-            $this->query->where(function ($query) use ($q, $fields): void {
+        if ($term || count($searchFields)) {
+            return $builder->where(function ($query) use ($term, $searchFields): void {
                 $count = 0;
-                $query->where($fields[$count], 'LIKE', '%' . $q . '%');
-                while (++$count < count($fields)) {
-                    $query->orWhere($fields[$count], 'LIKE', '%' . $q . '%');
+                $query->where($searchFields[$count], 'LIKE', '%' . $term . '%');
+                while (++$count < count($searchFields)) {
+                    $query->orWhere($searchFields[$count], 'LIKE', '%' . $term . '%');
                 }
             });
         }
 
-        return $this;
-    }
-
-    public function paginate(int $count = 10, ?array $order = null)
-    {
-        return $order ? $this->query->orderBy($order['col'], $order['direction'])->paginate($count): $this->query->paginate($count);
+        return $builder;
     }
 
     public function findByID(string|Uuid $id): self
@@ -62,8 +54,8 @@ class ModelQueries
         return $this->cache('getByID' . $id, fn() => $this->model->where('id', '=', $id)->firstOrFail());
     }
 
-    protected function cache(string $name, Closure $fn)
+    protected function cache(string $name, Closure $query)
     {
-        return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $fn);
+        return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $query);
     }
 }

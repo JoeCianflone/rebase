@@ -25,10 +25,10 @@ export default {
    watch: {
       isClosed: function (isClosed) {
          if (!isClosed) {
-            let vm = this
-            setTimeout(function () {
-               vm.isClosed = true
-            }, 4000)
+            // let vm = this
+            // setTimeout(function () {
+            //    vm.isClosed = true
+            // }, 4000)
          }
       },
    },

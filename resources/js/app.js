@@ -24,6 +24,9 @@ import FormInput from "@/Components/Rebase/Form/FormInput"
 import FieldLabel from "@/Components/Rebase/Form/FieldLabel"
 import Button from "@/Components/Rebase/Form/Button"
 
+import RoleCheck from "@/Plugins/Rebase/RoleCheck"
+
+ Vue.use(RoleCheck)
 Vue.use(plugin)
 Vue.component("FormFieldInline", FormFieldInline)
 Vue.component("FormCheckbox", FormCheckbox)

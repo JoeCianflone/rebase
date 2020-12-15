@@ -17,6 +17,7 @@ Route::middleware(['workspace.status'])->namespace('Rebase\Workspace')->group(ca
         // Route::get('/customer/settings', Customer\Settings::class)->name('customer.settings');
 
         Route::get('/members', Members\WorkspaceMemberIndex::class)->name(name: 'workspace-members.index');
+
         // Route::get('/members', Members\Members::class)->name('members');
         // Route::get('/customer/settings/workspace/{id}/edit', Customer\WorkspaceSettings::class)->name('customer.edit.workspace');
         // Route::delete('/customer/settings/workspace/{id}', Customer\WorkspaceDelete::class)->name('customer.delete.workspace');

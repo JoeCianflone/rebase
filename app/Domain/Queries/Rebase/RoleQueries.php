@@ -13,6 +13,21 @@ class RoleQueries extends ModelQueries
         $this->cacheKey = 'role';
     }
 
+    public function getFirstAccountOwner()
+    {
+        return $this->model::with('members')
+                    ->where('type', MemberRoles::ACCOUNT_OWNER())
+                    ->first()
+                    ->members
+                    ->first();
+    }
+
+    public function getMemberRoles(string $memberID)
+    {
+        return $this->model->where('member_id', $memberID)->get();
+    }
+
+
     public function allRolesForMember(string $memberID)
     {
         return $this->model->where('member_id', $memberID)->get();

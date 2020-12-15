@@ -19,8 +19,6 @@ class ParseSecondaryConnection extends BaseMiddleware
         'register',
         '_debugbar',
         'stripe',
-        'design',
-        'grid',
         'search',
     ];
 
@@ -28,8 +26,7 @@ class ParseSecondaryConnection extends BaseMiddleware
     {
         $host = new HostHelper(
             host: $request->getHost(),
-            hostParts: explode('.', $request->getHost()),
-            path: ltrim($request->getPathInfo(), '/'),
+            path: $request->getPathInfo(),
         );
 
         if ($this->shouldIgnore($request->path())) {
@@ -49,16 +46,11 @@ class ParseSecondaryConnection extends BaseMiddleware
                 throw new SubdomainConnectionException('Unable to find the site you are trying to connect to, please try searching for it instead');
             }
 
-            if ($host->isCustomDomain()) {
-                $request->merge([
-                    'domain' => $host->getDomain(),
-                ]);
-            }
-
             $request->merge([
                 'customer_id' => $lookup->customer_id,
                 'workspace_id' => $lookup->workspace_id,
                 'slug' => $lookup->slug,
+                'domain' => $host->getDomain(),
             ]);
 
             WorkspaceDatabase::connect($lookup->customer_id);
@@ -72,13 +64,12 @@ class ParseSecondaryConnection extends BaseMiddleware
     private function connectFromAuthSubdomain($request)
     {
         $lookup = null;
-
         if ($request->query('customer_id') !== 'null' && !is_null($request->query('customer_id'))) {
-            $lookup = LookupRepository::query()->getByCustomerID($request->query('customer_id'))->first();
+            $lookup = LookupRepository::query()->getFirstByCustomerID($request->query('customer_id'));
         }
 
         if ($request->query('to') !== 'null' && !is_null($request->query('to'))) {
-            $lookup = LookupRepository::query()->getBySlug($request->query('to'))->first();
+            $lookup = LookupRepository::query()->getFirstBySlug($request->query('to'));
         }
 
         return $lookup;
@@ -86,11 +77,14 @@ class ParseSecondaryConnection extends BaseMiddleware
 
     private function connectFromAdminSubdomain(?string $path = null)
     {
-        return LookupRepository::query()->getByCustomerID($path)->first();
+        return LookupRepository::query()->getFirstByCustomerID($path);
     }
 
     private function connectFromWorkspace($host)
     {
-        return $host->isCustomDomain() ? LookupRepository::query()->getByDomain($host->getDomain())->first() : LookupRepository::query()->getBySlug($host->getSlug())->first();
+        return match($host->isCustomDomain()) {
+            true => LookupRepository::query()->getFirstByDomain($host->getDomain()),
+            false => LookupRepository::query()->getFirstBySlug($host->getSlug())
+        };
     }
 }

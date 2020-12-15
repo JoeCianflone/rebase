@@ -3,34 +3,44 @@
 namespace App\Domain\Queries\Rebase;
 
 use App\Domain\Models\Rebase\Admin\Lookup;
-use JetBrains\PhpStorm\Pure;
 
 class LookupQueries extends ModelQueries
 {
-    #[Pure]
     public function __construct(Lookup $model)
     {
         parent::__construct($model);
         $this->cacheKey = 'lookup';
     }
 
-    public function getBySlug(string $slug)
+    public function getFirstBySlug(string $slug)
     {
-        return $this->model->where('slug', '=', $slug);
+        return $this->cache(
+            name: 'getBySlug',
+            query: fn() => $this->model->where('slug', '=', $slug)->first()
+        );
     }
 
-    public function getByDomain(string $domain)
+    public function getFirstByDomain(string $domain)
     {
-        return $this->model->where('domain', '=', $domain);
+        return $this->cache(
+            name: 'getByDomain',
+            query: fn() => $this->model->where('domain', '=', $domain)->first()
+        );
     }
 
-    public function getByWorkspaceID(string $id)
+    public function getFirstByWorkspaceID(string $id)
     {
-        return $this->model->where('workspace_id', '=', $id);
+        return $this->cache(
+            name: 'getByWorkspaceID',
+            query: fn() => $this->model->where('workspace_id', '=', $id)->first(),
+        );
     }
 
-    public function getByCustomerID(string $id)
+    public function getFirstByCustomerID(string $id)
     {
-        return $this->model->where('customer_id', '=', $id);
+        return $this->cache(
+            name: 'getByCustomerID',
+            query: fn() => $this->model->where('customer_id', '=', $id)->first(),
+        );
     }
 }

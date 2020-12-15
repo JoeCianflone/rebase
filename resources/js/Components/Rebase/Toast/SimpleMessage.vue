@@ -5,9 +5,9 @@ export default {
 </script>
 
 <template>
-   <h2>
+   <h4>
       <slot />
-   </h2>
+   </h4>
 </template>
 
 <style lang="scss" scoped>

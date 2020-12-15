@@ -51,14 +51,14 @@ export default {
 
 <style lang="scss" scoped>
 .workspace-picker {
-   list-style-type: none;
-   text-align: center;
    font-size: var(--px-24);
    line-height: 1;
+   list-style-type: none;
+   text-align: center;
 }
 .workspace-picker--item {
-   padding: var(--px-24) 0;
    display: flex;
    justify-content: center;
+   padding: var(--px-24) 0;
 }
 </style>

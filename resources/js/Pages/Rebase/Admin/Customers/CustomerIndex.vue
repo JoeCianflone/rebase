@@ -24,8 +24,7 @@ export default {
    props: {
       customer: Object,
       invoices: Object | Array,
-      workspaces: Array,
-      owners: Array,
+      owner: Object,
    },
 
    data: function () {
@@ -82,9 +81,9 @@ export default {
             <div class="col-10--centered md::col-6">
                <ContentGroup>
                   <template v-slot:contentTitle>Account Owner Details</template>
-                  <ul>
-                     <li v-for="owner in owners" :key="owner.id">{{ owner.name }}</li>
-                  </ul>
+                  <p>
+                     {{ owner.name }} - <a :href="`mailto:${owner.email}`">{{ owner.email }}</a>
+                  </p>
                </ContentGroup>
 
                <ContentGroup :userCanEdit="true">
@@ -155,36 +154,6 @@ export default {
                <p>This is my generic product details.</p>
                <p>Hey, this would be awesome if there was a products_table that showed some stuff.</p>
             </ContentGroup>
-         </div>
-         <div class="grid">
-            <div class="col-10--centered md::col-12">
-               <h2>Workspaces</h2>
-               <DataTable>
-                  <template #header>
-                     <th>&nbsp;</th>
-                     <th>Name</th>
-                     <th>URL</th>
-                     <th>Active Members</th>
-                     <th>Total Users</th>
-                     <th>&nbsp;</th>
-                  </template>
-                  <template #contents>
-                     <tr v-for="workspace in workspaces" :key="workspace.id">
-                        <td><input type="checkbox" /></td>
-                        <td title="Name">{{ workspace.name }}</td>
-                        <td title="Slug">{{ workspace.slug }}</td>
-                        <td>{{ workspace.active_users }}</td>
-                        <td>{{ workspace.total_users }}</td>
-                        <td>
-                           <ActionMenu>
-                              <ActionLink link="#">Update</ActionLink>
-                              <ActionButton @click="dangerArchive(workspace.id, workspace.name)">Archive</ActionButton>
-                           </ActionMenu>
-                        </td>
-                     </tr>
-                  </template>
-               </DataTable>
-            </div>
          </div>
       </template>
    </Admin>

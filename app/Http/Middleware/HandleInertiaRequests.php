@@ -6,6 +6,7 @@ use Inertia\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Enums\Rebase\MemberRoles;
+use App\Domain\Facades\Rebase\RoleRepository;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -47,6 +48,7 @@ class HandleInertiaRequests extends Middleware
                         'id' => auth()->user()->id,
                         'name' => auth()->user()->name,
                         'email' => auth()->user()->email,
+                        'roles' => RoleRepository::query()->getMemberRoles(auth()->user()->id),
                     ] : null,
                 ];
             },

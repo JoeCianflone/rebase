@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 
 class HostHelper
 {
+    private string $host;
+    private array $hostParts;
+    private string $path;
 
-    public function __construct(
-        private string $host,
-        private array $hostParts,
-        private string $path) { }
+    public function __construct (string $host, string $path) {
+        $this->host = $host;
+        $this->hostParts = explode('.', $host);
+        $this->path = ltrim($path, '/');
+    }
 
     public function isOnOurDomain(): bool
     {
