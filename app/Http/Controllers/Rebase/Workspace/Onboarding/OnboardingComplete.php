@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Rebase\Workspace\Onboarding;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Enums\Rebase\WorkspaceStatus;
-use App\Domain\Facades\Rebase\WorkspaceRepository;
+use App\Domain\Models\Rebase\Workspace\Workspace;
 
 class OnboardingComplete extends Controller
 {
     public function __invoke(Request $request)
     {
-        WorkspaceRepository::modelFactory()->update('slug', $request->get('slug'), [
+        Workspace::modelFactory()->update(whereCol: 'slug', whereValue: $request->get('slug'), update: [
             'status' => WorkspaceStatus::ACTIVE(),
         ]);
 

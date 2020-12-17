@@ -7,8 +7,9 @@ use Illuminate\Support\Carbon;
 use App\Enums\Rebase\WorkspaceStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Domain\Models\Rebase\Admin\Lookup;
 use App\Domain\Models\Rebase\Workspace\Role;
-use App\Domain\Facades\Rebase\LookupRepository;
+use App\Domain\Models\Rebase\Workspace\Member;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Domain\Factories\Rebase\WorkspaceModelFactory;
 use App\Domain\Traits\Rebase\ModelTransformers\WorkspaceTransformers;
@@ -67,15 +68,19 @@ class Workspace extends Model
 
         static::updated(function ($workspace): void {
             if ($workspace->isDirty('domain', 'slug')) {
-                Lookup::modelFactory()->update('workspace_id', $workspace->id, [
-                    'slug' => $workspace->slug,
-                    'domain' => $workspace->domain,
-                ]);
+                Lookup::modelFactory()->update(
+                    whereCol:'workspace_id',
+                    whereValue: $workspace->id,
+                    update: [
+                        'slug' => $workspace->slug,
+                        'domain' => $workspace->domain,
+                    ]
+                );
             }
         });
 
         static::deleted(function ($workspace): void {
-            Lookup::modelFactory()->remove('workspace_id', '=', $workspace->id);
+            Lookup::modelFactory()->remove(ids: [$workspace->id]);
         });
     }
 

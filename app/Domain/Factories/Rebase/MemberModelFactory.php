@@ -7,13 +7,12 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Domain\Models\Rebase\Workspace\Member;
-use JetBrains\PhpStorm\Pure;
 
 class MemberModelFactory extends ModelFactory
 {
-    public function attachToWorkspace($workspaceID): void
+    public function attachToWorkspace($member, $workspaceID): void
     {
-        $this->builder->workspaces()->attach($workspaceID);
+        $member->workspaces()->attach($workspaceID);
     }
 
     public function addResetToken(): string

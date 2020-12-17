@@ -16,13 +16,13 @@ class ModelFactory
         return $this->builder->create($request);
     }
 
-    public function update(array $update, ?string $col = null, ?string $value = null)
+    public function update(array $update, ?string $whereCol = null, ?string $whereValue = null)
     {
-        if (is_null($col)) {
+        if (is_null($whereCol)) {
             return $this->builder->update($update);
         }
 
-        return $this->builder->where($col, $value)->update($update);
+        return $this->builder->where($whereCol, $whereVaule)->update($update);
     }
 
     public function remove(?array $ids = null, ?string $whereCol = null, ?string $whereValue = null)

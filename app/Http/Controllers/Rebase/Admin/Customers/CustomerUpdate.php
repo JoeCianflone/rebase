@@ -22,7 +22,7 @@ class CustomerUpdate extends Controller
             ])['billingAddress'];
         }
 
-        Customer::modelFactory()->update('id', $customerID, $validatedData);
+        Customer::modelFactory()->update(whereCol:'id', whereValue: $customerID, update: $validatedData);
 
         return redirect()->back()->withSuccess('Updated '.ucfirst($type));
     }
