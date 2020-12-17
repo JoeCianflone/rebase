@@ -3,6 +3,8 @@
 namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Models\Rebase\Workspace\Role;
@@ -108,12 +110,12 @@ class Member extends Authenticatable
         return $this->getOrPaginate($builder, $paginate);
     }
 
-    public function findMember(string $email)
+    public function scopeByEmail(Builder $builder, string $email)
     {
-        return $this->model->where('email', $email);
+        return $builder->where('email', $email);
     }
 
-    public function canResetPassword(string $email, string $token): bool
+    public function scopeCanResetPassword(Builder $builder, string $email, string $token): bool
     {
         $resetter = DB::table(config('rebase.paths.db.workspace.name').'.password_resets')
             ->where('email', '=', $email)

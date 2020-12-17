@@ -7,17 +7,18 @@ use App\Mail\Rebase\PasswordReset;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
-use App\Domain\Facades\Rebase\MemberRepository;
+use App\Domain\Models\Rebase\Workspace\Member;
 
 class ProcessForgot extends Controller
 {
     public function __invoke(Request $request): RedirectResponse
     {
         $request->validate($this->rules());
-        $member = Member::findMember($request->input('email'))->first();
+        $member = Member::byEmail($request->input('email'))->first();
+
 
         if (!is_null($member)) {
-            $token = MemberRepository::factory($member)->addResetToken();
+           $token = Member::modelFactory()->addResetToken($member->email);
             Mail::to($member->email)->send(new PasswordReset($token, $request->get('customer_id')));
         }
 

@@ -15,12 +15,12 @@ class MemberModelFactory extends ModelFactory
         $member->workspaces()->attach($workspaceID);
     }
 
-    public function addResetToken(): string
+    public function addResetToken(string $email): string
     {
         $token = (string)Str::uuid();
         DB::table(config('rebase.paths.db.workspace.name') . '.password_resets')->upsert([
             [
-                'email' => $this->builder->email,
+                'email' => $email,
                 'token' => $token,
                 'created_at' => Carbon::now(),
             ],
