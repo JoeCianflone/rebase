@@ -70,6 +70,7 @@ class PersonalWorkspace extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+
             Role::modelFactory()->addAccountOwner($member->id);
 
             for ($i = 1; $i <= self::WORKSPACES; $i++) {

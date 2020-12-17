@@ -22,7 +22,6 @@ export default {
 
    props: {
       members: Array | Object,
-      links: Array | Object,
    },
    data() {
       return {
@@ -51,7 +50,7 @@ export default {
          <div class="grid">
             <div class="col-10--centered sm::col-12">
                <h2>All Members</h2>
-               <DataTable :links="links" routeName="member.index" :routeParams="{ customerID: $page.props.customer_id }">
+               <DataTable :links="members.links" routeName="member.index" :routeParams="{ customerID: $page.props.customer_id }">
                   <template #header>
                      <th>Name</th>
                      <th>Email</th>
@@ -60,7 +59,7 @@ export default {
                      <th>&nbsp;</th>
                   </template>
                   <template #contents>
-                     <template v-for="member in members">
+                     <template v-for="member in members.data">
                         <tr>
                            <td>{{ member.name }}</td>
                            <td>{{ member.email }}</td>

@@ -11,10 +11,10 @@ class WorkspaceIndex extends Controller
 {
     public function __invoke(string $customerID, Request $request)
     {
-        $workspaces = Workspace::get();
+        $workspaces = Workspace::paginate(10);
 
         return inertia(Action::getView($this), [
-            'workspaces' => $workspaces->toArray()
+            'workspaces' => $workspaces->toArray(),
         ]);
     }
 }

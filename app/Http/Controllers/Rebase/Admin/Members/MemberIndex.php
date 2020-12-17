@@ -17,7 +17,6 @@ class MemberIndex extends Controller
 
         return inertia(Action::getView($this), [
             'members' => $members->toArray(),
-            'links' => [],
         ]);
     }
 

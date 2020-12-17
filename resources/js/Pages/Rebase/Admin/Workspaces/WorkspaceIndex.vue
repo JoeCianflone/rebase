@@ -22,8 +22,8 @@ export default {
 
    props: {
       workspaces: Array | Object,
-      links: Array | Object,
    },
+
    data() {
       return {
          sending: false,
@@ -41,7 +41,7 @@ export default {
       <template v-slot:body>
          <div class="grid">
             <div class="col-10--centered md::col-12">
-               <DataTable>
+               <DataTable :links="workspaces.links">
                   <template #header>
                      <th>&nbsp;</th>
                      <th>Name</th>
@@ -51,7 +51,7 @@ export default {
                      <th>&nbsp;</th>
                   </template>
                   <template #contents>
-                     <tr v-for="workspace in workspaces" :key="workspace.id">
+                     <tr v-for="workspace in workspaces.data" :key="workspace.id">
                         <td><input type="checkbox" /></td>
                         <td title="Name">{{ workspace.name }}</td>
                         <td title="Slug">{{ workspace.slug }}</td>
