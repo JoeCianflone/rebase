@@ -10,7 +10,7 @@ class AddFirstMemberToWorkspace
 {
     public function __invoke($payload)
     {
-        $member = MemberRepository::factory()->create([
+        $member = MemberRepository::modelFactory()->create([
             'name' => $payload->get('name'),
             'email' => $payload->get('email'),
             'roles' => [

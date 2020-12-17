@@ -4,6 +4,7 @@ namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
 use App\Helpers\Rebase\WorkspaceDatabase;
+use App\Domain\Models\Rebase\Workspace\Workspace;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -80,7 +81,7 @@ class DBExplode extends Command
     private function dropWorkspace($slug): void
     {
         try {
-            $workspace = WorkspaceRepository::query()->getBySlug($slug);
+            $workspace = Workspace::bySlug($slug)->first();
             $this->alert("Dropping workspace {$slug}");
 
             WorkspaceDatabase::drop($workspace->customer_id);

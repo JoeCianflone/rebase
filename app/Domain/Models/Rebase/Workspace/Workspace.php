@@ -4,16 +4,19 @@ namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use App\Enums\Rebase\WorkspaceStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Facades\Rebase\LookupRepository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Domain\Factories\Rebase\WorkspaceModelFactory;
+use App\Domain\Traits\Rebase\ModelTransformers\WorkspaceTransformers;
 
 class Workspace extends Model
 {
-    /**
-     * @var bool
-     */
+    use WorkspaceTransformers;
+
     public $incrementing = false;
 
     protected $connection = 'workspace';
@@ -54,7 +57,7 @@ class Workspace extends Model
         });
 
         static::created(function ($workspace): void {
-            LookupRepository::factory()->create([
+            Lookup::modelFactory()->create([
                 'workspace_id' => $workspace->id,
                 'customer_id' => $workspace->customer_id,
                 'slug' => $workspace->slug,
@@ -64,7 +67,7 @@ class Workspace extends Model
 
         static::updated(function ($workspace): void {
             if ($workspace->isDirty('domain', 'slug')) {
-                LookupRepository::factory()->update('workspace_id', $workspace->id, [
+                Lookup::modelFactory()->update('workspace_id', $workspace->id, [
                     'slug' => $workspace->slug,
                     'domain' => $workspace->domain,
                 ]);
@@ -72,12 +75,43 @@ class Workspace extends Model
         });
 
         static::deleted(function ($workspace): void {
-            LookupRepository::factory()->remove('workspace_id', '=', $workspace->id);
+            Lookup::modelFactory()->remove('workspace_id', '=', $workspace->id);
         });
     }
 
+    // Relations...
     public function members()
     {
         return $this->belongsToMany(Member::class);
     }
+
+    // Model Factory...
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new WorkspaceModelFactory($builder);
+    }
+
+    public function scopeBySlug(Builder $builder, string $slug) {
+        return $builder->where('slug', $slug);
+    }
+
+
+    // public function getWorkspacesAndMembers(?int $paginate = null, ?string $searchTerm = null, array $searchFields = [], ?string $order = null, string $direction = 'asc')
+    // {
+    //     $builder = $this->buildSearch(
+    //         builder: $this->model::with('members'),
+    //         searchTerm: $searchTerm,
+    //         searchFields: $searchFields
+    //     );
+
+    //     $builder = $this->buildOrder($builder, $order, $direction);
+
+    //     return $this->getOrPaginate($builder, $paginate);
+    // }
+
+
+
+
+
+
 }

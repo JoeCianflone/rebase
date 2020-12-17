@@ -14,7 +14,7 @@ class ProcessForgot extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         $request->validate($this->rules());
-        $member = MemberRepository::query()->findMember($request->input('email'))->first();
+        $member = Member::findMember($request->input('email'))->first();
 
         if (!is_null($member)) {
             $token = MemberRepository::factory($member)->addResetToken();

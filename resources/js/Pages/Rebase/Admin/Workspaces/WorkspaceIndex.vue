@@ -36,7 +36,7 @@ export default {
 </script>
 
 <template>
-   <Admin nav="members">
+   <Admin nav="workspaces">
       <template #header>Workspaces</template>
       <template v-slot:body>
          <div class="grid">

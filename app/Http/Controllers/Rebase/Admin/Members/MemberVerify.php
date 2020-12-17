@@ -15,7 +15,7 @@ class MemberVerify extends Controller
     {
         $request->validate($this->rules());
 
-        $member = MemberRepository::query()->findMember($request->input('email'))->get();
+        $member = Member::findMember($request->input('email'))->get();
         $verifiedMember = MemberRepository::filter($member)->matches([
             'id' => $request->input('memberID'),
             'email_token' => $request->input('token'),

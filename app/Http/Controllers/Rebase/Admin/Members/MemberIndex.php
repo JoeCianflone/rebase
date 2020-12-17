@@ -6,19 +6,18 @@ use Inertia\Inertia;
 use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Domain\Models\Rebase\Workspace\Member;
 use App\Domain\Facades\Rebase\MemberRepository;
 
 class MemberIndex extends Controller
 {
     public function __invoke(Request $request)
     {
-        $members = MemberRepository::query()->allCustomerMembers(withRoles: true)
-                                            ->filterBy($request->input('s'), ['name', 'email'])
-                                            ->paginate(count: (int) $request->input('count') ?? 25, order: ['col' => 'name', 'direction' => 'asc']);
+        $members = Member::with(['roles', 'workspaces'])->paginate(10);
 
         return inertia(Action::getView($this), [
-            'members' => MemberRepository::filter($members)->getPaginatorItems(),
-            'links' => MemberRepository::filter($members)->getPaginatorLinks(),
+            'members' => $members->toArray(),
+            'links' => [],
         ]);
     }
 

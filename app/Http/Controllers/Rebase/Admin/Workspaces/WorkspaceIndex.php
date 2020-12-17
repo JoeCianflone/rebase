@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Rebase\Admin\Workspaces;
 
+use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Domain\Facades\Rebase\WorkspaceRepository;
+use App\Domain\Models\Rebase\Workspace\Workspace;
 
 class WorkspaceIndex extends Controller
 {
     public function __invoke(string $customerID, Request $request)
     {
-        $workspaces = WorkspaceRepository::query()->getWorkspacesAndMembers(
-            paginate: 10,
-            searchFields: ['name'],
-            searchTerms: $request->input('s'),
-            order: 'name',
-        );
+        $workspaces = Workspace::get();
 
         return inertia(Action::getView($this), [
             'workspaces' => $workspaces->toArray()

@@ -3,6 +3,8 @@
 namespace App\Domain\Models\Rebase\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Domain\Factories\Rebase\ModelFactory;
 
 class BannedSlug extends Model
 {
@@ -29,4 +31,16 @@ class BannedSlug extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function scopeSlugExists(Builder $builder, string $slug): bool
+    {
+        return $builder->where('slug', $slug)->exists();
+    }
+
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new ModelFactory($builder);
+    }
+
+
 }

@@ -3,24 +3,25 @@
 namespace Database\Seeders\Rebase;
 
 use Exception;
-use Faker\Provider\en_US\Address;
-use Faker\Provider\en_US\Company;
-use Faker\Provider\en_US\Person;
-use Faker\Provider\en_US\PhoneNumber;
-use Faker\Provider\Internet;
 use Faker\Provider\Lorem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Faker\Provider\Internet;
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
+use Faker\Provider\en_US\Person;
 use App\Enums\Rebase\MemberRoles;
+use Faker\Provider\en_US\Address;
+use Faker\Provider\en_US\Company;
 use Illuminate\Support\Facades\Hash;
+use Faker\Provider\en_US\PhoneNumber;
 use Illuminate\Support\Facades\Artisan;
+use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Facades\Rebase\RoleRepository;
 use App\Domain\Facades\Rebase\MemberRepository;
 use App\Domain\Facades\Rebase\CustomerRepository;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
-use Illuminate\Support\Str;
 
 class PersonalWorkspace extends Seeder
 {
@@ -44,7 +45,7 @@ class PersonalWorkspace extends Seeder
         $faker->addProvider(new Lorem($faker));
         $faker->addProvider(new Internet($faker));
 
-        $customer = CustomerRepository::factory()->create([
+        $customer = CustomerRepository::modelFactory()->create([
             'name' => 'Personal Test Company',
             'line1' => $faker->streetAddress,
             'city' => $faker->city,
@@ -63,19 +64,19 @@ class PersonalWorkspace extends Seeder
         ]);
 
         if ($code === 0) {
-            $member = MemberRepository::factory()->create([
+            $member = MemberRepository::modelFactory()->create([
                 'name' => self::PERSONAL_NAME,
                 'email' => self::PERSONAL_EMAIL,
                 'password' => Hash::make(self::PERSONAL_PASSWORD),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            RoleRepository::factory()->addAccountOwner($member->id);
+            Role::modelFactory()->addAccountOwner($member->id);
 
             for ($i = 1; $i <= self::WORKSPACES; $i++) {
                 $slug = $i === 1 ? self::PERSONAL_SLUG : self::PERSONAL_SLUG.'-'.$i;
 
-                $workspace = WorkspaceRepository::factory()->create([
+                $workspace = WorkspaceRepository::modelFactory()->create([
                     'customer_id' => $customer->id,
                     'name' => 'Personal Test Workspace '.$i,
                     'slug' => $slug,
@@ -84,7 +85,7 @@ class PersonalWorkspace extends Seeder
                 MemberRepository::factory($member)->attachToWorkspace($workspace->id);
 
                 for ($k = 1; $k <= self::MEMBERS_PER_WORKSPACE; $k++) {
-                    $otherMembers = MemberRepository::factory()->create([
+                    $otherMembers = MemberRepository::modelFactory()->create([
                         'name' => $faker->name,
                         'email' => $faker->unique()->safeEmail,
                         'password' => Hash::make(self::PERSONAL_PASSWORD),
@@ -92,7 +93,7 @@ class PersonalWorkspace extends Seeder
                         'updated_at' => Carbon::now(),
                     ]);
 
-                    RoleRepository::factory()->addWorkspaceRole($this->generateRandomRole(), $workspace->id,  $otherMembers->id);
+                    Role::modelFactory()->addWorkspaceRole($this->generateRandomRole(), $workspace->id,  $otherMembers->id);
                     MemberRepository::factory($otherMembers)->attachToWorkspace($workspace->id);
                 }
             }

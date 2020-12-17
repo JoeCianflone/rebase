@@ -5,11 +5,15 @@ namespace App\Domain\Models\Rebase\Admin;
 use Illuminate\Support\Str;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Domain\Factories\Rebase\CustomerModelFactory;
+use App\Domain\Traits\Rebase\ModelTransformers\CustomerTransformers;
 
 class Customer extends Model
 {
     use Billable;
+    use CustomerTransformers;
 
     public $incrementing = false;
 
@@ -56,6 +60,8 @@ class Customer extends Model
         });
     }
 
+
+
     public function lookup(): HasMany
     {
         return $this->hasMany(Lookup::class);
@@ -65,4 +71,18 @@ class Customer extends Model
     {
         return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
     }
+
+    // Collection Override....
+
+    // Model Factory....
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new CustomerModelFactory($builder);
+    }
+
+    public function scopeWithSubscriptions(Builder $builder, string $customerID)
+    {
+        return $builder->with('subscriptions')->where('id', $customerID);
+    }
+
 }

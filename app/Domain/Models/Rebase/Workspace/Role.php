@@ -3,38 +3,36 @@
 namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Domain\Collections\RoleCollection;
 use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Models\Rebase\Workspace\Member;
+use App\Domain\Factories\Rebase\RoleModelFactory;
 use App\Domain\Models\Rebase\Workspace\Workspace;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Domain\Traits\Rebase\ModelTransformers\RoleTransformers;
 
-
-/**
- * @property array|mixed data
- */
 class Role extends Model
 {
-    /**
-     * @var string
-     */
+    // Traits...
+    use RoleTransformers;
+
+
+    // Connection...
     protected $connection = 'workspace';
 
-    /**
-     * @var array
-     */
+    // Fillable Attributes...
     protected $fillable = [
         'id',                   // required
         'type',                 // required
         'workspace_id',
-        'member_id',           // required
+        'member_id',            // required
         'created_at',
         'updated_at',
     ];
 
-    protected $with = ['workspace'];
-
-    /**
-     * @var array
-     */
+    // Casts...
     protected $casts = [
         'id' => 'string',
         'member_id' => 'string',
@@ -43,12 +41,37 @@ class Role extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function workspace() {
+    // Global Eager Loads...
+
+    // Relationships....
+    public function workspace(): HasOne
+    {
         return $this->hasOne(Workspace::class, 'id', 'workspace_id');
     }
 
-    public function members() {
+    public function members(): HasMany
+    {
         return $this->hasMany(Member::class, 'id', 'member_id');
     }
 
+    // Collection Override....
+    public function newCollection(array $models = [])
+    {
+        return new RoleCollection($models);
+    }
+
+    // Query Builder Override...
+    public function scopeAccountOwner($query)
+    {
+        return $this->where('type', 'account_owner');
+    }
+
+
+    // Factory..
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new RoleModelFactory($builder);
+    }
+
 }
+

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Rebase\HostHelper;
 use App\Http\Middleware\BaseMiddleware;
 use App\Helpers\Rebase\WorkspaceDatabase;
+use App\Domain\Models\Rebase\Admin\Lookup;
 use App\Domain\Facades\Rebase\LookupRepository;
 use App\Exceptions\SubdomainConnectionException;
 
@@ -38,7 +39,7 @@ class ParseSecondaryConnection extends BaseMiddleware
 
             $lookup = match ($host->getSlug()) {
                 config('rebase.subdomains.auth') => $this->connectFromAuthSubdomain($request),
-                config('rebase.subdomains.admin') => $this->connectFromAdminSubdomain($host->getPath()[0]),
+                config('rebase.subdomains.admin') => Lookup::byCustomerID($host->getPath()[0])->first(),
                 default => $this->connectFromWorkspace($host)
             };
 
@@ -65,26 +66,22 @@ class ParseSecondaryConnection extends BaseMiddleware
     {
         $lookup = null;
         if ($request->query('customer_id') !== 'null' && !is_null($request->query('customer_id'))) {
-            $lookup = LookupRepository::query()->getFirstByCustomerID($request->query('customer_id'));
+            $lookup = Lookup::byCustomerID($request->query('customer_id'))->first();
         }
 
         if ($request->query('to') !== 'null' && !is_null($request->query('to'))) {
-            $lookup = LookupRepository::query()->getFirstBySlug($request->query('to'));
+            $lookup = Lookup::bySlug($request->query('to'))->first();
         }
 
         return $lookup;
     }
 
-    private function connectFromAdminSubdomain(?string $path = null)
-    {
-        return LookupRepository::query()->getFirstByCustomerID($path);
-    }
 
     private function connectFromWorkspace($host)
     {
         return match($host->isCustomDomain()) {
-            true => LookupRepository::query()->getFirstByDomain($host->getDomain()),
-            false => LookupRepository::query()->getFirstBySlug($host->getSlug())
+            true => Lookup::byDomain($host->getDomain())->first(),
+            false => Lookup::bySlug($host->getSlug())->first()
         };
     }
 }

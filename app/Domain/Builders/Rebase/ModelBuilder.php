@@ -27,31 +27,19 @@ class ModelQueries
         return is_null($order) ? $builder : $builder->orderBy($order, $direction);
     }
 
-    public function buildSearch(Builder $builder, string $term = null, array $searchFields = [])
+    public function buildSearch(Builder $builder, string $searchTerm = null, array $searchFields = [])
     {
-        if ($term || count($searchFields)) {
-            return $builder->where(function ($query) use ($term, $searchFields): void {
+        if ($searchTerm || count($searchFields)) {
+            return $builder->where(function ($query) use ($searchTerm, $searchFields): void {
                 $count = 0;
-                $query->where($searchFields[$count], 'LIKE', '%' . $term . '%');
+                $query->where($searchFields[$count], 'LIKE', '%' . $searchTerm . '%');
                 while (++$count < count($searchFields)) {
-                    $query->orWhere($searchFields[$count], 'LIKE', '%' . $term . '%');
+                    $query->orWhere($searchFields[$count], 'LIKE', '%' . $searchTerm . '%');
                 }
             });
         }
 
         return $builder;
-    }
-
-    public function findByID(string|Uuid $id): self
-    {
-        $this->query = $this->model->where('id', $id);
-
-        return $this;
-    }
-
-    public function getByID(string|Uuid $id): ?Model
-    {
-        return $this->cache('getByID' . $id, fn() => $this->model->where('id', '=', $id)->firstOrFail());
     }
 
     protected function cache(string $name, Closure $query)

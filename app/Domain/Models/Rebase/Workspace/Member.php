@@ -4,7 +4,9 @@ namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Models\Rebase\Workspace\Role;
+use App\Domain\Factories\Rebase\MemberModelFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -59,6 +61,7 @@ class Member extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
+
     public static function boot(): void
     {
         parent::boot();
@@ -77,5 +80,52 @@ class Member extends Authenticatable
     public function workspaces(): BelongsToMany
     {
         return $this->belongsToMany(Workspace::class);
+    }
+
+    // Model Factory...
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new MemberModelFactory($builder);
+    }
+
+
+
+    public function getWorkspaces(string $memberID)
+    {
+        return $this->model->with('workspaces')->where('id', $memberID)->first()->workspaces;
+    }
+
+    public function getMembers(?int $paginate = null, ?string $searchTerm = null, array $searchFields = [], ?string $order = null, string $direction = 'asc')
+    {
+        $builder = $this->buildSearch(
+            builder: $this->model::with('workspaces'),
+            searchTerm: $searchTerm,
+            searchFields: $searchFields
+        );
+
+        $builder = $this->buildOrder($builder, $order, $direction);
+
+        return $this->getOrPaginate($builder, $paginate);
+    }
+
+    public function findMember(string $email)
+    {
+        return $this->model->where('email', $email);
+    }
+
+    public function canResetPassword(string $email, string $token): bool
+    {
+        $resetter = DB::table(config('rebase.paths.db.workspace.name').'.password_resets')
+            ->where('email', '=', $email)
+            ->where('token', '=', $token)
+            ->first();
+
+        if (is_null($resetter)) {
+            return false;
+        }
+
+        $maxTokenTime = Carbon::parse($resetter->created_at)->addHours(1);
+
+        return $maxTokenTime->gte(Carbon::now());
     }
 }

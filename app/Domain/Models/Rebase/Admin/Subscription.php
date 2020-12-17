@@ -2,6 +2,8 @@
 
 namespace App\Domain\Models\Rebase\Admin;
 
+use Illuminate\Database\Eloquent\Builder;
+use App\Domain\Factories\Rebase\ModelFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Cashier\Subscription as CashierSubscription;
 
@@ -38,5 +40,11 @@ class Subscription extends CashierSubscription
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    // Model Factory...
+    public function scopeModelFactory(Builder $builder)
+    {
+        return new ModelFactory($builder);
     }
 }

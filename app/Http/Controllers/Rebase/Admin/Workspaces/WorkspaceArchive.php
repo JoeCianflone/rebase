@@ -10,7 +10,7 @@ class WorkspaceArchive extends Controller
 {
     public function __invoke(string $customerID, string $workspaceID, Request $request)
     {
-        WorkspaceRepository::factory()->archive($workspaceID);
+        WorkspaceRepository::modelFactory()->archive($workspaceID);
 
         return redirect()->back()->withSuccess('Archived');
     }

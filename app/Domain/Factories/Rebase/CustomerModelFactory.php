@@ -4,34 +4,27 @@ namespace App\Domain\Factories\Rebase;
 
 use App\Enums\Rebase\CustomerStatus;
 use App\Domain\Models\Rebase\Admin\Customer;
-use JetBrains\PhpStorm\Pure;
 
 class CustomerModelFactory extends ModelFactory
 {
-    #[Pure]
-    public function __construct(Customer $model)
-    {
-        parent::__construct($model);
-        $this->model = $model;
-    }
 
     public function subscribe(array $subscription): ?Customer
     {
         $subscription = collect($subscription);
 
-        $this->model->newSubscription(config('pricing.plan.test'), $subscription->get('plan'))
+        $this->builder->newSubscription(config('pricing.plan.test'), $subscription->get('plan'))
             ->create(
                 $subscription->get('method'),
                 $subscription->get('options')
             );
 
-        return $this->model;
+        return $this->builder;
     }
 
     public function markAsActive(): ?Customer
     {
-        $this->update($this->model, ['status' => CustomerStatus::ACTIVE()]);
+        $this->builder->update(['status' => CustomerStatus::ACTIVE()]);
 
-        return $this->model;
+        return $this->builder;
     }
 }

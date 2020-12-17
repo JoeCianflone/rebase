@@ -12,7 +12,7 @@ class Pick extends Controller
 {
     public function __invoke(string $customerID, Request $request)
     {
-        $workspaces = MemberRepository::query()->getWorkspaces(Auth::user()->id);
+        $workspaces = auth()->user()->workspaces;
 
         return inertia(Action::getView($this), [
             'workspaces' => $workspaces->toArray(),

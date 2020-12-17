@@ -12,14 +12,14 @@ class ProcessReset extends Controller
     {
         $request->validate($this->rules());
 
-        if (MemberRepository::query()->canResetPassword($request->input('email'), $request->input('token'))) {
-            MemberRepository::factory()->resetPassword($request->input('email'), $request->input('password'));
+        if (Member::canResetPassword($request->input('email'), $request->input('token'))) {
+            MemberRepository::modelFactory()->resetPassword($request->input('email'), $request->input('password'));
             $request->session()->flash('success', 'Your password has been reset');
         } else {
             $request->session()->flash('alert', 'Token expired or Email invalid');
         }
 
-        MemberRepository::factory()->removeResetToken($request->input('email'));
+        MemberRepository::modelFactory()->removeResetToken($request->input('email'));
 
         return redirect()->route('signin', ['customer_id' => $request->query('customer_id')]);
     }

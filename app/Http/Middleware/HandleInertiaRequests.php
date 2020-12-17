@@ -48,7 +48,7 @@ class HandleInertiaRequests extends Middleware
                         'id' => auth()->user()->id,
                         'name' => auth()->user()->name,
                         'email' => auth()->user()->email,
-                        'roles' => RoleRepository::query()->getMemberRoles(auth()->user()->id),
+                        'roles' => auth()->user()->roles->mapToWorkspace(),
                     ] : null,
                 ];
             },

@@ -11,15 +11,9 @@ use JetBrains\PhpStorm\Pure;
 
 class MemberModelFactory extends ModelFactory
 {
-    public function __construct(Member $model)
-    {
-        parent::__construct($model);
-        $this->model = $model;
-    }
-
     public function attachToWorkspace($workspaceID): void
     {
-        $this->model->workspaces()->attach($workspaceID);
+        $this->builder->workspaces()->attach($workspaceID);
     }
 
     public function addResetToken(): string
@@ -27,7 +21,7 @@ class MemberModelFactory extends ModelFactory
         $token = (string)Str::uuid();
         DB::table(config('rebase.paths.db.workspace.name') . '.password_resets')->upsert([
             [
-                'email' => $this->model->email,
+                'email' => $this->builder->email,
                 'token' => $token,
                 'created_at' => Carbon::now(),
             ],
@@ -43,7 +37,7 @@ class MemberModelFactory extends ModelFactory
 
     public function resetPassword(string $email, string $password): void
     {
-        $this->model->where('email', '=', $email)->update([
+        $this->builder->where('email', '=', $email)->update([
             'password' => Hash::make($password),
         ]);
     }

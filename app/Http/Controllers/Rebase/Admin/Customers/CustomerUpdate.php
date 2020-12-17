@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Rebase\Admin\Customers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Domain\Facades\Rebase\CustomerRepository;
+use App\Domain\Models\Rebase\Admin\Customer;
 
 class CustomerUpdate extends Controller
 {
@@ -22,7 +22,7 @@ class CustomerUpdate extends Controller
             ])['billingAddress'];
         }
 
-        CustomerRepository::factory()->update('id', $customerID, $validatedData);
+        Customer::modelFactory()->update('id', $customerID, $validatedData);
 
         return redirect()->back()->withSuccess('Updated '.ucfirst($type));
     }

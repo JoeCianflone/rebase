@@ -11,7 +11,7 @@ class OnboardingComplete extends Controller
 {
     public function __invoke(Request $request)
     {
-        WorkspaceRepository::factory()->update('slug', $request->get('slug'), [
+        WorkspaceRepository::modelFactory()->update('slug', $request->get('slug'), [
             'status' => WorkspaceStatus::ACTIVE(),
         ]);
 
