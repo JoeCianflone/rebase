@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Queries\Rebase;
+namespace App\Domain\Builders\Rebase;
 
 use Closure;
 use Ramsey\Uuid\Uuid;
@@ -9,28 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class ModelQueries
+class ModelBuilder extends Builder
 {
-    protected $query;
+    protected $builder;
+    protected int $cacheTime = 300;
 
-    public function __construct(protected ?Model $model = null,
-                                protected string $cacheKey = '',
-                                protected int $cacheTime = 300) { }
-
-    public function getOrPaginate(Builder $builder, ?int $pagination = null)
-    {
-        return is_null($pagination) ? $builder->get() : $builder->paginate($pagination);
-    }
-
-    public function buildOrder(Builder $builder, ?string $order = null, string $direction = 'asc')
-    {
-        return is_null($order) ? $builder : $builder->orderBy($order, $direction);
-    }
-
-    public function buildSearch(Builder $builder, string $searchTerm = null, array $searchFields = [])
+    public function searchable(string $searchTerm = null, array $searchFields = [])
     {
         if ($searchTerm || count($searchFields)) {
-            return $builder->where(function ($query) use ($searchTerm, $searchFields): void {
+            return $this->where(function ($query) use ($searchTerm, $searchFields): void {
                 $count = 0;
                 $query->where($searchFields[$count], 'LIKE', '%' . $searchTerm . '%');
                 while (++$count < count($searchFields)) {
@@ -39,10 +26,19 @@ class ModelQueries
             });
         }
 
-        return $builder;
+        return $this;
     }
 
-    protected function cache(string $name, Closure $query)
+    public function orderable(?string $column = null, string $direction = 'asc')
+    {
+        if ($column) {
+            $this->orderBy($column, $direction);
+        }
+
+        return $this;
+    }
+
+    protected function cachable(string $name, Closure $query)
     {
         return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $query);
     }

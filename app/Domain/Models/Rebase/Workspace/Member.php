@@ -4,10 +4,10 @@ namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Models\Rebase\Workspace\Role;
+use App\Domain\Builders\Rebase\MemberBuilder;
 use App\Domain\Factories\Rebase\MemberModelFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,19 +17,10 @@ class Member extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * @var bool
-     */
     public $incrementing = false;
 
-    /**
-     * @var string
-     */
     protected $connection = 'workspace';
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'id',                   // required
         'email',                // required
@@ -44,16 +35,10 @@ class Member extends Authenticatable
         'updated_at',
     ];
 
-    /**
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * @var array
-     */
     protected $casts = [
         'id' => 'string',
         'email_token' => 'string',
@@ -62,7 +47,6 @@ class Member extends Authenticatable
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
 
     public static function boot(): void
     {
@@ -84,50 +68,20 @@ class Member extends Authenticatable
         return $this->belongsToMany(Workspace::class);
     }
 
+    // Model Builder...
+    public static function query() : MemberBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query)
+    {
+        return new MemberBuilder($query);
+    }
+
     // Model Factory...
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): MemberModelFactory
     {
         return new MemberModelFactory($builder);
-    }
-
-
-
-    public function getWorkspaces(string $memberID)
-    {
-        return $this->model->with('workspaces')->where('id', $memberID)->first()->workspaces;
-    }
-
-    public function getMembers(?int $paginate = null, ?string $searchTerm = null, array $searchFields = [], ?string $order = null, string $direction = 'asc')
-    {
-        $builder = $this->buildSearch(
-            builder: $this->model::with('workspaces'),
-            searchTerm: $searchTerm,
-            searchFields: $searchFields
-        );
-
-        $builder = $this->buildOrder($builder, $order, $direction);
-
-        return $this->getOrPaginate($builder, $paginate);
-    }
-
-    public function scopeByEmail(Builder $builder, string $email)
-    {
-        return $builder->where('email', $email);
-    }
-
-    public function scopeCanResetPassword(Builder $builder, string $email, string $token): bool
-    {
-        $resetter = DB::table(config('rebase.paths.db.workspace.name').'.password_resets')
-            ->where('email', '=', $email)
-            ->where('token', '=', $token)
-            ->first();
-
-        if (is_null($resetter)) {
-            return false;
-        }
-
-        $maxTokenTime = Carbon::parse($resetter->created_at)->addHours(1);
-
-        return $maxTokenTime->gte(Carbon::now());
     }
 }

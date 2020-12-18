@@ -13,7 +13,12 @@ class MemberIndex extends Controller
 {
     public function __invoke(Request $request)
     {
-        $members = Member::with(['roles', 'workspaces'])->paginate(10);
+        $members = Member::with(['roles', 'workspaces'])
+            ->searchable(
+                searchTerm: $request->get('s'),
+                searchFields: ['name', 'email'],
+            )
+            ->paginate($request->get('count') ?? 10);
 
         return inertia(Action::getView($this), [
             'members' => $members->toArray(),

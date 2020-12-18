@@ -6,10 +6,10 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Enums\Rebase\WorkspaceStatus;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Models\Rebase\Admin\Lookup;
 use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Models\Rebase\Workspace\Member;
+use App\Domain\Builders\Rebase\WorkspaceBuilder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Domain\Factories\Rebase\WorkspaceModelFactory;
 use App\Domain\Traits\Rebase\ModelTransformers\WorkspaceTransformers;
@@ -22,9 +22,6 @@ class Workspace extends Model
 
     protected $connection = 'workspace';
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'id',               // required
         'customer_id',      // required
@@ -38,9 +35,6 @@ class Workspace extends Model
         'updated_at',
     ];
 
-    /**
-     * @var array
-     */
     protected $casts = [
         'activation_at' => 'datetime',
         'created_at' => 'datetime',
@@ -90,33 +84,20 @@ class Workspace extends Model
         return $this->belongsToMany(Member::class);
     }
 
+    public static function query() : WorkspaceBuilder
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($builder)
+    {
+        return new WorkspaceBuilder($builder);
+    }
+
     // Model Factory...
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): WorkspaceModelFactory
     {
         return new WorkspaceModelFactory($builder);
     }
-
-    public function scopeBySlug(Builder $builder, string $slug) {
-        return $builder->where('slug', $slug);
-    }
-
-
-    // public function getWorkspacesAndMembers(?int $paginate = null, ?string $searchTerm = null, array $searchFields = [], ?string $order = null, string $direction = 'asc')
-    // {
-    //     $builder = $this->buildSearch(
-    //         builder: $this->model::with('members'),
-    //         searchTerm: $searchTerm,
-    //         searchFields: $searchFields
-    //     );
-
-    //     $builder = $this->buildOrder($builder, $order, $direction);
-
-    //     return $this->getOrPaginate($builder, $paginate);
-    // }
-
-
-
-
-
 
 }

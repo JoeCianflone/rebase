@@ -5,6 +5,7 @@ namespace App\Domain\Models\Rebase\Workspace;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Collections\RoleCollection;
+use App\Domain\Builders\Rebase\RoleBuilder;
 use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Models\Rebase\Workspace\Member;
 use App\Domain\Factories\Rebase\RoleModelFactory;
@@ -17,7 +18,6 @@ class Role extends Model
 {
     // Traits...
     use RoleTransformers;
-
 
     // Connection...
     protected $connection = 'workspace';
@@ -61,14 +61,19 @@ class Role extends Model
     }
 
     // Query Builder Override...
-    public function scopeAccountOwner($query)
+    public static function query() : RoleBuilder
     {
-        return $this->where('type', 'account_owner');
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($builder)
+    {
+        return new RoleBuilder($builder);
     }
 
 
-    // Factory..
-    public function scopeModelFactory(Builder $builder)
+    // Factory...
+    public function scopeModelFactory(Builder $builder): RoleModelFactory
     {
         return new RoleModelFactory($builder);
     }

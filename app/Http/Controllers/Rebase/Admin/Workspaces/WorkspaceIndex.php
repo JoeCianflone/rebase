@@ -11,7 +11,10 @@ class WorkspaceIndex extends Controller
 {
     public function __invoke(string $customerID, Request $request)
     {
-        $workspaces = Workspace::paginate(10);
+        $workspaces = Workspace::searchable(
+            searchTerm: $request->get('s'),
+            searchFields: ['name', 'slug']
+        )->paginate($request->get('count') ?? 10);
 
         return inertia(Action::getView($this), [
             'workspaces' => $workspaces->toArray(),
