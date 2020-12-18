@@ -3,8 +3,10 @@
 namespace App\Http\Middleware\Rebase;
 
 use Closure;
+use App\Actions\Action;
 use Illuminate\Http\Request;
 use App\Helpers\Rebase\HostHelper;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Middleware\BaseMiddleware;
 use App\Helpers\Rebase\WorkspaceDatabase;
 use App\Domain\Models\Rebase\Admin\Lookup;
@@ -70,7 +72,7 @@ class ParseSecondaryConnection extends BaseMiddleware
         }
 
         if ($request->query('to') !== 'null' && !is_null($request->query('to'))) {
-            $lookup = Lookup::bySlug($request->query('to'))->first();
+            $lookup = Cache::remember('lookup-slug', 300, fn() => Lookup::bySlug($request->query('to'))->first());
         }
 
         return $lookup;
@@ -84,4 +86,6 @@ class ParseSecondaryConnection extends BaseMiddleware
             false => Lookup::bySlug($host->getSlug())->first()
         };
     }
+
 }
+

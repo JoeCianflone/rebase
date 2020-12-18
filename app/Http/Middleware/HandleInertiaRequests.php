@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'customer_id' => $request->query('customer_id') ?? $request->get('customer_id'),
+            'workspace_id' => $request->get('workspace_id'),
             'auth' => function () use ($request): array {
                 return [
                     'user' => auth()->user() ? [

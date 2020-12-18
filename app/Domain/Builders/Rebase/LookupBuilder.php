@@ -7,7 +7,6 @@ use App\Domain\Builders\Rebase\ModelBuilder;
 
 class LookupBuilder extends ModelBuilder
 {
-
     public function byDomain(string $domain)
     {
         $this->where('domain',  $domain);

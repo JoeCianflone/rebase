@@ -6,11 +6,7 @@ export default {
       MainNavigation,
    },
 
-   methods: {
-      check: function () {
-         return $page.props.auth.user.role === "workspace_admin"
-      },
-   },
+   methods: {},
 
    props: {
       nav: String,
@@ -21,6 +17,6 @@ export default {
 <template>
    <MainNavigation>
       <li><inertia-link :href="route('dashboard')" :class="{ selected: this.nav === 'dashboard' }">Dashboard</inertia-link></li>
-      <li v-if="only(['workspace_admin'])"><inertia-link :href="route('workspace-members.index')" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
+      <li v-if="$RoleCheck.gte.accountOwner($page.props.auth.user.roles)"><inertia-link :href="route('workspace-members.index')" :class="{ selected: this.nav === 'members' }">Members</inertia-link></li>
    </MainNavigation>
 </template>

@@ -23,6 +23,7 @@ import FormRadio from "@/Components/Rebase/Form/FormRadio"
 import FormInput from "@/Components/Rebase/Form/FormInput"
 import FieldLabel from "@/Components/Rebase/Form/FieldLabel"
 import Button from "@/Components/Rebase/Form/Button"
+import RoleCheck from "@/Plugins/Rebase/RoleCheck"
 
 Vue.component("FormFieldInline", FormFieldInline)
 Vue.component("FormCheckbox", FormCheckbox)
@@ -40,6 +41,7 @@ Vue.config.productionTip = false
 Vue.use(plugin)
 Vue.use(PortalVue)
 Vue.use(VueMeta)
+Vue.use(RoleCheck)
 
 let el = document.getElementById("app")
 

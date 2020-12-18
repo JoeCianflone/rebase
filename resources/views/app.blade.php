@@ -14,7 +14,6 @@
     @if (isset($withStripe) && $withStripe === true)
     <script src="//js.stripe.com/v3/"></script>
     @endif
-    @roles
     @routes
 
     <script src="{{ mix('/assets/js/app.js') }}" defer></script>

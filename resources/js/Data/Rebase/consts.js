@@ -51,3 +51,16 @@ export const states = [
    "WI",
    "WY",
 ]
+
+export const MemberRoles = {
+   SUPER: 'super',
+   ACCOUNT_OWNER: 'account_owner',
+   ACCOUNT_ADMIN: 'account_admin',
+   WORKSPACE_OWNER: 'workspace_owner',
+   WORKSPACE_ADMIN: 'workspace_admin',
+   EDITOR: 'editor',
+   ELEVATED: 'elevated',
+   MEMBER: 'member',
+   LIMITED: 'limited',
+   ACCESS: 'access'
+}
