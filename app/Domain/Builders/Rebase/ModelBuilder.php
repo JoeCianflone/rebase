@@ -12,7 +12,12 @@ use Illuminate\Database\Eloquent\Collection;
 class ModelBuilder extends Builder
 {
     protected $builder;
-    protected int $cacheTime = 300;
+
+    public function bySlug(string $slug)
+    {
+        $this->where('slug', $slug);
+        return $this;
+    }
 
     public function searchable(string $searchTerm = null, array $searchFields = [])
     {
@@ -38,8 +43,4 @@ class ModelBuilder extends Builder
         return $this;
     }
 
-    protected function cachable(string $name, Closure $query)
-    {
-        return Cache::remember("{$this->cacheKey}__{$name}__", $this->cacheTime, $query);
-    }
 }

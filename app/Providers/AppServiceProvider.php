@@ -7,6 +7,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Arr;
 use Laravel\Cashier\Cashier;
 use App\Actions\Rebase\GetView;
+use App\Actions\Rebase\Cacheable;
 use App\Enums\Rebase\MemberRoles;
 use App\Actions\Rebase\ActiveRole;
 use Illuminate\Support\Facades\Date;
@@ -42,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Action::init([
             'getView' => GetView::class,
             'getWorkspaceName' => GetWorkspaceName::class,
-            'activeRole' => ActiveRole::class,
+            'cacheable' => Cacheable::class,
         ]);
 
     }
