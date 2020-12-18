@@ -2,7 +2,6 @@ import {MemberRoles} from "@/Data/Rebase/consts";
 
 const check = {
    account(roles, type) {
-      console.log(roles[type] ?? false);
       return roles[type] ?? false
    },
    workspace(roles, type, workspaceID) {
@@ -23,7 +22,7 @@ export default {
             workspaceElevatedMember(roles, workspaceID) { return check.workspace(roles, MemberRoles["ELEVATED"], workspaceID) },
             workspaceMember(roles, workspaceID) { return check.workspace(roles, MemberRoles["MEMBER"], workspaceID) },
             workspaceLimited(roles, workspaceID) { return check.workspace(roles, MemberRoles["LIMITED"], workspaceID) },
-            workspaceAccess(roles, workspaceID) { return check.workspace(roles, MemberRoles["ACCESS_ONLY"], workspaceID) },
+            workspaceAccess(roles, workspaceID) { return check.workspace(roles, MemberRoles["ACCESS"], workspaceID) },
          },
          gte: {
             super(roles) { return check.account(roles, MemberRoles["SUPER"]) },
