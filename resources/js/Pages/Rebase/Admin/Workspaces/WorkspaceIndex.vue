@@ -41,7 +41,7 @@ export default {
       <template v-slot:body>
          <div class="grid">
             <div class="col-10--centered md::col-12">
-               <DataTable :links="workspaces.links">
+               <DataTable :links="workspaces.links" routeName="workspace.index" :routeParams="{ customerID: $page.props.customer_id }">
                   <template #header>
                      <th>&nbsp;</th>
                      <th>Name</th>
