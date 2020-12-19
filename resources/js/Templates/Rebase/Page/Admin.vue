@@ -87,6 +87,7 @@ $headerbar-height: 40px;
 
          @media ($md-and-up) {
             display: block;
+            text-align: center;
          }
       }
 
