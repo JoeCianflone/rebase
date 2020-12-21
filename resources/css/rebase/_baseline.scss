@@ -408,8 +408,6 @@ img {
 }
 
 svg {
-   fill: currentColor;
-
    &:not(:root) {
       overflow: hidden;
    }

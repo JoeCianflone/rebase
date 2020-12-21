@@ -1,17 +1,18 @@
 <script>
 import Dropdown from "@/Components/Rebase/Dropdown"
+import Icon from "@/Components/Rebase/Icon"
 
 export default {
    name: "ActionMenu",
    inheritAttrs: false,
-   components: { Dropdown },
+   components: { Dropdown, Icon },
 }
 </script>
 
 <template>
    <Dropdown>
       <slot name="buttonText">
-         <span class="material-icons">more_horiz</span>
+         <Icon name="horiz-dots" />
       </slot>
       <template v-slot:dropdown>
          <ul class="navigation--actions">

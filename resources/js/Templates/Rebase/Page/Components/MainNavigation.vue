@@ -1,6 +1,10 @@
 <script>
+import Icon from "@/Components/Rebase/Icon"
+
 export default {
-   components: {},
+   components: {
+      Icon,
+   },
 
    data: function () {
       return {
@@ -36,7 +40,9 @@ export default {
 
 <template>
    <section>
-      <Button class="button--icon nav-button js-button" @click="isOpen = !isOpen"><span class="material-icons">menu</span></Button>
+      <Button class="button--icon nav-button js-button" @click="isOpen = !isOpen">
+         <Icon name="hamburger" />
+      </Button>
       <nav class="navigation--main js-nav">
          <ul>
             <slot></slot>

@@ -17,12 +17,6 @@ mix
          },
       }
    })
-   .sass(`${process.env.MIX_INPUT_STYLE}/app.scss`, process.env.MIX_OUTPUT_STYLE)
-   .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
-   .vue({
-      extractVueStyles: true,
-      globalVueStyles: false
-   })
    .options({
       cssNano: {
          calc: false,
@@ -34,6 +28,12 @@ mix
          require("postcss-import")(),
          require("postcss-sort-media-queries")()
       ],
+   })
+   .sass(`${process.env.MIX_INPUT_STYLE}/app.scss`, process.env.MIX_OUTPUT_STYLE)
+   .js(`${process.env.MIX_INPUT_JS}/app.js`, process.env.MIX_OUTPUT_JS)
+   .vue({
+      extractVueStyles: true,
+      globalVueStyles: false
    })
    .copyDirectory(process.env.MIX_INPUT_FILES, process.env.MIX_OUTPUT_FILES)
    .copyDirectory(process.env.MIX_INPUT_IMAGES, process.env.MIX_OUTPUT_IMAGES)

@@ -1,0 +1,62 @@
+/*
+Note the URL path you're seeing here is relative to the *final location* of
+the compiled CSS file. Fonts themselves should be stored in the
+resouces folder and they will be copied the the public
+folder, but use path where they're coped to in
+in this file.
+*/
+
+@font-face {
+   font-family: 'Overpass';
+   font-style: normal;
+   font-weight: 900;
+   src: url('../fonts/overpass-v5-latin-900.eot'); /* IE9 Compat Modes */
+   src: local(''),
+        url('../fonts/overpass-v5-latin-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../fonts/overpass-v5-latin-900.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../fonts/overpass-v5-latin-900.woff') format('woff'), /* Modern Browsers */
+        url('../fonts/overpass-v5-latin-900.ttf') format('truetype'), /* Safari, Android, iOS */
+        url('../fonts/overpass-v5-latin-900.svg#Overpass') format('svg'); /* Legacy iOS */
+ }
+
+ /* rubik-regular - latin */
+@font-face {
+   font-family: 'Rubik';
+   font-style: normal;
+   font-weight: 400;
+   src: url('../fonts/rubik-v11-latin-regular.eot'); /* IE9 Compat Modes */
+   src: local(''),
+        url('../fonts/rubik-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../fonts/rubik-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../fonts/rubik-v11-latin-regular.woff') format('woff'), /* Modern Browsers */
+        url('../fonts/rubik-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+        url('../fonts/rubik-v11-latin-regular.svg#Rubik') format('svg'); /* Legacy iOS */
+ }
+
+ /* rubik-500 - latin */
+ @font-face {
+   font-family: 'Rubik';
+   font-style: normal;
+   font-weight: 500;
+   src: url('../fonts/rubik-v11-latin-500.eot'); /* IE9 Compat Modes */
+   src: local(''),
+        url('../fonts/rubik-v11-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../fonts/rubik-v11-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../fonts/rubik-v11-latin-500.woff') format('woff'), /* Modern Browsers */
+        url('../fonts/rubik-v11-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+        url('../fonts/rubik-v11-latin-500.svg#Rubik') format('svg'); /* Legacy iOS */
+ }
+
+ /* rubik-700 - latin */
+ @font-face {
+   font-family: 'Rubik';
+   font-style: normal;
+   font-weight: 700;
+   src: url('../fonts/rubik-v11-latin-700.eot'); /* IE9 Compat Modes */
+   src: local(''),
+        url('../fonts/rubik-v11-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../fonts/rubik-v11-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../fonts/rubik-v11-latin-700.woff') format('woff'), /* Modern Browsers */
+        url('../fonts/rubik-v11-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+        url('../fonts/rubik-v11-latin-700.svg#Rubik') format('svg'); /* Legacy iOS */
+ }
