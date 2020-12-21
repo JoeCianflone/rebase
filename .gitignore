@@ -5,6 +5,7 @@
 /vendor
 .cache
 /public/assets
+ziggy.js
 /public/mix-*
 .env
 .idea
