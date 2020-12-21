@@ -2,8 +2,8 @@
 
 namespace App\Rules\Rebase;
 
+use App\Domain\Models\Rebase\Admin\BannedSlug;
 use Illuminate\Contracts\Validation\Rule;
-use App\Domain\Facades\Rebase\BannedSlugRepository;
 
 class SlugIsNotBanned implements Rule
 {
@@ -24,7 +24,7 @@ class SlugIsNotBanned implements Rule
      */
     public function passes($attribute, $value)
     {
-        return is_string($value) && !BannedSlug::hasSlug($value);
+        return is_string($value) && !BannedSlug::slugExists($value);
     }
 
     /**

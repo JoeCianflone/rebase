@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Rebase\Admin\Customers;
 
+use App\Domain\Models\Rebase\Admin\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Domain\Facades\Rebase\CustomerRepository;
 
 class ShowInvoice extends Controller
 {
     public function __invoke(string $customerID, string $invoiceID, Request $request)
     {
-        $customer = Customer::getCustomerWithSubscriptions($customerID);
+        $customer = Customer::withSubscriptions($customerID)->first();
 
         return $customer->downloadInvoice($invoiceID, [
-            'vendor' => 'Your Company',
-            'product' => 'Your Product',
-        ]);
+            'vendor' => 'Rebase',
+            'product' => 'Product Awesomeness',
+        ], 'My-Invoice');
     }
 }

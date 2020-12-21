@@ -22,7 +22,7 @@ class ModelFactory
             return $this->builder->update($update);
         }
 
-        return $this->builder->where($whereCol, $whereVaule)->update($update);
+        return $this->builder->where($whereCol, $whereValue)->update($update);
     }
 
     public function remove(?array $ids = null, ?string $whereCol = null, ?string $whereValue = null)

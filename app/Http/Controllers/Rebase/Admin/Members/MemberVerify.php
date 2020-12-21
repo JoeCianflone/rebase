@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Rebase\Admin\Members;
 
+use App\Domain\Models\Rebase\Workspace\Member;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Domain\Facades\Rebase\MemberRepository;
 
 class MemberVerify extends Controller
 {
@@ -15,17 +15,13 @@ class MemberVerify extends Controller
     {
         $request->validate($this->rules());
 
-        $member = Member::findMember($request->input('email'))->get();
-        $verifiedMember = MemberRepository::filter($member)->matches([
-            'id' => $request->input('memberID'),
-            'email_token' => $request->input('token'),
-        ])->first();
+        $member = Member::byEmail($request->input('email'))->first();
 
-        if (is_null($verifiedMember)) {
+        if (! $member->isVerified($request->input('memberID'), $request->input('token'))) {
             return redirect()->back()->withErrors('We cannot match your email address in our system');
         }
 
-        MemberRepository::factory($verifiedMember)->update([
+        $member->update([
             'password' => Hash::make($request->input('password')),
             'email_token' => null,
             'email_verified_at' => Carbon::now(),

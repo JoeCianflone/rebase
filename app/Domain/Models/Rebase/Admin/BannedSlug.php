@@ -37,7 +37,7 @@ class BannedSlug extends Model
         return $builder->where('slug', $slug)->exists();
     }
 
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): ModelFactory
     {
         return new ModelFactory($builder);
     }

@@ -72,15 +72,13 @@ class Customer extends Model
         return $this->hasMany(Subscription::class)->orderBy('created_at', 'desc');
     }
 
-    // Collection Override....
-
     // Model Factory....
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): CustomerModelFactory
     {
         return new CustomerModelFactory($builder);
     }
 
-    public function scopeWithSubscriptions(Builder $builder, string $customerID)
+    public function scopeWithSubscriptions(Builder $builder, string $customerID): Builder
     {
         return $builder->with('subscriptions')->where('id', $customerID);
     }

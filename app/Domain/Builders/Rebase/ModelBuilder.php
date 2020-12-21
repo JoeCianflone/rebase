@@ -11,15 +11,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ModelBuilder extends Builder
 {
-    protected $builder;
+    protected Builder $builder;
 
-    public function bySlug(string $slug)
+    public function bySlug(string $slug): ModelBuilder
     {
         $this->where('slug', $slug);
+
         return $this;
     }
 
-    public function searchable(string $searchTerm = null, array $searchFields = [])
+    public function searchable(string $searchTerm = null, array $searchFields = []): ModelBuilder
     {
         if ($searchTerm || count($searchFields)) {
             return $this->where(function ($query) use ($searchTerm, $searchFields): void {
@@ -34,7 +35,7 @@ class ModelBuilder extends Builder
         return $this;
     }
 
-    public function orderable(?string $column = null, string $direction = 'asc')
+    public function orderable(?string $column = null, string $direction = 'asc'): ModelBuilder
     {
         if ($column) {
             $this->orderBy($column, $direction);
@@ -42,5 +43,4 @@ class ModelBuilder extends Builder
 
         return $this;
     }
-
 }

@@ -43,7 +43,7 @@ class Subscription extends CashierSubscription
     }
 
     // Model Factory...
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): ModelFactory
     {
         return new ModelFactory($builder);
     }

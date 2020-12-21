@@ -2,14 +2,14 @@
 
 namespace App\Services\Rebase\Registration;
 
+use App\Domain\Models\Rebase\Admin\Customer;
 use Carbon\Carbon;
-use App\Domain\Facades\Rebase\CustomerRepository;
 
 class AddCustomer
 {
     public function __invoke($payload)
     {
-        $customer = CustomerRepository::modelFactory()->create([
+        $customer = Customer::modelFactory()->create([
             'name' => $payload->get('name'),
             'line1' => $payload->get('line1'),
             'line2' => $payload->get('line2'),

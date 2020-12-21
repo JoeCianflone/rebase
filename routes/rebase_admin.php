@@ -15,6 +15,7 @@ Route::domain($domain)->prefix('{customerID}')->namespace('Rebase\Admin')->group
 
         // Customer
         Route::get('customer', Customers\CustomerIndex::class)->name('customer.index');
+        Route::get('invoice/{invoiceID}', Customers\ShowInvoice::class)->name('customer.invoice.show');
 
         // Workspace
         Route::get('workspaces', Workspaces\WorkspaceIndex::class)->name('workspace.index');

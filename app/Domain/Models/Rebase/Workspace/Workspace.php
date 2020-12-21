@@ -2,6 +2,8 @@
 
 namespace App\Domain\Models\Rebase\Workspace;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use App\Enums\Rebase\WorkspaceStatus;
@@ -79,19 +81,14 @@ class Workspace extends Model
     }
 
     // Relations...
-    public function members()
+    public function members(): BelongsToMany
     {
         return $this->belongsToMany(Member::class);
     }
 
-    public static function query() : WorkspaceBuilder
+    public function newEloquentBuilder($query): WorkspaceBuilder
     {
-        return parent::query();
-    }
-
-    public function newEloquentBuilder($builder)
-    {
-        return new WorkspaceBuilder($builder);
+        return new WorkspaceBuilder($query);
     }
 
     // Model Factory...

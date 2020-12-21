@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Builders\Rebase\LookupBuilder;
 use App\Domain\Factories\Rebase\ModelFactory;
 use App\Domain\Models\Rebase\Workspace\Workspace;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Lookup extends Model
@@ -38,24 +39,18 @@ class Lookup extends Model
         return $this->hasOne(Customer::class);
     }
 
-    public function workspaces()
+    public function workspaces(): HasMany
     {
         return $this->hasMany(Workspace::class);
     }
 
-    // Model Builder...
-    public static function query() : LookupBuilder
-    {
-        return parent::query();
-    }
-
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): LookupBuilder
     {
         return new LookupBuilder($query);
     }
 
     // Model Factory...
-    public function scopeModelFactory(Builder $builder)
+    public function scopeModelFactory(Builder $builder): ModelFactory
     {
         return new ModelFactory($builder);
     }

@@ -2,8 +2,8 @@
 
 namespace App\Services\Rebase\Registration;
 
+use App\Domain\Models\Rebase\Workspace\Workspace;
 use Illuminate\Support\Facades\Artisan;
-use App\Domain\Facades\Rebase\WorkspaceRepository;
 
 class AddCustomerWorkspace
 {
@@ -15,7 +15,7 @@ class AddCustomerWorkspace
         ]);
 
         if (0 === $exitCode) {
-            $workspace = WorkspaceRepository::modelFactory()->create([
+            $workspace = Workspace::modelFactory()->create([
                 'customer_id' => $payload->get('customer')->id,
                 'name' => $payload->get('customer')->name.' Workspace',
                 'slug' => $payload->get('slug'),

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class Privacy extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request)
     {
         return inertia(Action::getView($this));
     }

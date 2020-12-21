@@ -44,6 +44,5 @@ class CreateNewCustomer implements ShouldQueue
         }
 
         Mail::to($payload->get('email'))->send(new NewCustomer($pipeData));
-        // event(new FinishedCustomerSignup($pipeData));
     }
 }

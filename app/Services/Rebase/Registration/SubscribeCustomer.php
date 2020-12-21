@@ -2,15 +2,17 @@
 
 namespace App\Services\Rebase\Registration;
 
+use App\Domain\Factories\Rebase\CustomerModelFactory;
+use App\Domain\Models\Rebase\Admin\Customer;
 use Laravel\Cashier\Exceptions\PaymentFailure;
-use App\Domain\Facades\Rebase\CustomerRepository;
+use Laravel\Cashier\Exceptions\SubscriptionUpdateFailure;
 
 class SubscribeCustomer
 {
     public function __invoke($payload)
     {
         try {
-            $subscribedCustomer = CustomerRepository::factory($payload->get('customer'))->subscribe([
+            $subscribedCustomer = Customer::modelFactory()->subscribe($payload->get('customer'), [
                 'plan' => $payload->get('plan'),
                 'method' => $payload->get('payment_method'),
                 'options' => [
@@ -25,14 +27,15 @@ class SubscribeCustomer
                     ],
                 ],
             ]);
-        } catch (PaymentFailure $e) {
+        } catch (SubscriptionUpdateFailure $e) {
+            dd($e->getMessage());
             // event('Payment Failure...');
             // CustomerRepository::factory($subscribedCustomer)->markAsInactive();
 
             return false;
         }
 
-        CustomerRepository::factory($subscribedCustomer)->markAsActive();
+        Customer::modelFactory($subscribedCustomer)->markAsActive();
 
         return $payload;
     }

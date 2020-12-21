@@ -94,7 +94,7 @@ class PersonalWorkspace extends Seeder
                     ]);
 
                     Role::modelFactory()->addWorkspaceRole($this->generateRandomRole(), $workspace->id,  $otherMembers->id);
-                    Member::modelFactory($otherMembers)->attachToWorkspace($otherMembers, $workspace->id);
+                    Member::modelFactory()->attachToWorkspace($otherMembers, $workspace->id);
                 }
             }
         }

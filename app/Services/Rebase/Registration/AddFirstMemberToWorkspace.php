@@ -2,28 +2,23 @@
 
 namespace App\Services\Rebase\Registration;
 
+use App\Domain\Models\Rebase\Workspace\Member;
+use App\Domain\Models\Rebase\Workspace\Role;
 use Illuminate\Support\Carbon;
 use App\Enums\Rebase\MemberRoles;
-use App\Domain\Facades\Rebase\MemberRepository;
 
 class AddFirstMemberToWorkspace
 {
     public function __invoke($payload)
     {
-        $member = MemberRepository::modelFactory()->create([
+        $member = Member::modelFactory()->create([
             'name' => $payload->get('name'),
             'email' => $payload->get('email'),
-            'roles' => [
-                [
-                    'workspace_id' => $payload->get('workspace')->id,
-                    'type' => MemberRoles::OWNER(),
-                ],
-            ],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        MemberRepository::factory($member)->attachToWorkspace($payload->get('workspace')->id);
+        Role::modelFactory()->addAccountOwner($member->id);
 
         $payload->put('member', $member);
 

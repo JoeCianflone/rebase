@@ -55,22 +55,15 @@ class Role extends Model
     }
 
     // Collection Override....
-    public function newCollection(array $models = [])
+    public function newCollection(array $models = []): RoleCollection
     {
         return new RoleCollection($models);
     }
 
-    // Query Builder Override...
-    public static function query() : RoleBuilder
+    public function newEloquentBuilder($query): RoleBuilder
     {
-        return parent::query();
+        return new RoleBuilder($query);
     }
-
-    public function newEloquentBuilder($builder)
-    {
-        return new RoleBuilder($builder);
-    }
-
 
     // Factory...
     public function scopeModelFactory(Builder $builder): RoleModelFactory

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Models\Rebase\Workspace;
 
+use App\Domain\Traits\Rebase\ModelTransformers\MemberTransformers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Member extends Authenticatable
 {
     use Notifiable;
+    use MemberTransformers;
 
     public $incrementing = false;
 
@@ -35,6 +37,9 @@ class Member extends Authenticatable
         'updated_at',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -68,13 +73,7 @@ class Member extends Authenticatable
         return $this->belongsToMany(Workspace::class);
     }
 
-    // Model Builder...
-    public static function query() : MemberBuilder
-    {
-        return parent::query();
-    }
-
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): MemberBuilder
     {
         return new MemberBuilder($query);
     }
@@ -84,4 +83,6 @@ class Member extends Authenticatable
     {
         return new MemberModelFactory($builder);
     }
+
+
 }
