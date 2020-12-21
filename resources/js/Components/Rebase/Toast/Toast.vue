@@ -3,12 +3,14 @@ import SimpleMessage from "./SimpleMessage"
 import isEmpty from "lodash/isEmpty"
 import isUndefined from "lodash/isUndefined"
 import isNull from "lodash/isNull"
+import Icon from "@/Components/Rebase/Icon"
 
 export default {
    name: "Toast",
 
    components: {
       SimpleMessage,
+      Icon,
    },
 
    props: {
@@ -25,10 +27,10 @@ export default {
    watch: {
       isClosed: function (isClosed) {
          if (!isClosed) {
-            // let vm = this
-            // setTimeout(function () {
-            //    vm.isClosed = true
-            // }, 4000)
+            let vm = this
+            setTimeout(function () {
+               vm.isClosed = true
+            }, 4000)
          }
       },
    },
@@ -67,7 +69,7 @@ export default {
             <div class="col-8:at-2" v-if="message">
                <SimpleMessage>{{ message }}</SimpleMessage>
             </div>
-            <Button @click="isClosed = !isClosed" class="button--icon:xsmall col-2:end"><span class="material-icons">close</span></Button>
+            <Button @click="isClosed = !isClosed" class="button--icon:xsmall col-2:end"><Icon name="close" /></Button>
          </div>
       </div>
    </transition>
