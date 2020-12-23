@@ -40,7 +40,7 @@ export default {
                <p class="lead">Pick a workspace and we'll take you there. If you need to switch over to another workspace later on, you can come back here and switch.</p>
                <ul class="workspace-picker">
                   <li v-for="workspace in workspaces" :key="workspace.id">
-                     <a class="workspace-picker--item" :href="`//${workspace.slug}.rebase.test/dashboard`">{{ workspace.name }}</a>
+                     <a class="workspace-picker--item" :href="`//${workspace.slug}.${$page.props.app.domain}/dashboard`">{{ workspace.name }}</a>
                   </li>
                </ul>
             </div>
