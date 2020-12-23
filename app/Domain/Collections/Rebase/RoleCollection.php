@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Collections;
+namespace App\Domain\Collections\Rebase;
 
 use App\Enums\Rebase\MemberRoles;
 use Illuminate\Database\Eloquent\Collection;

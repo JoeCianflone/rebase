@@ -4,10 +4,10 @@ namespace App\Domain\Models\Rebase\Workspace;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\Domain\Collections\RoleCollection;
 use App\Domain\Builders\Rebase\RoleBuilder;
 use App\Domain\Models\Rebase\Workspace\Role;
 use App\Domain\Models\Rebase\Workspace\Member;
+use App\Domain\Collections\Rebase\RoleCollection;
 use App\Domain\Factories\Rebase\RoleModelFactory;
 use App\Domain\Models\Rebase\Workspace\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
