@@ -18,7 +18,7 @@ class MemberModelFactory extends ModelFactory
     public function addResetToken(string $email): string
     {
         $token = (string)Str::uuid();
-        DB::table(config('rebase.paths.db.workspace.name') . '.password_resets')->upsert([
+        DB::table(config('paths.db.workspace.name') . '.password_resets')->upsert([
             [
                 'email' => $email,
                 'token' => $token,
@@ -31,7 +31,7 @@ class MemberModelFactory extends ModelFactory
 
     public function removeResetToken(string $email): void
     {
-        DB::table(config('rebase.paths.db.workspace.name') . '.password_resets')->where('email', '=', $email)->delete();
+        DB::table(config('paths.db.workspace.name') . '.password_resets')->where('email', '=', $email)->delete();
     }
 
     public function resetPassword(string $email, string $password): void

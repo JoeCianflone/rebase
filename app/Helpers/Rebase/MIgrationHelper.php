@@ -4,44 +4,27 @@ namespace App\Helpers\Rebase;
 
 class MigrationHelper
 {
-    private array $options = [];
-    private bool $isRebaseMigration = false;
-
-    public function __construct(bool $isRebaseMigration = false)
+    public function __construct(private array $options = [])
     {
-        $this->isRebaseMigration = $isRebaseMigration;
-        $this->options = [
+    }
+
+    public function getOptions(bool $shared = false, bool $rebase = false): array
+    {
+        return array_merge($this->options, [
             '--step' => true,
             '--force' => true,
-        ];
-    }
-
-    public function configurePath(bool $isWorkspaceMigration = false): self
-    {
-        $this->addOptions([
-            '--path' => config($this->setMigrationPath($isWorkspaceMigration)),
+            '--path' => $this->path(shared: $shared, rebase: $rebase)
         ]);
-
-        return $this;
     }
 
-    public function addOptions(array $newOptions): self
+    public function path(bool $rebase = false, bool $shared = false)
     {
-        $this->options = array_merge($this->options, $newOptions);
+        $path = config('paths.db.migration_folder');
+        $path .= "/";
+        $path .= $rebase ? config('paths.namespaces.rebase') : config('paths.namespaces.appspace');
+        $path .= "/";
+        $path .= $shared ? config('paths.db.shared.migration_path') : config('paths.db.workspace.migration_path');
 
-        return $this;
-    }
-
-    public function getOptions(): array
-    {
-        return $this->options;
-    }
-
-    private function setMigrationPath(bool $isWorkspaceMigration = false): string
-    {
-        $type = $isWorkspaceMigration ? 'workspace' : 'shared';
-        $rebase = $this->isRebaseMigration ? 'rebase_' : '';
-
-        return "rebase.paths.db.{$type}.{$rebase}migration_path";
+        return $path;
     }
 }

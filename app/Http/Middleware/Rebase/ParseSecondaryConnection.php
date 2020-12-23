@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Rebase\HostHelper;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Middleware\BaseMiddleware;
-use App\Helpers\Rebase\WorkspaceDatabase;
+use App\Helpers\Rebase\DatabaseHelper;
 use App\Domain\Models\Rebase\Admin\Lookup;
 use App\Domain\Facades\Rebase\LookupRepository;
 use App\Exceptions\SubdomainConnectionException;
@@ -37,11 +37,11 @@ class ParseSecondaryConnection extends BaseMiddleware
         }
 
         try {
-            WorkspaceDatabase::disconnect();
+            DatabaseHelper::disconnect();
 
             $lookup = match ($host->getSlug()) {
-                config('rebase.subdomains.auth') => $this->connectFromAuthSubdomain($request),
-                config('rebase.subdomains.admin') => Lookup::byCustomerID($host->getPath()[0])->first(),
+                config('paths.subdomains.auth') => $this->connectFromAuthSubdomain($request),
+                config('paths.subdomains.admin') => Lookup::byCustomerID($host->getPath()[0])->first(),
                 default => $this->connectFromWorkspace($host)
             };
 
@@ -56,7 +56,7 @@ class ParseSecondaryConnection extends BaseMiddleware
                 'domain' => $host->getDomain(),
             ]);
 
-            WorkspaceDatabase::connect($lookup->customer_id);
+            DatabaseHelper::connect($lookup->customer_id);
         } catch (SubdomainConnectionException $e) {
             return redirect()->route('search.index')->with('message', $e->getMessage());
         }

@@ -10,6 +10,6 @@ class GetWorkspaceName implements Actionable
     {
         [$id] = $payload;
 
-        return  config('rebase.paths.db.workspace.prefix').str_replace('-', '_', $id);
+        return  config('paths.db.workspace.prefix').str_replace('-', '_', $id);
     }
 }

@@ -17,7 +17,7 @@ class MemberBuilder extends ModelBuilder
 
     public function canResetPassword(string $email, string $token): bool
     {
-        $resetter = DB::table(config('rebase.paths.db.workspace.name').'.password_resets')
+        $resetter = DB::table(config('paths.db.workspace.name').'.password_resets')
             ->where('email', $email)
             ->where('token', $token)
             ->first();

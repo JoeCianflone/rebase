@@ -59,7 +59,6 @@ class PersonalWorkspace extends Seeder
 
         $code = Artisan::call('migrate:workspaces', [
             'customerID' => $customer->id,
-            '--rebase' => true,
         ]);
 
         if ($code === 0) {
@@ -108,7 +107,6 @@ class PersonalWorkspace extends Seeder
             echo $e->getMessage();
             die();
         }
-
 
         return MemberRoles::$key();
     }

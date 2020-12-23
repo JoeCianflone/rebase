@@ -52,7 +52,7 @@ class MakeCustomDomain extends Command
         $file = (new FileGenerator($this->nginxSitesAvailable))
             ->setFileExtensionAs('conf')
             ->shouldBeSingular(true)
-            ->setPath(config('rebase.paths.nginx'), null, 'sites-available');
+            ->setPath(config('paths.nginx'), null, 'sites-available');
 
         $file->hydrate('nginx', [
             '{{domain}}' => $this->argument('domain'),
@@ -76,8 +76,8 @@ class MakeCustomDomain extends Command
     {
         $this->info('Symlinking '.$filename);
 
-        $sitesAvailable = config('rebase.paths.nginx').'sites-available/'.$filename;
-        $sitesEnabled = config('rebase.paths.nginx').'sites-enabled/'.$filename;
+        $sitesAvailable = config('paths.nginx').'sites-available/'.$filename;
+        $sitesEnabled = config('paths.nginx').'sites-enabled/'.$filename;
 
         /**  @psalm-suppress ForbiddenCode */
         shell_exec('ln -s '.$sitesAvailable.' '.$sitesEnabled);

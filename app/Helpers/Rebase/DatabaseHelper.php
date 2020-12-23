@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\Events\JobProcessing;
 
-class WorkspaceDatabase
+class DatabaseHelper
 {
     public static function exists(string $id): bool
     {
@@ -36,7 +36,7 @@ class WorkspaceDatabase
     {
         return collect(DB::select("SHOW DATABASES LIKE '{$prefix}%'"))
             ->flatMap(fn ($item) => collect($item)->flatten())
-            ->reject(fn ($item) => $item == config('rebase.paths.db.shared.name'))
+            ->reject(fn ($item) => $item == config('paths.db.shared.name'))
             ->map(fn ($item) => str_replace($prefix, '', $item));
     }
 

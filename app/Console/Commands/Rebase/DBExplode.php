@@ -3,7 +3,8 @@
 namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
-use App\Helpers\Rebase\WorkspaceDatabase;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\Rebase\DatabaseHelper;
 use App\Domain\Models\Rebase\Workspace\Workspace;
 use App\Domain\Facades\Rebase\WorkspaceRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -51,10 +52,13 @@ class DBExplode extends Command
     {
         $this->alert('Refreshing Shared Database');
 
+        // This will pop up a message saying "nothing to migrate" because after
+        // it drops the tables, it can't find any migrations, but it's
+        // not supposed to. The migrate:shared will do the migration
+        // we use migrate:fresh because it's super convenient
+        // to drop all the tables
         $this->call('migrate:fresh');
-        $this->call('migrate:shared', [
-            '--rebase' => true,
-        ]);
+        $this->call('migrate:shared');
 
         if ($this->option('seed')) {
             $this->call('db:seed');
@@ -63,14 +67,14 @@ class DBExplode extends Command
 
     private function dropAllWorkspaces(): void
     {
-        $allSpaces = WorkspaceDatabase::allSpaces(config('rebase.paths.db.workspace.prefix'));
+        $allSpaces = DatabaseHelper::allSpaces(config('paths.db.workspace.prefix'));
 
         if (!is_null($allSpaces) && $allSpaces->count() > 0) {
             $this->newLine();
-            WorkspaceDatabase::allSpaces(config('rebase.paths.db.workspace.prefix'))->each(function ($id): void {
-                WorkspaceDatabase::drop($id);
+            $allSpaces->each(function ($id): void {
+                DatabaseHelper::drop($id);
 
-                $this->line('<comment>Dropped: '.config('rebase.paths.db.workspace.prefix')."{$id}</comment>");
+                $this->line('<comment>Dropped: '.config('paths.db.workspace.prefix')."{$id}</comment>");
             });
         }
     }
@@ -84,7 +88,7 @@ class DBExplode extends Command
             $workspace = Workspace::bySlug($slug)->first();
             $this->alert("Dropping workspace {$slug}");
 
-            WorkspaceDatabase::drop($workspace->customer_id);
+            DatabaseHelper::drop($workspace->customer_id);
 
             $this->newLine();
             $this->info($this->argument('slug').' has gone :boom:');

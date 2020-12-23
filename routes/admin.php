@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-$domain = config('rebase.subdomains.admin').'.'.config('app.domain');
+$domain = config('paths.subdomains.admin').'.'.config('app.domain');
 
 Route::domain($domain)->prefix('{customerID}')->group(function (): void {
     // Validate member email address

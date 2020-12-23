@@ -7,9 +7,9 @@ use App\Helpers\Rebase\MigrationHelper;
 
 class MigrateShared extends Command
 {
-    protected $signature = 'migrate:shared {--rebase}';
+    protected $signature = 'migrate:shared';
 
-    protected $description = 'Runs all the migrations for one the shared database';
+    protected $description = 'Runs all the migrations for any shared databases';
 
     public function __construct()
     {
@@ -18,10 +18,9 @@ class MigrateShared extends Command
 
     public function handle(): void
     {
-        $migrationHelper = (new MigrationHelper($this->option('rebase')))
-            ->addOptions(['--no-interaction' => true])
-            ->configurePath(false);
+        $migrationHelper = (new MigrationHelper(['--no-interaction' => true]));
 
-        $this->call('migrate', $migrationHelper->getOptions());
+        $this->call('migrate', $migrationHelper->getOptions(shared: true, rebase: true));
+        $this->call('migrate', $migrationHelper->getOptions(shared: true));
     }
 }

@@ -4,12 +4,12 @@ namespace App\Console\Commands\Rebase;
 
 use Illuminate\Console\Command;
 use App\Helpers\Rebase\MigrationHelper;
-use App\Helpers\Rebase\WorkspaceDatabase;
+use App\Helpers\Rebase\DatabaseHelper;
 use App\Domain\Facades\Rebase\CustomerRepository;
 
 class MigrateWorkspaces extends Command
 {
-    protected $signature = 'migrate:workspaces {customerID?} {--rebase}';
+    protected $signature = 'migrate:workspaces {customerID?}';
 
     protected $description = 'Runs all the migrations for one or more workspaces';
 
@@ -29,20 +29,21 @@ class MigrateWorkspaces extends Command
         }
     }
 
-    private function migrateWorkspace($customerID): void
+    private function migrateWorkspace(string $customerID): void
     {
-        if (!WorkspaceDatabase::exists($customerID)) {
-            WorkspaceDatabase::create($customerID);
+        if (!DatabaseHelper::exists($customerID)) {
+            DatabaseHelper::create($customerID);
         }
 
-        WorkspaceDatabase::disconnect();
-        WorkspaceDatabase::connect($customerID);
+        DatabaseHelper::disconnect();
+        DatabaseHelper::connect($customerID);
 
-        $migrationHelper = (new MigrationHelper($this->option('rebase')))->addOptions([
+        $migrationHelper = (new MigrationHelper([
             '--no-interaction' => true,
-            '--database' => config('rebase.paths.db.workspace.connection'),
-        ])->configurePath(true);
+            '--database' => config('paths.db.workspace.connection'),
+        ]));
 
+        $this->call('migrate', $migrationHelper->getOptions(rebase: true));
         $this->call('migrate', $migrationHelper->getOptions());
     }
 

@@ -19,7 +19,7 @@ class MakeView extends Command
 
     public function handle(): void
     {
-        $file = (new FileGenerator($this->argument('name')))->setPath(config('rebase.paths.view'))->setFileExtensionAs('vue')->shouldBeSingular(true);
+        $file = (new FileGenerator($this->argument('name')))->setPath(config('paths.view'))->setFileExtensionAs('vue')->shouldBeSingular(true);
 
         $type = is_null($this->option('type')) ? '' : '.'.$this->option('type');
         $hydrateFile = 'vue'.$type;

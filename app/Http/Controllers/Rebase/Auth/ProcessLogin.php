@@ -23,7 +23,7 @@ class ProcessLogin extends Controller
             return Inertia::location(route('pick', $request->query('customer_id')));
         }
 
-        return Inertia::location(str_replace(config('rebase.subdomains.auth'), $request->query('to'), route('dashboard')));
+        return Inertia::location(str_replace(config('paths.subdomains.auth'), $request->query('to'), route('dashboard')));
     }
 
     private function rules(): array
