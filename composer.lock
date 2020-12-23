@@ -1394,16 +1394,16 @@
         },
         {
             "name": "inertiajs/inertia-laravel",
-            "version": "v0.3.4",
+            "version": "v0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inertiajs/inertia-laravel.git",
-                "reference": "6d4276984ccc58067056708cd3f2684fdf2ab095"
+                "reference": "f802df267eb26ae8d20ccb2614072146b8a10d99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/6d4276984ccc58067056708cd3f2684fdf2ab095",
-                "reference": "6d4276984ccc58067056708cd3f2684fdf2ab095",
+                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/f802df267eb26ae8d20ccb2614072146b8a10d99",
+                "reference": "f802df267eb26ae8d20ccb2614072146b8a10d99",
                 "shasum": ""
             },
             "require": {
@@ -1446,7 +1446,7 @@
             ],
             "support": {
                 "issues": "https://github.com/inertiajs/inertia-laravel/issues",
-                "source": "https://github.com/inertiajs/inertia-laravel/tree/v0.3.4"
+                "source": "https://github.com/inertiajs/inertia-laravel/tree/v0.3.5"
             },
             "funding": [
                 {
@@ -1454,7 +1454,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-03T15:16:20+00:00"
+            "time": "2020-12-23T11:56:53+00:00"
         },
         {
             "name": "laravel/cashier",
@@ -1536,16 +1536,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.19.0",
+            "version": "v8.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb"
+                "reference": "b5d8573ab16027867eaa1ac148893833434f9b02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb",
-                "reference": "f5f331cee60f1bbe672503b7eb9ba5b22b2ceacb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b5d8573ab16027867eaa1ac148893833434f9b02",
+                "reference": "b5d8573ab16027867eaa1ac148893833434f9b02",
                 "shasum": ""
             },
             "require": {
@@ -1699,20 +1699,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2020-12-15T16:16:31+00:00"
+            "time": "2020-12-22T21:21:19+00:00"
         },
         {
             "name": "laravel/horizon",
-            "version": "v5.6.2",
+            "version": "v5.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "26b737da35fd3eaa478f4e7572added44c31fb73"
+                "reference": "f91245c1b32289da8dfdd3f66f13fe79dde347fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/26b737da35fd3eaa478f4e7572added44c31fb73",
-                "reference": "26b737da35fd3eaa478f4e7572added44c31fb73",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/f91245c1b32289da8dfdd3f66f13fe79dde347fd",
+                "reference": "f91245c1b32289da8dfdd3f66f13fe79dde347fd",
                 "shasum": ""
             },
             "require": {
@@ -1774,9 +1774,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/horizon/issues",
-                "source": "https://github.com/laravel/horizon/tree/v5.6.2"
+                "source": "https://github.com/laravel/horizon/tree/v5.6.3"
             },
-            "time": "2020-12-15T19:04:00+00:00"
+            "time": "2020-12-22T17:03:05+00:00"
         },
         {
             "name": "laravel/tinker",

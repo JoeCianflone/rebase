@@ -11,6 +11,6 @@ class GetView implements Actionable
     {
         [$class] = $payload;
 
-        return config('paths.views.pages').str_replace(ucfirst(config('paths.views.controllers')), '', str_replace('\\', '/', (new ReflectionClass($class))->name));
+        return config('paths.views.pages').str_replace(ucfirst(config('paths.controllers')), '', str_replace('\\', '/', (new ReflectionClass($class))->name));
     }
 }
