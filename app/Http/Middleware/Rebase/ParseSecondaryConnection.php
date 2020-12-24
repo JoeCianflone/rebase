@@ -39,7 +39,7 @@ class ParseSecondaryConnection extends BaseMiddleware
         try {
             DatabaseHelper::disconnect();
 
-            $lookup = match ($host->getSlug()) {
+            $lookup = match ($host->getSub()) {
                 config('paths.subdomains.auth') => $this->connectFromAuthSubdomain($request),
                 config('paths.subdomains.admin') => Lookup::byCustomerID($host->getPath()[0])->first(),
                 default => $this->connectFromWorkspace($host)
@@ -52,7 +52,7 @@ class ParseSecondaryConnection extends BaseMiddleware
             $request->merge([
                 'customer_id' => $lookup->customer_id,
                 'workspace_id' => $lookup->workspace_id,
-                'slug' => $lookup->slug,
+                'sub' => $lookup->sub,
                 'domain' => $host->getDomain(),
             ]);
 
@@ -72,7 +72,7 @@ class ParseSecondaryConnection extends BaseMiddleware
         }
 
         if ($request->query('to') !== 'null' && !is_null($request->query('to'))) {
-            $lookup = Cache::remember('lookup-slug', 300, fn() => Lookup::bySlug($request->query('to'))->first());
+            $lookup = Cache::remember('lookup-sub', 300, fn() => Lookup::bySub($request->query('to'))->first());
         }
 
         return $lookup;
@@ -83,7 +83,7 @@ class ParseSecondaryConnection extends BaseMiddleware
     {
         return match($host->isCustomDomain()) {
             true => Lookup::byDomain($host->getDomain())->first(),
-            false => Lookup::bySlug($host->getSlug())->first()
+            false => Lookup::bySub($host->getSub())->first()
         };
     }
 

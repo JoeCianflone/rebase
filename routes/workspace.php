@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['workspace.status'])->group(callback: function (): void {
     // Login redirects to global signin page...see rebase_auth for routes...
-    Route::get('login', fn (Request $request) => redirect()->route(route: 'signin', parameters: ['to' => $request->get(key: 'slug')]));
+    Route::get('login', fn (Request $request) => redirect()->route(route: 'signin', parameters: ['to' => $request->get(key: 'sub')]));
 
     Route::middleware(['auth'])->group(callback: function (): void {
         Route::get('/dashboard', Rebase\Workspace\Dashboard\Dashboard::class)->name('dashboard');

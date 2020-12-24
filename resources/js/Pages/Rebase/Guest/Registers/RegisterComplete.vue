@@ -14,13 +14,13 @@ export default {
       return {
          sending: false,
          form: {
-            slug: null,
+            sub: null,
          },
       }
    },
 
    props: {
-      slug: {
+      sub: {
          type: String,
          default: null,
       },
@@ -30,7 +30,7 @@ export default {
       check() {
          this.sending = true
 
-         this.$inertia.post(route("register.check.slug"), this.form, {
+         this.$inertia.post(route("register.check.sub"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })

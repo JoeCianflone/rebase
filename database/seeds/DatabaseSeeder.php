@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\Rebase\ExtraWorkspaces;
-use Database\Seeders\Rebase\BannedSlugSeeder;
 use Database\Seeders\Rebase\PersonalWorkspace;
+use Database\Seeders\Rebase\BannedSubdomainSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(BannedSlugSeeder::class);
+        $this->call(BannedSubdomainSeeder::class);
         $this->call(PersonalWorkspace::class);
     }
 }

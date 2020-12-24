@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Domain\Factories\Rebase\ModelFactory;
 
-class BannedSlug extends Model
+class BannedSubdomain extends Model
 {
     /**
      * @var string
@@ -18,7 +18,7 @@ class BannedSlug extends Model
      */
     protected $fillable = [
         'id',               // required
-        'slug',             // required
+        'sub',             // required
         'reason',
         'created_at',
         'updated_at',
@@ -32,9 +32,9 @@ class BannedSlug extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function scopeSlugExists(Builder $builder, string $slug): bool
+    public function scopeSubExists(Builder $builder, string $sub): bool
     {
-        return $builder->where('slug', $slug)->exists();
+        return $builder->where('sub', $sub)->exists();
     }
 
     public function scopeModelFactory(Builder $builder): ModelFactory

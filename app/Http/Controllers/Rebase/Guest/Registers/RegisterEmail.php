@@ -11,7 +11,7 @@ class RegisterEmail extends Controller
     public function __invoke(Request $request)
     {
         return inertia(Action::getView($this), [
-            'slug' => $request->query('slug'),
+            'sub' => $request->query('sub'),
         ]);
     }
 }

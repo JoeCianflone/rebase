@@ -26,7 +26,7 @@ export default {
             plan: null,
             name: this.name,
             email: this.email,
-            slug: this.slug,
+            sub: this.sub,
             line1: null,
             line2: null,
             line3: null,
@@ -41,7 +41,7 @@ export default {
    },
 
    props: {
-      slug: String,
+      sub: String,
       name: String,
       email: String,
       stripe: String,

@@ -29,7 +29,7 @@ class PersonalWorkspace extends Seeder
     public const PERSONAL_NAME = 'Joe Cianflone';
     public const PERSONAL_EMAIL = 'joe@cianflone.co';
     public const PERSONAL_PASSWORD = 'password123';
-    public const PERSONAL_SLUG = 'joecianflone';
+    public const PERSONAL_SUB = 'joecianflone';
 
     /**
      * Run the database seeds.
@@ -73,12 +73,12 @@ class PersonalWorkspace extends Seeder
             Role::modelFactory()->addAccountOwner($member->id);
 
             for ($i = 1; $i <= self::WORKSPACES; $i++) {
-                $slug = $i === 1 ? self::PERSONAL_SLUG : self::PERSONAL_SLUG.'-'.$i;
+                $sub = $i === 1 ? self::PERSONAL_SUB : self::PERSONAL_SUB.'-'.$i;
 
                 $workspace = Workspace::modelFactory()->create([
                     'customer_id' => $customer->id,
                     'name' => 'Personal Test Workspace '.$i,
-                    'slug' => $slug,
+                    'sub' => $sub,
                 ]);
 
                 Member::modelFactory()->attachToWorkspace($member, $workspace->id);

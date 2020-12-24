@@ -54,7 +54,7 @@ export default {
                      <tr v-for="workspace in workspaces.data" :key="workspace.id">
                         <td><input type="checkbox" /></td>
                         <td title="Name">{{ workspace.name }}</td>
-                        <td title="Slug">{{ workspace.slug }}</td>
+                        <td title="sub">{{ workspace.sub }}</td>
                         <td>{{ workspace.active_users }}</td>
                         <td>{{ workspace.total_users }}</td>
                         <td>

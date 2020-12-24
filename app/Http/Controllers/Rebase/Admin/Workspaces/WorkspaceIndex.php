@@ -13,7 +13,7 @@ class WorkspaceIndex extends Controller
     {
         $workspaces = Workspace::searchable(
             searchTerm: $request->get('s'),
-            searchFields: ['name', 'slug']
+            searchFields: ['name', 'sub']
         )->paginate($request->get('count') ?? 10);
 
         return inertia(Action::getView($this), [

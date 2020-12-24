@@ -24,7 +24,7 @@ class PasswordReset extends Mailable implements ShouldQueue
      * @param mixed $email
      * @param mixed $token
      * @param mixed $customerID
-     * @param mixed $slug
+     * @param mixed $sub
      */
     public function __construct(string $token, string $customerID)
     {

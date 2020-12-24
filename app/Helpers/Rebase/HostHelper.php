@@ -33,10 +33,10 @@ class HostHelper
             return 'https://' . $this->getDomain();
         }
 
-        return 'https://' . $this->getSlug() . '.' . config('app.domain');
+        return 'https://' . $this->getSub() . '.' . config('app.domain');
     }
 
-    public function getSlug(): string
+    public function getSub(): string
     {
         return $this->hostParts[0];
     }

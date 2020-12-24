@@ -17,7 +17,7 @@ class CreateWorkspacesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('customer_id');
             $table->string('name');
-            $table->string('slug')->unique()->index();
+            $table->string('sub')->unique()->index();
             $table->string('domain')->unique()->index()->nullable();
             $table->enum('status', Arr::flatten(WorkspaceStatus::toArray()))->default(WorkspaceStatus::PENDING());
             $table->integer('active_users')->default(0);

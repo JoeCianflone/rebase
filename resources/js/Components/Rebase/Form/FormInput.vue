@@ -4,7 +4,7 @@ export default {
    inheritAttrs: false,
 
    props: {
-      slugify: {
+      subify: {
          type: Boolean,
          default: false,
       },
@@ -13,13 +13,13 @@ export default {
 
    methods: {
       handleInput(e) {
-         if (this.slugify) {
-            this.$emit("input", this.makeSlug(e.target.value))
+         if (this.subify) {
+            this.$emit("input", this.makesub(e.target.value))
          } else {
             this.$emit("input", e.target.value)
          }
       },
-      makeSlug(v) {
+      makesub(v) {
          return v
             .trim()
             .toLowerCase()

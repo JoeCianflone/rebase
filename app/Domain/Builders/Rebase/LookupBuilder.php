@@ -14,13 +14,6 @@ class LookupBuilder extends ModelBuilder
         return $this;
     }
 
-    public function byWorkspaceID(string $id)
-    {
-        $this->where('workspace_id', $id);
-
-        return $this;
-    }
-
     public function byCustomerID(string $id)
     {
         $this->where('customer_id', $id);

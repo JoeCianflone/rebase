@@ -19,16 +19,6 @@ class WorkspaceModelFactory extends ModelFactory
         ]);
     }
 
-    public function resetActivationToken(string $slug): ?Workspace
-    {
-        $this->builder->update('slug', $slug, [
-            'activation_token' => (string)Str::uuid(),
-            'activation_at' => Carbon::now(),
-        ]);
-
-        return $this->model;
-    }
-
     public function archive(string $workspaceID): ?Workspace
     {
         $this->builder->update('id', $workspaceID, ['status' => (string)WorkspaceStatus::ARCHIVED()]);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Rebase\Guest\Registers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Rules\Rebase\SlugIsNotBanned;
+use App\Rules\Rebase\subIsNotBanned;
 use App\Events\Rebase\StartCustomerSignup;
 
 class RegisterStore extends Controller
@@ -22,7 +22,7 @@ class RegisterStore extends Controller
     private function rules()
     {
         return [
-            'slug' => ['required', 'unique:lookup,slug', 'min:3', 'max:100', new SlugIsNotBanned()],
+            'sub' => ['required', 'unique:lookup,sub', 'min:3', 'max:100', new subIsNotBanned()],
             'plan' => ['required'],
             'name' => ['required', 'max:200', 'string'],
             'email' => ['required', 'email', 'max:200'],

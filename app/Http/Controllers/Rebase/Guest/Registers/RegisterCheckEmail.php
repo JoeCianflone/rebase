@@ -13,7 +13,7 @@ class RegisterCheckEmail extends Controller
         // This generats a 409 Conflict on purpose see InertiaJS
         // docs for more info: https://inertiajs.com
         return Inertia::location(route('register.customer', [
-            'slug' => $request->input('slug'),
+            'sub' => $request->input('sub'),
             'email' => $request->input('email'),
             'name' => $request->input('name'),
         ]));

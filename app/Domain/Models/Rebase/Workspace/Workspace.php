@@ -28,7 +28,7 @@ class Workspace extends Model
         'id',               // required
         'customer_id',      // required
         'name',             // required
-        'slug',             // required
+        'sub',             // required
         'domain',
         'status',           // required
         'activation_token',
@@ -57,18 +57,18 @@ class Workspace extends Model
             Lookup::modelFactory()->create([
                 'workspace_id' => $workspace->id,
                 'customer_id' => $workspace->customer_id,
-                'slug' => $workspace->slug,
+                'sub' => $workspace->sub,
                 'domain' => $workspace->domain,
             ]);
         });
 
         static::updated(function ($workspace): void {
-            if ($workspace->isDirty('domain', 'slug')) {
+            if ($workspace->isDirty('domain', 'sub')) {
                 Lookup::modelFactory()->update(
                     whereCol:'workspace_id',
                     whereValue: $workspace->id,
                     update: [
-                        'slug' => $workspace->slug,
+                        'sub' => $workspace->sub,
                         'domain' => $workspace->domain,
                     ]
                 );

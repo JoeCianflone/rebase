@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class DBExplode extends Command
 {
     protected $signature = 'db:explode
-                                {slug? : optional name of the workspace you\' like to blow up}
+                                {sub? : optional name of the workspace you\' like to blow up}
                                 {--seed : seed the DB after we clean it out}';
 
     protected $description = 'Blow out local shared and/or local workspace databases';
@@ -29,8 +29,8 @@ class DBExplode extends Command
             exit(1);
         }
 
-        if ($this->argument('slug')) {
-            $this->dropWorkspace($this->argument('slug'));
+        if ($this->argument('sub')) {
+            $this->dropWorkspace($this->argument('sub'));
             exit();
         }
 
@@ -79,21 +79,18 @@ class DBExplode extends Command
         }
     }
 
-    /**
-     * @param mixed $slug
-     */
-    private function dropWorkspace($slug): void
+    private function dropWorkspace(string $sub): void
     {
         try {
-            $workspace = Workspace::bySlug($slug)->first();
-            $this->alert("Dropping workspace {$slug}");
+            $workspace = Workspace::bySub($sub)->first();
+            $this->alert("Dropping workspace {$sub}");
 
             DatabaseHelper::drop($workspace->customer_id);
 
             $this->newLine();
-            $this->info($this->argument('slug').' has gone :boom:');
+            $this->info($this->argument('sub').' has gone :boom:');
         } catch (ModelNotFoundException $e) {
-            $this->error("Unable to find workspace {$slug}");
+            $this->error("Unable to find workspace {$sub}");
         }
     }
 }

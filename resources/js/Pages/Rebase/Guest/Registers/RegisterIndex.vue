@@ -14,13 +14,13 @@ export default {
       return {
          sending: false,
          form: {
-            slug: null,
+            sub: null,
          },
       }
    },
 
    props: {
-      slug: {
+      sub: {
          type: String,
          default: null,
       },
@@ -30,7 +30,7 @@ export default {
       check() {
          this.sending = true
 
-         this.$inertia.post(route("register.check.slug"), this.form, {
+         this.$inertia.post(route("register.check.sub"), this.form, {
             onStart: () => (this.sending = true),
             onFinish: () => (this.sending = false),
          })
@@ -43,10 +43,10 @@ export default {
    <Register :step="1">
       <form class="layout__main" action="post" @submit.prevent="check">
          <section class="grid">
-            <FormField class="col-10--centered md::col-8--centered xw::col-6--centered" validate="slug">
+            <FormField class="col-10--centered md::col-8--centered xw::col-6--centered" validate="sub">
                <FieldLabel>What's your workspace name:</FieldLabel>
                <FormGroup>
-                  <FormInput v-model="form.slug" :slugify="true" />
+                  <FormInput v-model="form.sub" :slugify="true" />
                   <template #post> .{{ $page.props.app.domain }} </template>
                </FormGroup>
             </FormField>

@@ -37,7 +37,7 @@ class CheckWorkspaceStatus extends BaseMiddleware
             return $next($request);
         }
 
-        $workspace = Workspace::bySlug($request->get('slug'))->first();
+        $workspace = Workspace::bysub($request->get('sub'))->first();
 
         if ($workspace->isPending()) {
            if(auth()->user()->roles->hasAccountRole()) {

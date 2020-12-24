@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBannedSlugsTable extends Migration
+class CreateBannedSubdomainsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('banned_slugs', function (Blueprint $table): void {
+        Schema::create('banned_subdomains', function (Blueprint $table): void {
             $table->id();
-            $table->string('slug')->index()->unique();
+            $table->string('sub')->index()->unique();
             $table->string('description')->nullable();
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ class CreateBannedSlugsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banned_slugs');
+        Schema::dropIfExists('banned_subdomains');
     }
 }

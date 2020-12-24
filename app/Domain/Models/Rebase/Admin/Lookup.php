@@ -20,7 +20,7 @@ class Lookup extends Model
         'id',               // required
         'customer_id',      // required
         'workspace_id',     // required
-        'slug',             // required
+        'sub',             // required
         'domain',
         'created_at',
         'updated_at',

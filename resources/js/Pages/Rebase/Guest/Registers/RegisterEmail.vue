@@ -11,13 +11,13 @@ export default {
    },
 
    props: {
-      slug: String,
+      sub: String,
    },
    data() {
       return {
          sending: false,
          form: {
-            slug: this.slug,
+            sub: this.sub,
             name: null,
             email: null,
          },

@@ -18,7 +18,7 @@ class OnboardingHold extends Controller
             // event(new Alert(WorkspaceRepository::getAllOwnersFor($request->get('workspace_id'), '');
             // $owners = WorkspaceRepository::getAllOwnersFor($request->get('workspace_id'));
             // $owners->each(function ($item, $key) use ($request): void {
-            //     Mail::to($item->email)->send(new OnboardReminder($item->email, $request->get('slug')));
+            //     Mail::to($item->email)->send(new OnboardReminder($item->email, $request->get('sub')));
             // });
         }
         session(['halt-email' => true]);

@@ -6,14 +6,14 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BannedSlugSeeder extends Seeder
+class BannedSubdomainSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('banned_slugs')->insert($this->slug([
+        DB::table('banned_subdomains')->insert($this->subdomains([
             'admin',
             'my',
             'super',
@@ -45,14 +45,15 @@ class BannedSlugSeeder extends Seeder
             'primary',
             'delete',
             'rm-rf',
+            'appspace',
         ]));
     }
 
-    private function slug(array $slugs): array
+    private function subdomains(array $subs): array
     {
-        return collect($slugs)->map(function ($slug) {
+        return collect($subs)->map(function ($sub) {
             return [
-                'slug' => $slug,
+                'sub' => $sub,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
             ];

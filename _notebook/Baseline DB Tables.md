@@ -22,7 +22,7 @@ However, there is something important to understand about this setup. There coul
   - id
   - account_id
   - name
-  - slug
+  - sub
   - domain
   - is_active
   - is_published

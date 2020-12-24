@@ -11,7 +11,7 @@ class OnboardingComplete extends Controller
 {
     public function __invoke(Request $request)
     {
-        Workspace::modelFactory()->update(whereCol: 'slug', whereValue: $request->get('slug'), update: [
+        Workspace::modelFactory()->update(whereCol: 'sub', whereValue: $request->get('sub'), update: [
             'status' => WorkspaceStatus::ACTIVE(),
         ]);
 

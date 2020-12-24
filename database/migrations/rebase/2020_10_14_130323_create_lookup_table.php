@@ -15,7 +15,7 @@ class CreateLookupTable extends Migration
             $table->id();
             $table->uuid('customer_id')->index();
             $table->uuid('workspace_id')->index();
-            $table->string('slug')->index()->unique();
+            $table->string('sub')->index()->unique();
             $table->string('domain')->index()->unique()->nullable();
             $table->timestamps();
 

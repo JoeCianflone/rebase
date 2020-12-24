@@ -49,7 +49,7 @@ export default {
                <tr v-for="member in members" :key="member.id">
                   <td><input type="checkbox" /></td>
                   <td title="Name">{{ member.name }}</td>
-                  <td title="Slug">{{ member.email }}</td>
+                  <td title="sub">{{ member.email }}</td>
                   <td>{{ member.email_activation == null ? "Active" : "Not Active" }}</td>
                   <td>x</td>
                   <td>

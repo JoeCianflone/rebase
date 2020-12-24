@@ -13,7 +13,7 @@ Route::domain(config('app.domain'))->group(function (): void {
 
     // Registration
     Route::get('register',              Rebase\Guest\Registers\RegisterIndex::class)->name('register.index');
-    Route::post('register',             Rebase\Guest\Registers\RegisterCheckSlug::class)->name('register.check.slug');
+    Route::post('register',             Rebase\Guest\Registers\RegisterCheckSubdomain::class)->name('register.check.sub');
     Route::get('register/email',        Rebase\Guest\Registers\RegisterEmail::class)->name('register.email');
     Route::post('register/email',       Rebase\Guest\Registers\RegisterCheckEmail::class)->name('register.check.email');
     Route::get('register/customer',     Rebase\Guest\Registers\RegisterCustomer::class)->name('register.customer');
