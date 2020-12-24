@@ -78,7 +78,6 @@ class ParseSecondaryConnection extends BaseMiddleware
         return $lookup;
     }
 
-
     private function connectFromWorkspace($host)
     {
         return match($host->isCustomDomain()) {

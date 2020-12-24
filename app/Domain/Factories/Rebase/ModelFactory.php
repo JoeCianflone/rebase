@@ -31,10 +31,10 @@ class ModelFactory
             return $this->builder->delete();
         }
 
-        if (is_null($whereCol)) {
+        if (! is_null($whereCol)) {
             return $this->builder->where($whereCol, $whereValue)->delete();
         }
 
-        return $this->builder->destroy(collect($ids));
+        return $this->builder->whereIn('id', collect($ids))->delete();
     }
 }
